@@ -22,8 +22,6 @@ protected:
 
 	doubleVector GalaxyArray;
 
-	
-
 };
 
 #endif

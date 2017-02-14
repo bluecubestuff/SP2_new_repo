@@ -8,7 +8,6 @@
 #include "MeshBuilder.h"
 #include "Utility.h"
 #include "LoadTGA.h"
-#include "Weapon.h"
 
 #include <iostream>
 
@@ -100,10 +99,7 @@ void StudioProject::Init()
 	//camera.Init(Vector3(1000, 950, 1010), Vector3(1000, 950, 1000), Vector3(0, 1, 0));
 
 	//meshes------------------------------------------------------------------------------------------
-	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
-	//=============================================================================
-	Player = new PlayerShip;
-	//=============================================================================
+	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
 
@@ -130,6 +126,28 @@ void StudioProject::Init()
 
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
 	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+
+	//objects in scene
+	/*meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("rock", "OBJ//rock.obj");
+	meshList[GEO_ROCK]->material.kAmbient.Set(0.4f, 0.4f, 0.4f);
+	meshList[GEO_ROCK]->material.kDiffuse.Set(0.6f, 0.6f, 0.6f);
+	meshList[GEO_ROCK]->material.kSpecular.Set(0.5f, 0.5f, 0.5f);
+	meshList[GEO_ROCK]->material.kShininess = 0.5f;
+	meshList[GEO_ROCK]->textureID = LoadTGA("Image//rock.tga");*/
+
+	/*meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
+	meshList[GEO_TREE]->material.kAmbient.Set(0.4f, 0.4f, 0.4f);
+	meshList[GEO_TREE]->material.kDiffuse.Set(0.6f, 0.6f, 0.6f);
+	meshList[GEO_TREE]->material.kSpecular.Set(0.5f, 0.5f, 0.5f);
+	meshList[GEO_TREE]->material.kShininess = 0.5f;
+	meshList[GEO_TREE]->textureID = LoadTGA("Image//tree.tga");*/
+
+	/*meshList[GEO_MITHRIL] = MeshBuilder::GenerateOBJ("mithril", "OBJ//mithril.obj");
+	meshList[GEO_MITHRIL]->material.kAmbient.Set(0.4f, 0.4f, 0.4f);
+	meshList[GEO_MITHRIL]->material.kDiffuse.Set(0.6f, 0.6f, 0.6f);
+	meshList[GEO_MITHRIL]->material.kSpecular.Set(0.5f, 0.5f, 0.5f);
+	meshList[GEO_MITHRIL]->material.kShininess = 0.5f;
+	meshList[GEO_MITHRIL]->textureID = LoadTGA("Image//mithril.tga");*/
 
 	//------------------------------------------------------------------------------------------
 	//light
@@ -189,7 +207,8 @@ void StudioProject::Init()
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-
+	//=============================================================================
+	Player = new PlayerShip;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -198,7 +217,6 @@ static float SCALE_LIMIT = 5.f;
 void StudioProject::Update(double dt)
 {
 	float LSPEED = 10.f;
-	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
 
 	if (Application::IsKeyPressed('1')) //enable back face culling
 		glEnable(GL_CULL_FACE);
@@ -245,6 +263,7 @@ void StudioProject::Update(double dt)
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
 	//camera.Update(dt);
+
 }
 
 
@@ -315,12 +334,12 @@ void StudioProject::Render()
 	}
 
 
-	//RenderMesh(meshList[GEO_AXES], false);
+	RenderMesh(meshList[GEO_AXES], false);
 
 	RenderSkybox();
 
 	//=================================================================================================
-	/*modelStack.PushMatrix();
+	modelStack.PushMatrix();
 	modelStack.Translate(light[0].LightPosition.x, light[0].LightPosition.y, light[0].LightPosition.z);
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();
@@ -328,13 +347,10 @@ void StudioProject::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(light[1].LightPosition.x, light[1].LightPosition.y, light[1].LightPosition.z);
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
-	modelStack.PopMatrix();*/
-	//===================================================================================================
-	modelStack.PushMatrix();
-	modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
-	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
-	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
+	//===================================================================================================
+
+	
 
 }
 

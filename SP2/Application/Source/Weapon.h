@@ -6,41 +6,24 @@
 class Weapon : public Item
 {
 public:
-	Weapon(string, unsigned, int, unsigned);
+	Weapon(unsigned, string, unsigned, int);
 	~Weapon();
 
 	unsigned getWeaponDamage();
-	void generateWeapon(unsigned);
-	void add_weapon_to_data_base(Weapon*);
+	//void generateWeapon(unsigned);
 	Weapon* getWeapon(unsigned);
 
-	//void add_item_to();		//func to add item to player/shop/loots
 	virtual unsigned getValue();
-	virtual int getDurability();
-
-	//unsigned getWeaponID()
-	//{
-	//	return weaponID;
-	//}
-	//void setWeaponID(unsigned numID)
-	//{
-	//	weaponID = numID;
-	//}
-	//map<unsigned, Weapon*> getWeaponDataBase()
-	//{
-	//	return WeaponDataBase;
-	//}
+	virtual int durabilityDmg();
 
 private:
-
 	string weaponName;
-
 	unsigned weaponDamage;
 	unsigned weaponValue;
 	int weaponDurability;
 
-	map<unsigned, Weapon*> WeaponDataBase;
 	unsigned weaponID;
+	map<unsigned, Weapon*> WeaponDataBase;
 };
 
 #endif

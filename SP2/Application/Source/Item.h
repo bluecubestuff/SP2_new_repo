@@ -13,8 +13,10 @@ public:
 	Item(string, unsigned,int);
 	~Item();
 
+	static Item *make_item(unsigned ID);
+
 	virtual unsigned getValue() = 0;
-	virtual int getDurability() = 0;
+	virtual int durabilityDmg() = 0;
 
 private:
 

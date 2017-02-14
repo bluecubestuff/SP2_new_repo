@@ -20,9 +20,8 @@ public:
 	void Exit();
 	static bool IsKeyPressed(unsigned short key);
 	static GLFWwindow* m_window;
-	//Declare a window object
 
-	void createScene();
+	//Declare a window object
 	static StopWatch m_timer;
 
 private:

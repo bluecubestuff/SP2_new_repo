@@ -1,51 +1,37 @@
 #include "Weapon.h"
 
-Weapon::Weapon(string wName, unsigned value, int wDurability, unsigned dmg) : Item(wName, value, wDurability), weaponDamage(dmg)
+Weapon::Weapon(unsigned dmg, string wName, unsigned value, int wDurability) : weaponDamage(dmg), Item (wName, value, wDurability)
 {
 	weaponID = 0;
-	this->weaponName = wName;
-	this->weaponValue = value;
-	this->weaponDurability = wDurability;
 }
 
 Weapon::~Weapon() {}
 
 unsigned Weapon::getWeaponDamage()
 {
-	return weaponDamage;
+	return 0;
 }
 
-void Weapon::generateWeapon(unsigned numOfWeapon)
-{
-	for (unsigned i = 0; i < numOfWeapon; ++i)
-	{
-		this->WeaponDataBase[weaponID] = new Weapon("string", 1, 1, 1); //place holder
-		//randomly generates all the variables in here
-		this->weaponID++;
-	}
-}
-
-void Weapon::add_weapon_to_data_base(Weapon* aWeapon)
-{
-	this->WeaponDataBase[weaponID] = aWeapon;
-	weaponID++;
-}
-
-//void Weapon::add_item_to()
+//void Weapon::generateWeapon(unsigned numOfWeapon)
 //{
+//	for (unsigned i = 0; i < numOfWeapon; ++i)
+//	{
+//		WeaponDataBase[weaponID] = new Weapon(1, "gun", 1, 1);
+//		weaponID++;
+//	}
 //}
 
 unsigned Weapon::getValue()
 {
-	return weaponValue;
+	return 0;
 }
 
-int Weapon::getDurability()
+int Weapon::durabilityDmg()
 {
-	return weaponDurability;
+	return 0;
 }
 
 Weapon* Weapon::getWeapon(unsigned ID)
 {
-	return WeaponDataBase[ID];
+	return 0;
 }

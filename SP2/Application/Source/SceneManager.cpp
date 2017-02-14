@@ -44,8 +44,3 @@ void SceneManager::sceneUpdate()
 	glfwPollEvents();
 	Application::m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   		 
 }
-
-Scene* SceneManager::getScene()
-{
-	return sceneStorage[currSceneID];
-}

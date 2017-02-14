@@ -91,7 +91,6 @@
     <ClCompile Include="Source\enemyShip.cpp" />
     <ClCompile Include="Source\GalaxyGenerate.cpp" />
     <ClCompile Include="Source\Item.cpp" />
-    <ClCompile Include="Source\LandGenerate.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -102,7 +101,6 @@
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\ship.cpp" />
-    <ClCompile Include="Source\SolarGenerate.cpp" />
     <ClCompile Include="Source\StudioProject.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />

@@ -17,7 +17,7 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float s)
 
 EnemyShip::~EnemyShip()
 {
-	delete this;
+	//delete this;
 }
 
 void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)

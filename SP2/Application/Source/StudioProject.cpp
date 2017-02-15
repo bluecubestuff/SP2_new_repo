@@ -11,6 +11,7 @@
 #include "Weapon.h"
 
 #include <iostream>
+
 #include "LandGenerate.h"
 
 StudioProject::StudioProject()
@@ -138,6 +139,8 @@ void StudioProject::Init()
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
 
+	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//goat_easter_egg.OBJ");
+
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -250,9 +253,20 @@ void StudioProject::Update(double dt)
 		light[0].type = Light::LIGHT_SPOT;
 		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
+
+	if (Application::IsKeyPressed(VK_LBUTTON))
+	{
+		missile = new Missile(*Enemy, *Player, true, 100.f);
+		missiles.push_back(missile);
+	}
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
 	Enemy->Update(dt, Player->getter("position"), Player->getter("forward"));
+
+	for (auto &i : missiles)
+	{
+		i->tracking(dt, Enemy->getter("position"));
+	}
 	//std::cout << Enemy->getter("position") << std::endl;
 	//camera.Update(dt);
 }
@@ -345,6 +359,14 @@ void StudioProject::Render()
 	modelStack.LoadMatrix(Enemy->getStamp());
 	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
 	modelStack.PopMatrix();
+
+	for (auto &i : missiles)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->Stamp);
+		RenderMesh(meshList[GEO_GOAT], true);
+		modelStack.PopMatrix();
+	}
 
 	RenderSkybox();
 

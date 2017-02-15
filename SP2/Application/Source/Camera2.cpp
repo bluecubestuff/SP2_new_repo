@@ -21,8 +21,8 @@ Camera2::Camera2()
 
 Camera2::~Camera2()
 {
-	delete mouse;
-	delete this;
+	//delete mouse;
+	//delete this;
 }
 
 void Camera2::Init(const Vector3& pos, const Vector3& target, const Vector3& up)

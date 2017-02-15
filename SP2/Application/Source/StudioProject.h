@@ -13,6 +13,7 @@
 #include "Light.h"
 #include "playerShip.h"
 #include "enemyShip.h"
+#include "Missile.h"
 #include "DetectMemoryLeak.h"
 
 #include <string>
@@ -58,6 +59,7 @@ class StudioProject : public Scene
 		GEO_ROCK,
 		GEO_MITHRIL,
 		GEO_TREE,
+		GEO_GOAT,
 
 		//Ships
 		GEO_PLAYER_SHIP,
@@ -146,6 +148,9 @@ private:
 
 	PlayerShip* Player;
 	EnemyShip* Enemy;
+
+	Missile* missile;
+	vector<Missile*> missiles;
 
 	//Camera2 camera;
 	//Camera3 camera;

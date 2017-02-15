@@ -13,7 +13,7 @@ Mouse::Mouse()
 
 Mouse::~Mouse()
 {
-	delete this;
+	//delete this;
 }
 
 POINT Mouse::mouseMovement()

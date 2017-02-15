@@ -241,9 +241,6 @@
     <ClInclude Include="Source\Projectile.h">
       <Filter>Header Files\Object\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Missle.h">
-      <Filter>Header Files\Object\Projectile</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GalaxyGenerate.h">
       <Filter>Header Files\Generate</Filter>
     </ClInclude>
@@ -255,6 +252,9 @@
     </ClInclude>
     <ClInclude Include="Source\LandGenerate.h">
       <Filter>Header Files\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Missile.h">
+      <Filter>Header Files\Object\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

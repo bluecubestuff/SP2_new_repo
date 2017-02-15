@@ -104,6 +104,7 @@ void StudioProject::Init()
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
 	Player = new PlayerShip;
+	Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(100, 100, 100), 40.f);
 	//=============================================================================
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
@@ -131,6 +132,8 @@ void StudioProject::Init()
 
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
 	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0, 1, 0));
 
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
@@ -249,6 +252,8 @@ void StudioProject::Update(double dt)
 	}
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
+	Enemy->Update(dt, Player->getter("position"), Player->getter("forward"));
+	//std::cout << Enemy->getter("position") << std::endl;
 	//camera.Update(dt);
 }
 
@@ -333,6 +338,11 @@ void StudioProject::Render()
 
 	modelStack.PushMatrix();
 	modelStack.LoadMatrix(Player->getStamp());
+	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.LoadMatrix(Enemy->getStamp());
 	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
 	modelStack.PopMatrix();
 

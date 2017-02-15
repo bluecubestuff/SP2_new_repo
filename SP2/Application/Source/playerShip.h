@@ -26,8 +26,6 @@ public:
 	double camTime;
 
 	void Update(double dt);
-	Vector3 getter(std::string);
-	Mtx44 getStamp();
 private:
 	float Speed;
 

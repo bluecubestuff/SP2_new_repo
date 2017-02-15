@@ -282,32 +282,3 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	//update ship matrix
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
 }
-
-Vector3 PlayerShip::getter(std::string something)
-{
-	if (something == "forward")
-	{
-		return this->Forward;
-	}
-	else if (something == "right")
-	{
-		return this->Right;
-	}
-	else if (something == "up")
-	{
-		return this->Up;
-	}
-	else if (something == "position")
-	{
-		return this->Position;
-	}
-	else
-	{
-		return NULL;
-	}
-}
-
-Mtx44 PlayerShip::getStamp()
-{
-	return this->Stamp;
-}

@@ -51,6 +51,18 @@
     <Filter Include="Header Files\GameObject">
       <UniqueIdentifier>{348ad4da-5243-4c4e-864a-4a917d88d4f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Projectile">
+      <UniqueIdentifier>{8e3e1879-cb0c-4f46-93cb-5f429f9ac80f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Projectile">
+      <UniqueIdentifier>{84f4c702-43aa-400e-a918-0c49c862530b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Generate">
+      <UniqueIdentifier>{e039c63c-6549-475b-9fa3-1dcea781805f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Generate">
+      <UniqueIdentifier>{99b6ce44-5763-42f8-a5b5-857fb35a8f4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -125,6 +137,7 @@
     <ClCompile Include="Source\ObjectFactory.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\Randomise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -133,6 +146,22 @@
     </ClCompile>
     <ClCompile Include="Source\LandGenerate.cpp">
       <Filter>Source Files</Filter>
+=======
+    <ClCompile Include="Source\Projectile.cpp">
+      <Filter>Source Files\Objects\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Missle.cpp">
+      <Filter>Source Files\Objects\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Randomise.cpp">
+      <Filter>Source Files\Generate</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GalaxyGenerate.cpp">
+      <Filter>Source Files\Generate</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LandGenerate.cpp">
+      <Filter>Source Files\Generate</Filter>
+>>>>>>> origin/master
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,18 +249,32 @@
     <ClInclude Include="Source\Item.h">
       <Filter>Header Files\GameObject</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\Randomise.h">
       <Filter>Header Files</Filter>
+=======
+    <ClInclude Include="Source\Projectile.h">
+      <Filter>Header Files\Object\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Missle.h">
+      <Filter>Header Files\Object\Projectile</Filter>
+>>>>>>> origin/master
     </ClInclude>
     <ClInclude Include="Source\GalaxyGenerate.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Generate</Filter>
     </ClInclude>
-    <ClInclude Include="Source\LandGenerate.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Randomise.h">
+      <Filter>Header Files\Generate</Filter>
     </ClInclude>
     <ClInclude Include="Source\SolarGenerate.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Generate</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
+    <ClInclude Include="Source\LandGenerate.h">
+      <Filter>Header Files\Generate</Filter>
+    </ClInclude>
+>>>>>>> origin/master
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\Downloads\Practical2_files(1)\Practical2_files\Application\Shader\SimpleFragmentShader.fragmentshader">

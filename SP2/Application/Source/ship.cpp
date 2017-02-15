@@ -26,3 +26,32 @@ Ship::~Ship()
 {
 
 }
+
+Vector3 Ship::getter(std::string something)
+{
+	if (something == "forward")
+	{
+		return this->Forward;
+	}
+	else if (something == "right")
+	{
+		return this->Right;
+	}
+	else if (something == "up")
+	{
+		return this->Up;
+	}
+	else if (something == "position")
+	{
+		return this->Position;
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+Mtx44 Ship::getStamp()
+{
+	return this->Stamp;
+}

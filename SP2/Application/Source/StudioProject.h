@@ -12,6 +12,7 @@
 #include "MatrixStack.h"
 #include "Light.h"
 #include "playerShip.h"
+#include "enemyShip.h"
 #include "DetectMemoryLeak.h"
 
 #include <string>
@@ -144,6 +145,7 @@ private:
 	char mapArray[2000][2000];
 
 	PlayerShip* Player;
+	EnemyShip* Enemy;
 
 	//Camera2 camera;
 	//Camera3 camera;

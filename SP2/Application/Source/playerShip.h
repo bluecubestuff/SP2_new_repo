@@ -4,6 +4,7 @@
 #include "ship.h"
 #include "DetectMemoryLeak.h"
 #include "Camera2.h"
+#include "Camera3.h"
 
 class PlayerShip : public Ship
 {
@@ -13,16 +14,20 @@ public:
 	~PlayerShip();
 
 	Camera2* Camera;
+	Camera3* ThirdCamera;
 
 	Mouse mouse;
 	POINT cursorPos;
 
 	bool freeCam;
+	bool firstThird;
+	bool changeCam;
 
 	double camTime;
 
 	void Update(double dt);
 	Vector3 getter(std::string);
+	Mtx44 getStamp();
 private:
 	float Speed;
 

@@ -58,6 +58,9 @@ class StudioProject : public Scene
 		GEO_MITHRIL,
 		GEO_TREE,
 
+		//Ships
+		GEO_PLAYER_SHIP,
+
 		NUM_GEOMETRY,
 	};
 	enum UNIFORM_TYPE

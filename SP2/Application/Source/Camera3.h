@@ -12,11 +12,9 @@ public:
 	Vector3 defaultPosition;
 	Vector3 defaultTarget;
 	Vector3 defaultUp;
-	Vector3 right;
 
 	float limitPitch;
 	float yawRight, yawLeft;
-	float limit;
 
 	float timeCheck;
 
@@ -27,7 +25,7 @@ public:
 	~Camera3();
 
 	virtual void Init(const Vector3& pos, const Vector3& target, const Vector3& up);
-	virtual void Update(double dt);
+	virtual void Update(double dt, bool notFixed, Vector3 f, Vector3 r, Vector3 u, Vector3 p);
 	virtual void Reset();
 
 };

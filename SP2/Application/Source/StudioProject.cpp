@@ -131,6 +131,9 @@ void StudioProject::Init()
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
 	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
 
+	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
+	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
+
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -258,9 +261,18 @@ void StudioProject::Render()
 
 	viewStack.LoadIdentity();
 
-	viewStack.LookAt(Player->Camera->position.x, Player->Camera->position.y,
-		Player->Camera->position.z, Player->Camera->target.x, Player->Camera->target.y,
-		Player->Camera->target.z, Player->Camera->up.x, Player->Camera->up.y, Player->Camera->up.z);
+	if (Player->firstThird)
+	{
+		viewStack.LookAt(Player->Camera->position.x, Player->Camera->position.y,
+			Player->Camera->position.z, Player->Camera->target.x, Player->Camera->target.y,
+			Player->Camera->target.z, Player->Camera->up.x, Player->Camera->up.y, Player->Camera->up.z);
+	}
+	else
+	{
+		viewStack.LookAt(Player->ThirdCamera->position.x, Player->ThirdCamera->position.y,
+			Player->ThirdCamera->position.z, Player->ThirdCamera->target.x, Player->ThirdCamera->target.y,
+			Player->ThirdCamera->target.z, Player->ThirdCamera->up.x, Player->ThirdCamera->up.y, Player->ThirdCamera->up.z);
+	}
 
 
 	Position lightPosition_cameraspace = viewStack.Top() * light[0].LightPosition;
@@ -316,6 +328,11 @@ void StudioProject::Render()
 
 
 	//RenderMesh(meshList[GEO_AXES], false);
+
+	modelStack.PushMatrix();
+	modelStack.LoadMatrix(Player->getStamp());
+	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
+	modelStack.PopMatrix();
 
 	RenderSkybox();
 

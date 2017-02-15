@@ -3,6 +3,7 @@
 
 #include "GalaxyGenerate.h"
 #include "Vector3.h"
+#include "Randomise.h"
 
 class LandGenerate
 {
@@ -10,8 +11,8 @@ public:
 	LandGenerate();
 	~LandGenerate();
 
-	void landInIt();		//new game Init
-	void saveLandInIt();	//save game Init
+	void landInIt();		//newInit
+	void saveLandInIt();	//reloadInit
 	void landUpdate();
 
 
@@ -22,11 +23,13 @@ protected:
 
 	double_land_array land_inner_grid;
 	double_double_land_array land_outer_grid;
-	map<unsigned, double_double_land_array> landDataBase;
+	
+	vector<double_land_array> test;
 
 private:
 
 	unsigned landID;
+	Randomise* random;
 };
 
 #endif

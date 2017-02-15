@@ -117,7 +117,6 @@ void Application::Run()
 
 	SceneManager::get_instance()->getScene()->Exit();
 	//scene02->Exit();
-	
 	delete SceneManager::get_instance()->getScene();
 	//delete scene02;
 }

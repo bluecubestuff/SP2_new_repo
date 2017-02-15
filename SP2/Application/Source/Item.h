@@ -11,7 +11,7 @@ class Item
 {
 public:
 	Item(string, unsigned,int);
-	~Item();
+	virtual ~Item();
 
 	virtual unsigned getValue() = 0;
 	virtual int getDurability() = 0;

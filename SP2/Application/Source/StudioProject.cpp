@@ -11,6 +11,7 @@
 #include "Weapon.h"
 
 #include <iostream>
+#include "LandGenerate.h"
 
 StudioProject::StudioProject()
 {
@@ -189,7 +190,8 @@ void StudioProject::Init()
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-
+	LandGenerate test;
+	test.landInIt();
 }
 
 static float ROT_LIMIT = 45.f;
@@ -503,7 +505,6 @@ void StudioProject::RenderSkybox()
 	RenderMesh(meshList[GEO_TOP], false);
 	modelStack.PopMatrix();//end top
 
-
 	modelStack.PushMatrix();//push back
 	modelStack.Translate(0, 997, 997);
 	modelStack.Rotate(-90, 1, 0, 0);
@@ -541,7 +542,7 @@ void StudioProject::RenderSkybox()
 
 	modelStack.PopMatrix();//end speration
 
-	modelStack.Translate(0, 900, 0);
+	modelStack.Translate(0, 0, 0);
 	modelStack.Scale(2000, 1, 2000);
 	RenderMesh(meshList[GEO_BOTTOM], true);
 	modelStack.PopMatrix();//end ground

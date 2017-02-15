@@ -92,6 +92,7 @@
     <ClCompile Include="Source\GalaxyGenerate.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Item.cpp" />
+    <ClCompile Include="Source\LandGenerate.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="Source\MouseControl.cpp" />
     <ClCompile Include="Source\ObjectFactory.cpp" />
     <ClCompile Include="Source\playerShip.cpp" />
+    <ClCompile Include="Source\Randomise.cpp" />
     <ClCompile Include="Source\Rock.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\shader.cpp" />
@@ -131,6 +133,7 @@
     <ClInclude Include="Source\MouseControl.h" />
     <ClInclude Include="Source\ObjectFactory.h" />
     <ClInclude Include="Source\playerShip.h" />
+    <ClInclude Include="Source\Randomise.h" />
     <ClInclude Include="Source\Rock.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />

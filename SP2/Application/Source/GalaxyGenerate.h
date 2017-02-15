@@ -19,7 +19,9 @@ public:
 	void galaxyUpdate();
 
 protected:
-typedef vector<vector<int>> doubleVector;
+
+	
+	typedef vector<vector<int>> doubleVector;
 	doubleVector GalaxyArray;
 
 };

@@ -9,6 +9,7 @@ void ObjectFactory::createObject(GameObject* obj)
 {
 	objContainer.push_back(obj);
 }
+
 void ObjectFactory::interactObjects()
 {
 	for (auto &a : objContainer)
@@ -16,6 +17,7 @@ void ObjectFactory::interactObjects()
 		a->interact();
 	}
 }
+
 void ObjectFactory::renderObjects()
 {
 	for (auto &a : objContainer)

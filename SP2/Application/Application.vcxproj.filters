@@ -137,16 +137,6 @@
     <ClCompile Include="Source\ObjectFactory.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Source\Randomise.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GalaxyGenerate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LandGenerate.cpp">
-      <Filter>Source Files</Filter>
-=======
     <ClCompile Include="Source\Projectile.cpp">
       <Filter>Source Files\Objects\Projectile</Filter>
     </ClCompile>
@@ -161,7 +151,6 @@
     </ClCompile>
     <ClCompile Include="Source\LandGenerate.cpp">
       <Filter>Source Files\Generate</Filter>
->>>>>>> origin/master
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,16 +238,11 @@
     <ClInclude Include="Source\Item.h">
       <Filter>Header Files\GameObject</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Source\Randomise.h">
-      <Filter>Header Files</Filter>
-=======
     <ClInclude Include="Source\Projectile.h">
       <Filter>Header Files\Object\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="Source\Missle.h">
       <Filter>Header Files\Object\Projectile</Filter>
->>>>>>> origin/master
     </ClInclude>
     <ClInclude Include="Source\GalaxyGenerate.h">
       <Filter>Header Files\Generate</Filter>
@@ -269,12 +253,9 @@
     <ClInclude Include="Source\SolarGenerate.h">
       <Filter>Header Files\Generate</Filter>
     </ClInclude>
-<<<<<<< HEAD
-=======
     <ClInclude Include="Source\LandGenerate.h">
       <Filter>Header Files\Generate</Filter>
     </ClInclude>
->>>>>>> origin/master
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\Downloads\Practical2_files(1)\Practical2_files\Application\Shader\SimpleFragmentShader.fragmentshader">

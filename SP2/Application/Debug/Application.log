@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿Build started 2/15/2017 12:12:09 PM.
      1>Project "C:\Users\161692W\Desktop\SP2_new_repo\SP2\Application\Application.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
@@ -11,8 +12,15 @@
          ,            _Pr=std::less<unsigned int>
          ,            _Alloc=std::allocator<std::pair<const unsigned int,LandGenerate::double_double_land_array>>
                  ]
+=======
+﻿Build started 2/15/2017 12:07:32 PM.
+     1>Project "C:\Users\161996y\Documents\SP2_new_repo\SP2\Application\Application.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\161996y\Documents\SP2_new_repo\SP2\\glew\include /IC:\Users\161996y\Documents\SP2_new_repo\SP2\\glfw\include /IC:\Users\161996y\Documents\SP2_new_repo\SP2\\Common\Source /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\enemyShip.cpp
+         enemyShip.cpp
+>>>>>>> origin/master
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Application.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\161692W\Desktop\SP2_new_repo\SP2\\glew\lib /LIBPATH:"C:\Users\161692W\Desktop\SP2_new_repo\SP2\\glfw\lib-msvc120" /LIBPATH:C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Application.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Application.lib" /MACHINE:X86 Debug\Application.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\161996y\Documents\SP2_new_repo\SP2\Debug\Application.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\161996y\Documents\SP2_new_repo\SP2\\glew\lib /LIBPATH:"C:\Users\161996y\Documents\SP2_new_repo\SP2\\glfw\lib-msvc120" /LIBPATH:C:\Users\161996y\Documents\SP2_new_repo\SP2\Debug glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\161996y\Documents\SP2_new_repo\SP2\Debug\Application.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\161996y\Documents\SP2_new_repo\SP2\Debug\Application.lib" /MACHINE:X86 Debug\Application.obj
          Debug\Camera.obj
          Debug\Camera2.obj
          Debug\Camera3.obj
@@ -39,8 +47,8 @@
          Debug\Tree.obj
          Debug\Utility.obj
          Debug\Weapon.obj
-         Application.vcxproj -> C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Application.exe
-     1>Done Building Project "C:\Users\161692W\Desktop\SP2_new_repo\SP2\Application\Application.vcxproj" (Build target(s)).
+         Application.vcxproj -> C:\Users\161996y\Documents\SP2_new_repo\SP2\Debug\Application.exe
+     1>Done Building Project "C:\Users\161996y\Documents\SP2_new_repo\SP2\Application\Application.vcxproj" (Build target(s)).
 
 Build succeeded.
 

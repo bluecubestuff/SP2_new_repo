@@ -21,6 +21,7 @@ Camera2::Camera2()
 
 Camera2::~Camera2()
 {
+	delete mouse;
 	delete this;
 }
 

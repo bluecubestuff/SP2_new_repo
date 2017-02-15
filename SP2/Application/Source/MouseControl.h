@@ -21,6 +21,7 @@ public:
 	POINT currMousePosition;
 	POINT mouseMovement();
 	POINT flightMouse();
+	POINT freeMouse();
 private:
 	
 };

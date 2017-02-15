@@ -6,7 +6,9 @@
 
 class EnemyShip : public Ship
 {
+public:
 
+private:
 };
 
 #endif

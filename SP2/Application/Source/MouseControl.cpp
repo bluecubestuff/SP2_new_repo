@@ -56,3 +56,10 @@ POINT Mouse::flightMouse()
 	}
 	return mousePosition;
 }
+
+POINT Mouse::freeMouse()
+{
+	GetCursorPos(&currMousePosition);
+	mousePosition = currMousePosition;
+	return mousePosition;
+}

@@ -13,7 +13,6 @@
 #include "Light.h"
 #include "playerShip.h"
 #include "DetectMemoryLeak.h"
-#include "GameObject.h"
 
 #include <string>
 #include <vector>

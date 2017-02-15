@@ -6,7 +6,7 @@
 
 using std::vector;
 using std::map;
-typedef vector<vector<int>> doubleVector;
+
 
 class GalaxyGenerate
 {
@@ -19,7 +19,7 @@ public:
 	void galaxyUpdate();
 
 protected:
-
+typedef vector<vector<int>> doubleVector;
 	doubleVector GalaxyArray;
 
 };

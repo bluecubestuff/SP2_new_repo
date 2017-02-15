@@ -12,8 +12,9 @@ GalaxyGenerate::~GalaxyGenerate()
 
 void GalaxyGenerate::galaxyInIt()
 {
-	GalaxyArray.push_back(0);
-	GalaxyArray.push_back.push_back(0);
+	std::vector<int> temp;
+	temp.push_back(0);
+	GalaxyArray.push_back(temp);
 }
 
 void GalaxyGenerate::galaxyUpdate()

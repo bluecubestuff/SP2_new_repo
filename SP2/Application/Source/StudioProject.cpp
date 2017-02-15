@@ -9,6 +9,7 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Weapon.h"
+#include "LandGenerate.h"
 
 #include <iostream>
 #include "LandGenerate.h"
@@ -365,6 +366,30 @@ void StudioProject::Render()
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
+
+	//LandGenerate* tester = new LandGenerate;
+
+	//for (int outerY = 0; outerY < 10; outerY++)			   //loops the big grid y/z
+	//{
+	//	for (int outerX = 0; outerX < 10; outerX++)		  //loops the big grid x
+	//	{
+	//		for (int y = 0; y < 100; y++)				 //loops the grid in grid y/z
+	//		{
+	//			for (int x = 0; x < 100; x++)			//loops the grid in grid x
+	//			{
+	//				if (tester->getter()[outerY][outerX][y][x] == 1)
+	//				{
+	//					modelStack.PushMatrix();
+	//					modelStack.Translate(outerX * x, 100, outerY * y);
+	//					RenderMesh(meshList[GEO_CUBE], false);
+	//					modelStack.PopMatrix();
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
+
+	
 
 }
 

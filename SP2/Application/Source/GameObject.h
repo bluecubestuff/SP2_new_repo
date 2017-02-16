@@ -1,30 +1,21 @@
-#ifndef _GAME_OBJECT_H
-#define _GAME_OBJECT_H
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
+#include <string>
 
-#include "Vector3.h"
+using namespace std;
 
-class StudioProject;
-
-class GameObject //TODO
+class GameObject
 {
 public:
-	GameObject(StudioProject* scene, Vector3 pos, float size);
-	virtual ~GameObject(){};
-
-	virtual void interact() = 0;
-
-	void render();
-
-	Vector3 position;
-	float scale;
-	float rotatespeed = 0;
-
-	StudioProject *myscene;
-	unsigned type;
+	virtual ~GameObject();
+	string getName(void);
+	static int getCount();
 
 private:
+	static int count_;
 
+protected:
+	GameObject();
 };
-
 
 #endif

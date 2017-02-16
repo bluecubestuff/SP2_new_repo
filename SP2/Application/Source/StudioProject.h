@@ -32,7 +32,7 @@ class StudioProject : public Scene
 	friend class Rock;
 	friend class Tree;
 	friend class Mithril;
-	friend class GameObject;
+	friend class ObjectRender;
 
 	enum GEOMETRY_TYPE
 	{

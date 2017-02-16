@@ -70,7 +70,6 @@
       <UniqueIdentifier>{ad973879-123c-471a-8ec5-491931a95554}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
-  
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
       <Filter>Source Files</Filter>
@@ -165,6 +164,9 @@
     <ClCompile Include="Source\Cube.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ObjectRender.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -230,9 +232,6 @@
     <ClInclude Include="Source\SceneManager.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ObjectFactory.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Rock.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
@@ -274,9 +273,15 @@
     </ClInclude>
     <ClInclude Include="Source\Cube.h">
       <Filter>Header Files\Object</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\Missile.h">
       <Filter>Header Files\Object\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ObjectFactory.h">
+      <Filter>Header Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ObjectRender.h">
+      <Filter>Header Files\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

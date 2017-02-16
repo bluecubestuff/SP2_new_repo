@@ -1,17 +1,17 @@
-#include "GameObject.h"
 #include "StudioProject.h"
+#include "GameObject.h"
 
-GameObject::GameObject(StudioProject* scene, Vector3 pos, float size)
+int GameObject::count_ = 0;
+
+GameObject::~GameObject()
 {
-	myscene = scene;
-	position = pos;
-	scale = size;
+	count_--;
 }
-void GameObject::render()
+int GameObject::getCount()
 {
-	myscene->modelStack.PushMatrix();
-	myscene->modelStack.Translate(position.x, position.y, position.z);
-	myscene->modelStack.Scale(scale, scale, scale);
-	myscene->RenderMesh(myscene->meshList[type], true);
-	myscene->modelStack.PopMatrix();
+	return count_;
+}
+GameObject::GameObject()
+{
+	count_++;
 }

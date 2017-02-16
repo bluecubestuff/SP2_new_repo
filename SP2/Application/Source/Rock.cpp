@@ -1,6 +1,6 @@
 #include "Rock.h"
 
-Rock::Rock(StudioProject* scene, Vector3 pos, float size) : GameObject(scene, pos, size)
+Rock::Rock(StudioProject* scene, Vector3 pos, float size) : ObjectRender(scene, pos, size)
 {
 	type = StudioProject::GEO_ROCK;
 }

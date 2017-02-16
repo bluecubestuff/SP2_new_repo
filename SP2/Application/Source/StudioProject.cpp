@@ -268,7 +268,7 @@ void StudioProject::Update(double dt)
 		{
 			if (i->locked)
 			{
-				Missile* missile = new Missile(Enemy, Player, 100.f, true);
+				Missile* missile = new Missile(Enemy, Player, 100.f, true);	//create new missile
 				missiles.push_back(missile);
 				fireRate = 0;
 			}
@@ -279,9 +279,8 @@ void StudioProject::Update(double dt)
 		{
 			for (auto &j : hostiles)
 			{
-
-				i->checkTargets(hostiles);
-				i->tracking(dt, i->e->getter("position"));
+				i->checkTargets(hostiles);			//updates the missile to change target to enemy
+				i->tracking(dt, i->e->getter("position"));		//let the missiles translate and rotate to the enemy position.
 			}
 		}
 

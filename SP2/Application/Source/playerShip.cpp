@@ -69,7 +69,7 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	}
 	//========================================================================
 	//toggle between mouse control the camera or the ship
-	if (Application::IsKeyPressed(VK_MBUTTON) && freeCam)
+	if (Application::IsKeyPressed(VK_MBUTTON) && freeCam)		//change to flight cam
 	{
 		if (camTime < 0)
 		{
@@ -79,7 +79,7 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 		}
 		camTime -= dt;
 	}
-	else if (Application::IsKeyPressed(VK_MBUTTON) && !freeCam)
+	else if (Application::IsKeyPressed(VK_MBUTTON) && !freeCam)	//change to free cam
 	{
 		if (camTime < 0)
 		{
@@ -90,12 +90,12 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 		camTime -= dt;
 	}
 	//========================================================================
-	if (Application::IsKeyPressed(VK_RETURN))
+	if (Application::IsKeyPressed(VK_RETURN))	//third person camera
 	{
 		firstThird = false;
 		changeCam = true;
 	}
-	else if (Application::IsKeyPressed(VK_RSHIFT))
+	else if (Application::IsKeyPressed(VK_RSHIFT))	//first person camera
 	{
 		firstThird = true;
 		changeCam = true;
@@ -264,25 +264,25 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	//std::cout << 'x' << cursorPos.x << 'y' << cursorPos.y << std::endl;
 	
 	//===========================================================================
-	if (changeCam)
+	if (changeCam)	//if changing camera
 	{
 		if (firstThird)
 		{
-			Camera->Init(this->Position, this->Forward + this->Position, this->Up);
+			Camera->Init(this->Position, this->Forward + this->Position, this->Up);		//init first person camera
 		}
 		else if (!firstThird)
 		{
-			ThirdCamera->Init(this->Position - this->Forward + this->Up, this->Position, this->Up);
+			ThirdCamera->Init(this->Position - this->Forward + this->Up, this->Position, this->Up);		//init third person camera
 		}
-		changeCam = false;
+		changeCam = false;		//make it init once only
 	}
 	if (this->firstThird)
 	{
-		Camera->Update(dt, freeCam, this->Forward, this->Right, this->Up, this->Position);
+		Camera->Update(dt, freeCam, this->Forward, this->Right, this->Up, this->Position);		//update first person camera
 	}
 	else
 	{
-		ThirdCamera->Update(dt, freeCam, this->Forward, this->Right, this->Up, this->Position);
+		ThirdCamera->Update(dt, freeCam, this->Forward, this->Right, this->Up, this->Position);	//update third person camera
 	}
 	//==========================================================================
 	//update ship matrix

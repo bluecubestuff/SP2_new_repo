@@ -49,6 +49,12 @@ PlayerShip::~PlayerShip()
 	//delete this;
 }
 
+void PlayerShip::locking(EnemyShip* target)
+{
+	//do point to aabb to enemyship, if stays for 3s, locked enabled
+	target->locked = true;
+}
+
 void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 {
 	//========================================================================

@@ -8,6 +8,8 @@ Ship::Ship()
 	Position = Vector3(0, 0, 0);
 	Inertia = Vector3(0, 0, 0);
 
+	locked = false;
+
 	Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 }
 
@@ -18,6 +20,8 @@ Ship::Ship(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float s)
 	Right = r;
 	Position = p;
 	Inertia = i;
+
+	locked = false;
 
 	Stamp = Mtx44(r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, f.x, f.y, f.z, 0, p.x, p.y, p.z, 1);
 }
@@ -44,6 +48,10 @@ Vector3 Ship::getter(std::string something)
 	else if (something == "position")
 	{
 		return this->Position;
+	}
+	else if (something == "locked")
+	{
+		return this->locked;
 	}
 	else
 	{

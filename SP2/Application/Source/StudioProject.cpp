@@ -106,6 +106,7 @@ void StudioProject::Init()
 	//=============================================================================
 	Player = new PlayerShip;
 	Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(100, 100, 100), 40.f);
+	hostiles.push_back(Enemy);
 	//=============================================================================
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
@@ -253,21 +254,38 @@ void StudioProject::Update(double dt)
 		light[0].type = Light::LIGHT_SPOT;
 		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
-
-	if (Application::IsKeyPressed(VK_LBUTTON))
-	{
-		missile = new Missile(*Enemy, *Player, true, 100.f);
-		missiles.push_back(missile);
-	}
+	//================================================================================
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
+	Player->locking(Enemy);		//place holder
 	Enemy->Update(dt, Player->getter("position"), Player->getter("forward"));
-
-	for (auto &i : missiles)
+	static float fireRate = 0;
+	fireRate += (float)dt;
+	if (Application::IsKeyPressed(VK_LBUTTON) && fireRate > 1)
 	{
-		i->tracking(dt, Enemy->getter("position"));
+		for (auto &i : hostiles)
+		{
+			if (i->locked)
+			{
+				Missile* missile = new Missile(Enemy, Player, 100.f, true);
+				missiles.push_back(missile);
+				fireRate = 0;
+			}
+		}
 	}
-	//std::cout << Enemy->getter("position") << std::endl;
+	if (!missiles.empty())
+		for (auto &i : missiles)
+		{
+			for (auto &j : hostiles)
+			{
+
+				i->checkTargets(hostiles);
+				i->tracking(dt, i->e->getter("position"));
+			}
+		}
+
+
+	std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
 }
 

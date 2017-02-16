@@ -148,6 +148,7 @@ private:
 
 	PlayerShip* Player;
 	EnemyShip* Enemy;
+	vector<EnemyShip*> hostiles;
 
 	Missile* missile;
 	vector<Missile*> missiles;

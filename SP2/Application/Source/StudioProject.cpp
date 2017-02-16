@@ -9,10 +9,9 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Weapon.h"
-//#include "LandGenerate.h"
 
 #include <iostream>
-#include "LandGenerate.h"
+
 
 
 StudioProject::StudioProject()
@@ -137,7 +136,7 @@ void StudioProject::Init()
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
 	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
 
-	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0, 1, 0));
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6, 0, 0.7));
 
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
@@ -203,7 +202,7 @@ void StudioProject::Init()
 	projectionStack.LoadMatrix(projection);
 
 	//gen->landInIt();
-	//testMap = gen->getter();
+	//landMap = gen->getter();
 }
 
 static float ROT_LIMIT = 45.f;
@@ -408,23 +407,21 @@ void StudioProject::Render()
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
 
+	//for (int y = 0; y < 50; y++)				  //loops the grid in grid y/z
+	//{
+	//	for (int x = 0; x < 50; x++)			  //loops the grid in grid x
+	//	{
+	//		if (landMap[0][0][y][x] == 1)
+	//		{
+	//			modelStack.PushMatrix();
+	//			modelStack.Translate(x * 5, 40, y * 5);
+	//			modelStack.Scale(3, 3, 3);
+	//			RenderMesh(meshList[GEO_CUBE], false);
+	//			modelStack.PopMatrix();
+	//		}
+	//	}
+	//}
 
-		//for (int y = 0; y < 50; y++)				  //loops the grid in grid y/z
-		//{
-		//	for (int x = 0; x < 50; x++)			  //loops the grid in grid x
-		//	{
-		//		if (testMap[0][0][y][x] == 1)
-		//		{
-		//			modelStack.PushMatrix();
-		//			modelStack.Translate(x * 5, 50, y * 5);
-		//			modelStack.Scale(3, 3, 3);
-		//			RenderMesh(meshList[GEO_CUBE], false);
-		//			modelStack.PopMatrix();
-		//		}
-		//	}
-		//}
-
-	
 
 }
 
@@ -634,29 +631,6 @@ void StudioProject::RenderSkybox()
 	RenderMesh(meshList[GEO_BOTTOM], true);
 	modelStack.PopMatrix();//end ground
 }
-
-//bool StudioProject::pointInAABB(const TAABB& box, const Vector3& point)//test
-//{
-//	if ((point.x > box.pt_Min.x && point.x < box.pt_Max.x)
-//		&& (point.z < box.pt_Min.z && point.z > box.pt_Max.z))
-//	{
-//		return true;
-//	}
-//
-//	return false;
-//}
-//
-//bool StudioProject::AABBtoAABB(const TAABB& box01, const TAABB& box02)
-//{
-//	if (box01.pt_Max.x > box02.pt_Min.x && box01.pt_Min.x < box02.pt_Max.x &&
-//		box01.pt_Max.y > box02.pt_Min.y && box01.pt_Min.y < box02.pt_Max.y &&
-//		box01.pt_Max.z < box02.pt_Min.z && box01.pt_Min.z > box02.pt_Max.z)
-//	{
-//		return true;
-//	}
-//
-//	return false;
-//}
 
 void StudioProject::Exit()
 {

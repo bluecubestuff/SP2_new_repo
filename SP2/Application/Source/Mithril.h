@@ -5,6 +5,7 @@
 #include "Vector3.h"
 #include "ObjectRender.h"
 #include "Application.h"
+#include "Func_AABB.h"
 
 #include <string>
 using std::string;
@@ -15,6 +16,11 @@ public:
 	Mithril(StudioProject* scene, Vector3 pos, float size);
 	~Mithril(){};
 
+	AABB *Mithril_box;
+
 	virtual void interact();
+
+private:
+	Func_AABB *aabb;
 };
 #endif

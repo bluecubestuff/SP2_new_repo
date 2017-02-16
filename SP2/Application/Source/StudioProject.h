@@ -32,6 +32,7 @@ class StudioProject : public Scene
 	friend class Rock;
 	friend class Tree;
 	friend class Mithril;
+	friend class NPC;
 	friend class ObjectRender;
 
 	enum GEOMETRY_TYPE
@@ -61,6 +62,7 @@ class StudioProject : public Scene
 		GEO_MITHRIL,
 		GEO_TREE,
 		GEO_GOAT,
+		GEO_NPC,
 
 		//Ships
 		GEO_PLAYER_SHIP,

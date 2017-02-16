@@ -146,9 +146,6 @@
     <ClCompile Include="Source\Projectile.cpp">
       <Filter>Source Files\Objects\Projectile</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Missle.cpp">
-      <Filter>Source Files\Objects\Projectile</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Randomise.cpp">
       <Filter>Source Files\Generate</Filter>
     </ClCompile>
@@ -166,6 +163,12 @@
     </ClCompile>
     <ClCompile Include="Source\ObjectRender.cpp">
       <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NPC.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Missile.cpp">
+      <Filter>Source Files\Objects\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +285,9 @@
     </ClInclude>
     <ClInclude Include="Source\ObjectRender.h">
       <Filter>Header Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NPC.h">
+      <Filter>Header Files\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,13 +9,13 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Weapon.h"
-#include "LandGenerate.h"
+//#include "LandGenerate.h"
 
 #include <iostream>
-#include "LandGenerate.h"
 
 StudioProject::StudioProject()
 {
+	//gen = new LandGenerate;
 }
 
 StudioProject::~StudioProject()
@@ -197,8 +197,8 @@ void StudioProject::Init()
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-	LandGenerate test;
-	test.landInIt();
+	//gen->landInIt();
+	//testMap = gen->getter();
 }
 
 static float ROT_LIMIT = 45.f;
@@ -367,27 +367,21 @@ void StudioProject::Render()
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
 
-	//LandGenerate* tester = new LandGenerate;
 
-	//for (int outerY = 0; outerY < 10; outerY++)			   //loops the big grid y/z
-	//{
-	//	for (int outerX = 0; outerX < 10; outerX++)		  //loops the big grid x
-	//	{
-	//		for (int y = 0; y < 100; y++)				 //loops the grid in grid y/z
-	//		{
-	//			for (int x = 0; x < 100; x++)			//loops the grid in grid x
-	//			{
-	//				if (tester->getter()[outerY][outerX][y][x] == 1)
-	//				{
-	//					modelStack.PushMatrix();
-	//					modelStack.Translate(outerX * x, 100, outerY * y);
-	//					RenderMesh(meshList[GEO_CUBE], false);
-	//					modelStack.PopMatrix();
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
+		//for (int y = 0; y < 50; y++)				  //loops the grid in grid y/z
+		//{
+		//	for (int x = 0; x < 50; x++)			  //loops the grid in grid x
+		//	{
+		//		if (testMap[0][0][y][x] == 1)
+		//		{
+		//			modelStack.PushMatrix();
+		//			modelStack.Translate(x * 5, 50, y * 5);
+		//			modelStack.Scale(3, 3, 3);
+		//			RenderMesh(meshList[GEO_CUBE], false);
+		//			modelStack.PopMatrix();
+		//		}
+		//	}
+		//}
 
 	
 
@@ -600,28 +594,28 @@ void StudioProject::RenderSkybox()
 	modelStack.PopMatrix();//end ground
 }
 
-bool StudioProject::pointInAABB(const TAABB& box, const Vector3& point)//test
-{
-	if ((point.x > box.pt_Min.x && point.x < box.pt_Max.x)
-		&& (point.z < box.pt_Min.z && point.z > box.pt_Max.z))
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool StudioProject::AABBtoAABB(const TAABB& box01, const TAABB& box02)
-{
-	if (box01.pt_Max.x > box02.pt_Min.x && box01.pt_Min.x < box02.pt_Max.x &&
-		box01.pt_Max.y > box02.pt_Min.y && box01.pt_Min.y < box02.pt_Max.y &&
-		box01.pt_Max.z < box02.pt_Min.z && box01.pt_Min.z > box02.pt_Max.z)
-	{
-		return true;
-	}
-
-	return false;
-}
+//bool StudioProject::pointInAABB(const TAABB& box, const Vector3& point)//test
+//{
+//	if ((point.x > box.pt_Min.x && point.x < box.pt_Max.x)
+//		&& (point.z < box.pt_Min.z && point.z > box.pt_Max.z))
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}
+//
+//bool StudioProject::AABBtoAABB(const TAABB& box01, const TAABB& box02)
+//{
+//	if (box01.pt_Max.x > box02.pt_Min.x && box01.pt_Min.x < box02.pt_Max.x &&
+//		box01.pt_Max.y > box02.pt_Min.y && box01.pt_Min.y < box02.pt_Max.y &&
+//		box01.pt_Max.z < box02.pt_Min.z && box01.pt_Min.z > box02.pt_Max.z)
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}
 
 void StudioProject::Exit()
 {

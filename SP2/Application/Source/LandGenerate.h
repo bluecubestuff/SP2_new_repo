@@ -1,7 +1,6 @@
 #ifndef _LAND_GENERATE_H
 #define _LAND_GENERATE_H
 
-#include "StudioProject.h"
 #include "GalaxyGenerate.h"
 #include "Vector3.h"
 #include "Randomise.h"
@@ -31,8 +30,9 @@ protected:
 	vector<double_double_land_array> landDataBase;
 
 private:
-	Randomise* random;
-	StudioProject* landScene;
+	unsigned landID;
+	//ObjectFactory* tester;
+
 };
 
 #endif

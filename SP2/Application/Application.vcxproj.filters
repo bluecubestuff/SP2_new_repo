@@ -63,6 +63,12 @@
     <Filter Include="Source Files\Generate">
       <UniqueIdentifier>{99b6ce44-5763-42f8-a5b5-857fb35a8f4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\AABB">
+      <UniqueIdentifier>{17bc205a-5149-48b4-9582-4263ecb5a94c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\AABB">
+      <UniqueIdentifier>{ad973879-123c-471a-8ec5-491931a95554}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -151,6 +157,12 @@
     </ClCompile>
     <ClCompile Include="Source\LandGenerate.cpp">
       <Filter>Source Files\Generate</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Func_AABB.cpp">
+      <Filter>Source Files\Objects\AABB</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Cube.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +267,15 @@
     </ClInclude>
     <ClInclude Include="Source\LandGenerate.h">
       <Filter>Header Files\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AABB.h">
+      <Filter>Header Files\Object\AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Func_AABB.h">
+      <Filter>Header Files\Object\AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Cube.h">
+      <Filter>Header Files\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -146,7 +146,7 @@ private:
 	//bool AABBtoAABB(const TAABB&, const TAABB&);
 
 	char mapArray[2000][2000];
-	double_double_land_array testMap;
+	//double_double_land_array testMap;
 
 	PlayerShip* Player;
 	EnemyShip* Enemy;

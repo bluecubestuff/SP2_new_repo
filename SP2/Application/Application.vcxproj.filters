@@ -70,6 +70,7 @@
       <UniqueIdentifier>{ad973879-123c-471a-8ec5-491931a95554}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
       <Filter>Source Files</Filter>

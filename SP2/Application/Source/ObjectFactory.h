@@ -2,7 +2,7 @@
 #define ObjectFactory_H
 
 #include <vector>
-#include "GameObject.h"
+#include "ObjectRender.h"
 
 class StudioProject;
 
@@ -13,11 +13,11 @@ public:
 	ObjectFactory(StudioProject* scene);
 	~ObjectFactory() {};
 
-	void createObject(GameObject* obj);
+	void createObject(ObjectRender* obj);
 	void interactObjects();
 	void renderObjects();
 
-	std::vector<GameObject*> objContainer;
+	std::vector<ObjectRender*> objContainer;
 
 private:
 	StudioProject* myscene;

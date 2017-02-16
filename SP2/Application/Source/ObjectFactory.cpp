@@ -5,7 +5,7 @@ ObjectFactory::ObjectFactory(StudioProject* scene)
 	myscene = scene;
 }
 
-void ObjectFactory::createObject(GameObject* obj)
+void ObjectFactory::createObject(ObjectRender* obj)
 {
 	objContainer.push_back(obj);
 }

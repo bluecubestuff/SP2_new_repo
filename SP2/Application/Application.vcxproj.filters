@@ -274,6 +274,7 @@
     </ClInclude>
     <ClInclude Include="Source\Cube.h">
       <Filter>Header Files\Object</Filter>
+	</ClInclude>
     <ClInclude Include="Source\Missile.h">
       <Filter>Header Files\Object\Projectile</Filter>
     </ClInclude>

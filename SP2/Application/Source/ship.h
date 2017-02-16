@@ -18,6 +18,8 @@ public:
 	Ship(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float s);
 	~Ship();
 
+	bool locked;
+
 	Vector3 getter(std::string);
 	Mtx44 getStamp();
 private:

@@ -5,6 +5,7 @@
 #include "DetectMemoryLeak.h"
 #include "Camera2.h"
 #include "Camera3.h"
+#include "enemyShip.h"
 
 class PlayerShip : public Ship
 {
@@ -25,6 +26,7 @@ public:
 
 	double camTime;
 
+	void locking(EnemyShip* target);
 	void Update(double dt);
 private:
 	float Speed;

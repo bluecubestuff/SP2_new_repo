@@ -1,3 +1,5 @@
 *.sdf
 *.v12.suo
 *.opensdf
+SP2/Application/Source/StudioProject.cpp
+SP2/Application/Source/StudioProject.h

@@ -44,9 +44,15 @@ PlayerShip::PlayerShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, fl
 
 PlayerShip::~PlayerShip()
 {
-	delete Camera;
-	delete ThirdCamera;
-	delete this;
+	//delete Camera;
+	//delete ThirdCamera;
+	//delete this;
+}
+
+void PlayerShip::locking(EnemyShip* target)
+{
+	//do point to aabb to enemyship, if stays for 3s, locked enabled
+	target->locked = true;
 }
 
 void PlayerShip::Update(double dt)	//Player PlayerShip movement and control

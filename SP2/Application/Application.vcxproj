@@ -136,7 +136,7 @@
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
-    <ClInclude Include="Source\Missle.h" />
+    <ClInclude Include="Source\Missile.h" />
     <ClInclude Include="Source\Mithril.h" />
     <ClInclude Include="Source\MouseControl.h" />
     <ClInclude Include="Source\ObjectFactory.h" />

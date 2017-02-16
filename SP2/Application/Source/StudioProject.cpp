@@ -12,6 +12,8 @@
 //#include "LandGenerate.h"
 
 #include <iostream>
+#include "LandGenerate.h"
+
 
 StudioProject::StudioProject()
 {
@@ -106,6 +108,7 @@ void StudioProject::Init()
 	//=============================================================================
 	Player = new PlayerShip;
 	Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(100, 100, 100), 40.f);
+	hostiles.push_back(Enemy);
 	//=============================================================================
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
@@ -138,6 +141,8 @@ void StudioProject::Init()
 
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
+
+	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//goat_easter_egg.OBJ");
 
 	//------------------------------------------------------------------------------------------
 	//light
@@ -251,10 +256,38 @@ void StudioProject::Update(double dt)
 		light[0].type = Light::LIGHT_SPOT;
 		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
+	//================================================================================
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
+	Player->locking(Enemy);		//place holder
 	Enemy->Update(dt, Player->getter("position"), Player->getter("forward"));
-	//std::cout << Enemy->getter("position") << std::endl;
+	static float fireRate = 0;
+	fireRate += (float)dt;
+	if (Application::IsKeyPressed(VK_LBUTTON) && fireRate > 1)
+	{
+		for (auto &i : hostiles)
+		{
+			if (i->locked)
+			{
+				Missile* missile = new Missile(Enemy, Player, 100.f, true);
+				missiles.push_back(missile);
+				fireRate = 0;
+			}
+		}
+	}
+	if (!missiles.empty())
+		for (auto &i : missiles)
+		{
+			for (auto &j : hostiles)
+			{
+
+				i->checkTargets(hostiles);
+				i->tracking(dt, i->e->getter("position"));
+			}
+		}
+
+
+	std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
 }
 
@@ -346,6 +379,14 @@ void StudioProject::Render()
 	modelStack.LoadMatrix(Enemy->getStamp());
 	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
 	modelStack.PopMatrix();
+
+	for (auto &i : missiles)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->Stamp);
+		RenderMesh(meshList[GEO_GOAT], true);
+		modelStack.PopMatrix();
+	}
 
 	RenderSkybox();
 

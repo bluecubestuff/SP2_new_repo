@@ -84,11 +84,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AI.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Camera2.cpp" />
     <ClCompile Include="Source\Camera3.cpp" />
     <ClCompile Include="Source\Cube.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\enemyShip.cpp" />
     <ClCompile Include="Source\Func_AABB.cpp" />
     <ClCompile Include="Source\GalaxyGenerate.cpp" />
@@ -103,6 +105,7 @@
     <ClCompile Include="Source\Missle.cpp" />
     <ClCompile Include="Source\Mithril.cpp" />
     <ClCompile Include="Source\MouseControl.cpp" />
+    <ClCompile Include="Source\Node.cpp" />
     <ClCompile Include="Source\ObjectFactory.cpp" />
     <ClCompile Include="Source\ObjectRender.cpp" />
     <ClCompile Include="Source\playerShip.cpp" />
@@ -119,12 +122,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AABB.h" />
+    <ClInclude Include="Source\AI.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Camera2.h" />
     <ClInclude Include="Source\Camera3.h" />
     <ClInclude Include="Source\Cube.h" />
     <ClInclude Include="Source\DetectMemoryLeak.h" />
+    <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\enemyShip.h" />
     <ClInclude Include="Source\Func_AABB.h" />
     <ClInclude Include="Source\GalaxyGenerate.h" />
@@ -140,6 +145,7 @@
     <ClInclude Include="Source\Missile.h" />
     <ClInclude Include="Source\Mithril.h" />
     <ClInclude Include="Source\MouseControl.h" />
+    <ClInclude Include="Source\Node.h" />
     <ClInclude Include="Source\ObjectFactory.h" />
     <ClInclude Include="Source\ObjectRender.h" />
     <ClInclude Include="Source\playerShip.h" />

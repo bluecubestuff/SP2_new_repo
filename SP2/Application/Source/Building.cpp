@@ -1,17 +1,11 @@
 #include "Building.h"
 
-Building::Building()
+Building::Building(StudioProject* scene, Vector3 pos, float size) : ObjectRender(scene, pos, size)
 {
+	type = StudioProject::GEO_BUILDING;
+	aabb->setAABB_Static_Objects(pos, size);
 }
-
-Building::~Building()
+void Building::interact()
 {
-}
 
-void Building::set_building_AABB(Vector3 loc,float bSize)
-{
-	Func_AABB* temp = new Func_AABB;
-	temp->setAABB_Static_Objects(loc, bSize);
-	building_AABB.push_back(temp);
 }
-

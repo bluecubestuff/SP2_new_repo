@@ -1,11 +1,13 @@
 
-#include "Application.h"
+//#include "Application.h"
+
 //Include the standard C++ headers
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "SceneManager.h"
 #include "StudioProject.h"
+
 
 //static const unsigned char FPS = 60; // FPS of this game
 //static const unsigned int frameTime = 1000 / FPS; // time for each frame
@@ -64,7 +66,7 @@ void Application::Init()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
 
 	//Create a window and create its OpenGL context
-	m_window = glfwCreateWindow(1600, 900, "Computer Graphics", NULL, NULL);
+	m_window = glfwCreateWindow(800, 600, "Computer Graphics", NULL, NULL);
 
 	//If the window couldn't be created
 	if (!m_window)

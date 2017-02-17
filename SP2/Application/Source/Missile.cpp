@@ -9,7 +9,7 @@ Missile::Missile(EnemyShip* e, PlayerShip* me, float s, bool fire)
 {
 	this->fire = fire;
 	this->turnSpeed = s;
-	if (fire)		//set the missile at player if player shot it
+	if (fire)
 	{
 		this->Position = me->getter("position");
 		this->Forward = me->getter("forward");
@@ -18,7 +18,7 @@ Missile::Missile(EnemyShip* e, PlayerShip* me, float s, bool fire)
 	}
 	else
 	{
-		this->Position = e->getter("position");			//set it at enemy if enemy shot it
+		this->Position = e->getter("position");
 		this->Forward = e->getter("forward");
 		this->Right = e->getter("right");
 		this->Up = e->getter("up");
@@ -33,7 +33,7 @@ Missile::~Missile()
 void Missile::tracking(double dt, Vector3 p)
 {
 	float rotateSpeed = turnSpeed * dt;
-	Vector3 target = (p - this->Position);			//find my target vector
+	Vector3 target = (p - this->Position);
 	if (this->Forward != target.Normalized())
 	{
 		Vector3 temp = this->Forward.Cross(target.Normalized());
@@ -54,7 +54,7 @@ void Missile::checkTargets(vector<EnemyShip*> hostiles)
 	{
 		if (i->locked)
 		{
-			this->e = i;			//check if enemy was locked on
+			this->e = i;
 		}
 	}
 }

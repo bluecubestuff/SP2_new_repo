@@ -1,0 +1,71 @@
+﻿Build started 2/17/2017 4:55:42 PM.
+     1>Project "C:\Users\161692W\Desktop\SP2_new_repo\SP2\Application\Application.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\161692W\Desktop\SP2_new_repo\SP2\\glew\include /IC:\Users\161692W\Desktop\SP2_new_repo\SP2\\glfw\include /IC:\Users\161692W\Desktop\SP2_new_repo\SP2\\Common\Source /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\AI.cpp Source\Application.cpp Source\Enemy.cpp Source\GameObject.cpp Source\Item.cpp Source\LandGenerate.cpp Source\Mithril.cpp Source\ObjectFactory.cpp Source\ObjectRender.cpp Source\Randomise.cpp Source\Rock.cpp Source\StudioProject.cpp Source\Tree.cpp Source\Weapon.cpp
+         StudioProject.cpp
+     1>c:\users\161692w\desktop\sp2_new_repo\sp2\application\source\studioproject.cpp(138): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>c:\users\161692w\desktop\sp2_new_repo\sp2\application\source\studioproject.cpp(429): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\161692w\desktop\sp2_new_repo\sp2\application\source\studioproject.cpp(434): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         ObjectFactory.cpp
+         LandGenerate.cpp
+     1>c:\users\161692w\desktop\sp2_new_repo\sp2\application\source\landgenerate.cpp(12): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         Generating Code...
+         Compiling...
+         Tree.cpp
+         Rock.cpp
+         ObjectRender.cpp
+         Mithril.cpp
+         GameObject.cpp
+         Enemy.cpp
+         Application.cpp
+         AI.cpp
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         Weapon.cpp
+         Randomise.cpp
+         Item.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Application.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\161692W\Desktop\SP2_new_repo\SP2\\glew\lib /LIBPATH:"C:\Users\161692W\Desktop\SP2_new_repo\SP2\\glfw\lib-msvc120" /LIBPATH:C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Application.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Application.lib" /MACHINE:X86 Debug\AI.obj
+         Debug\Application.obj
+         Debug\Building.obj
+         Debug\Camera.obj
+         Debug\Camera2.obj
+         Debug\Camera3.obj
+         Debug\Cube.obj
+         Debug\Enemy.obj
+         Debug\enemyShip.obj
+         Debug\Func_AABB.obj
+         Debug\GalaxyGenerate.obj
+         Debug\GameObject.obj
+         Debug\Item.obj
+         Debug\LandGenerate.obj
+         Debug\LoadOBJ.obj
+         Debug\LoadTGA.obj
+         Debug\main.obj
+         Debug\Mesh.obj
+         Debug\MeshBuilder.obj
+         Debug\Missle.obj
+         Debug\Mithril.obj
+         Debug\MouseControl.obj
+         Debug\Node.obj
+         Debug\ObjectFactory.obj
+         Debug\ObjectRender.obj
+         Debug\playerShip.obj
+         Debug\Projectile.obj
+         Debug\Randomise.obj
+         Debug\Rock.obj
+         Debug\SceneManager.obj
+         Debug\shader.obj
+         Debug\ship.obj
+         Debug\StudioProject.obj
+         Debug\Tree.obj
+         Debug\Utility.obj
+         Debug\Weapon.obj
+         C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Common.lib
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         Application.vcxproj -> C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Application.exe
+     1>Done Building Project "C:\Users\161692W\Desktop\SP2_new_repo\SP2\Application\Application.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:10.12

@@ -18,6 +18,7 @@ void LandGenerate::landInIt()
 	
 	//rand() % 10 + 1
 
+<<<<<<< HEAD
 	for (int outerY = 0; outerY < 10; outerY++)			   //loops the big grid y/z
 	{
 		for (int outerX = 0; outerX < 10; outerX++)		  //loops the big grid x
@@ -35,6 +36,13 @@ void LandGenerate::landInIt()
 
 			tempStore.push_back(land_inner_grid); //this is a vector vector vector (sets pos(x) of the bigger grid to this smaller grid)
 			land_inner_grid.clear(); //clears prev vector data
+=======
+	for (int y = 0; y < 100; y++)				//loops the grid in grid y/z
+	{
+		for (int x = 0; x < 100; x++)			//loops the grid in grid x
+		{
+			temp.push_back(rand() % 20 + 1);	//this is a vector (sets pos(x) of the smaller grid to this random value)
+>>>>>>> f64aec40b4df18743c47ba3a882a48d63295a107
 		}
 
 		land_outer_grid.push_back(tempStore); //this is a vector vector vector vector (sets pos(z) of the bigger grid to this smaller grid)
@@ -87,6 +95,7 @@ double_double_land_array LandGenerate::getter()
 {
 	return land_outer_grid;
 }
+<<<<<<< HEAD
 
 void LandGenerate::buildingLand(double_double_land_array land)
 {
@@ -120,3 +129,5 @@ void LandGenerate::buildingLand(double_double_land_array land)
 	//	}
 	//}
 }
+=======
+>>>>>>> f64aec40b4df18743c47ba3a882a48d63295a107

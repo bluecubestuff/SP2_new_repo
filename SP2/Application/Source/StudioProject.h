@@ -163,6 +163,14 @@ private:
 	Missile* missile;
 	vector<Missile*> missiles;
 
+<<<<<<< HEAD
+=======
+	vector<AABB*> tester;
+	bool checkColl;
+
+	Vector3 cubePos;
+	vector<Vector3> cubeStore; //testing
+>>>>>>> f64aec40b4df18743c47ba3a882a48d63295a107
 	//Camera2 camera;
 	//Camera3 camera;
 };

@@ -12,8 +12,11 @@
 //#include "LandGenerate.h"
 
 #include <iostream>
+<<<<<<< HEAD
 #include "LandGenerate.h"
 
+=======
+>>>>>>> f64aec40b4df18743c47ba3a882a48d63295a107
 
 StudioProject::StudioProject()
 {
@@ -137,7 +140,11 @@ void StudioProject::Init()
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
 	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
 
+<<<<<<< HEAD
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0, 1, 0));
+=======
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6, 0.4, 0.3));
+>>>>>>> f64aec40b4df18743c47ba3a882a48d63295a107
 
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
@@ -289,8 +296,25 @@ void StudioProject::Update(double dt)
 			}
 		}
 
+<<<<<<< HEAD
 
 	std::cout << Player->getter("forward") << std::endl;
+=======
+	//if (!cubeStore.empty())
+	//std::cout << cubeStore[0];
+
+	//if (!cubeStore.empty())
+	//{
+	//	for (int i = 0; i < 10; i++)
+	//	{
+	//		if (Player->getter("position") == cubeStore[i])
+	//		{
+	//			std::cout << "a";
+	//		}
+	//	}
+	//}
+	//std::cout << Player->getter("forward") << std::endl;
+>>>>>>> f64aec40b4df18743c47ba3a882a48d63295a107
 	//camera.Update(dt);
 }
 
@@ -410,6 +434,7 @@ void StudioProject::Render()
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
+<<<<<<< HEAD
 
 
 		//for (int y = 0; y < 50; y++)				  //loops the grid in grid y/z
@@ -429,8 +454,28 @@ void StudioProject::Render()
 
 	
 
-}
+=======
+	AABB* temp = new AABB;
 
+	for (int z = 0; z < 100; z++)				  //loops the grid in grid y/z
+	{
+		for (int x = 0; x < 100; x++)			  //loops the grid in grid x
+		{
+			if (landMap[z][x] == 1)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(x * 5, 1, z * 5);
+				modelStack.Scale(3, 3, 3);
+				RenderMesh(meshList[GEO_CUBE], false);
+				modelStack.PopMatrix();
+
+				cubePos.Set(x * 5, 10, z * 5);
+				cubeStore.push_back(cubePos);
+			}
+		}
+	}
+>>>>>>> f64aec40b4df18743c47ba3a882a48d63295a107
+}
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
 {

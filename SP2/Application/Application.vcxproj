@@ -168,6 +168,11 @@
     <None Include="..\..\..\..\..\Downloads\Practical2_files(1)\Practical2_files\Application\Shader\SimpleFragmentShader.fragmentshader" />
     <None Include="..\..\..\..\..\Downloads\Practical2_files(1)\Practical2_files\Application\Shader\SimpleVertexShader.vertexshader" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.vcxproj">
+      <Project>{7c78a25a-60b4-4867-9533-178e10e2554f}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

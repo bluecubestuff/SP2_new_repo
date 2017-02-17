@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿Build started 2/17/2017 11:49:30 AM.
      1>Project "C:\Users\161996y\Documents\SP2_new_repo\SP2\Application\Application.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
@@ -48,3 +49,14 @@
 Build succeeded.
 
 Time Elapsed 00:00:01.23
+=======
+﻿Build started 16/2/2017 10:21:26 PM.
+     1>Project "C:\Users\Steven\Desktop\SP2_new_repo\SP2\Application\Application.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         Application.vcxproj -> C:\Users\Steven\Desktop\SP2_new_repo\SP2\Debug\Application.exe
+     1>Done Building Project "C:\Users\Steven\Desktop\SP2_new_repo\SP2\Application\Application.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.10
+>>>>>>> origin/master

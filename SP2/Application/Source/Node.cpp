@@ -9,10 +9,9 @@ Node::Node()
 	pos.x = pos.z = f = g = h = 0;
 }
 
-Node::Node(int x, int z, bool w)
+Node::Node(float x, float z)
 {
 	Node();
-	this->walkable = w;
 	this->pos.x = x;
 	this->pos.z = z;
 }
@@ -59,12 +58,12 @@ float Node::getZ()
 
 int Node::calculateGscore(Node* n)
 {
-	return n->g++;
+	return n->g + 10;
 }
 
 int Node::calculateHscore(Node* n)
 {
-	return (abs(n->pos.x - pos.x) + abs(n->pos.z - pos.z));
+	return (abs(n->pos.x - pos.x) + abs(n->pos.z - pos.z)) * 10;
 }
 
 int Node::getFscore()
@@ -85,7 +84,7 @@ int Node::getHscore()
 void Node::computeFscore(Node *end)
 {
 	g = calculateGscore(parent);
-	h = calculateHscore(parent);
+	h = calculateHscore(end);
 	f = g + h;
 }
 

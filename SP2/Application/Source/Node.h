@@ -12,11 +12,10 @@ public:
 	float f;
 	float g;
 	float h;
-	bool walkable;
 	Node* parent;
 
 	Node();
-	Node(int x, int z, bool w);
+	Node(float x, float z);
 	~Node();
 	Node* getNode(float successorPosX, float successorPosY);
 	Node* getParent();

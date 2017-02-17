@@ -18,8 +18,4 @@ void GalaxyGenerate::galaxyInIt()
 void GalaxyGenerate::galaxyUpdate()
 {
 
-
-
-
-
 }

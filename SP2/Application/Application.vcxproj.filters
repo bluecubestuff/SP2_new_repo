@@ -170,6 +170,9 @@
     <ClCompile Include="Source\Missile.cpp">
       <Filter>Source Files\Objects\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Building.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -287,6 +290,9 @@
       <Filter>Header Files\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\NPC.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Building.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
   </ItemGroup>

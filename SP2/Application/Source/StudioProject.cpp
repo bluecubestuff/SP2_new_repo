@@ -106,6 +106,7 @@ void StudioProject::Init()
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
 	Player = new PlayerShip;
+	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(100, 100, 100), 40.f);
 	hostiles.push_back(Enemy);
 	//=============================================================================
@@ -198,7 +199,7 @@ void StudioProject::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 5000.f);
+	projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
 	//gen->landInIt();
@@ -285,7 +286,7 @@ void StudioProject::Update(double dt)
 		}
 
 
-	std::cout << Player->getter("forward") << std::endl;
+	//std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
 }
 

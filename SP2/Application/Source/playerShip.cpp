@@ -19,16 +19,28 @@ PlayerShip::PlayerShip()
 	this->firstThird = true;
 	this->changeCam = false;
 
+	this->size = 1;
+	this->hullPoints = 100.f;
+	this->maxShield = 100.f;
+	this->mass = 1.5f;
+	this->thrust = 1.f;
+	this->turnSpeed = thrust / (mass*mass);
+
+	hitbox = new Func_AABB;
+	hitbox->updateAABB(size, size, size, this->Position);
+
 	this->Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 }
 
-PlayerShip::PlayerShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float s)
+PlayerShip::PlayerShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float size, float hullPoints ,float maxShield ,float mass ,float thrust)
 {
 	this->Forward = f;
 	this->Up = u;
 	this->Right = r;
 	this->Position = p;
 	this->Inertia = i;
+
+	hitbox = new Func_AABB;
 
 	Camera = new Camera2;
 	Camera->Init(this->Position, this->Forward, this->Up);
@@ -38,6 +50,16 @@ PlayerShip::PlayerShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, fl
 	this->freeCam = false;
 	this->firstThird = true;
 	this->changeCam = false;
+
+	this->size = size;
+	this->hullPoints = hullPoints;
+	this->maxShield = maxShield;
+	this->mass = mass;
+	this->thrust = thrust;
+	this->turnSpeed = mass / (thrust * thrust);
+
+	hitbox = new Func_AABB;
+	hitbox->updateAABB(size, size, size, this->Position);
 
 	this->Stamp = Mtx44(r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, f.x, f.y, f.z, 0, p.x, p.y, p.z, 1);
 }
@@ -168,7 +190,7 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	//===========================================================================
 	else if (this->FlightAssist == true)	//FLIGHT ASSISTS ON
 	{
-		this->Inertia = this->Forward * Speed * 2.f;
+		this->Inertia = this->Forward * Speed * ((thrust * 5) / mass);
 		if (Application::IsKeyPressed('W') && this->Speed < 10.f)
 		{
 			this->Speed += 4.f * (float)dt;
@@ -210,16 +232,22 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 			this->Right = roll * this->Right;
 			this->Up = roll * this->Up;
 		}
-		this->Position += this->Forward * Speed * (float)dt * 2.f;
+		this->Position += this->Forward * Speed * (float)dt * ((thrust * 5)/ mass);
 	}
 	//===========================================================================
 	//mouse control for the ship
 	if (!freeCam && FlightAssist)
 	{
 		cursorPos = mouse.flightMouse();
+		float temp;
+		if (Speed > 1 || Speed < -1)
+			temp = turnSpeed / sqrt(abs(Speed));
+		else
+			temp = turnSpeed;
 		if (cursorPos.x)
 		{
-			float yawSpeed = cursorPos.x * -(float)dt * 0.5f;
+			float yawSpeed;
+			yawSpeed = -temp * dt * cursorPos.x;
 			Mtx44 yaw;
 			yaw.SetToRotation(yawSpeed, this->Up.x, this->Up.y, this->Up.z);
 			this->Forward = yaw * this->Forward;
@@ -228,7 +256,8 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 		}
 		if (cursorPos.y)
 		{
-			float pitchSpeed = cursorPos.y * (float)dt * 0.5f;
+			float pitchSpeed;
+			pitchSpeed = temp * dt * cursorPos.y;
 			Mtx44 pitch;
 			pitch.SetToRotation(pitchSpeed, this->Right.x, this->Right.y, this->Right.z);
 			//pitch.SetToRotation(pitchSpeed, 1, 0, 0);
@@ -240,8 +269,8 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	else if (!freeCam && !FlightAssist)
 	{
 		cursorPos = mouse.flightMouse();
-		float yawSpeed = cursorPos.x * -(float)dt * 0.5f;
-		float pitchSpeed = cursorPos.y * (float)dt * 0.5f;
+		float yawSpeed = cursorPos.x * -(float)dt * turnSpeed;
+		float pitchSpeed = cursorPos.y * (float)dt * turnSpeed;
 		if (cursorPos.x)
 		{			
 			Mtx44 yaw;
@@ -284,6 +313,11 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	{
 		ThirdCamera->Update(dt, freeCam, this->Forward, this->Right, this->Up, this->Position);	//update third person camera
 	}
+	//==========================================================================
+	//update ship AABB
+	Func_AABB* temp = hitbox;
+	temp->updateAABB(1, 1, 1, this->Position);
+	hitbox = temp;
 	//==========================================================================
 	//update ship matrix
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);

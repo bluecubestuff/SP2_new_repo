@@ -153,6 +153,9 @@ private:
 
 	vector<AABB*> tester;
 	bool checkColl;
+
+	Vector3 cubePos;
+	vector<Vector3> cubeStore; //testing
 	//Camera2 camera;
 	//Camera3 camera;
 };

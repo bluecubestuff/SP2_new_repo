@@ -25,3 +25,4 @@ void ObjectFactory::renderObjects()
 		a->render();
 	}
 }
+

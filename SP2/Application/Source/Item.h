@@ -15,7 +15,6 @@ public:
 
 	virtual unsigned getValue() = 0;
 	virtual int getDurability() = 0;
-
 private:
 
 	string itemName;

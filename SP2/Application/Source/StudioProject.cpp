@@ -12,8 +12,6 @@
 
 #include <iostream>
 
-
-
 StudioProject::StudioProject()
 {
 	gen = new LandGenerate;
@@ -137,7 +135,7 @@ void StudioProject::Init()
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
 	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
 
-	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6, 0, 0.7));
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6, 0.4, 0.3));
 
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
@@ -286,9 +284,20 @@ void StudioProject::Update(double dt)
 			}
 		}
 
-	//std::cout << Player->getter("position") << std::endl;
-	std::cout << Player->getter("forward") << std::endl;
+	//if (!cubeStore.empty())
+	//std::cout << cubeStore[0];
 
+	//if (!cubeStore.empty())
+	//{
+	//	for (int i = 0; i < 10; i++)
+	//	{
+	//		if (Player->getter("position") == cubeStore[i])
+	//		{
+	//			std::cout << "a";
+	//		}
+	//	}
+	//}
+	//std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
 }
 
@@ -410,30 +419,24 @@ void StudioProject::Render()
 	modelStack.PopMatrix();
 	AABB* temp = new AABB;
 
-	for (int z = 0; z < 50; z++)				  //loops the grid in grid y/z
+	for (int z = 0; z < 100; z++)				  //loops the grid in grid y/z
 	{
-		for (int x = 0; x < 50; x++)			  //loops the grid in grid x
+		for (int x = 0; x < 100; x++)			  //loops the grid in grid x
 		{
 			if (landMap[z][x] == 1)
 			{
 				modelStack.PushMatrix();
-				modelStack.Translate(x * 5, 10, z * 5);
+				modelStack.Translate(x * 5, 1, z * 5);
 				modelStack.Scale(3, 3, 3);
 				RenderMesh(meshList[GEO_CUBE], false);
 				modelStack.PopMatrix();
 
-				
-		/*		temp->pt_Max.Set(x * 5 + 10, 10, z * 5 + 10);
-				temp->pt_Min.Set(x * 5 - 10, 20, z * 5 - 10);
-
-				tester.push_back(temp);*/
-
+				cubePos.Set(x * 5, 10, z * 5);
+				cubeStore.push_back(cubePos);
 			}
 		}
 	}
-
 }
-
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
 {

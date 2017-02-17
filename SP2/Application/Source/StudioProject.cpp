@@ -143,6 +143,7 @@ void StudioProject::Init()
 	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//goat_easter_egg.OBJ");
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
+	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -417,11 +418,10 @@ void StudioProject::Render()
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
-	AABB* temp = new AABB;
 
-	for (int z = 0; z < 100; z++)				  //loops the grid in grid y/z
+	for (int z = 0; z < 50; z++)				  //loops the grid in grid y/z
 	{
-		for (int x = 0; x < 100; x++)			  //loops the grid in grid x
+		for (int x = 0; x < 50; x++)			  //loops the grid in grid x
 		{
 			if (landMap[z][x] == 1)
 			{
@@ -430,12 +430,10 @@ void StudioProject::Render()
 				modelStack.Scale(3, 3, 3);
 				RenderMesh(meshList[GEO_CUBE], false);
 				modelStack.PopMatrix();
-
-				cubePos.Set(x * 5, 10, z * 5);
-				cubeStore.push_back(cubePos);
 			}
 		}
 	}
+
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)

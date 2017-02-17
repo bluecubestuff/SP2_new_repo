@@ -14,10 +14,10 @@
 #include "playerShip.h"
 #include "enemyShip.h"
 #include "Missile.h"
-#include "LandGenerate.h"
 #include "Func_AABB.h"
-
 #include "DetectMemoryLeak.h"
+#include "LandGenerate.h"
+//#include "ObjectFactory.h"
 
 #include <string>
 #include <vector>

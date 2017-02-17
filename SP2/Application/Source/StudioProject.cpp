@@ -16,7 +16,7 @@
 
 StudioProject::StudioProject()
 {
-	//gen = new LandGenerate;
+	gen = new LandGenerate;
 }
 
 StudioProject::~StudioProject()
@@ -143,6 +143,7 @@ void StudioProject::Init()
 
 	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//goat_easter_egg.OBJ");
 
+	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -201,8 +202,8 @@ void StudioProject::Init()
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-	//gen->landInIt();
-	//landMap = gen->getter();
+	gen->landInIt();
+	landMap = gen->getter();
 }
 
 static float ROT_LIMIT = 45.f;
@@ -284,7 +285,7 @@ void StudioProject::Update(double dt)
 			}
 		}
 
-
+	//std::cout << Player->getter("position") << std::endl;
 	std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
 }
@@ -405,22 +406,29 @@ void StudioProject::Render()
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
+	AABB* temp = new AABB;
 
-	//for (int y = 0; y < 50; y++)				  //loops the grid in grid y/z
-	//{
-	//	for (int x = 0; x < 50; x++)			  //loops the grid in grid x
-	//	{
-	//		if (landMap[0][0][y][x] == 1)
-	//		{
-	//			modelStack.PushMatrix();
-	//			modelStack.Translate(x * 5, 40, y * 5);
-	//			modelStack.Scale(3, 3, 3);
-	//			RenderMesh(meshList[GEO_CUBE], false);
-	//			modelStack.PopMatrix();
-	//		}
-	//	}
-	//}
+	for (int z = 0; z < 50; z++)				  //loops the grid in grid y/z
+	{
+		for (int x = 0; x < 50; x++)			  //loops the grid in grid x
+		{
+			if (landMap[z][x] == 1)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(x * 5, 10, z * 5);
+				modelStack.Scale(3, 3, 3);
+				RenderMesh(meshList[GEO_CUBE], false);
+				modelStack.PopMatrix();
 
+				
+		/*		temp->pt_Max.Set(x * 5 + 10, 10, z * 5 + 10);
+				temp->pt_Min.Set(x * 5 - 10, 20, z * 5 - 10);
+
+				tester.push_back(temp);*/
+
+			}
+		}
+	}
 
 }
 

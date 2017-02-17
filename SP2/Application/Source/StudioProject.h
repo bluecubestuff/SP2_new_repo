@@ -140,16 +140,19 @@ private:
 
 	char mapArray[2000][2000];
 	
-
+	Func_AABB* checker;
 	PlayerShip* Player;
 	EnemyShip* Enemy;
-	//LandGenerate* gen;
+	LandGenerate* gen;
 
-	//double_double_land_array landMap;
+	double_land_array landMap;
 	vector<EnemyShip*> hostiles;
 
 	Missile* missile;
 	vector<Missile*> missiles;
+
+	vector<AABB*> tester;
+	bool checkColl;
 	//Camera2 camera;
 	//Camera3 camera;
 };

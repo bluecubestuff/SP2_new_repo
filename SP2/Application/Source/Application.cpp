@@ -1,13 +1,11 @@
 
-//#include "Application.h"
-
+#include "Application.h"
 //Include the standard C++ headers
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "SceneManager.h"
 #include "StudioProject.h"
-
 
 //static const unsigned char FPS = 60; // FPS of this game
 //static const unsigned int frameTime = 1000 / FPS; // time for each frame

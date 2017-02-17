@@ -34,3 +34,19 @@ void Func_AABB::setAABB_Static_Objects(Vector3 location , float box_size)
 
 	AABB_Storage.push_back(TAABB);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

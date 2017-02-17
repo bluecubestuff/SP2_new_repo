@@ -11,6 +11,19 @@ void LandGenerate::landInIt()
 
 	srand(time(NULL));
 
+	vector<unsigned> temp;
+
+	for (int y = 0; y < 50; y++)				//loops the grid in grid y/z
+	{
+		for (int x = 0; x < 50; x++)			//loops the grid in grid x
+		{
+			temp.push_back(rand() % 10 + 1);	//this is a vector (sets pos(x) of the smaller grid to this random value)
+		}
+
+		land_inner_grid.push_back(temp);		//this is a vector vector (sets pos(z) of the smaller grid to this random value)
+		temp.clear();							//clears prev vector data
+	} 
+
 	//vector<LandGenerate*> temp; 
 
 	//for (int outerY = 0; outerY < 10; outerY++)		//loops the big grid y/z
@@ -57,11 +70,11 @@ void LandGenerate::landUpdate()
 	//->mining of minerals (despawn minerals/change texture)
 }
 
-//double_double_land_array LandGenerate::getter()
-//{
-//	//return land_outer_grid;
-//}
-//
+double_land_array LandGenerate::getter()
+{
+	return land_inner_grid;
+}
+
 //void LandGenerate::buildingLand(double_double_land_array land)
 //{
 //

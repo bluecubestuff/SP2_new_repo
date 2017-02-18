@@ -90,6 +90,7 @@
     <ClCompile Include="Source\Camera2.cpp" />
     <ClCompile Include="Source\Camera3.cpp" />
     <ClCompile Include="Source\Cube.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\enemyShip.cpp" />
     <ClCompile Include="Source\Func_AABB.cpp" />
     <ClCompile Include="Source\GalaxyGenerate.cpp" />
@@ -104,6 +105,7 @@
     <ClCompile Include="Source\Missile.cpp" />
     <ClCompile Include="Source\Mithril.cpp" />
     <ClCompile Include="Source\MouseControl.cpp" />
+    <ClCompile Include="Source\Node.cpp" />
     <ClCompile Include="Source\NPC.cpp" />
     <ClCompile Include="Source\ObjectFactory.cpp" />
     <ClCompile Include="Source\ObjectRender.cpp" />
@@ -128,6 +130,7 @@
     <ClInclude Include="Source\Camera3.h" />
     <ClInclude Include="Source\Cube.h" />
     <ClInclude Include="Source\DetectMemoryLeak.h" />
+    <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\enemyShip.h" />
     <ClInclude Include="Source\Func_AABB.h" />
     <ClInclude Include="Source\GalaxyGenerate.h" />
@@ -143,6 +146,7 @@
     <ClInclude Include="Source\Missile.h" />
     <ClInclude Include="Source\Mithril.h" />
     <ClInclude Include="Source\MouseControl.h" />
+    <ClInclude Include="Source\Node.h" />
     <ClInclude Include="Source\NPC.h" />
     <ClInclude Include="Source\ObjectFactory.h" />
     <ClInclude Include="Source\ObjectRender.h" />

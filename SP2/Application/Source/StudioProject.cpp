@@ -9,8 +9,9 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Weapon.h"
-
+//#include "LandGenerate.h"
 #include <iostream>
+
 
 StudioProject::StudioProject()
 {
@@ -104,7 +105,6 @@ void StudioProject::Init()
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
 	Player = new PlayerShip;
-	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(100, 100, 100), 40.f);
 	hostiles.push_back(Enemy);
 	//=============================================================================
@@ -137,13 +137,18 @@ void StudioProject::Init()
 
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6, 0.4, 0.3));
 
+
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
+
+	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
 	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//goat_easter_egg.OBJ");
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -199,7 +204,7 @@ void StudioProject::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
 	Mtx44 projection;
-	projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
+	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
 	gen->landInIt();
@@ -269,7 +274,7 @@ void StudioProject::Update(double dt)
 		{
 			if (i->locked)
 			{
-				Missile* missile = new Missile(Enemy, Player, 100.f, true);	//create new missile
+				Missile* missile = new Missile(Enemy, Player, 100.f, true);
 				missiles.push_back(missile);
 				fireRate = 0;
 			}
@@ -280,10 +285,13 @@ void StudioProject::Update(double dt)
 		{
 			for (auto &j : hostiles)
 			{
-				i->checkTargets(hostiles);			//updates the missile to change target to enemy
-				i->tracking(dt, i->e->getter("position"));		//let the missiles translate and rotate to the enemy position.
+
+				i->checkTargets(hostiles);
+				i->tracking(dt, i->e->getter("position"));
 			}
 		}
+
+	std::cout << Player->getter("forward") << std::endl;
 
 	//if (!cubeStore.empty())
 	//std::cout << cubeStore[0];
@@ -418,6 +426,21 @@ void StudioProject::Render()
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
+
+		//for (int y = 0; y < 50; y++)				  //loops the grid in grid y/z
+		//{
+		//	for (int x = 0; x < 50; x++)			  //loops the grid in grid x
+		//	{
+		//		if (testMap[0][0][y][x] == 1)
+		//		{
+		//			modelStack.PushMatrix();
+		//			modelStack.Translate(x * 5, 50, y * 5);
+		//			modelStack.Scale(3, 3, 3);
+		//			RenderMesh(meshList[GEO_CUBE], false);
+		//			modelStack.PopMatrix();
+		//		}
+		//	}
+		//}
 
 	for (int z = 0; z < 50; z++)				  //loops the grid in grid y/z
 	{
@@ -641,6 +664,29 @@ void StudioProject::RenderSkybox()
 	RenderMesh(meshList[GEO_BOTTOM], true);
 	modelStack.PopMatrix();//end ground
 }
+
+//bool StudioProject::pointInAABB(const TAABB& box, const Vector3& point)//test
+//{
+//	if ((point.x > box.pt_Min.x && point.x < box.pt_Max.x)
+//		&& (point.z < box.pt_Min.z && point.z > box.pt_Max.z))
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}
+//
+//bool StudioProject::AABBtoAABB(const TAABB& box01, const TAABB& box02)
+//{
+//	if (box01.pt_Max.x > box02.pt_Min.x && box01.pt_Min.x < box02.pt_Max.x &&
+//		box01.pt_Max.y > box02.pt_Min.y && box01.pt_Min.y < box02.pt_Max.y &&
+//		box01.pt_Max.z < box02.pt_Min.z && box01.pt_Min.z > box02.pt_Max.z)
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}
 
 void StudioProject::Exit()
 {

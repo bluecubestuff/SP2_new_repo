@@ -1,47 +1,88 @@
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\vc120.pdb
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\vc120.idb
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\main.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\mesh.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\meshbuilder.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\missle.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\mithril.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\mousecontrol.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\node.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\objectfactory.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\objectrender.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\playership.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\projectile.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\randomise.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\rock.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\scenemanager.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\shader.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\ship.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\studioproject.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\tree.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\utility.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\weapon.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\ai.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\application.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\building.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\camera.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\camera2.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\camera3.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\cube.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\enemy.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\enemyship.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\func_aabb.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\galaxygenerate.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\gameobject.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\item.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\landgenerate.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\loadobj.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\loadtga.obj
-c:\users\161692w\desktop\sp2_new_repo\sp2\debug\application.ilk
-c:\users\161692w\desktop\sp2_new_repo\sp2\debug\application.exe
-c:\users\161692w\desktop\sp2_new_repo\sp2\debug\application.pdb
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\application.tlog\cl.command.1.tlog
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\application.tlog\cl.read.1.tlog
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\application.tlog\cl.write.1.tlog
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\application.tlog\link.command.1.tlog
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\application.tlog\link.read.1.tlog
-c:\users\161692w\desktop\sp2_new_repo\sp2\application\debug\application.tlog\link.write.1.tlog
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\vc120.pdb
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\vc120.idb
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\main.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\mesh.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\meshbuilder.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\missle.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\mithril.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\mousecontrol.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\node.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\objectfactory.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\objectrender.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\playership.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\projectile.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\randomise.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\rock.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\scenemanager.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\shader.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\ship.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\studioproject.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\tree.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\utility.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\weapon.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\application.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\building.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\camera.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\camera2.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\camera3.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\cube.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\enemy.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\enemyship.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\func_aabb.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\galaxygenerate.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\gameobject.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\item.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\landgenerate.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\loadobj.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\application\debug\loadtga.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\vc120.pdb
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\vc120.idb
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\main.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\mesh.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\meshbuilder.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\missle.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\mithril.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\mousecontrol.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\node.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\objectfactory.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\objectrender.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\playership.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\projectile.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\randomise.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\rock.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\scenemanager.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\shader.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\ship.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\studioproject.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\tree.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\utility.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\weapon.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\application.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\building.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\camera.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\camera2.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\camera3.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\cube.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\enemy.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\enemyship.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\func_aabb.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\galaxygenerate.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\gameobject.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\item.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\landgenerate.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\loadobj.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\loadtga.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\missile.obj
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\npc.obj
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\debug\application.ilk
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\debug\application.exe
+g:\game development stuff\sp2\sp2_new_repo\sp2_new_repo\sp2\debug\application.pdb
+c:\users\steven\desktop\sp2_new_repo\sp2\debug\application.ilk
+c:\users\steven\desktop\sp2_new_repo\sp2\debug\application.exe
+c:\users\steven\desktop\sp2_new_repo\sp2\debug\application.pdb
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\application.tlog\cl.command.1.tlog
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\application.tlog\cl.read.1.tlog
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\application.tlog\cl.write.1.tlog
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\application.tlog\link.command.1.tlog
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\application.tlog\link.read.1.tlog
+c:\users\steven\desktop\sp2_new_repo\sp2\application\debug\application.tlog\link.write.1.tlog

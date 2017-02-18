@@ -2,7 +2,6 @@
 #define ObjectFactory_H
 
 #include <vector>
-#include "LandGenerate.h"
 #include "ObjectRender.h"
 
 class StudioProject;
@@ -22,6 +21,6 @@ public:
 
 private:
 	StudioProject* myscene;
-	//LandGenerate* land;
+
 };
 #endif

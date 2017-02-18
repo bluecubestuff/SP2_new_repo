@@ -23,11 +23,19 @@
 #include <vector>
 using std::vector;
 
+//struct TAABB
+//{
+//	Vector3 pt_Max;
+//	Vector3 pt_Min;
+//};
+
 class StudioProject : public Scene
 {
 	friend class Rock;
 	friend class Tree;
 	friend class Mithril;
+	friend class NPC;
+	friend class Building;
 	friend class ObjectRender;
 
 	enum GEOMETRY_TYPE
@@ -57,9 +65,14 @@ class StudioProject : public Scene
 		GEO_MITHRIL,
 		GEO_TREE,
 		GEO_GOAT,
+		GEO_NPC,
+		GEO_BUILDING,
 
 		//Ships
 		GEO_PLAYER_SHIP,
+
+		//text
+		GEO_TEXT,
 
 		NUM_GEOMETRY,
 	};
@@ -138,24 +151,23 @@ private:
 
 	void RenderSkybox();
 
+	//bool pointInAABB(const TAABB&, const Vector3&);
+	//bool AABBtoAABB(const TAABB&, const TAABB&);
+
 	char mapArray[2000][2000];
-	
-	Func_AABB* checker;
+	//double_double_land_array testMap;
+
 	PlayerShip* Player;
 	EnemyShip* Enemy;
-	LandGenerate* gen;
 
-	double_land_array landMap;
 	vector<EnemyShip*> hostiles;
 
 	Missile* missile;
 	vector<Missile*> missiles;
 
-	vector<AABB*> tester;
-	bool checkColl;
+	double_land_array landMap;
+	LandGenerate* gen;
 
-	Vector3 cubePos;
-	vector<Vector3> cubeStore; //testing
 	//Camera2 camera;
 	//Camera3 camera;
 };

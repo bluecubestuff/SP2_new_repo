@@ -27,7 +27,7 @@ Missile::Missile(EnemyShip* e, PlayerShip* me, float s, bool fire)
 
 Missile::~Missile()
 {
-	delete this;
+	//delete this;
 }
 
 void Missile::tracking(double dt, Vector3 p)

@@ -6,7 +6,7 @@
 class Projectile abstract
 {
 public:
-	
+	Vector3 getPos();
 protected:
 	Vector3 Position;
 	Vector3 Forward;

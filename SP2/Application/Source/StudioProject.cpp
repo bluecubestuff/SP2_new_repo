@@ -285,17 +285,22 @@ void StudioProject::Update(double dt)
 		}
 	}
 	if (!missiles.empty())
-		for (auto &i : missiles)
+		for (int i = 0; i < missiles.size(); i++)
 		{
 			for (auto &j : hostiles)
 			{
-
-				i->checkTargets(hostiles);
-				i->tracking(dt, i->e->getter("position"));
+				missiles[i]->checkTargets(hostiles);			//updates the missile to change target to enemy
+				missiles[i]->tracking(dt, missiles[i]->e->getter("position"));		//let the missiles translate and rotate to the enemy position.
+				if (j->getAABB()->pointInAABB(j->getAABB()->getAABB(), missiles[i]->getPos()))
+				{
+					delete missiles[i];
+					missiles.erase(missiles.begin() + i);
+				}
 			}
 		}
 
-	std::cout << Player->getter("forward") << std::endl;
+
+	//std::cout << Player->getter("forward") << std::endl;
 
 	//if (!cubeStore.empty())
 	//std::cout << cubeStore[0];

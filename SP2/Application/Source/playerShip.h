@@ -23,15 +23,15 @@ public:
 	bool freeCam;
 	bool firstThird;
 	bool changeCam;
+	bool FlightAssist;
 
 	double camTime;
+	float Speed;
 
 	void locking(EnemyShip* target);
 	void Update(double dt);
 private:
-	float Speed;
-
-	bool FlightAssist;
+	
 protected:
 
 };

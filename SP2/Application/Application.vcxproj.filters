@@ -75,6 +75,12 @@
     <Filter Include="Header Files\AI">
       <UniqueIdentifier>{de2c2aef-5f96-41da-8922-5b0a0e2c4c5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Module">
+      <UniqueIdentifier>{eea57384-da5d-4856-b4ad-5d18e0bd978b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Module">
+      <UniqueIdentifier>{7b0440bc-12c0-457b-97a4-a786188aed3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -176,9 +182,6 @@
     <ClCompile Include="Source\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Missile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -188,17 +191,20 @@
     <ClCompile Include="Source\Node.cpp">
       <Filter>Source Files\AI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Hull.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Missile.cpp">
+      <Filter>Source Files\Objects\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="Source\PowerPlant.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Module</Filter>
     </ClCompile>
     <ClCompile Include="Source\Shield.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Module</Filter>
     </ClCompile>
     <ClCompile Include="Source\Thruster.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Hull.cpp">
+      <Filter>Source Files\Module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -328,20 +334,20 @@
     <ClInclude Include="Source\Node.h">
       <Filter>Header Files\AI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Hull.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Module.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\PowerPlant.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Module</Filter>
     </ClInclude>
     <ClInclude Include="Source\Shield.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Module</Filter>
     </ClInclude>
     <ClInclude Include="Source\Thruster.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hull.h">
+      <Filter>Header Files\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Module.h">
+      <Filter>Header Files\Module</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

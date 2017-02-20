@@ -19,7 +19,7 @@ bool Func_AABB::AABBtoAABB(const AABB& box01, const AABB& box02)
 bool Func_AABB::pointInAABB(const AABB& box, const Vector3& point)
 {
 	if ((point.x > box.pt_Min.x && point.x < box.pt_Max.x)
-	&& (point.z < box.pt_Min.z && point.z > box.pt_Max.z))
+	&& (point.z > box.pt_Min.z && point.z < box.pt_Max.z))
 	{
 		return true;
 	}

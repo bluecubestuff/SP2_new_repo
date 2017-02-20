@@ -264,9 +264,7 @@ Mesh* MeshBuilder::GenerateRing(const std::string &meshName, Color color, unsign
 
 	return mesh;
 }
-
 //---------------------------------------------------------------------------------------------------------------------------
-
 Mesh* MeshBuilder::GenerateHemiSphere(const std::string &meshName, Color color, unsigned numSlices, float radius)
 {
 
@@ -330,9 +328,7 @@ Mesh* MeshBuilder::GenerateHemiSphere(const std::string &meshName, Color color, 
 
 	return mesh;
 }
-
 //-----------------------------------------------------------------------------------------------------------------------
-
 Mesh* MeshBuilder::GenerateSphere(const std::string &meshName, Color color, unsigned numSlices, unsigned numStacks, float radius)
 {
 
@@ -381,8 +377,7 @@ Mesh* MeshBuilder::GenerateSphere(const std::string &meshName, Color color, unsi
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateCylinder(const std::string &meshName, Color color, unsigned numSlices,
-	float radius, float height) //optimise for later
+Mesh* MeshBuilder::GenerateCylinder(const std::string &meshName, Color color, unsigned numSlices,float radius, float height) //optimise for later
 {
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
@@ -468,8 +463,7 @@ Mesh* MeshBuilder::GenerateCylinder(const std::string &meshName, Color color, un
 	
 }
 
-Mesh* MeshBuilder::GenerateOBJ(const std::string &meshName, const std::string
-	&file_path) {
+Mesh* MeshBuilder::GenerateOBJ(const std::string &meshName, const std::string &file_path) {
 	//Read vertices, texcoords & normals from OBJ
 	std::vector<Position> vertices;
 	std::vector<TexCoord> uvs;

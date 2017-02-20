@@ -19,15 +19,25 @@
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
 
+
+
 #include <string>
 #include <vector>
 using std::vector;
+
+//struct TAABB
+//{
+//	Vector3 pt_Max;
+//	Vector3 pt_Min;
+//};
 
 class StudioProject : public Scene
 {
 	friend class Rock;
 	friend class Tree;
 	friend class Mithril;
+	friend class NPC;
+	friend class Building;
 	friend class ObjectRender;
 
 	enum GEOMETRY_TYPE
@@ -57,9 +67,14 @@ class StudioProject : public Scene
 		GEO_MITHRIL,
 		GEO_TREE,
 		GEO_GOAT,
+		GEO_NPC,
+		GEO_BUILDING,
 
 		//Ships
 		GEO_PLAYER_SHIP,
+
+		//text
+		GEO_TEXT,
 
 		NUM_GEOMETRY,
 	};
@@ -138,14 +153,14 @@ private:
 
 	void RenderSkybox();
 
+
 	char mapArray[2000];
 	
 	Func_AABB* checker;
+
 	PlayerShip* Player;
 	EnemyShip* Enemy;
-	LandGenerate* gen;
 
-	double_land_array landMap;
 	vector<EnemyShip*> hostiles;
 
 	Missile* missile;
@@ -153,6 +168,7 @@ private:
 
 	StudioProject* myscene;
 	ObjectFactory* test;
+
 	//Camera2 camera;
 	//Camera3 camera;
 };

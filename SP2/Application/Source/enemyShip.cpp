@@ -40,7 +40,9 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 		this->Right = rotate * this->Right;
 		this->Up = rotate * this->Up;
 	}
+
 	this->Position += this->Forward * dt * this->speed;		//enemy will always move 8 units/s
 	hitbox->updateAABB(size, size, size, this->Position);
+
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
 }

@@ -34,7 +34,6 @@ PlayerShip::PlayerShip()
 
 	hitbox = new Func_AABB;
 	hitbox->updateAABB(size, size, size, this->Position);
-
 	this->Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 }
 

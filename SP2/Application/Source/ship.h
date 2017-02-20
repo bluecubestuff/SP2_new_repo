@@ -10,6 +10,7 @@
 #include "func_AABB.h"
 #include "Hull.h"
 #include "Thruster.h"
+
 #include "DetectMemoryLeak.h"
 
 using std::vector;
@@ -47,7 +48,6 @@ protected:
 	float turnSpeed;
 
 	Func_AABB* hitbox;
-
 	Mtx44 Stamp;
 };
 

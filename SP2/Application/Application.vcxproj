@@ -84,7 +84,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\AI.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Building.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -96,6 +95,7 @@
     <ClCompile Include="Source\Func_AABB.cpp" />
     <ClCompile Include="Source\GalaxyGenerate.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\Hull.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\LandGenerate.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
@@ -110,13 +110,16 @@
     <ClCompile Include="Source\ObjectFactory.cpp" />
     <ClCompile Include="Source\ObjectRender.cpp" />
     <ClCompile Include="Source\playerShip.cpp" />
+    <ClCompile Include="Source\PowerPlant.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
     <ClCompile Include="Source\Randomise.cpp" />
     <ClCompile Include="Source\Rock.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\Shield.cpp" />
     <ClCompile Include="Source\ship.cpp" />
     <ClCompile Include="Source\StudioProject.cpp" />
+    <ClCompile Include="Source\Thruster.cpp" />
     <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />
@@ -135,6 +138,7 @@
     <ClInclude Include="Source\Func_AABB.h" />
     <ClInclude Include="Source\GalaxyGenerate.h" />
     <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\Hull.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\LandGenerate.h" />
     <ClInclude Include="Source\Light.h" />
@@ -145,20 +149,24 @@
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\Missile.h" />
     <ClInclude Include="Source\Mithril.h" />
+    <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\MouseControl.h" />
     <ClInclude Include="Source\Node.h" />
     <ClInclude Include="Source\ObjectFactory.h" />
     <ClInclude Include="Source\ObjectRender.h" />
     <ClInclude Include="Source\playerShip.h" />
+    <ClInclude Include="Source\PowerPlant.h" />
     <ClInclude Include="Source\Projectile.h" />
     <ClInclude Include="Source\Randomise.h" />
     <ClInclude Include="Source\Rock.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\shader.hpp" />
+    <ClInclude Include="Source\Shield.h" />
     <ClInclude Include="Source\ship.h" />
     <ClInclude Include="Source\SolarGenerate.h" />
     <ClInclude Include="Source\StudioProject.h" />
+    <ClInclude Include="Source\Thruster.h" />
     <ClInclude Include="Source\Tree.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />

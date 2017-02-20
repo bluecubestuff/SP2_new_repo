@@ -8,6 +8,8 @@
 #include "Mtx44.h"
 #include "Camera2.h"
 #include "func_AABB.h"
+#include "Hull.h"
+#include "Thruster.h"
 #include "DetectMemoryLeak.h"
 
 using std::vector;
@@ -16,13 +18,13 @@ class Ship abstract
 {
 public:
 	Ship();
-	Ship(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float size, float hullPoints, float maxShield, float mass, float thrust, float turnSpeed);
+	Ship(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float s);
 	~Ship();
 
 	bool locked;
 
 	Vector3 getter(std::string);
-	AABB getAABB();
+	Func_AABB* getAABB();
 	Mtx44 getStamp();
 private:
 
@@ -35,9 +37,13 @@ protected:
 
 	float size;
 	float hullPoints;
-	float maxShield;
 	float mass;
+	Hull* hull;
+	float maxShield;
 	float thrust;
+	Thruster* thruster;
+	float power;
+
 	float turnSpeed;
 
 	Func_AABB* hitbox;

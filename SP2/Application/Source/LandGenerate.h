@@ -22,8 +22,8 @@ public:
 	int outer_grid[10][10];
 
 private:
-
 	unsigned landID;
+
 };
 
 #endif

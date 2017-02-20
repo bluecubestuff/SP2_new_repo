@@ -11,7 +11,7 @@ class PlayerShip : public Ship
 {
 public:
 	PlayerShip();
-	PlayerShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float size, float hullPoints, float maxShield, float mass, float thrust);
+	PlayerShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float s);
 	~PlayerShip();
 
 	Camera2* Camera;

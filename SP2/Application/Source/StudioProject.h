@@ -14,10 +14,10 @@
 #include "playerShip.h"
 #include "enemyShip.h"
 #include "Missile.h"
-#include "LandGenerate.h"
 #include "Func_AABB.h"
-
 #include "DetectMemoryLeak.h"
+#include "LandGenerate.h"
+#include "ObjectFactory.h"
 
 #include <string>
 #include <vector>
@@ -138,7 +138,7 @@ private:
 
 	void RenderSkybox();
 
-	char mapArray[2000][2000];
+	char mapArray[2000];
 	
 	Func_AABB* checker;
 	PlayerShip* Player;
@@ -151,11 +151,8 @@ private:
 	Missile* missile;
 	vector<Missile*> missiles;
 
-	vector<AABB*> tester;
-	bool checkColl;
-
-	Vector3 cubePos;
-	vector<Vector3> cubeStore; //testing
+	StudioProject* myscene;
+	ObjectFactory* test;
 	//Camera2 camera;
 	//Camera3 camera;
 };

@@ -10,11 +10,14 @@
 #include "LoadTGA.h"
 #include "Weapon.h"
 
+#include "Tree.h"
+
 #include <iostream>
 
 StudioProject::StudioProject()
 {
-	gen = new LandGenerate;
+	test = new ObjectFactory(myscene);
+	//gen = new LandGenerate;
 }
 
 StudioProject::~StudioProject()
@@ -105,7 +108,7 @@ void StudioProject::Init()
 	//=============================================================================
 	Player = new PlayerShip;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
-	Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(100, 100, 100), 40.f);
+	Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(100, 100, 100), 40.f,1.f,8.f);
 	hostiles.push_back(Enemy);
 	//=============================================================================
 
@@ -143,6 +146,7 @@ void StudioProject::Init()
 	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//goat_easter_egg.OBJ");
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
+	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -201,8 +205,8 @@ void StudioProject::Init()
 	projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-	gen->landInIt();
-	landMap = gen->getter();
+	//gen->landInIt();
+	//landMap = gen->getter();
 }
 
 static float ROT_LIMIT = 45.f;
@@ -417,25 +421,28 @@ void StudioProject::Render()
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
-	AABB* temp = new AABB;
 
-	for (int z = 0; z < 100; z++)				  //loops the grid in grid y/z
-	{
-		for (int x = 0; x < 100; x++)			  //loops the grid in grid x
-		{
-			if (landMap[z][x] == 1)
-			{
-				modelStack.PushMatrix();
-				modelStack.Translate(x * 5, 1, z * 5);
-				modelStack.Scale(3, 3, 3);
-				RenderMesh(meshList[GEO_CUBE], false);
-				modelStack.PopMatrix();
+	//for (int z = 0; z < 50; z++)				  //loops the grid in grid y/z
+	//{
+	//	for (int x = 0; x < 50; x++)			  //loops the grid in grid x
+	//	{
+	//		if (landMap[z][x] == 1)
+	//		{
+	//			modelStack.PushMatrix();
+	//			modelStack.Translate(x * 5, 1, z * 5);
+	//			modelStack.Scale(3, 3, 3);
+	//			RenderMesh(meshList[GEO_CUBE], false);
+	//			modelStack.PopMatrix();
+	//		}
+	//	}
+	//}
 
-				cubePos.Set(x * 5, 10, z * 5);
-				cubeStore.push_back(cubePos);
-			}
-		}
-	}
+	//Vector3 temp;
+	//temp.Set(10, 50, 10);
+
+	//Tree* tree = new Tree(myscene,temp,3);
+	//test->createObject(tree);
+	//test->renderObjects();
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)

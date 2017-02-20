@@ -22,6 +22,6 @@ public:
 
 private:
 	StudioProject* myscene;
-	LandGenerate* land;
+	//LandGenerate* land;
 };
 #endif

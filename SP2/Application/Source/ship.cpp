@@ -8,23 +8,18 @@ Ship::Ship()
 	Position = Vector3(0, 0, 0);
 	Inertia = Vector3(0, 0, 0);
 
-	hitbox = new Func_AABB;
-	hitbox->updateAABB(1, 1, 1, Position);
-
 	locked = false;
 
 	Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 }
 
-Ship::Ship(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float size, float hullPoints, float maxShield, float mass, float thrust, float turnSpeed)
+Ship::Ship(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float s)
 {
 	Forward = f;
 	Up = u;
 	Right = r;
 	Position = p;
 	Inertia = i;
-
-	hitbox->updateAABB(1, 1, 1, Position);
 
 	locked = false;
 
@@ -69,7 +64,7 @@ Mtx44 Ship::getStamp()
 	return this->Stamp;
 }
 
-AABB Ship::getAABB()
+Func_AABB* Ship::getAABB()
 {
-	return hitbox->getAABB();
+	return hitbox;
 }

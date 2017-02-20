@@ -2,6 +2,7 @@
 #define _OBJECT_RENDER_H
 
 #include "Vector3.h"
+#include "Application.h"
 
 class StudioProject;
 

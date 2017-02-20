@@ -4,14 +4,13 @@
 #include "GalaxyGenerate.h"
 #include "Vector3.h"
 #include "Randomise.h"
+#include "ObjectRender.h"
 
 typedef vector<vector<unsigned>> double_land_array;
-typedef vector<vector<double_land_array>> double_double_land_array;
 
 class LandGenerate
 {
 public:
-
 	LandGenerate();
 	~LandGenerate();
 
@@ -19,16 +18,17 @@ public:
 	void saveLandInIt(unsigned);	//reloadInit
 	void landUpdate();
 	void buildingLand(double_land_array);
-	double_land_array getter();
+	double_land_array double_land_getter();
+	vector<ObjectRender*> obj_storage_getter();
+
+	int outer_grid[5][5];
 
 private:
-          
 	double_land_array land_inner_grid;
-	int outer_grid[10][10];
-
+	vector<ObjectRender*> obj_storage;
+	Vector3 obj_pos;
 private:
-	unsigned landID;
-
+	StudioProject* myscene;
 };
 
 #endif

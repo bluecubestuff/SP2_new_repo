@@ -9,16 +9,18 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Weapon.h"
+
 #include "Tree.h"
+#include "Rock.h"
 
 //#include "LandGenerate.h"
 #include <iostream>
 
 
-StudioProject::StudioProject()
+StudioProject::StudioProject() :objfactory(this)
 {
-	test = new ObjectFactory(myscene);
 	//gen = new LandGenerate;
+
 }
 
 StudioProject::~StudioProject()
@@ -431,27 +433,8 @@ void StudioProject::Render()
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
 
-	//for (int z = 0; z < 50; z++)				  //loops the grid in grid y/z
-	//{
-	//	for (int x = 0; x < 50; x++)			  //loops the grid in grid x
-	//	{
-	//		if (landMap[z][x] == 1)
-	//		{
-	//			modelStack.PushMatrix();
-	//			modelStack.Translate(x * 5, 1, z * 5);
-	//			modelStack.Scale(3, 3, 3);
-	//			RenderMesh(meshList[GEO_CUBE], false);
-	//			modelStack.PopMatrix();
-	//		}
-	//	}
-	//}
-
-	//Vector3 temp;
-	//temp.Set(10, 50, 10);
-
-	//Tree* tree = new Tree(myscene,temp,3);
-	//test->createObject(tree);
-	//test->renderObjects();
+	objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
+	objfactory.renderObjects();
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)

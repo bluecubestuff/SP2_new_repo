@@ -19,8 +19,7 @@
 
 StudioProject::StudioProject() :objfactory(this)
 {
-	//gen = new LandGenerate;
-
+	gen = new LandGenerate(this);
 }
 
 StudioProject::~StudioProject()
@@ -101,7 +100,6 @@ void StudioProject::Init()
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
 
 	//variable to rotate geometry
-
 
 	//Initialize camera settings
 	//camera.Init(Vector3(1000, 950, 1010), Vector3(1000, 950, 1000), Vector3(0, 1, 0));
@@ -213,7 +211,23 @@ void StudioProject::Init()
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-	//gen->landInIt();
+	//Vector3 tempPos;
+	//tempPos.Set(0, 0, 0);
+	//int counter = 0;
+	//srand(time(NULL));
+	//for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
+	//{
+	//	for (int x = 0; x < 5; x++)				//loops the grid in grid x
+	//	{
+	//		tempPos.x = Math::RandIntMinMax(x * 500, (x + 1) * 500);
+	//		tempPos.z = Math::RandIntMinMax(z * 500, (z + 1) * 500);
+	//		objfactory.createObject(new Rock(this, Vector3(tempPos.x, 0, tempPos.z), 3));
+	//		counter++;
+	//	}
+	//}
+	//std::cout << tempPos;
+
+	gen->landInIt();
 	//landMap = gen->getter();
 }
 
@@ -301,22 +315,6 @@ void StudioProject::Update(double dt)
 			}
 		}
 
-
-	//std::cout << Player->getter("forward") << std::endl;
-
-	//if (!cubeStore.empty())
-	//std::cout << cubeStore[0];
-
-	//if (!cubeStore.empty())
-	//{
-	//	for (int i = 0; i < 10; i++)
-	//	{
-	//		if (Player->getter("position") == cubeStore[i])
-	//		{
-	//			std::cout << "a";
-	//		}
-	//	}
-	//}
 	//std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
 }
@@ -437,9 +435,8 @@ void StudioProject::Render()
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
-
-	objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
-	objfactory.renderObjects();
+	
+	gen->BuildLand();
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
@@ -647,29 +644,6 @@ void StudioProject::RenderSkybox()
 	RenderMesh(meshList[GEO_BOTTOM], true);
 	modelStack.PopMatrix();//end ground
 }
-
-//bool StudioProject::pointInAABB(const TAABB& box, const Vector3& point)//test
-//{
-//	if ((point.x > box.pt_Min.x && point.x < box.pt_Max.x)
-//		&& (point.z < box.pt_Min.z && point.z > box.pt_Max.z))
-//	{
-//		return true;
-//	}
-//
-//	return false;
-//}
-//
-//bool StudioProject::AABBtoAABB(const TAABB& box01, const TAABB& box02)
-//{
-//	if (box01.pt_Max.x > box02.pt_Min.x && box01.pt_Min.x < box02.pt_Max.x &&
-//		box01.pt_Max.y > box02.pt_Min.y && box01.pt_Min.y < box02.pt_Max.y &&
-//		box01.pt_Max.z < box02.pt_Min.z && box01.pt_Min.z > box02.pt_Max.z)
-//	{
-//		return true;
-//	}
-//
-//	return false;
-//}
 
 void StudioProject::Exit()
 {

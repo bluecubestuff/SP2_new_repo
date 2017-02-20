@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿Build started 2/20/2017 10:29:11 AM.
+﻿Build started 2/20/2017 1:31:58 PM.
      1>Project "C:\Users\161692W\Desktop\SP2_new_repo\SP2\Common\Common.vcxproj" on node 2 (Build target(s)).
      1>Lib:
          Common.vcxproj -> C:\Users\161692W\Desktop\SP2_new_repo\SP2\Debug\Common.lib
@@ -7,15 +6,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.03
-=======
-﻿Build started 2/20/2017 10:33:14 AM.
-     1>Project "C:\Users\161996y\Desktop\SP2\SP2_new_repo\SP2\Common\Common.vcxproj" on node 2 (Build target(s)).
-     1>Lib:
-         Common.vcxproj -> C:\Users\161996y\Desktop\SP2\SP2_new_repo\SP2\Debug\Common.lib
-     1>Done Building Project "C:\Users\161996y\Desktop\SP2\SP2_new_repo\SP2\Common\Common.vcxproj" (Build target(s)).
-
-Build succeeded.
-
 Time Elapsed 00:00:00.04
->>>>>>> origin/master

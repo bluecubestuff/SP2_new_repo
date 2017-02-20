@@ -61,8 +61,8 @@ class StudioProject : public Scene
 		GEO_BACK,
 
 		//objects
-		GEO_ROCK,
-		GEO_MITHRIL,
+		GEO_ROCK,    
+		GEO_MITHRIL,	
 		GEO_TREE,
 		GEO_GOAT,
 		GEO_NPC,
@@ -165,6 +165,7 @@ private:
 	vector<Missile*> missiles;
 
 	ObjectFactory objfactory;
+	LandGenerate* gen;
 
 	//Camera2 camera;
 	//Camera3 camera;

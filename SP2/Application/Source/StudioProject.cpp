@@ -110,8 +110,17 @@ void StudioProject::Init()
 	Player = new PlayerShip;
 
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
-	Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(100, 100, 100), 40.f,1.f,8.f);
-	hostiles.push_back(Enemy);
+	for (int i = 1; i < 5; i++)
+	{
+		for (int j = 1; j < 5; j++)
+		{
+			for (int k = 1; k < 5; k++)
+			{
+				Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, j * 10, k * 10), 40.f, 1.f, 10.f);
+				hostiles.push_back(Enemy);
+			}
+		}
+	}
 	//=============================================================================
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
@@ -148,7 +157,7 @@ void StudioProject::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
-	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//goat_easter_egg.OBJ");
+	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//Missle.OBJ");
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
@@ -208,7 +217,7 @@ void StudioProject::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 5000.f);
+	projection.SetToPerspective(70.f, 4.f / 3.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
 	//gen->landInIt();
@@ -268,34 +277,47 @@ void StudioProject::Update(double dt)
 	//================================================================================
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
-	Player->locking(Enemy);		//place holder
-	Enemy->Update(dt, Player->getter("position"), Player->getter("forward"));
+	Player->locking(hostiles[5]);
+
+	for (auto &i : hostiles)
+	{
+		i->Update(dt, Player->getter("position"), Player->getter("forward"));
+	}
 	static float fireRate = 0;
 	fireRate += (float)dt;
-	if (Application::IsKeyPressed(VK_LBUTTON) && fireRate > 1)
+	if (Application::IsKeyPressed(VK_LBUTTON) && fireRate > 1.f)
 	{
 		for (auto &i : hostiles)
 		{
 			if (i->locked)
 			{
-				Missile* missile = new Missile(Enemy, Player, 100.f, true);
+				Missile* missile = new Missile(Enemy, Player, 20.f, true);
 				missiles.push_back(missile);
 				fireRate = 0;
 			}
 		}
 	}
-	if (!missiles.empty())
+	if (missiles.size() != 0)
 		for (int i = 0; i < missiles.size(); i++)
 		{
 			for (auto &j : hostiles)
 			{
-				missiles[i]->checkTargets(hostiles);			//updates the missile to change target to enemy
-				missiles[i]->tracking(dt, missiles[i]->e->getter("position"));		//let the missiles translate and rotate to the enemy position.
-				if (j->getAABB()->pointInAABB(j->getAABB()->getAABB(), missiles[i]->getPos()))
+				if (missiles.size() != 0 && i < missiles.size())
 				{
-					delete missiles[i];
-					missiles.erase(missiles.begin() + i);
+					if (j->locked)
+					{
+						missiles[i]->checkTargets(hostiles);			//updates the missile to change target to enemy
+						missiles[i]->tracking(dt, missiles[i]->e->getter("position"));		//let the missiles translate and rotate to the enemy position.
+					}
+					if (j->getAABB()->pointInAABB(j->getAABB()->getAABB(), missiles[i]->getPos()))
+					{
+						Missile* temp = missiles[i];
+						missiles.erase(missiles.begin() + i);
+						delete temp;
+					}
 				}
+				else
+					break;
 			}
 		}
 
@@ -403,10 +425,13 @@ void StudioProject::Render()
 	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.LoadMatrix(Enemy->getStamp());
-	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
-	modelStack.PopMatrix();
+	for (auto &i : hostiles)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->getStamp());
+		RenderMesh(meshList[GEO_PLAYER_SHIP], true);
+		modelStack.PopMatrix();
+	}
 
 	for (auto &i : missiles)
 	{
@@ -436,27 +461,6 @@ void StudioProject::Render()
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
 
-	//for (int z = 0; z < 50; z++)				  //loops the grid in grid y/z
-	//{
-	//	for (int x = 0; x < 50; x++)			  //loops the grid in grid x
-	//	{
-	//		if (landMap[z][x] == 1)
-	//		{
-	//			modelStack.PushMatrix();
-	//			modelStack.Translate(x * 5, 1, z * 5);
-	//			modelStack.Scale(3, 3, 3);
-	//			RenderMesh(meshList[GEO_CUBE], false);
-	//			modelStack.PopMatrix();
-	//		}
-	//	}
-	//}
-
-	//Vector3 temp;
-	//temp.Set(10, 50, 10);
-
-	//Tree* tree = new Tree(myscene,temp,3);
-	//test->createObject(tree);
-	//test->renderObjects();
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
@@ -690,6 +694,10 @@ void StudioProject::RenderSkybox()
 
 void StudioProject::Exit()
 {
+	for (auto &i : hostiles)
+	{
+		delete i;
+	}
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

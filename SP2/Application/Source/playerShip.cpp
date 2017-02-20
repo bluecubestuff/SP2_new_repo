@@ -231,10 +231,20 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	//mouse control for the ship
 	if (!freeCam && FlightAssist)
 	{
+		float yawSpeed, pitchSpeed;
 		cursorPos = mouse.flightMouse();
+		if (Speed > 1 || Speed < -1)
+		{
+			yawSpeed = cursorPos.x * -(float)dt * turnSpeed / sqrt(abs(Speed));	//if the ship moves faster, the speed of turning decreases
+			pitchSpeed = cursorPos.y * (float)dt * turnSpeed / sqrt(abs(Speed));
+		}
+		else
+		{
+			yawSpeed = cursorPos.x * -(float)dt * turnSpeed;
+			pitchSpeed = cursorPos.y * (float)dt * turnSpeed;
+		}
 		if (cursorPos.x)
 		{
-			float yawSpeed = cursorPos.x * -(float)dt * 0.5f;
 			Mtx44 yaw;
 			yaw.SetToRotation(yawSpeed, this->Up.x, this->Up.y, this->Up.z);
 			this->Forward = yaw * this->Forward;
@@ -243,7 +253,6 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 		}
 		if (cursorPos.y)
 		{
-			float pitchSpeed = cursorPos.y * (float)dt * 0.5f;
 			Mtx44 pitch;
 			pitch.SetToRotation(pitchSpeed, this->Right.x, this->Right.y, this->Right.z);
 			//pitch.SetToRotation(pitchSpeed, 1, 0, 0);
@@ -255,8 +264,8 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	else if (!freeCam && !FlightAssist)
 	{
 		cursorPos = mouse.flightMouse();
-		float yawSpeed = cursorPos.x * -(float)dt * 0.5f;
-		float pitchSpeed = cursorPos.y * (float)dt * 0.5f;
+		float yawSpeed = cursorPos.x * -(float)dt * turnSpeed;
+		float pitchSpeed = cursorPos.y * (float)dt * turnSpeed;
 		if (cursorPos.x)
 		{			
 			Mtx44 yaw;

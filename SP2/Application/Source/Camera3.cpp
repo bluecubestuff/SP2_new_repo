@@ -33,7 +33,7 @@ void Camera3::Update(double dt, bool notFixed, Vector3 f, Vector3 r, Vector3 u, 
 	static const float CAMERA_SPEED = 40.f;
 	if (!notFixed)
 	{
-		this->position = p - f * 10 + u * 5;
+		this->position = p - f * 10 + u * 3;
 		this->target = p;
 		this->up = u;
 	}

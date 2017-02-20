@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "Application.h"
 #include "Mtx44.h"
+#include "MouseControl.h"
 
 Camera::Camera()
 {
@@ -28,19 +29,19 @@ void Camera::Reset()
 void Camera::Update(double dt)
 {
 	static const float CAMERA_SPEED = 20.f;
-	if(Application::IsKeyPressed(VK_LEFT) || Application::IsKeyPressed('A'))
+	if(Application::IsKeyPressed('A'))
 	{
 		position.x -= (float)(CAMERA_SPEED * 0.2 * dt);
 	}
-	if(Application::IsKeyPressed(VK_RIGHT) || Application::IsKeyPressed('D'))
+	else if(Application::IsKeyPressed('D'))
 	{
 		position.x += (float)(CAMERA_SPEED * 0.2 * dt);
 	}
-	if(Application::IsKeyPressed(VK_UP) || Application::IsKeyPressed('W'))
+	if(Application::IsKeyPressed('W'))
 	{
 		position.y += (float)(CAMERA_SPEED * 0.2 * dt);
 	}
-	if(Application::IsKeyPressed(VK_DOWN) || Application::IsKeyPressed('S'))
+	else if(Application::IsKeyPressed('S'))
 	{
 		position.y -= (float)(CAMERA_SPEED * 0.2 * dt);
 	}

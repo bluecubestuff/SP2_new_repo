@@ -44,7 +44,7 @@ void Missile::tracking(double dt, Vector3 p)
 		this->Right = rotate * this->Right;
 		this->Up = rotate * this->Up;
 	}
-	this->Position += this->Forward * 100.f * (float)dt;
+	this->Position += this->Forward * 50.f * (float)dt;
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
 }
 

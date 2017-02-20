@@ -19,8 +19,6 @@
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
 
-
-
 #include <string>
 #include <vector>
 using std::vector;
@@ -154,7 +152,7 @@ private:
 	void RenderSkybox();
 
 
-	char mapArray[2000];
+	char mapArray[100][100];
 	
 	Func_AABB* checker;
 
@@ -166,8 +164,7 @@ private:
 	Missile* missile;
 	vector<Missile*> missiles;
 
-	StudioProject* myscene;
-	ObjectFactory* test;
+	ObjectFactory objfactory;
 
 	//Camera2 camera;
 	//Camera3 camera;

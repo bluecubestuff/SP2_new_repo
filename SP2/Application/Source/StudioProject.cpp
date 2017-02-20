@@ -9,16 +9,18 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Weapon.h"
+
 #include "Tree.h"
+#include "Rock.h"
 
 //#include "LandGenerate.h"
 #include <iostream>
 
 
-StudioProject::StudioProject()
+StudioProject::StudioProject() :objfactory(this)
 {
-	test = new ObjectFactory(myscene);
 	//gen = new LandGenerate;
+
 }
 
 StudioProject::~StudioProject()
@@ -461,6 +463,8 @@ void StudioProject::Render()
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
 
+	objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
+	objfactory.renderObjects();
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)

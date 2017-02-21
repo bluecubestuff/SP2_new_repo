@@ -154,19 +154,12 @@ private:
 
 	Func_AABB* checker;
 
-	PlayerShip* Player;
-	EnemyShip* Enemy;
-
-	vector<EnemyShip*> hostiles;
-
-	Missile* missile;
-	vector<Missile*> missiles;
-
 	//ObjectFactory objfactory;
 	//LandGenerate* gen;
 
 	//Camera2 camera;
 	//Camera3 camera;
+	Camera camera;
 };
 
 #endif

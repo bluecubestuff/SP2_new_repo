@@ -89,7 +89,6 @@
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Camera2.cpp" />
     <ClCompile Include="Source\Camera3.cpp" />
-    <ClCompile Include="Source\Cube.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\enemyShip.cpp" />
     <ClCompile Include="Source\Func_AABB.cpp" />
@@ -110,6 +109,7 @@
     <ClCompile Include="Source\NPC.cpp" />
     <ClCompile Include="Source\ObjectFactory.cpp" />
     <ClCompile Include="Source\ObjectRender.cpp" />
+    <ClCompile Include="Source\PlanetScene.cpp" />
     <ClCompile Include="Source\playerShip.cpp" />
     <ClCompile Include="Source\PowerPlant.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
@@ -156,6 +156,7 @@
     <ClInclude Include="Source\NPC.h" />
     <ClInclude Include="Source\ObjectFactory.h" />
     <ClInclude Include="Source\ObjectRender.h" />
+    <ClInclude Include="Source\PlanetScene.h" />
     <ClInclude Include="Source\playerShip.h" />
     <ClInclude Include="Source\PowerPlant.h" />
     <ClInclude Include="Source\Projectile.h" />

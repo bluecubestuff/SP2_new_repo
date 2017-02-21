@@ -30,16 +30,16 @@ void Camera::Reset()
 
 void Camera::Update(double dt)
 {
-	static float CAMERA_SPEED = 5.f;
+	static float CAMERA_SPEED = 20.f;
 	Vector3 view = target - position;
 	Vector3 right = view.Cross(this->up);
 	view.Normalize();
 	right.Normalize();
-	if(Application::IsKeyPressed('A'))
+	if(Application::IsKeyPressed('E'))
 	{
 		position += right * CAMERA_SPEED * dt;
 	}
-	else if(Application::IsKeyPressed('D'))
+	else if(Application::IsKeyPressed('Q'))
 	{
 		position -= right * CAMERA_SPEED * dt;
 	}
@@ -51,39 +51,59 @@ void Camera::Update(double dt)
 	{
 		position -= view * CAMERA_SPEED * dt;
 	}
+	if (Application::IsKeyPressed('A'))
+	{
+		Mtx44 rotation;
+		rotation.SetToRotation(-100.f * dt, forward.x, forward.y, forward.z);
+		up = rotation * up;
+	}
+	else if (Application::IsKeyPressed('D'))
+	{
+		Mtx44 rotation;
+		rotation.SetToRotation(100.f * dt, forward.x, forward.y, forward.z);
+		up = rotation * up;
+	}
+	if (Application::IsKeyPressed('R'))
+	{
+		position += up * CAMERA_SPEED * dt;
+	}
+	else if (Application::IsKeyPressed('F'))
+	{
+		position -= up * CAMERA_SPEED * dt;
+	}
 	if (Application::IsKeyPressed(VK_SPACE))
 	{
-		CAMERA_SPEED = 20.f;
+		CAMERA_SPEED = 100.f;
 	}
 	else
 	{
-		CAMERA_SPEED = 5.f;
+		CAMERA_SPEED = 20.f;
 	}
 	//==================================================================
 	if (Application::IsKeyPressed(VK_UP))
 	{
 		Mtx44 rotation;
-		rotation.SetToRotation(30.f * dt, right.x, right.y, right.z);
+		rotation.SetToRotation(100.f * dt, right.x, 0, right.z);
 		forward = rotation * forward;
 		up = rotation * up;
 	}
 	else if (Application::IsKeyPressed(VK_DOWN))
 	{
 		Mtx44 rotation;
-		rotation.SetToRotation(-30.f * dt, right.x, right.y, right.z);
+		rotation.SetToRotation(-100.f * dt, right.x, 0, right.z);
 		forward = rotation * forward;
 		up = rotation * up;
 	}
 	if (Application::IsKeyPressed(VK_LEFT))
 	{
 		Mtx44 rotation;
-		rotation.SetToRotation(30.f * dt, up.x, up.y, up.z);
+		rotation.SetToRotation(100.f * dt, up.x, up.y, up.z);
 		forward = rotation * forward;
 	}
 	else if (Application::IsKeyPressed(VK_RIGHT))
 	{
 		Mtx44 rotation;
-		rotation.SetToRotation(-30.f * dt, up.x, up.y, up.z);
+		rotation.SetToRotation(-100.f * dt, up.x, up.y, up.z);
 		forward = rotation * forward;
 	}
 	//==================================================================

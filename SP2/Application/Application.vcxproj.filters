@@ -179,9 +179,6 @@
     <ClCompile Include="Source\Node.cpp">
       <Filter>Source Files\AI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -205,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="Source\Hull.cpp">
       <Filter>Source Files\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlanetScene.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +348,9 @@
     </ClInclude>
     <ClInclude Include="Source\Module.h">
       <Filter>Header Files\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlanetScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

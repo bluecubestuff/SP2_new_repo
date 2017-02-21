@@ -103,20 +103,7 @@ void PlanetScene::Init()
 	//meshes------------------------------------------------------------------------------------------
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
-	Player = new PlayerShip;
 
-	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
-	for (int i = 1; i < 5; i++)
-	{
-		for (int j = 1; j < 5; j++)
-		{
-			for (int k = 1; k < 5; k++)
-			{
-				Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, j * 10, k * 10), 40.f, 1.f, 10.f);
-				hostiles.push_back(Enemy);
-			}
-		}
-	}
 	//=============================================================================
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
@@ -234,6 +221,8 @@ void PlanetScene::Init()
 
 	//gen->landInIt();
 	//landMap = gen->getter();
+
+	camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
 }
 
 static float ROT_LIMIT = 45.f;
@@ -242,7 +231,7 @@ static float SCALE_LIMIT = 5.f;
 void PlanetScene::Update(double dt)
 {
 	float LSPEED = 10.f;
-	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
+	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
 
 	if (Application::IsKeyPressed('1')) //enable back face culling
 		glEnable(GL_CULL_FACE);
@@ -288,53 +277,10 @@ void PlanetScene::Update(double dt)
 	}
 	//================================================================================
 	//--------------------------------------------------------------------------------
-	Player->Update(dt);
-	Player->locking(hostiles[5]);
-
-	for (auto &i : hostiles)
-	{
-		i->Update(dt, Player->getter("position"), Player->getter("forward"));
-	}
-	static float fireRate = 0;
-	fireRate += (float)dt;
-	if (Application::IsKeyPressed(VK_LBUTTON) && fireRate > 1.f)
-	{
-		for (auto &i : hostiles)
-		{
-			if (i->locked)
-			{
-				Missile* missile = new Missile(Enemy, Player, 20.f, true);
-				missiles.push_back(missile);
-				fireRate = 0;
-			}
-		}
-	}
-	if (missiles.size() != 0)
-		for (int i = 0; i < missiles.size(); i++)
-		{
-			for (auto &j : hostiles)
-			{
-				if (missiles.size() != 0 && i < missiles.size())
-				{
-					if (j->locked)
-					{
-						missiles[i]->checkTargets(hostiles);								//updates the missile to change target to enemy
-						missiles[i]->tracking(dt, missiles[i]->e->getter("position"));		//let the missiles translate and rotate to the enemy position.
-					}
-					if (j->getAABB()->pointInAABB(missiles[i]->getPos()))					//j->getAABB()->getAABB(),
-					{
-						Missile* temp = missiles[i];
-						missiles.erase(missiles.begin() + i);
-						delete temp;
-					}
-				}
-				else
-					break;
-			}
-		}
+	
 
 	//std::cout << Player->getter("forward") << std::endl;
-	//camera.Update(dt);
+	camera.Update(dt);
 }
 
 
@@ -348,18 +294,10 @@ void PlanetScene::Render()
 
 	viewStack.LoadIdentity();
 
-	if (Player->firstThird)
-	{
-		viewStack.LookAt(Player->Camera->position.x, Player->Camera->position.y,
-			Player->Camera->position.z, Player->Camera->target.x, Player->Camera->target.y,
-			Player->Camera->target.z, Player->Camera->up.x, Player->Camera->up.y, Player->Camera->up.z);
-	}
-	else
-	{
-		viewStack.LookAt(Player->ThirdCamera->position.x, Player->ThirdCamera->position.y,
-			Player->ThirdCamera->position.z, Player->ThirdCamera->target.x, Player->ThirdCamera->target.y,
-			Player->ThirdCamera->target.z, Player->ThirdCamera->up.x, Player->ThirdCamera->up.y, Player->ThirdCamera->up.z);
-	}
+	
+	viewStack.LookAt(camera.position.x, camera.position.y,
+	camera.position.z, camera.target.x, camera.target.y,
+	camera.target.z, camera.up.x, camera.up.y, camera.up.z);
 
 
 	Position lightPosition_cameraspace = viewStack.Top() * light[0].LightPosition;
@@ -415,27 +353,6 @@ void PlanetScene::Render()
 
 
 	//RenderMesh(meshList[GEO_AXES], false);
-
-	modelStack.PushMatrix();
-	modelStack.LoadMatrix(Player->getStamp());
-	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
-	modelStack.PopMatrix();
-
-	for (auto &i : hostiles)
-	{
-		modelStack.PushMatrix();
-		modelStack.LoadMatrix(i->getStamp());
-		RenderMesh(meshList[GEO_PLAYER_SHIP], true);
-		modelStack.PopMatrix();
-	}
-
-	for (auto &i : missiles)
-	{
-		modelStack.PushMatrix();
-		modelStack.LoadMatrix(i->Stamp);
-		RenderMesh(meshList[GEO_GOAT], true);
-		modelStack.PopMatrix();
-	}
 
 	RenderSkybox();
 
@@ -668,11 +585,6 @@ void PlanetScene::RenderSkybox()
 
 void PlanetScene::Exit()
 {
-	for (auto &i : hostiles)
-	{
-		delete i;
-	}
-	hostiles.clear();
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

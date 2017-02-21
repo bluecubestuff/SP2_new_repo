@@ -1,4 +1,4 @@
-#include "StudioProject.h"
+#include "PlanetScene.h"
 #include "GL\glew.h"
 
 #include "shader.hpp"
@@ -10,22 +10,19 @@
 #include "LoadTGA.h"
 #include "Weapon.h"
 
-#include "Tree.h"
-#include "Rock.h"
-
 //#include "LandGenerate.h"
 #include <iostream>
 
-StudioProject::StudioProject() :objfactory(this)
+PlanetScene::PlanetScene()
 {
-	gen = new LandGenerate(this);
+	//gen = new LandGenerate(this);
 }
 
-StudioProject::~StudioProject()
+PlanetScene::~PlanetScene()
 {
 }
 
-void StudioProject::Init()
+void PlanetScene::Init()
 {
 	// Set background color to dark blue
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -235,15 +232,14 @@ void StudioProject::Init()
 	//}
 	//std::cout << tempPos;
 
-	gen->landInIt();
-	//std::cout << gen->object_factory_getter().objContainer[0]->get_AABB().pt_Max << "\n";
+	//gen->landInIt();
 	//landMap = gen->getter();
 }
 
 static float ROT_LIMIT = 45.f;
 static float SCALE_LIMIT = 5.f;
 
-void StudioProject::Update(double dt)
+void PlanetScene::Update(double dt)
 {
 	float LSPEED = 10.f;
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
@@ -342,7 +338,7 @@ void StudioProject::Update(double dt)
 }
 
 
-void StudioProject::Render()
+void PlanetScene::Render()
 {
 	// Render VBO here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -454,17 +450,17 @@ void StudioProject::Render()
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();*/
 	//===================================================================================================
-	
-	modelStack.PushMatrix();
+
+	/*modelStack.PushMatrix();
 	modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
-	modelStack.PopMatrix();
-	
-	gen->BuildLand();
+	modelStack.PopMatrix();*/
+
+	//gen->BuildLand();
 }
 
-void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
+void PlanetScene::RenderMesh(Mesh *mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
@@ -516,7 +512,7 @@ void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
 
 }
 
-void StudioProject::RenderText(Mesh* mesh, std::string text, Color color)
+void PlanetScene::RenderText(Mesh* mesh, std::string text, Color color)
 {
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 		return;
@@ -543,7 +539,7 @@ void StudioProject::RenderText(Mesh* mesh, std::string text, Color color)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void StudioProject::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
+void PlanetScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 		return;
@@ -589,7 +585,7 @@ void StudioProject::RenderTextOnScreen(Mesh* mesh, std::string text, Color color
 }
 
 //============================================TESTING===============================================
-void StudioProject::RenderUI(Mesh* mesh, float x, float y, float sizex, float sizey)
+void PlanetScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float sizey)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -613,7 +609,7 @@ void StudioProject::RenderUI(Mesh* mesh, float x, float y, float sizex, float si
 }
 //=================================================================================================
 
-void StudioProject::RenderSkybox()
+void PlanetScene::RenderSkybox()
 {
 	modelStack.PushMatrix();//push ground
 	modelStack.Translate(950, 0, 950);
@@ -670,7 +666,7 @@ void StudioProject::RenderSkybox()
 	modelStack.PopMatrix();//end ground
 }
 
-void StudioProject::Exit()
+void PlanetScene::Exit()
 {
 	for (auto &i : hostiles)
 	{

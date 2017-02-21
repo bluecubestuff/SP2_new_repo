@@ -25,3 +25,8 @@ void ObjectFactory::renderObjects()
 		a->render();
 	}
 }
+
+void ObjectFactory::clearObjects()
+{
+	objContainer.clear();
+}

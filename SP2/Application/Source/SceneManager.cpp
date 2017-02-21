@@ -21,15 +21,33 @@ void SceneManager::AddScene(Scene* newScene)						//AddScene
 void SceneManager::SetNextScene(int sceneID)
 {
 	currSceneID = nextSceneID;
+	if (currSceneID > sceneStorage.size())
+	{
+		currSceneID -= 1;
+	}
 	//nextSceneID++;
+}
+
+void SceneManager::SetPrevScene()
+{
+	if (currSceneID > 0 && currSceneID != 0)
+	{
+		currSceneID -= 1;
+	}
 }
 
 void SceneManager::sceneUpdate()
 {
-	if (Application::IsKeyPressed(VK_F1)) //place holder
+	if (Application::IsKeyPressed(VK_F1) && currSceneID < sceneStorage.size() - 1) //place holder
 	{
 		sceneStorage[currSceneID]->Exit(); //exit prev scene
 		SetNextScene(nextSceneID);		   //set next scene
+		sceneStorage[currSceneID]->Init(); //init next scene
+	}
+	else if (Application::IsKeyPressed(VK_F2) && currSceneID > 0 && currSceneID != 0)
+	{
+		sceneStorage[currSceneID]->Exit(); //exit prev scene
+		SetPrevScene();		   //set next scene
 		sceneStorage[currSceneID]->Init(); //init next scene
 	}
 

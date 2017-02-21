@@ -18,6 +18,7 @@ public:
 	void AddScene(Scene*);					//add new scene to database
 	void SetNextScene(int);					//set the next scene
 	void sceneUpdate();						//update scene
+	void SetPrevScene();
 
 	static SceneManager *get_instance()		//singleton to get only one instance of obj
 	{

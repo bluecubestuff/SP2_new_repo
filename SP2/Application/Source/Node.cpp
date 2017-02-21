@@ -29,11 +29,9 @@ Node* Node::getNode(float successorPosX, float successorPosY)
 	return temp;
 }
 
-Vector3 Node::getNodePosition(Node* n)
+Vector3* Node::getNodePosition()
 {
-	Vector3 newPos = n->pos;
-
-	return newPos;
+	return new Vector3(pos.x, 0, pos.z);
 }
 
 Node* Node::getParent()

@@ -701,6 +701,8 @@ void StudioProject::Exit()
 	{
 		delete i;
 	}
+	hostiles.clear();
+	missiles.clear();
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

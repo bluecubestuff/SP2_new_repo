@@ -12,9 +12,9 @@ LandGenerate::~LandGenerate() {}
 void LandGenerate::landInIt() 
 {
 	Vector3 tempPos;
-	tempPos.Set(0, 0, 0);
-	srand((time_t)(time(NULL)));
-
+	tempPos.Set(0, 0, 0);			
+	srand((time_t)(time(NULL)));				//seed
+	unsigned count = 1;							//count number of grid
 
 	objectfactory.clearObjects();				//clears the vector when reInit (change scenes)
 	for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
@@ -26,18 +26,21 @@ void LandGenerate::landInIt()
 			{
 				tempPos.x = Math::RandIntMinMax((x * 500) + 10, ((x + 1) * 500) - 10);
 				tempPos.z = Math::RandIntMinMax((z * 500) + 10, ((z + 1) * 500) - 10);
-
 				int objType = Math::RandIntMinMax(1, 2); //selecting the type of obj
 
 				if (objType == 1)
 				{
-					objectfactory.createObject(new Rock(myscene, Vector3(tempPos.x, 0, tempPos.z), 3));
+					Rock* rock = new Rock(myscene, Vector3(tempPos.x, 0, tempPos.z), 3);
+					//obj_data_at_box[count].push_back(rock);
+					objectfactory.createObject(rock);
 				}
 				else if (objType == 2)
 				{
-					objectfactory.createObject(new Tree(myscene, Vector3(tempPos.x, 0, tempPos.z), 3));
+					Tree* tree = new Tree(myscene, Vector3(tempPos.x, 0, tempPos.z), 3);
+					objectfactory.createObject(tree);
 				}
 			}
+			count++;
 		}
 	}
 

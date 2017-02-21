@@ -97,7 +97,10 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Hull.cpp" />
     <ClCompile Include="Source\Item.cpp" />
+    <ClCompile Include="Source\landEntity.cpp" />
+    <ClCompile Include="Source\LandFPSCamera.cpp" />
     <ClCompile Include="Source\LandGenerate.cpp" />
+    <ClCompile Include="Source\landPlayer.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -142,7 +145,10 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Hull.h" />
     <ClInclude Include="Source\Item.h" />
+    <ClInclude Include="Source\landEntity.h" />
+    <ClInclude Include="Source\LandFPSCamera.h" />
     <ClInclude Include="Source\LandGenerate.h" />
+    <ClInclude Include="Source\landPlayer.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />

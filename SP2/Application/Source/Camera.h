@@ -15,9 +15,6 @@ public:
 	int WindowX, WindowY;
 
 	Vector3 forward;
-	Vector3 back;
-	Vector3 playerLeft;
-	Vector3 playerRight;
 
 	Camera();
 	~Camera();

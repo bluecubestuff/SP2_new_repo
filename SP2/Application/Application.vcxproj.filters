@@ -81,6 +81,12 @@
     <Filter Include="Source Files\Module">
       <UniqueIdentifier>{7b0440bc-12c0-457b-97a4-a786188aed3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Land">
+      <UniqueIdentifier>{a62f1805-1b8f-43d1-a354-4165246b8457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Land">
+      <UniqueIdentifier>{013a1239-df64-4be1-a4c1-41d72dc35537}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -206,8 +212,18 @@
     <ClCompile Include="Source\PlanetScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
+
     <ClCompile Include="Source\CollisionManager.cpp">
       <Filter>Source Files</Filter>
+	</ClCompile>
+    <ClCompile Include="Source\landPlayer.cpp">
+      <Filter>Source Files\Land</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\landEntity.cpp">
+      <Filter>Source Files\Land</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LandFPSCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -354,6 +370,15 @@
     </ClInclude>
     <ClInclude Include="Source\CollisionManager.h">
       <Filter>Header Files</Filter>
+	</ClInclude>
+    <ClInclude Include="Source\landEntity.h">
+      <Filter>Header Files\Land</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\landPlayer.h">
+      <Filter>Header Files\Land</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LandFPSCamera.h">
+      <Filter>Header Files\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

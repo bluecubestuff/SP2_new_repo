@@ -4,6 +4,8 @@
 
 Mouse::Mouse()
 {
+	anchorX = 0;
+	anchorY = 0;
 	glfwGetWindowSize(Application::m_window, &windowX, &windowY);	//get window size
 	anchorX = windowX / 2;		//center of window
 	anchorY = windowY / 2;		//center of window

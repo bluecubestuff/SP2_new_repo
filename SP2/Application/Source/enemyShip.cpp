@@ -18,6 +18,7 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 	this->turnSpeed = t;
 	this->locked = false;		//if enemy has been locked on by player
 	this->speed = speed;
+	this->hit = false;
 
 	this->hitbox = new Func_AABB;
 	this->hitbox->updateAABB(size, size, size, this->Position);
@@ -30,17 +31,17 @@ EnemyShip::~EnemyShip()
 
 void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 {
-	float rotateSpeed = turnSpeed * dt;
-	Vector3 target = playerPos - this->Position;
-	try
+	float rotateSpeed = turnSpeed * dt;			//set rotation speed
+	Vector3 target = playerPos - this->Position;	//the vector between the enemy and player
+	try			//in case divide by zero occurs
 	{
-		if (this->Forward != target.Normalized())
+		if (this->Forward != target.Normalized())		//if the enemy is not facing the enemy
 		{
-			Vector3 temp = this->Forward.Cross(target.Normalized());
+			Vector3 temp = this->Forward.Cross(target.Normalized());		//vector of rotation
 			temp.Normalize();
 			Mtx44 rotate;
 			rotate.SetToRotation(rotateSpeed, temp.x, temp.y, temp.z);
-			this->Forward = rotate * this->Forward;
+			this->Forward = rotate * this->Forward;		//rotate all the enemy matrices
 			this->Right = rotate * this->Right;
 			this->Up = rotate * this->Up;
 		}
@@ -50,8 +51,8 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 		std::cout << "nothing" << std::endl;
 	}
 
-	this->Position += this->Forward * dt * this->speed;
-	hitbox->updateAABB(size, size, size, this->Position);
+	this->Position += this->Forward * dt * this->speed;		//always translate the enemy
+	hitbox->updateAABB(size, size, size, this->Position);	//update the aabb of the enemy
 
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
 }

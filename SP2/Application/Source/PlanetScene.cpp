@@ -15,7 +15,8 @@
 
 PlanetScene::PlanetScene()
 {
-	//gen = new LandGenerate(this);
+	gen = new LandGenerate(this);
+	colManager = new CollisionManager;
 }
 
 PlanetScene::~PlanetScene()
@@ -219,7 +220,7 @@ void PlanetScene::Init()
 	//}
 	//std::cout << tempPos;
 
-	//gen->landInIt();
+	gen->landInIt();
 	//landMap = gen->getter();
 
 	camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
@@ -281,6 +282,7 @@ void PlanetScene::Update(double dt)
 
 	//std::cout << Player->getter("forward") << std::endl;
 	camera.Update(dt);
+	colManager->CollisionChecker(gen, camera);
 }
 
 
@@ -374,7 +376,7 @@ void PlanetScene::Render()
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();*/
 
-	//gen->BuildLand();
+	gen->BuildLand();
 }
 
 void PlanetScene::RenderMesh(Mesh *mesh, bool enableLight)

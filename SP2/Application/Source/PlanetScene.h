@@ -16,6 +16,9 @@
 #include "Missile.h"
 #include "Func_AABB.h"
 #include "DetectMemoryLeak.h"
+#include "CollisionManager.h"
+#include "LandGenerate.h"
+#include "ObjectFactory.h"
 
 #include <string>
 #include <vector>
@@ -153,9 +156,9 @@ private:
 	char mapArray[100][100];
 
 	Func_AABB* checker;
-
+	CollisionManager* colManager;
 	//ObjectFactory objfactory;
-	//LandGenerate* gen;
+	LandGenerate* gen;
 
 	//Camera2 camera;
 	//Camera3 camera;

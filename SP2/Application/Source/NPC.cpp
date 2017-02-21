@@ -3,7 +3,12 @@
 NPC::NPC(StudioProject* scene, Vector3 pos, float size) : ObjectRender(scene, pos, size)
 {
 	type = StudioProject::GEO_NPC;
-	aabb->setAABB_Static_Objects(pos, size);
+	aabb->setAABB_Static_Objects(pos, size, size, size);
+}
+NPC::NPC(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(scene, pos, size)
+{
+	type = PlanetScene::GEO_NPC;
+	aabb->setAABB_Static_Objects(pos, size, size, size);
 }
 void NPC::interact()
 {

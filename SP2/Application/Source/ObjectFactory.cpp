@@ -5,6 +5,11 @@ ObjectFactory::ObjectFactory(StudioProject* scene)
 	myscene = scene;
 }
 
+ObjectFactory::ObjectFactory(PlanetScene* scene)
+{
+	planet_scene = scene;
+}
+
 void ObjectFactory::createObject(ObjectRender* obj)
 {
 	objContainer.push_back(obj);
@@ -18,11 +23,21 @@ void ObjectFactory::interactObjects()
 	}
 }
 
-void ObjectFactory::renderObjects()
+void ObjectFactory::renderObjects(unsigned id)
 {
-	for (auto &a : objContainer)
+	if (id == 1)
 	{
-		a->render();
+		for (auto &a : objContainer)
+		{
+			a->render();
+		}
+	}
+	else if (id == 2)
+	{
+		for (auto &a : objContainer)
+		{
+			a->render_planet();
+		}
 	}
 }
 

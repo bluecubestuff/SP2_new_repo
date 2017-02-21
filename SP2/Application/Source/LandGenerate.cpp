@@ -5,7 +5,15 @@
 #include "Tree.h"
 #include <iostream>
 
-LandGenerate::LandGenerate(StudioProject* scene) : myscene(scene), objectfactory(scene) {}
+LandGenerate::LandGenerate(StudioProject* scene) : myscene(scene), objectfactory(scene) 
+{
+	sceneID = 1;
+}
+
+LandGenerate::LandGenerate(PlanetScene* scene) : planet_scene(scene), objectfactory(scene) 
+{
+	sceneID = 2;
+}
 
 LandGenerate::~LandGenerate() {}
 
@@ -16,31 +24,69 @@ void LandGenerate::landInIt()
 	srand((time_t)(time(NULL)));				//seed
 	unsigned count = 1;							//count number of grid
 
+	obj_data_at_box.clear();
 	objectfactory.clearObjects();				//clears the vector when reInit (change scenes)
-	for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
-	{
-		for (int x = 0; x < 5; x++)				//loops the grid in grid x
-		{
-			int numOfObject = Math::RandIntMinMax(10, 20);  //num of obj
-			for (int i = 0; i < numOfObject; i++)
-			{
-				tempPos.x = Math::RandIntMinMax((x * 500) + 10, ((x + 1) * 500) - 10);
-				tempPos.z = Math::RandIntMinMax((z * 500) + 10, ((z + 1) * 500) - 10);
-				int objType = Math::RandIntMinMax(1, 2); //selecting the type of obj
 
-				if (objType == 1)
+	if (sceneID == 1)
+	{
+		for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
+		{
+			for (int x = 0; x < 5; x++)				//loops the grid in grid x
+			{
+				int numOfObject = Math::RandIntMinMax(10, 20);  //num of obj
+				for (int i = 0; i < numOfObject; i++)
 				{
-					Rock* rock = new Rock(myscene, Vector3(tempPos.x, 0, tempPos.z), 3);
-					//obj_data_at_box[count].push_back(rock);
-					objectfactory.createObject(rock);
+					tempPos.x = Math::RandIntMinMax((x * 500) + 10, ((x + 1) * 500) - 10);
+					tempPos.z = Math::RandIntMinMax((z * 500) + 10, ((z + 1) * 500) - 10);
+					int objType = Math::RandIntMinMax(1, 2); //selecting the type of obj
+
+					//=== selection of type ===================================================
+					if (objType == 1)
+					{
+						//Rock* rock = new Rock(planet_scene, Vector3(tempPos.x, 0, tempPos.z), 3);
+						objectfactory.createObject(new Rock(myscene, Vector3(tempPos.x, 0, tempPos.z), 3));
+					}
+					else if (objType == 2)
+					{
+						//Tree* tree = new Tree(planet_scene, Vector3(tempPos.x, 0, tempPos.z), 3);
+						objectfactory.createObject(new Tree(myscene, Vector3(tempPos.x, 0, tempPos.z), 3));
+					}
+					//========================================================================
 				}
-				else if (objType == 2)
-				{
-					Tree* tree = new Tree(myscene, Vector3(tempPos.x, 0, tempPos.z), 3);
-					objectfactory.createObject(tree);
-				}
+				count++;
 			}
-			count++;
+		}
+	}
+	else if (sceneID == 2)
+	{
+		for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
+		{
+			for (int x = 0; x < 5; x++)				//loops the grid in grid x
+			{
+				int numOfObject = Math::RandIntMinMax(10, 20);  //num of obj
+				for (int i = 0; i < numOfObject; i++)
+				{
+					tempPos.x = Math::RandIntMinMax((x * 500) + 10, ((x + 1) * 500) - 10);
+					tempPos.z = Math::RandIntMinMax((z * 500) + 10, ((z + 1) * 500) - 10);
+					int objType = Math::RandIntMinMax(1, 2); //selecting the type of obj
+
+					//=== selection of type ===================================================
+					if (objType == 1)
+					{
+						Rock* rock = new Rock(planet_scene, Vector3(tempPos.x, 0, tempPos.z), 3);
+						obj_data_at_box[count].push_back(rock);
+						objectfactory.createObject(rock);
+					}
+					else if (objType == 2)
+					{
+						Tree* tree = new Tree(planet_scene, Vector3(tempPos.x, 0, tempPos.z), 3);
+						obj_data_at_box[count].push_back(tree);
+						objectfactory.createObject(tree);
+					}
+					//========================================================================
+				}
+				count++;
+			}
 		}
 	}
 
@@ -64,11 +110,6 @@ void LandGenerate::landUpdate()
 	//->mining of minerals (despawn minerals/change texture)
 }
 
-vector<ObjectRender*> LandGenerate::obj_storage_getter()
-{
-	return this->obj_storage;
-}
-
 ObjectFactory LandGenerate::object_factory_getter()
 {
 	return this->objectfactory;
@@ -76,6 +117,6 @@ ObjectFactory LandGenerate::object_factory_getter()
 
 void LandGenerate::BuildLand()
 {
-	objectfactory.renderObjects();
+	objectfactory.renderObjects(sceneID);
 }
 

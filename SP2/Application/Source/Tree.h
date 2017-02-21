@@ -2,6 +2,7 @@
 #define _TREE_H
 
 #include "StudioProject.h"
+#include "PlanetScene.h"
 #include "Vector3.h"
 #include "ObjectRender.h"
 #include "Application.h"
@@ -13,6 +14,7 @@ class Tree : public ObjectRender
 {
 public:
 	Tree(StudioProject* scene, Vector3 pos, float size);
+	Tree(PlanetScene* scene, Vector3 pos, float size);
 	~Tree(){};
 
 	AABB Tree_box;

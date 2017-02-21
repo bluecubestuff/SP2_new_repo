@@ -30,10 +30,12 @@ bool Func_AABB::pointInAABB(const Vector3& point)
 	return false;
 }
 
-void Func_AABB::setAABB_Static_Objects(Vector3 location , float box_size)
+void Func_AABB::setAABB_Static_Objects(Vector3 location, float sizeX, float sizeY, float sizeZ)
 {
-	TAABB.pt_Max = location + box_size;
-	TAABB.pt_Min = location - box_size;
+	Vector3 temp;
+	temp.Set(sizeX, sizeY, sizeZ);
+	TAABB.pt_Max = location + temp;
+	TAABB.pt_Min = location - temp;
 	//AABB_Storage.push_back(TAABB);
 }
 
@@ -47,5 +49,16 @@ void Func_AABB::updateAABB(float sizeX, float sizeY, float sizeZ, Vector3 positi
 AABB Func_AABB::getAABB()
 {
 	return TAABB;
+}
+
+bool Func_AABB::pointInAABB(const Vector3& pt, const AABB& box)
+{
+	if ((pt.x > box.pt_Min.x && pt.x < box.pt_Max.x)
+		&& (pt.z > box.pt_Min.z && pt.z < box.pt_Max.z))
+	{
+		return true;
+	}
+
+	return false;
 }
 

@@ -7,17 +7,19 @@
 //#include "LandGenerate.h"
 
 class StudioProject;
+class PlanetScene;
 
 class ObjectFactory
 {
 
 public:
 	ObjectFactory(StudioProject* scene);
+	ObjectFactory(PlanetScene* scene);
 	~ObjectFactory() { objContainer.clear(); };
 
 	void createObject(ObjectRender* obj);
 	void interactObjects();
-	void renderObjects();
+	void renderObjects(unsigned);
 	void clearObjects();
 
 	std::vector<ObjectRender*> objContainer;
@@ -25,6 +27,7 @@ public:
 
 private:
 	StudioProject* myscene;
+	PlanetScene* planet_scene;
 	//LandGenerate* land;
 
 };

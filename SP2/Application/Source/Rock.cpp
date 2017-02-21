@@ -4,7 +4,14 @@ Rock::Rock(StudioProject* scene, Vector3 pos, float size) : ObjectRender(scene, 
 {
 	aabb = new Func_AABB;
 	type = StudioProject::GEO_ROCK;
-	aabb->setAABB_Static_Objects(pos, size);
+	aabb->setAABB_Static_Objects(pos, size, size, size);
+	Rock_box = aabb->getAABB();
+}
+Rock::Rock(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(scene, pos, size)
+{
+	aabb = new Func_AABB;
+	type = PlanetScene::GEO_ROCK;
+	aabb->setAABB_Static_Objects(pos, size, size, size);
 	Rock_box = aabb->getAABB();
 }
 void Rock::interact()

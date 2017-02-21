@@ -206,6 +206,9 @@
     <ClCompile Include="Source\PlanetScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -322,9 +325,6 @@
     <ClInclude Include="Source\Building.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\NPC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -351,6 +351,9 @@
     </ClInclude>
     <ClInclude Include="Source\PlanetScene.h">
       <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CollisionManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,8 +10,8 @@
 #include "LoadTGA.h"
 #include "Weapon.h"
 
-#include "Tree.h"
-#include "Rock.h"
+//#include "Tree.h"
+//#include "Rock.h"
 
 //#include "LandGenerate.h"
 #include <iostream>
@@ -155,7 +155,7 @@ void StudioProject::Init()
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
 
-	meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//Sphere.obj");
+	meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//rock.obj");
 	meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
 
 	//------------------------------------------------------------------------------------------

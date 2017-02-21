@@ -1,10 +1,10 @@
 #ifndef _COLLISION_MANAGER_H
 #define _COLLISION_MANAGER_H
 
-#include "ObjectFactory.h"
+#include "Camera.h"
+#include "Func_AABB.h"
 #include "LandGenerate.h"
-#include "Tree.h"
-#include "Rock.h"
+
 
 class CollisionManager
 {
@@ -12,8 +12,9 @@ public:
 	CollisionManager();
 	~CollisionManager();
 
-	void CollisionChecker(ObjectFactory);
+	void CollisionChecker(LandGenerate*,Camera);
 private:
+	Func_AABB* aabb;
 };
 
 #endif

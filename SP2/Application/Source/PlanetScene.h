@@ -159,7 +159,6 @@ private:
 
 	//Camera2 camera;
 	//Camera3 camera;
-	//Camera_FPS camera;
 	Camera camera;
 };
 

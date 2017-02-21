@@ -6,5 +6,5 @@ CollisionManager::~CollisionManager() {}
 
 void CollisionManager::CollisionChecker(ObjectFactory objfactory)
 {
-
+	//objfactory
 }

@@ -4,6 +4,7 @@
 #include "AABB.h"
 #include "Node.h"
 #include "Vector3.h"
+#include "Item.h"
 #include "GameObject.h"
 #include "Application.h"
 #include <vector>
@@ -20,11 +21,13 @@ public:
 	int enemyHP;
 	int d;
 	Vector3 enemyPos;
-	AABB enemyAABB;
-
 	void randomMovement();
-	vector<Vector3> Pathfinding(Vector3 enemyPos, Vector3 endGoal);
-	void PathfindingMovement(vector<Vector3> AIpath);
+	vector<Vector3*> Pathfinding(Vector3 enemyPos, Vector3 endGoal);
+	void PathfindingMovement(vector<Vector3*> AIpath);
+	void setPosition(Vector3* position);
+	vector<Vector3*> AIpath;
+	vector<Item> enemyLootTable;
+
 };
 
 #endif

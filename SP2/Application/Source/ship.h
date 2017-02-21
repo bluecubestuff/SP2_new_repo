@@ -27,6 +27,9 @@ public:
 	Vector3 getter(std::string);
 	Func_AABB* getAABB();
 	Mtx44 getStamp();
+	void setHit();
+	bool getHit();
+	float getSize();
 private:
 
 protected:
@@ -44,6 +47,8 @@ protected:
 	float thrust;
 	Thruster* thruster;
 	float power;
+
+	bool hit;
 
 	float turnSpeed;
 

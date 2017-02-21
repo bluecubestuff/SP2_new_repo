@@ -19,7 +19,7 @@ public:
 	~Node();
 	Node* getNode(float successorPosX, float successorPosY);
 	Node* getParent();
-	Vector3 getNodePosition(Node* n);
+	Vector3* getNodePosition();
 	void setParent(Node *n);
 	float getX();
 	float getZ();

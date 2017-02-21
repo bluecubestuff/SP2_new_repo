@@ -7,12 +7,6 @@ LandEnemy::LandEnemy(Vector3 pos, int hp)
 {
 	enemyPos = pos;
 	enemyHP = hp;
-	enemyAABB.pt_Max.x = pos.x + 5;
-	enemyAABB.pt_Max.y = pos.y + 5;
-	enemyAABB.pt_Max.z = pos.z + 5;
-	enemyAABB.pt_Min.x = pos.x - 5;
-	enemyAABB.pt_Min.y = pos.y - 5;
-	enemyAABB.pt_Min.z = pos.z - 5;
 	enemyIsDead = false;
 }
 
@@ -21,9 +15,9 @@ LandEnemy::~LandEnemy()
 
 }
 
-vector<Vector3> LandEnemy::Pathfinding(Vector3 enemyPos, Vector3 endGoal)
+vector<Vector3*> LandEnemy::Pathfinding(Vector3 enemyPos, Vector3 endGoal)
 {
-	vector<Vector3> AIpath; //create the vector of Vector3 that stores the nodes the enemy travels through
+	vector<Vector3*> path; //create the vector of Vector3 pointers that stores the nodes the enemy travels through
 
 	//define nodes for use
 	Node *start = new Node;
@@ -75,8 +69,10 @@ vector<Vector3> LandEnemy::Pathfinding(Vector3 enemyPos, Vector3 endGoal)
 			{
 				continue;
 			}
-
-			successor = current->getNode(current->getX() + x, current->getZ()); //set the pos of the successor node
+			else
+			{
+				successor = current->getNode(current->getX() + x, current->getZ());
+			} //set the pos of the successor node
 
 			/*	if ()																	//check for collision
 			{
@@ -134,28 +130,35 @@ vector<Vector3> LandEnemy::Pathfinding(Vector3 enemyPos, Vector3 endGoal)
 	//push path nodes into path vector
 	while (current->hasParent() && current != start)
 	{
-		AIpath.push_back(current->getNodePosition(current)); //pushes the pos of the current node into the path vector
+		path.push_back(current->getNodePosition()); //pushes the path nodes into the path vector
 		current = current->getParent(); //current node will change to the parent of the current node;
 		n++;
 	}
 
-	return AIpath;
+	return path;
 }
 
-void LandEnemy::PathfindingMovement(vector<Vector3> AIpath)
-{	
-	vector<Vector3>::reverse_iterator it;
+void LandEnemy::setPosition(Vector3* position)
+{
+	enemyPos.x = position->x;
+	enemyPos.y = position->y;
+}
 
-	for (it = AIpath.rbegin(); it != AIpath.rend(); ++it)
+void LandEnemy::PathfindingMovement(vector<Vector3*> path) 
+{	
+	vector<Vector3*>::reverse_iterator it; //iterator
+	
+	for (it = path.rend(); it != path.rbegin(); it++) //iterates through the vector using a for loop
 	{
-		enemyPos = (*it);
-		cout << (*it) << endl;
+		setPosition(path.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
+		path.pop_back(); //pops the last element, repeat
 	}
 }
 
 void LandEnemy::randomMovement() 
 {
 		d = rand() % 1 + 4;
+
 		if (d == 1)
 		{
 			enemyPos.x++;

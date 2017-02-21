@@ -28,7 +28,7 @@ StudioProject::~StudioProject()
 void StudioProject::Init()
 {
 	// Set background color to dark blue
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	//Enable depth buffer and depth testing
 	glEnable(GL_DEPTH_TEST);
@@ -109,16 +109,10 @@ void StudioProject::Init()
 	Player = new PlayerShip;
 
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
-	for (int i = 1; i < 5; i++)
+	for (int i = 1; i < 2; i++)
 	{
-		for (int j = 1; j < 5; j++)
-		{
-			for (int k = 1; k < 5; k++)
-			{
-				Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, j * 10, k * 10), 40.f, 1.f, 10.f);
-				hostiles.push_back(Enemy);
-			}
-		}
+		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, 100, 100), 40.f, 1.f, 10.f);
+		hostiles.push_back(Enemy);
 	}
 	//=============================================================================
 
@@ -160,6 +154,9 @@ void StudioProject::Init()
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+
+	meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//Sphere.obj");
+	meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
 
 	//------------------------------------------------------------------------------------------
 	//light
@@ -293,7 +290,7 @@ void StudioProject::Update(double dt)
 	//================================================================================
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
-	Player->locking(hostiles[5]);
+	Player->locking(hostiles[0]);
 
 	for (auto &i : hostiles)
 	{
@@ -328,6 +325,7 @@ void StudioProject::Update(double dt)
 					if (j->getAABB()->pointInAABB(missiles[i]->getPos()))					//j->getAABB()->getAABB(),
 					{
 						Missile* temp = missiles[i];
+						j->setHit();
 						missiles.erase(missiles.begin() + i);
 						delete temp;
 					}
@@ -336,6 +334,20 @@ void StudioProject::Update(double dt)
 					break;
 			}
 		}
+
+	for (auto &i : hostiles)
+	{
+		if (i->getHit())
+		{
+			static float cooldown = 0;
+			cooldown += dt;
+			if (cooldown > 0.5f)
+			{
+				i->setHit();
+				cooldown = 0;
+			}
+		}
+	}
 
 	//std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
@@ -425,14 +437,6 @@ void StudioProject::Render()
 	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
 	modelStack.PopMatrix();
 
-	for (auto &i : hostiles)
-	{
-		modelStack.PushMatrix();
-		modelStack.LoadMatrix(i->getStamp());
-		RenderMesh(meshList[GEO_PLAYER_SHIP], true);
-		modelStack.PopMatrix();
-	}
-
 	for (auto &i : missiles)
 	{
 		modelStack.PushMatrix();
@@ -440,7 +444,7 @@ void StudioProject::Render()
 		RenderMesh(meshList[GEO_GOAT], true);
 		modelStack.PopMatrix();
 	}
-
+	
 	RenderSkybox();
 
 	//=================================================================================================
@@ -460,7 +464,24 @@ void StudioProject::Render()
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();
-	
+
+	for (auto &i : hostiles)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->getStamp());
+		RenderMesh(meshList[GEO_PLAYER_SHIP], true);
+
+		modelStack.PopMatrix();
+		if (i->getHit())
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+			modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
+			RenderMesh(meshList[GEO_SHIELD], false);
+			modelStack.PopMatrix();
+		}
+	}
+
 	gen->BuildLand();
 }
 
@@ -551,7 +572,7 @@ void StudioProject::RenderTextOnScreen(Mesh* mesh, std::string text, Color color
 	glDisable(GL_DEPTH_TEST);
 
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 1600, 0, 900, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -593,7 +614,7 @@ void StudioProject::RenderUI(Mesh* mesh, float x, float y, float sizex, float si
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 1600, 0, 900, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -676,7 +697,13 @@ void StudioProject::Exit()
 	{
 		delete i;
 	}
+	for (auto &i : missiles)
+	{
+		delete i;
+	}
 	hostiles.clear();
+	missiles.clear();
+
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

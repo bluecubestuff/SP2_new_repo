@@ -21,14 +21,14 @@ PlayerShip::PlayerShip()
 
 	this->size = 1;
 	hull = new Hull(100, 10.f, "BASE_H", "Second Hand Hull", "D4");
-	Hull* hull1 = new Hull;
- 	//std::cout << hull1->getId();
 	this->hullPoints = hull->getHullPoint();;
 	this->mass = hull->getMass();
 	this->maxShield = 100.f;
 	thruster = new Thruster(10.f, 20.f, "BASE_T", "Second Hand Thruster", "D4");
 	this->thrust = thruster->getThrust();
 	this->turnSpeed = thrust / mass;
+
+	hit = false;
 
 	//std::cout << thrust << std::endl << mass << std::endl;
 
@@ -53,6 +53,7 @@ PlayerShip::PlayerShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, fl
 	this->freeCam = false;
 	this->firstThird = true;
 	this->changeCam = false;
+	this->hit = false;
 
 	this->Stamp = Mtx44(r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, f.x, f.y, f.z, 0, p.x, p.y, p.z, 1);
 }

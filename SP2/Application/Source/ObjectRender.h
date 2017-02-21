@@ -3,6 +3,7 @@
 
 #include "Vector3.h"
 #include "Application.h"
+#include "Func_AABB.h"
 
 class StudioProject;
 
@@ -22,9 +23,9 @@ public:
 
 	StudioProject *myscene;
 	unsigned type;
+	virtual AABB get_obj_AABB() = 0;
 
 private:
-
 };
 
 

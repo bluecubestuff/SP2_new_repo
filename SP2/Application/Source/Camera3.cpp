@@ -34,7 +34,7 @@ void Camera3::Update(double dt, bool notFixed, Vector3 f, Vector3 r, Vector3 u, 
 	if (!notFixed)
 	{
 		this->position = p - f * 10 + u * 3;
-		this->target = p;
+		this->target = p + f * 5;
 		this->up = u;
 	}
 	else if (notFixed)

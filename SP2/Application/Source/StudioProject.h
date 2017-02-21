@@ -70,6 +70,7 @@ class StudioProject : public Scene
 
 		//Ships
 		GEO_PLAYER_SHIP,
+		GEO_SHIELD,
 
 		//text
 		GEO_TEXT,

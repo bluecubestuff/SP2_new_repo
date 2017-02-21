@@ -17,6 +17,8 @@ void Camera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	this->position = pos;
 	this->target = target;
 	this->up = up;
+	forward = target - position;
+	forward.Normalize();
 }
 
 void Camera::Reset()
@@ -28,21 +30,62 @@ void Camera::Reset()
 
 void Camera::Update(double dt)
 {
-	static const float CAMERA_SPEED = 20.f;
+	static float CAMERA_SPEED = 5.f;
+	Vector3 view = target - position;
+	Vector3 right = view.Cross(this->up);
+	view.Normalize();
+	right.Normalize();
 	if(Application::IsKeyPressed('A'))
 	{
-		position.x -= (float)(CAMERA_SPEED * 0.2 * dt);
+		position += right * CAMERA_SPEED * dt;
 	}
 	else if(Application::IsKeyPressed('D'))
 	{
-		position.x += (float)(CAMERA_SPEED * 0.2 * dt);
+		position -= right * CAMERA_SPEED * dt;
 	}
 	if(Application::IsKeyPressed('W'))
 	{
-		position.y += (float)(CAMERA_SPEED * 0.2 * dt);
+		position += view * CAMERA_SPEED * dt;
 	}
 	else if(Application::IsKeyPressed('S'))
 	{
-		position.y -= (float)(CAMERA_SPEED * 0.2 * dt);
+		position -= view * CAMERA_SPEED * dt;
 	}
+	if (Application::IsKeyPressed(VK_SPACE))
+	{
+		CAMERA_SPEED = 20.f;
+	}
+	else
+	{
+		CAMERA_SPEED = 5.f;
+	}
+	//==================================================================
+	if (Application::IsKeyPressed(VK_UP))
+	{
+		Mtx44 rotation;
+		rotation.SetToRotation(30.f * dt, right.x, right.y, right.z);
+		forward = rotation * forward;
+		up = rotation * up;
+	}
+	else if (Application::IsKeyPressed(VK_DOWN))
+	{
+		Mtx44 rotation;
+		rotation.SetToRotation(-30.f * dt, right.x, right.y, right.z);
+		forward = rotation * forward;
+		up = rotation * up;
+	}
+	if (Application::IsKeyPressed(VK_LEFT))
+	{
+		Mtx44 rotation;
+		rotation.SetToRotation(30.f * dt, up.x, up.y, up.z);
+		forward = rotation * forward;
+	}
+	else if (Application::IsKeyPressed(VK_RIGHT))
+	{
+		Mtx44 rotation;
+		rotation.SetToRotation(-30.f * dt, up.x, up.y, up.z);
+		forward = rotation * forward;
+	}
+	//==================================================================
+	target = forward + position;
 }

@@ -103,7 +103,7 @@ void PlanetScene::Init()
 	//meshes------------------------------------------------------------------------------------------
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
-
+	Player = new LandPlayer(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
 	//=============================================================================
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
@@ -280,7 +280,8 @@ void PlanetScene::Update(double dt)
 	
 
 	//std::cout << Player->getter("forward") << std::endl;
-	camera.Update(dt);
+	//camera.Update(dt);
+	Player->Update(dt);
 }
 
 
@@ -295,9 +296,13 @@ void PlanetScene::Render()
 	viewStack.LoadIdentity();
 
 	
-	viewStack.LookAt(camera.position.x, camera.position.y,
-	camera.position.z, camera.target.x, camera.target.y,
-	camera.target.z, camera.up.x, camera.up.y, camera.up.z);
+	//viewStack.LookAt(camera.position.x, camera.position.y,		//debug cam
+	//camera.position.z, camera.target.x, camera.target.y,
+	//camera.target.z, camera.up.x, camera.up.y, camera.up.z);
+
+	viewStack.LookAt(Player->getCam()->position.x, Player->getCam()->position.y,
+	Player->getCam()->position.z, Player->getCam()->target.x, Player->getCam()->target.y,
+	Player->getCam()->target.z, Player->getCam()->up.x, Player->getCam()->up.y, Player->getCam()->up.z);
 
 
 	Position lightPosition_cameraspace = viewStack.Top() * light[0].LightPosition;

@@ -11,9 +11,7 @@
 #include "Mesh.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "playerShip.h"
-#include "enemyShip.h"
-#include "Missile.h"
+#include "landPlayer.h"
 #include "Func_AABB.h"
 #include "DetectMemoryLeak.h"
 
@@ -153,6 +151,8 @@ private:
 	char mapArray[100][100];
 
 	Func_AABB* checker;
+
+	LandPlayer* Player;
 
 	//ObjectFactory objfactory;
 	//LandGenerate* gen;

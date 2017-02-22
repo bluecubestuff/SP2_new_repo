@@ -43,7 +43,7 @@ void LandFPSCamera::Init(Vector3 pos, Vector3 target, Vector3 up)
 void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 {
 	static const float CAMERA_SPEED = 0.2f * dt;
-	static const float MOVEMENT_SPEED = 1.f * dt;
+	static float MOVEMENT_SPEED = 0.3f * dt;
 	static float pitchLimit = 0.f;
 
 	pFront = position + forward;
@@ -85,7 +85,7 @@ void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 	{
 		if (!cRight)
 		{
-			Inertia = strafe * MOVEMENT_SPEED;
+			Inertia = strafe * MOVEMENT_SPEED * 0.5;
 			position += Inertia;
 		}
 	}
@@ -93,13 +93,21 @@ void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 	{
 		if (!cLeft)
 		{
-			Inertia = -strafe * MOVEMENT_SPEED;
+			Inertia = -strafe * MOVEMENT_SPEED * 0.5;
 			position += Inertia;
 		}
 	}
 	if (Application::IsKeyPressed(VK_SPACE) && !jump)
 	{
 		jump = true;
+	}
+	if (Application::IsKeyPressed(VK_LSHIFT))
+	{
+		MOVEMENT_SPEED = 0.5f;
+	}
+	else
+	{
+		MOVEMENT_SPEED = 0.3f;
 	}
 
 	if (jump)
@@ -109,11 +117,11 @@ void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 		a += g * dt;
 		position += a;
 		std::cout << a << std::endl;
-		if (position.y <= 0)
+		if (position.y <= 5)
 		{
-			a = Vector3(0, 1, 0);
-			g = Vector3(0, -2.f, 0);
-			position.y = 0;
+			a = Vector3(0, 7, 0);
+			g = Vector3(0, -3.f, 0);
+			position.y = 5;
 			jump = false;
 		}
 	}

@@ -5,7 +5,7 @@ PlayerShip::PlayerShip()
 	this->Forward = Vector3(0, 0, 1);
 	this->Up = Vector3(0, 1, 0);
 	this->Right = Vector3(1, 0, 0);
-	this->Position = Vector3(0, 0, 0);
+	this->Position = Vector3(500, 500, 500);
 	this->Inertia = Vector3(0, 0, 0);
 	this->Speed = 0;
 	this->camTime = 0.f;
@@ -23,10 +23,16 @@ PlayerShip::PlayerShip()
 	hull = new Hull(100, 10.f, "BASE_H", "Second Hand Hull", "D4");
 	this->hullPoints = hull->getHullPoint();;
 	this->mass = hull->getMass();
-	this->maxShield = 100.f;
-	thruster = new Thruster(10.f, 20.f, "BASE_T", "Second Hand Thruster", "D4");
+	
+	shield = new Shield(100, 50.f, "BASE_S", "Second Hand Shield Generator", "D4");
+	this->maxShield = shield->getShieldPoint();
+
+	thruster = new Thruster(10.f, 25.f, "BASE_T", "Second Hand Thruster", "D4");
 	this->thrust = thruster->getThrust();
 	this->turnSpeed = thrust / mass;
+
+	reactor = new PowerPlant(100.f, "BASE_R", "second Hand Reactor", "D4");
+	this->power = reactor->getPower();
 
 	hit = false;
 

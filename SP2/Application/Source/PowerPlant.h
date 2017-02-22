@@ -13,8 +13,10 @@ public:
 	float power;
 
 	static int count;
-private:
+
 	float getPower();
+private:
+	
 };
 
 #endif

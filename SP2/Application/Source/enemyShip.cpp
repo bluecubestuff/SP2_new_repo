@@ -20,8 +20,27 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 	this->speed = speed;
 	this->hit = false;
 
+	hull = new Hull;
+	this->hullPoints = hull->getHullPoint();;
+	this->mass = hull->getMass();
+
+	shield = new Shield;
+	this->maxShield = shield->getShieldPoint();
+
+	thruster = new Thruster;
+	this->thrust = thruster->getThrust();
+	this->turnSpeed = thrust / mass;
+
+	reactor = new PowerPlant;
+	this->power = reactor->getPower();
+
 	this->hitbox = new Func_AABB;
 	this->hitbox->updateAABB(size, size, size, this->Position);
+
+	std::cout << maxShield << std::endl;
+	std::cout << hullPoints << std::endl;
+	std::cout << thrust << std::endl;
+	std::cout << power << std::endl;
 }
 
 EnemyShip::~EnemyShip()

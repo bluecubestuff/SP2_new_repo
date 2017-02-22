@@ -140,12 +140,12 @@ void SystemScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
-	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//tree.OBJ");
+	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//goat_easter_egg.OBJ");
 
-	meshList[GEO_SUN] = MeshBuilder::GenerateOBJ("Sun", "OBJ//tree.OBJ");
-	//meshList[GEO_SUN]->textureID = LoadTGA("Image//sunsun.tga");
+	meshList[GEO_SUN] = MeshBuilder::GenerateOBJ("Sun", "OBJ//Sphere.OBJ");
+	meshList[GEO_SUN]->textureID = LoadTGA("Image//sunsun.tga");
 
-	//meshList[GEO_ORBIT_LINES] = MeshBuilder::GenerateOBJ("Orbit Lines", "OBJ//orbitLines.OBJ");
+	meshList[GEO_ORBIT_LINES] = MeshBuilder::GenerateOBJ("Orbit Lines", "OBJ//orbitLines.OBJ");
 
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");

@@ -7,8 +7,6 @@ Hull::Hull()
 	Hull::count++;
 	this->ID = "H" + std::to_string(Hull::count);		//update the ID
 
-	Randomise hue;      
-
 	int temp = hue.generate_range(0, 3);
 	float temptemp = hue.generate_range(0, 3);
 	string type[4] = { "D", "C", "B", "A" };

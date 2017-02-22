@@ -102,7 +102,7 @@ void PlanetScene::Init()
 	//meshes------------------------------------------------------------------------------------------
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
-	Player = new LandPlayer(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
+	Player = new LandPlayer(Vector3(0, 3, 0), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
 	gen = new LandGenerate(this);
 	colManager = new CollisionManager;
 	//=============================================================================
@@ -205,7 +205,7 @@ void PlanetScene::Init()
 	projectionStack.LoadMatrix(projection);
 
 	gen->landInIt();
-	camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
+	//camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
 }
 
 static float ROT_LIMIT = 45.f;

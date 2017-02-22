@@ -7,8 +7,6 @@ PowerPlant::PowerPlant()
 	PowerPlant::count++;
 	this->ID = "P" + std::to_string(PowerPlant::count);		//update the ID
 
-	Randomise hue;
-
 	int temp = hue.generate_range(0, 3);
 	float temptemp = hue.generate_range(0, 3);
 	string type[4] = { "D", "C", "B", "A" };

@@ -5,4 +5,17 @@ Item::Item(string iName, unsigned value, int iDurability) : itemName(iName), ite
 
 Item::~Item() {}
 
+unsigned Item::getValue()
+{
+	return this->itemValue;
+}
 
+int Item::getDurability()
+{
+	return this->itemDurability;
+}
+
+string Item::getName()
+{
+	return this->itemName;
+}

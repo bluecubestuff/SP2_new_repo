@@ -13,8 +13,9 @@ public:
 	Item(string, unsigned,int);
 	virtual ~Item();
 
-	virtual unsigned getValue() = 0;
-	virtual int getDurability() = 0;
+	unsigned getValue();
+	int getDurability();
+	string getName();
 
 private:
 

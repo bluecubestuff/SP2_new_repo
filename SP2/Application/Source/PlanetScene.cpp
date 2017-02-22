@@ -285,9 +285,8 @@ void PlanetScene::Update(double dt)
 	}
 	//std::cout << Player->getter("forward") << std::endl;
 
-	//camera.Update(dt);
+
 	colManager->CollisionChecker(gen, Player);
-	//camera.Update(dt);
 	Player->Update(dt);
 
 }

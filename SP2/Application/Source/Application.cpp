@@ -122,13 +122,10 @@ void Application::Run()
 	//delete scene02;
 }
 
-void Application::createScene()
+void Application::createScene() //adding new scene
 {
-	Scene *scene = new StudioProject();
-	Scene *scene2 = new PlanetScene();
-
-	SceneManager::get_instance()->AddScene(scene);
-	SceneManager::get_instance()->AddScene(scene2);
+	SceneManager::get_instance()->AddScene(new StudioProject());
+	SceneManager::get_instance()->AddScene(new PlanetScene());
 }
 
 void Application::Exit()

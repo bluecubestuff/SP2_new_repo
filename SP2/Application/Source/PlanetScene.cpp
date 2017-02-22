@@ -15,8 +15,6 @@
 
 PlanetScene::PlanetScene()
 {
-	gen = new LandGenerate(this);
-	colManager = new CollisionManager;
 }
 
 PlanetScene::~PlanetScene()
@@ -105,6 +103,8 @@ void PlanetScene::Init()
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
 	Player = new LandPlayer(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
+	gen = new LandGenerate(this);
+	colManager = new CollisionManager;
 	//=============================================================================
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
@@ -279,11 +279,14 @@ void PlanetScene::Update(double dt)
 	//================================================================================
 	//--------------------------------------------------------------------------------
 	
-
+	if (Application::IsKeyPressed(VK_F3))
+	{
+		std::cout << Player->getter("position") << "\n";
+	}
 	//std::cout << Player->getter("forward") << std::endl;
 
 	//camera.Update(dt);
-	//colManager->CollisionChecker(gen, camera);
+	colManager->CollisionChecker(gen, Player);
 	//camera.Update(dt);
 	Player->Update(dt);
 
@@ -539,62 +542,65 @@ void PlanetScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float size
 void PlanetScene::RenderSkybox()
 {
 	modelStack.PushMatrix();//push ground
-	modelStack.Translate(950, 0, 950);
+	modelStack.Translate(1230, 0, 1230);
 
 	modelStack.PushMatrix();//seperate from ground
 
 	modelStack.PushMatrix();//push top
-	modelStack.Translate(0, 1995, 0);
+	modelStack.Translate(0, 2495, 0);
 	modelStack.Rotate(180, 0, 0, 1);
-	modelStack.Scale(2000, 1, 2000);
+	modelStack.Scale(2500, 1, 2500);
 	RenderMesh(meshList[GEO_TOP], false);
 	modelStack.PopMatrix();//end top
 
 	modelStack.PushMatrix();//push back
-	modelStack.Translate(0, 997, 997);
+	modelStack.Translate(0, 1247, 1247);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(2000, 1, 2000);
+	modelStack.Scale(2500, 1, 2500);
 	RenderMesh(meshList[GEO_BACK], false);
 	modelStack.PopMatrix();//end back
 
 	modelStack.PushMatrix();//push front
-	modelStack.Translate(0, 997, -997);
+	modelStack.Translate(0, 1247, -1247);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(180, 1, 0, 0);
-	modelStack.Scale(2000, 1, 2000);
+	modelStack.Scale(2500, 1, 2500);
 	RenderMesh(meshList[GEO_FRONT], false);
 	modelStack.PopMatrix();//end front
 
 	modelStack.PushMatrix();//push left
-	modelStack.Translate(997, 997, 0);
+	modelStack.Translate(1247, 1247, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Scale(2000, 1, 2000);
+	modelStack.Scale(2500, 1, 2500);
 	RenderMesh(meshList[GEO_LEFT], false);
 	modelStack.PopMatrix();//end left
 
 	modelStack.PushMatrix();//push right
-	modelStack.Translate(-997, 997, 0);
+	modelStack.Translate(-1247, 1247, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(90, 1, 0, 0);
-	modelStack.Scale(2000, 1, 2000);
+	modelStack.Scale(2500, 1, 2500);
 	RenderMesh(meshList[GEO_RIGHT], false);
 	modelStack.PopMatrix();//end right
 
 	modelStack.PopMatrix();//end speration
 
 	modelStack.Translate(0, 0, 0);
-	modelStack.Scale(2000, 1, 2000);
+	modelStack.Scale(2500, 1, 2500);
 	RenderMesh(meshList[GEO_BOTTOM], true);
 	modelStack.PopMatrix();//end ground
 }
 
 void PlanetScene::Exit()
 {
+	delete this->gen;
+	delete this->Player;
+	delete this->colManager;
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

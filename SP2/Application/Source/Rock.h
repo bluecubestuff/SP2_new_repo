@@ -15,7 +15,11 @@ class Rock : public ObjectRender
 public:
 	Rock(StudioProject* scene, Vector3 pos, float size);
 	Rock(PlanetScene* scene, Vector3 pos, float size);
-	~Rock(){};
+	~Rock()
+	{
+		delete this->aabb;
+		delete this;
+	};
 
 	AABB Rock_box;
 

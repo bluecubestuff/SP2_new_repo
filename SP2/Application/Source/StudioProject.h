@@ -165,7 +165,6 @@ private:
 	Missile* missile;
 	vector<Missile*> missiles;
 
-	ObjectFactory objfactory;
 	LandGenerate* gen;
 
 	//Camera2 camera;

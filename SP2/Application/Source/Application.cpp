@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "StudioProject.h"
 #include "PlanetScene.h"
+#include "SystemScene.h"
 
 //static const unsigned char FPS = 60; // FPS of this game
 //static const unsigned int frameTime = 1000 / FPS; // time for each frame
@@ -126,9 +127,11 @@ void Application::createScene()
 {
 	Scene *scene = new StudioProject();
 	Scene *scene2 = new PlanetScene();
+	Scene *scene3 = new SystemScene();
 
 	SceneManager::get_instance()->AddScene(scene);
 	SceneManager::get_instance()->AddScene(scene2);
+	SceneManager::get_instance()->AddScene(scene3);
 }
 
 void Application::Exit()

@@ -28,6 +28,16 @@ void LandFPSCamera::Init(Vector3 pos, Vector3 target, Vector3 up)
 
 	this->jump = false;
 	Inertia = Vector3(0, 0, 0);
+
+	pFront = position + forward;		
+	pBack = position + (forward * -1);	
+	pRight = position + (right);		
+	pLeft = position + (right * -1);	
+
+	cForward = false; 
+	cBack = false;
+	cRight = false;
+	cLeft = false;
 }
 
 void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
@@ -36,6 +46,10 @@ void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 	static const float MOVEMENT_SPEED = 1.f * dt;
 	static float pitchLimit = 0.f;
 
+	pFront = position + forward;
+	pBack = position + (forward * -1);
+	pRight = position + (right);
+	pLeft = position + (right * -1);
 
 	currMousePos = mouse->mouseMovement();
 
@@ -53,23 +67,35 @@ void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 
 	if (Application::IsKeyPressed('W'))
 	{
-		Inertia = temp * MOVEMENT_SPEED;
-		position += Inertia;
+		if (!cForward)
+		{
+			Inertia = temp * MOVEMENT_SPEED;
+			position += Inertia;
+		}
 	}
 	else if (Application::IsKeyPressed('S'))
 	{
-		Inertia = -temp * MOVEMENT_SPEED;
-		position += Inertia;
+		if (!cBack)
+		{
+			Inertia = -temp * MOVEMENT_SPEED;
+			position += Inertia;
+		}
 	}
 	if (Application::IsKeyPressed('D'))
 	{
-		Inertia = strafe * MOVEMENT_SPEED;
-		position += Inertia;
+		if (!cRight)
+		{
+			Inertia = strafe * MOVEMENT_SPEED;
+			position += Inertia;
+		}
 	}
 	else if (Application::IsKeyPressed('A'))
 	{
-		Inertia = -strafe * MOVEMENT_SPEED;
-		position += Inertia;
+		if (!cLeft)
+		{
+			Inertia = -strafe * MOVEMENT_SPEED;
+			position += Inertia;
+		}
 	}
 	if (Application::IsKeyPressed(VK_SPACE) && !jump)
 	{

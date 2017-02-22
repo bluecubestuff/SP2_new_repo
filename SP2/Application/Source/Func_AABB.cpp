@@ -54,6 +54,7 @@ AABB Func_AABB::getAABB()
 bool Func_AABB::pointInAABB(const Vector3& pt, const AABB& box)
 {
 	if ((pt.x > box.pt_Min.x && pt.x < box.pt_Max.x)
+		&& (pt.y > box.pt_Min.y && pt.y < box.pt_Max.y)
 		&& (pt.z > box.pt_Min.z && pt.z < box.pt_Max.z))
 	{
 		return true;

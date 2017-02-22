@@ -142,10 +142,10 @@ void SystemScene::Init()
 
 	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//tree.OBJ");
 
-	meshList[GEO_SUN] = MeshBuilder::GenerateOBJ("Sun", "OBJ//Sphere.OBJ");
-	meshList[GEO_SUN]->textureID = LoadTGA("Image//sunsun.tga");
+	meshList[GEO_SUN] = MeshBuilder::GenerateOBJ("Sun", "OBJ//tree.OBJ");
+	//meshList[GEO_SUN]->textureID = LoadTGA("Image//sunsun.tga");
 
-	meshList[GEO_ORBIT_LINES] = MeshBuilder::GenerateOBJ("Orbit Lines", "OBJ//orbitLines.OBJ");
+	//meshList[GEO_ORBIT_LINES] = MeshBuilder::GenerateOBJ("Orbit Lines", "OBJ//orbitLines.OBJ");
 
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
@@ -395,11 +395,11 @@ void SystemScene::Render()
 	modelStack.Scale(250, 250, 250);
 	RenderMesh(meshList[GEO_SUN], false);
 
-	modelStack.PushMatrix();
+	/*modelStack.PushMatrix();
 	modelStack.Rotate(90, 1, 0, 0);
 	modelStack.Scale(9, 1, 9);
 	RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	modelStack.PopMatrix();
+	modelStack.PopMatrix();*/
 
 	modelStack.PopMatrix();
 }

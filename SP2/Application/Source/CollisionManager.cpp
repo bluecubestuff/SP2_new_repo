@@ -3,11 +3,11 @@
 #include "Tree.h"
 #include "Rock.h"
 
-CollisionManager::CollisionManager() { aabb = new Func_AABB; }
+CollisionManager::CollisionManager() { func_aabb = new Func_AABB; }
 
 CollisionManager::~CollisionManager() {}
 
-void CollisionManager::CollisionChecker(LandGenerate* landGen, LandPlayer* PlayerPos)
+void CollisionManager::CollisionChecker(LandGenerate* landGen, LandPlayer* Player)
 {	
 	int ID = 1;
 
@@ -15,14 +15,14 @@ void CollisionManager::CollisionChecker(LandGenerate* landGen, LandPlayer* Playe
 	{
 		for (int x = 0; x < 5; x++)				//loops the grid in grid x
 		{
-			if (PlayerPos->getter("position").x < ((x + 1) * 500) && PlayerPos->getter("position").x >(x * 500) &&
-				PlayerPos->getter("position").z <((z + 1) * 500) && PlayerPos->getter("position").z > (z * 500))
-			{	//check if player is within
+			if (Player->getter("position").x < ((x + 1) * 500) && Player->getter("position").x >(x * 500) &&
+				Player->getter("position").z <((z + 1) * 500) && Player->getter("position").z >(z * 500))
+			{									//check if player is within grid
 				break;
 			}
 			ID++;
 		}
-		if (PlayerPos->getter("position").z <((z + 1) * 500) && PlayerPos->getter("position").z  >(z * 500))
+		if (Player->getter("position").z <((z + 1) * 500) && Player->getter("position").z  >(z * 500))
 		{
 			break;
 		}
@@ -31,12 +31,38 @@ void CollisionManager::CollisionChecker(LandGenerate* landGen, LandPlayer* Playe
 
 	for (int i = 0; i < landGen->obj_data_at_box[ID].size(); i++)
 	{
-		landGen->obj_data_at_box[ID][i]->get_obj_AABB();
-		//std::cout << landGen->obj_data_at_box[ID][i]->get_obj_AABB().pt_Max << "\n";
-		if (aabb->pointInAABB(PlayerPos->getter("position"), landGen->obj_data_at_box[ID][i]->get_obj_AABB()))
+		//landGen->obj_data_at_box[ID][i]->get_obj_AABB();
+		//for (auto &a : landGen->obj_data_at_box[ID])
+		//{ }
+		Player->getCam()->cForward = func_aabb->pointInAABB(Player->getCam()->pFront, landGen->obj_data_at_box[ID][i]->get_obj_AABB());
+		if (Player->getCam()->cForward)
 		{
-			std::cout << "in box: " << "\n";
+			break;
 		}
+		Player->getCam()->cBack = func_aabb->pointInAABB(Player->getCam()->pBack, landGen->obj_data_at_box[ID][i]->get_obj_AABB());
+		if (Player->getCam()->cBack)
+		{
+			break;
+		}
+		Player->getCam()->cLeft = func_aabb->pointInAABB(Player->getCam()->pLeft, landGen->obj_data_at_box[ID][i]->get_obj_AABB());
+		if (Player->getCam()->cLeft)
+		{
+			break;
+		}
+		Player->getCam()->cRight = func_aabb->pointInAABB(Player->getCam()->pRight, landGen->obj_data_at_box[ID][i]->get_obj_AABB());
+		if (Player->getCam()->cRight)
+		{
+			break;
+		}
+		
+		//if (cForward)
+		//{
+		//	std::cout << "front in box" << "\n";
+		//}
+		//if (func_aabb->pointInAABB(Player->getter("position"), landGen->obj_data_at_box[ID][i]->get_obj_AABB()))
+		//{
+		//	std::cout << "in box" << "\n";
+		//}
 	}
 
 	ID = 0; //reset id at end

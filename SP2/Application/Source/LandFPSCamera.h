@@ -17,6 +17,9 @@ public:
 
 	void Init(Vector3, Vector3, Vector3);
 	void Update(double, Vector3 &, Vector3&);
+
+	bool cForward, cBack, cRight, cLeft; 
+	Vector3 pFront, pBack, pRight, pLeft;
 private:
 	Vector3 right;
 	Vector3 Inertia;

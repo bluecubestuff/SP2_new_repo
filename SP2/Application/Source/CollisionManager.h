@@ -13,8 +13,10 @@ public:
 	~CollisionManager();
 
 	void CollisionChecker(LandGenerate*, LandPlayer*);
+	
+
 private:
-	Func_AABB* aabb;
+	Func_AABB* func_aabb;
 };
 
 #endif

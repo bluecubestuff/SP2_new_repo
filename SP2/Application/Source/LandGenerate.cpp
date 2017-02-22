@@ -32,7 +32,7 @@ void LandGenerate::landInIt()
 	//	std::cout << obj_data_at_box[i].size() << "\n";
 	//}
 	//obj_data_at_box.clear();
-	//objectfactory.clearObjects();				//clears the vector when reInit (change scenes)
+	//objectfactory.clearObjects();				
 
 	if (sceneID == 1)
 	{
@@ -128,34 +128,43 @@ void LandGenerate::BuildLand()
 
 void LandGenerate::SetPath()
 {
-	int rangeX, rangeZ;
-	int minPointX, minPointZ;
+	int rangeX, rangeZ;				//range of the AABB box
+	int PointX, PointZ;				//the different point in the range of box
 
-	for (int i = 0; i < obj_data_at_box.size(); i++) //loop through map[id]
+	for (int i = 0; i < 2500; i++)		//loop throught the 2d array
 	{
-		for (int j = 0; j < obj_data_at_box[i].size(); i++) //loop through objs stored in that map[id]
+		for (int j = 0; j < 2500; j++)
 		{
-			rangeX = (int)(obj_data_at_box[i][j]->get_obj_AABB().pt_Max.x - obj_data_at_box[i][j]->get_obj_AABB().pt_Min.x); //find range of box for x axis
-			rangeZ = (int)(obj_data_at_box[i][j]->get_obj_AABB().pt_Max.z - obj_data_at_box[i][j]->get_obj_AABB().pt_Min.z); //find range of box for z axis
+			path[i][j] = '-';			//set it all to '-' which represent empty
+		}
+	}
 
-			minPointX = (int)(obj_data_at_box[i][j]->get_obj_AABB().pt_Min.x);
-			minPointZ = (int)(obj_data_at_box[i][j]->get_obj_AABB().pt_Min.z);
+	for (int i = 0; i < obj_data_at_box.size(); i++)			//loop through map[id]
+	{
+		for (int j = 0; j < obj_data_at_box[i].size(); i++)		//loop through objs stored in that map[id]
+		{
+			rangeX = (int)(obj_data_at_box[i][j]->get_obj_AABB().pt_Max.x - obj_data_at_box[i][j]->get_obj_AABB().pt_Min.x);	//find range of box for x axis
+			rangeZ = (int)(obj_data_at_box[i][j]->get_obj_AABB().pt_Max.z - obj_data_at_box[i][j]->get_obj_AABB().pt_Min.z);	//find range of box for z axis
 
-			for (int z = 0; z < rangeZ; z++)
+			PointX = (int)(obj_data_at_box[i][j]->get_obj_AABB().pt_Min.x);		//set min point for x
+			PointZ = (int)(obj_data_at_box[i][j]->get_obj_AABB().pt_Min.z);		//set min point for z
+
+			for (int z = 0; z < rangeZ; z++)				//loop through the z range
 			{
-				minPointZ += 1;
-				for (int x = 0; x < rangeX; x++)
+				PointZ += 1;								//increase the point z of the range
+				for (int x = 0; x < rangeX; x++)			//loop through the x range
 				{
-					path[minPointX][minPointZ] = 'F';
-					minPointX += 1;
+					path[PointX][PointZ] = 'F';				//set it to 'F' to represent it is occupied
+					PointX += 1;							//increase the point x of the range
 				}
-				minPointX = 0; //reset after loop
+				PointX = 0;									//reset after loop
 			}
-			minPointZ = 0; //reset after loop
+			PointZ = 0;										//reset after loop
 
 		}
 	}
 
+	//for testing
 	int counta = 0;
 	for (int i = 0; i < 2500; i++)
 	{
@@ -167,6 +176,5 @@ void LandGenerate::SetPath()
 			}
 		}
 	}
-
 	std::cout << counta << "\n";
 }

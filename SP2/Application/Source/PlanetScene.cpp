@@ -204,25 +204,7 @@ void PlanetScene::Init()
 	projection.SetToPerspective(70.f, 4.f / 3.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-	//Vector3 tempPos;
-	//tempPos.Set(0, 0, 0);
-	//int counter = 0;
-	//srand(time(NULL));
-	//for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
-	//{
-	//	for (int x = 0; x < 5; x++)				//loops the grid in grid x
-	//	{
-	//		tempPos.x = Math::RandIntMinMax(x * 500, (x + 1) * 500);
-	//		tempPos.z = Math::RandIntMinMax(z * 500, (z + 1) * 500);
-	//		objfactory.createObject(new Rock(this, Vector3(tempPos.x, 0, tempPos.z), 3));
-	//		counter++;
-	//	}
-	//}
-	//std::cout << tempPos;
-
 	gen->landInIt();
-	//landMap = gen->getter();
-
 	camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
 }
 

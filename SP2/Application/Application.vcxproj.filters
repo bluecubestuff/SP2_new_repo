@@ -212,10 +212,9 @@
     <ClCompile Include="Source\PlanetScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
-
     <ClCompile Include="Source\CollisionManager.cpp">
       <Filter>Source Files</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\landPlayer.cpp">
       <Filter>Source Files\Land</Filter>
     </ClCompile>
@@ -224,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="Source\LandFPSCamera.cpp">
       <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SystemScene.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -370,7 +372,7 @@
     </ClInclude>
     <ClInclude Include="Source\CollisionManager.h">
       <Filter>Header Files</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\landEntity.h">
       <Filter>Header Files\Land</Filter>
     </ClInclude>
@@ -379,6 +381,9 @@
     </ClInclude>
     <ClInclude Include="Source\LandFPSCamera.h">
       <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SystemScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

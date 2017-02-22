@@ -2,25 +2,28 @@
 #include <iostream>
 SceneManager::SceneManager() : currSceneID(0), nextSceneID(0) {}	//constructor
 
-SceneManager::~SceneManager() {}									//destructor
+SceneManager::~SceneManager()										//destructor	
+{
+	delete only_instance;
+}									
 
 void SceneManager::AddScene(Scene* newScene)						//AddScene
 {
-	if (nextSceneID > 0)	//check if is 1st scene
+	if (nextSceneID > 0)	//check if is not 1st scene
 	{
+		//nextSceneID++;
 		sceneStorage[nextSceneID] = newScene;
-		nextSceneID = currSceneID + 1;
 	}
-	else	//not 1st scene
+	else					//1st scene
 	{
 		sceneStorage[currSceneID] = newScene;	//assign it to map
-		nextSceneID++;							//move next ID forward
 	}
+	nextSceneID++;							//move next ID forward
 }
 
-void SceneManager::SetNextScene(int sceneID)
+void SceneManager::SetNextScene()
 {
-	currSceneID = nextSceneID;
+	currSceneID += 1;
 	if (currSceneID > sceneStorage.size())
 	{
 		currSceneID -= 1;
@@ -41,7 +44,7 @@ void SceneManager::sceneUpdate()
 	if (Application::IsKeyPressed(VK_F1) && currSceneID < sceneStorage.size() - 1) //place holder
 	{
 		sceneStorage[currSceneID]->Exit(); //exit prev scene
-		SetNextScene(nextSceneID);		   //set next scene
+		SetNextScene();					   //set next scene
 		sceneStorage[currSceneID]->Init(); //init next scene
 	}
 	else if (Application::IsKeyPressed(VK_F2) && currSceneID > 0 && currSceneID != 0)

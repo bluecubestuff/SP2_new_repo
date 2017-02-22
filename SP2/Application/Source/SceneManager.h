@@ -16,7 +16,7 @@ public:
 
 	Scene* getScene();
 	void AddScene(Scene*);					//add new scene to database
-	void SetNextScene(int);					//set the next scene
+	void SetNextScene();					//set the next scene
 	void sceneUpdate();						//update scene
 	void SetPrevScene();
 

@@ -123,7 +123,7 @@ void Application::Run()
 	//delete scene02;
 }
 
-void Application::createScene()
+void Application::createScene() //adding new scene
 {
 	Scene *scene = new StudioProject();
 	Scene *scene2 = new PlanetScene();

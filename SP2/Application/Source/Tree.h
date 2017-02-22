@@ -15,7 +15,11 @@ class Tree : public ObjectRender
 public:
 	Tree(StudioProject* scene, Vector3 pos, float size);
 	Tree(PlanetScene* scene, Vector3 pos, float size);
-	~Tree(){};
+	~Tree()
+	{ 
+		delete this->aabb; 
+		delete this;
+	};
 
 	AABB Tree_box;
 

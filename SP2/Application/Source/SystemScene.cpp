@@ -206,7 +206,7 @@ void SystemScene::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
 	Mtx44 projection;
-	projection.SetToPerspective(70.f, 4.f / 3.f, 0.1f, 5000.f);
+	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 100000.f);
 	projectionStack.LoadMatrix(projection);
 
 	//Vector3 tempPos;
@@ -228,7 +228,9 @@ void SystemScene::Init()
 	//gen->landInIt();
 	//landMap = gen->getter();
 
-	camera.Init(Vector3(1000, 1500, 1000), Vector3(1000, 1501, 1000), Vector3(0, 0, 1));
+	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
+	Player = new SystemTravelShip;
+	rotate = 0.f;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -290,8 +292,9 @@ void SystemScene::Update(double dt)
 	//camera.Update(dt);
 	//colManager->CollisionChecker(gen, camera);
 	camera.Update(dt);
+	Player->Update(dt);
 	//Player->Update(dt);
-
+	rotate += dt;
 }
 
 
@@ -390,16 +393,46 @@ void SystemScene::Render()
 	modelStack.PopMatrix();*/
 
 	modelStack.PushMatrix();
-	modelStack.Translate(1000, 4500, 1000);
+	modelStack.Translate(1000, 6000, 1000);
 	modelStack.Rotate(90, 1, 0, 0);
+
+
+	modelStack.PushMatrix();
+	modelStack.Translate(Player->position.x, Player->position.y, Player->position.z);
+	modelStack.Rotate(90, 1, 0, 0);
+	modelStack.Rotate(Player->rotate, 0, 1, 0);
+	modelStack.Scale(100, 100, 100);
+	RenderMesh(meshList[GEO_PLAYER_SHIP], false);
+	modelStack.PopMatrix();
+
 	modelStack.Scale(250, 250, 250);
 	RenderMesh(meshList[GEO_SUN], false);
 
-	/*modelStack.PushMatrix();
+	modelStack.PushMatrix();
 	modelStack.Rotate(90, 1, 0, 0);
 	modelStack.Scale(9, 1, 9);
 	RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	modelStack.PopMatrix();*/
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Rotate(-rotate, 0, 0, 1);
+	modelStack.Translate(9, 0, 0);
+	modelStack.Rotate(-rotate * 15, 0, 0, 1);
+	RenderMesh(meshList[GEO_SUN], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Rotate(90, 1, 0, 0);
+	modelStack.Scale(15, 1, 15);
+	RenderMesh(meshList[GEO_ORBIT_LINES], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Rotate(rotate, 0, 0, 1);
+	modelStack.Translate(15, 0, 0);
+	modelStack.Rotate(rotate * 10, 0, 0, 1);
+	RenderMesh(meshList[GEO_SUN], false);
+	modelStack.PopMatrix();
 
 	modelStack.PopMatrix();
 }
@@ -557,7 +590,7 @@ void SystemScene::RenderSkybox()
 {
 	modelStack.PushMatrix();//push ground
 	modelStack.Translate(950, 0, 950);
-	modelStack.Scale(2.5, 2.5, 2.5);
+	modelStack.Scale(10, 10, 10);
 
 	modelStack.PushMatrix();//seperate from ground
 

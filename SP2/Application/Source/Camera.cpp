@@ -35,7 +35,7 @@ void Camera::Update(double dt)
 	Vector3 right = view.Cross(this->up);
 	view.Normalize();
 	right.Normalize();
-	if(Application::IsKeyPressed('E'))
+	/*if(Application::IsKeyPressed('E'))
 	{
 		position += right * CAMERA_SPEED * dt;
 	}
@@ -70,10 +70,10 @@ void Camera::Update(double dt)
 	else if (Application::IsKeyPressed('F'))
 	{
 		position -= up * CAMERA_SPEED * dt;
-	}
+	}*/
 	if (Application::IsKeyPressed(VK_SPACE))
 	{
-		CAMERA_SPEED = 100.f;
+		CAMERA_SPEED = 1000.f;
 	}
 	else
 	{

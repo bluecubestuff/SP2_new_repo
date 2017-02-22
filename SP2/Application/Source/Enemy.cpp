@@ -15,7 +15,15 @@ LandEnemy::~LandEnemy()
 
 }
 
-vector<Vector3*> LandEnemy::Pathfinding(Vector3 enemyPos, Vector3 endGoal)
+void LandEnemy::enemyUpdate()
+{
+	if (enemyIsDead == false)
+	{
+
+	}
+}
+
+vector<Vector3*> LandEnemy::Pathfinding(double_land_array landGrid, Vector3 endGoal)
 {
 	vector<Vector3*> path; //create the vector of Vector3 pointers that stores the nodes the enemy travels through
 
@@ -35,6 +43,8 @@ vector<Vector3*> LandEnemy::Pathfinding(Vector3 enemyPos, Vector3 endGoal)
 	list<Node*> openList;
 	list<Node*> closedList;
 	list<Node*>::iterator i;
+
+	
 
 	unsigned int n = 0;
 
@@ -65,66 +75,60 @@ vector<Vector3*> LandEnemy::Pathfinding(Vector3 enemyPos, Vector3 endGoal)
 
 		for (int x = -1; x < 2; x++) //searches for successor nodes
 		{
-			if (x == 0) //checks if successor node is the current node;
+			for (int z = -1; z < 2; z++)
 			{
-				continue;
-			}
-			else
-			{
-				successor = current->getNode(current->getX() + x, current->getZ());
-			} //set the pos of the successor node
+				if (x == 0 && z == 0) //checks if successor node is the current node;
+				{
+					continue;
+				}
+				else
+				{
+					successor = current->getNode(current->getX() + x, current->getZ());
+					successor->getPointInGrid(landGrid);
+				} //set the pos of the successor node
 
-			/*	if ()																	//check for collision
-			{
-			continue;
-			}*/
+				if (successor->closed == true)
+				{
+					continue;
+				}
 
-			if (successor->open == true) //check if the successor node is on the open list
-			{
-				if (successor->getGscore() > successor->calculateGscore(current)) //checks if the G score of the current node is less than the G score of the successor node in the open and closed lists
-				{																  //sets the parent node of the successor node to the current node
+				//check for collision according to character of non-walkable square in grid
+				//if (landGrid[successor->pos.x][successor->pos.y] == '') 
+				//{
+				//	continue;
+				//}
+
+				if (successor->open == true) //check if the successor node is on the open list
+				{
+					if (successor->getGscore() > successor->calculateGscore(current)) //checks if the G score of the current node is less than the G score of the successor node in the open and closed lists
+					{																  //sets the parent node of the successor node to the current node
+						successor->setParent(current);
+						successor->computeFscore(end); //calculates the successor's F score
+					}
+				}
+				else
+				{
+					openList.push_back(successor);
+					successor->open = true;
+
 					successor->setParent(current);
-					successor->computeFscore(end); //calculates the successor's F score
+					successor->computeFscore(end);
+
 				}
 			}
-			else
-			{
-				openList.push_back(successor);
-				successor->open = true;
-
-				successor->setParent(current);
-				successor->computeFscore(end);
-
-			}
 		}
-		for (int z = -1; z < 2; z++)
-		{
-			if (z == 0) //checks if successor node is the current node;
-			{
-				continue;
-			}
-
-			successor = current->getNode(current->getX(), current->getZ() + z); 
-
-			if (successor->open == true) 
-			{
-				if (successor->getGscore() > successor->calculateGscore(current)) 
-				{																  
-					successor->setParent(current);
-					successor->computeFscore(end); 
-				}
-			}
-			else
-			{
-				openList.push_back(successor);
-				successor->open = true;
-
-				successor->setParent(current);
-				successor->computeFscore(end);
-
-			}
-		}
+	
 		n++;
+
+	}
+
+	for (i = openList.begin(); i != openList.end(); ++i)
+	{
+		(*i)->open = false;
+	}
+	for (i = closedList.begin(); i != closedList.end(); ++i)
+	{
+		(*i)->closed = false;
 	}
 
 	//push path nodes into path vector
@@ -135,6 +139,8 @@ vector<Vector3*> LandEnemy::Pathfinding(Vector3 enemyPos, Vector3 endGoal)
 		n++;
 	}
 
+	AIpath = path;
+
 	return path;
 }
 
@@ -144,14 +150,14 @@ void LandEnemy::setPosition(Vector3* position)
 	enemyPos.y = position->y;
 }
 
-void LandEnemy::PathfindingMovement(vector<Vector3*> path) 
+void LandEnemy::PathfindingMovement() 
 {	
 	vector<Vector3*>::reverse_iterator it; //iterator
 	
-	for (it = path.rend(); it != path.rbegin(); it++) //iterates through the vector using a for loop
+	for (it = AIpath.rend(); it != AIpath.rbegin(); it++) //iterates through the vector using a for loop
 	{
-		setPosition(path.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
-		path.pop_back(); //pops the last element, repeat
+		setPosition(AIpath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
+		AIpath.pop_back(); //pops the last element, repeat
 	}
 }
 

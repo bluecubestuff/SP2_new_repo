@@ -34,6 +34,12 @@ Vector3* Node::getNodePosition()
 	return new Vector3(pos.x, 0, pos.z);
 }
 
+void Node::getPointInGrid(double_land_array landGrid)
+{
+	nodeGridPosition = landGrid;
+	nodeGridPosition[pos.x][pos.y];
+}
+
 Node* Node::getParent()
 {
 	return parent;

@@ -2,6 +2,7 @@
 #define NODE_H
 
 #include "Vector3.h"
+#include "LandGenerate.h"
 
 struct Node
 {
@@ -12,6 +13,7 @@ public:
 	float f;
 	float g;
 	float h;
+	double_land_array nodeGridPosition;
 	Node* parent;
 
 	Node();
@@ -20,6 +22,7 @@ public:
 	Node* getNode(float successorPosX, float successorPosY);
 	Node* getParent();
 	Vector3* getNodePosition();
+	void getPointInGrid(double_land_array landGrid);
 	void setParent(Node *n);
 	float getX();
 	float getZ();
@@ -29,6 +32,7 @@ public:
 	int calculateGscore(Node *n);
 	int calculateHscore(Node* n);
 	void computeFscore(Node *end);
+
 	bool hasParent();
 };
 

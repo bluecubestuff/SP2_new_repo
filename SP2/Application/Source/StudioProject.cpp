@@ -16,13 +16,13 @@
 //#include "LandGenerate.h"
 #include <iostream>
 
-StudioProject::StudioProject() :objfactory(this)
+StudioProject::StudioProject()
 {
-	gen = new LandGenerate(this);
 }
 
 StudioProject::~StudioProject()
 {
+	delete this;
 }
 
 void StudioProject::Init()
@@ -107,7 +107,7 @@ void StudioProject::Init()
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
 	Player = new PlayerShip;
-
+	gen = new LandGenerate(this);
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	for (int i = 1; i < 2; i++)
 	{
@@ -703,7 +703,7 @@ void StudioProject::Exit()
 	}
 	hostiles.clear();
 	missiles.clear();
-
+	delete gen;
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

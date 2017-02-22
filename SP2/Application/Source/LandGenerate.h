@@ -21,11 +21,12 @@ public:
 	void saveLandInIt(unsigned);	//reloadInit
 	void landUpdate();
 	void BuildLand();
+	void SetPath();
 
 	//double_land_array double_land_getter();
 	ObjectFactory object_factory_getter();
 	
-	int outer_grid[50][50];
+	char path[2500][2500];
 	map<unsigned, vector<ObjectRender*>> obj_data_at_box;
 
 private:

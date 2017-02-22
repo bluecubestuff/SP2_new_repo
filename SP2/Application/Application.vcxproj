@@ -124,6 +124,7 @@
     <ClCompile Include="Source\Shield.cpp" />
     <ClCompile Include="Source\ship.cpp" />
     <ClCompile Include="Source\StudioProject.cpp" />
+    <ClCompile Include="Source\SystemScene.cpp" />
     <ClCompile Include="Source\Thruster.cpp" />
     <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Source\ship.h" />
     <ClInclude Include="Source\SolarGenerate.h" />
     <ClInclude Include="Source\StudioProject.h" />
+    <ClInclude Include="Source\SystemScene.h" />
     <ClInclude Include="Source\Thruster.h" />
     <ClInclude Include="Source\Tree.h" />
     <ClInclude Include="Source\Utility.h" />

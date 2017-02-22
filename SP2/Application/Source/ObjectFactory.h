@@ -15,7 +15,10 @@ class ObjectFactory
 public:
 	ObjectFactory(StudioProject* scene);
 	ObjectFactory(PlanetScene* scene);
-	~ObjectFactory() { objContainer.clear(); };
+	~ObjectFactory() 
+	{ 
+		objContainer.clear();
+	};
 
 	void createObject(ObjectRender* obj);
 	void interactObjects();

@@ -75,3 +75,13 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
 }
+
+bool EnemyShip::getWithinSights()
+{
+	return iGotYouInMySights;
+}
+
+void EnemyShip::setIGotYouInMySights(bool something)
+{
+	this->iGotYouInMySights = something;
+}

@@ -109,7 +109,7 @@ void StudioProject::Init()
 	Player = new PlayerShip;
 	gen = new LandGenerate(this);
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
-	for (int i = 1; i < 2; i++)
+	for (int i = 1; i < 10; i++)
 	{
 		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, 100, 100), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);
@@ -290,7 +290,8 @@ void StudioProject::Update(double dt)
 	//================================================================================
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
-	Player->locking(hostiles[0]);
+	Player->withinRange(hostiles);
+	//Player->locking(hostiles[0]);
 
 	for (auto &i : hostiles)
 	{
@@ -472,14 +473,21 @@ void StudioProject::Render()
 		RenderMesh(meshList[GEO_PLAYER_SHIP], true);
 
 		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
 		if (i->getHit())
 		{
-			modelStack.PushMatrix();
 			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
 			modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
 			RenderMesh(meshList[GEO_SHIELD], false);
-			modelStack.PopMatrix();
 		}
+		if (i->getWithinSights())
+		{
+			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+			modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
+			RenderMesh(meshList[GEO_SHIELD], false);
+		}
+		modelStack.PopMatrix();
 	}
 
 	gen->BuildLand();
@@ -687,6 +695,7 @@ void StudioProject::RenderSkybox()
 
 	modelStack.Translate(0, 0, 0);
 	modelStack.Scale(2000, 1, 2000);
+	modelStack.Rotate(180, 0, 1, 0);
 	RenderMesh(meshList[GEO_BOTTOM], false);
 	modelStack.PopMatrix();//end ground
 }

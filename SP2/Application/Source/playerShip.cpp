@@ -319,3 +319,34 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	//update ship matrix
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
 }
+
+void PlayerShip::withinRange(vector<EnemyShip*> targets)
+{
+	for (auto &i : targets)
+	{
+		Vector3 temp = i->getter("position") - this->Position;
+		//need to normalize both vectors before doing the acos
+		float angle;
+		angle = Math::RadianToDegree(acos(temp.Normalized().Dot(this->Forward.Normalized())));
+		if (angle < 20 && angle > -20)		//if withing 45 degreess from forward
+		{
+			i->setIGotYouInMySights(true);		//set the bool in enemy to true	
+			//std::cout << "targeted" << std::endl;
+			applicableTargets.push_back(i);		//puh back to which targets player can choose
+		}
+		else
+		{
+			i->setIGotYouInMySights(false);		//else not in ur target list anymore
+			//std::cout << "untargeted" << std::endl;
+		}
+	}
+	for (int i = 0; i < applicableTargets.size(); i++)
+	{
+		if (applicableTargets[i]->getWithinSights() == false)		//if is not in within the cone of target
+		{
+			applicableTargets.erase(applicableTargets.begin() + i);			//remove from the vector
+			//std::cout << "removed from target list" << std::endl;
+			i = 0;
+		}
+	}
+}

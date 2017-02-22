@@ -17,6 +17,7 @@
 #include "CollisionManager.h"
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
+#include "SystemTravelShip.h"
 
 #include <string>
 #include <vector>
@@ -127,6 +128,9 @@ class SystemScene : public Scene
 public:
 	SystemScene();
 	~SystemScene();
+
+	SystemTravelShip* Player;
+	float rotate;
 
 	virtual void Init();
 	virtual void Update(double dt);

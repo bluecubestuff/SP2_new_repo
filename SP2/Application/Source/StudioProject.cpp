@@ -126,22 +126,22 @@ void StudioProject::Init()
 	meshList[GEO_SPHERE]->material.kShininess = 1.f;
 
 	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
+	meshList[GEO_FRONT]->textureID = LoadTGA("Image//spaceBack.tga");
 
 	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
+	meshList[GEO_BACK]->textureID = LoadTGA("Image//spaceFront.tga");
 
 	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
+	meshList[GEO_LEFT]->textureID = LoadTGA("Image//spaceLeft.tga");
 
 	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
+	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//spaceRight.tga");
 
 	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//spaceBottom.tga");
 
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+	meshList[GEO_TOP]->textureID = LoadTGA("Image//spaceTop.tga");
 
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6f, 0.4f, 0.3f));
 
@@ -151,13 +151,13 @@ void StudioProject::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
-	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//tree.OBJ");
+	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//Missle.OBJ");
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
-	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("rock", "OBJ//rock.obj");
 
-	meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//rock.obj");
-	meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
+	//meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//Sphere.obj");
+	//meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
 
 	//------------------------------------------------------------------------------------------
 	//light
@@ -291,7 +291,8 @@ void StudioProject::Update(double dt)
 	//================================================================================
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
-	Player->locking(hostiles[0]);
+	Player->withinRange(hostiles);
+	//Player->locking(hostiles[0]);
 
 	for (auto &i : hostiles)
 	{
@@ -473,14 +474,21 @@ void StudioProject::Render()
 		RenderMesh(meshList[GEO_PLAYER_SHIP], true);
 
 		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
 		if (i->getHit())
 		{
-			modelStack.PushMatrix();
 			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
 			modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
 			RenderMesh(meshList[GEO_SHIELD], false);
-			modelStack.PopMatrix();
 		}
+		if (i->getWithinSights())
+		{
+			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+			modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
+			RenderMesh(meshList[GEO_SHIELD], false);
+		}
+		modelStack.PopMatrix();
 	}
 
 	gen->BuildLand();
@@ -688,7 +696,8 @@ void StudioProject::RenderSkybox()
 
 	modelStack.Translate(0, 0, 0);
 	modelStack.Scale(2000, 1, 2000);
-	RenderMesh(meshList[GEO_BOTTOM], true);
+	modelStack.Rotate(180, 0, 1, 0);
+	RenderMesh(meshList[GEO_BOTTOM], false);
 	modelStack.PopMatrix();//end ground
 }
 

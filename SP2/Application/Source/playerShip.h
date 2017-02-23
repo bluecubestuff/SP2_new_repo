@@ -28,7 +28,10 @@ public:
 	double camTime;
 	float Speed;
 
+	vector<EnemyShip*> applicableTargets;
+
 	void locking(EnemyShip* target);
+	void withinRange(vector<EnemyShip*>);
 	void Update(double dt);
 private:
 	

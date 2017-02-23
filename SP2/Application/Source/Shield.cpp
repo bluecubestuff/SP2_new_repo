@@ -7,8 +7,6 @@ Shield::Shield()
 	Shield::count++;
 	this->ID = "S" + std::to_string(Shield::count);		//update the ID
 
-	Randomise hue;
-
 	int temp = hue.generate_range(0, 3);
 	float temptemp = hue.generate_range(0, 3);
 	string type[4] = { "D", "C", "B", "A" };

@@ -12,9 +12,12 @@ public:
 	EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float s, float size, float speed);
 	~EnemyShip();
 	void Update(double dt, Vector3 playerPos, Vector3 playerFor);
+	bool getWithinSights();
+	void setIGotYouInMySights(bool);
 private:
 	float turnSpeed;
 	float speed;
+	bool iGotYouInMySights;
 };
 
 #endif

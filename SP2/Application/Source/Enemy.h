@@ -7,7 +7,6 @@
 #include "Item.h"
 #include "GameObject.h"
 #include "Application.h"
-#include "LandGenerate.h"
 #include <vector>
 
 using std::vector;
@@ -24,7 +23,7 @@ public:
 	Vector3 enemyPos;
 	void enemyUpdate();
 	void randomMovement();
-	vector<Vector3*> Pathfinding(double_land_array landGrid, Vector3 endGoal);
+	vector<Vector3*> Pathfinding(char landGrid[2500][2500], Vector3 endGoal);
 	void PathfindingMovement();
 	void setPosition(Vector3* position);
 	vector<Vector3*> AIpath;

@@ -102,7 +102,7 @@ void PlanetScene::Init()
 	//meshes------------------------------------------------------------------------------------------
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
-	Player = new LandPlayer(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
+	Player = new LandPlayer(Vector3(0, 3, 0), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
 	gen = new LandGenerate(this);
 	colManager = new CollisionManager;
 	//=============================================================================
@@ -145,6 +145,8 @@ void PlanetScene::Init()
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+
+	meshList[GEO_ENEMY] = MeshBuilder::GenerateCube("enemy", Color(1, 0, 0));
 
 	//------------------------------------------------------------------------------------------
 	//light
@@ -205,7 +207,7 @@ void PlanetScene::Init()
 	projectionStack.LoadMatrix(projection);
 
 	gen->landInIt();
-	camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
+	//camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
 }
 
 static float ROT_LIMIT = 45.f;
@@ -266,7 +268,6 @@ void PlanetScene::Update(double dt)
 		std::cout << Player->getter("position") << "\n";
 	}
 	//std::cout << Player->getter("forward") << std::endl;
-
 
 	colManager->CollisionChecker(gen, Player);
 	Player->Update(dt);
@@ -361,11 +362,10 @@ void PlanetScene::Render()
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();*/
 	//===================================================================================================
-
 	/*modelStack.PushMatrix();
-	modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
-	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
-	RenderMesh(meshList[GEO_AXES], false);
+	modelStack.Translate(Enemy->enemyPos.x, Enemy->enemyPos.y, Enemy->enemyPos.z);
+	modelStack.Scale(5, 5, 5);
+	RenderMesh(meshList[GEO_ENEMY], false);
 	modelStack.PopMatrix();*/
 
 	gen->BuildLand();

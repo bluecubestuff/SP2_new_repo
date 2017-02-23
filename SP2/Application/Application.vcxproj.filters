@@ -182,9 +182,6 @@
     <ClCompile Include="Source\Building.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Node.cpp">
-      <Filter>Source Files\AI</Filter>
-    </ClCompile>
     <ClCompile Include="Source\NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -235,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="Source\GreenPlanet.cpp">
       <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Node.cpp">
+      <Filter>Source Files\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

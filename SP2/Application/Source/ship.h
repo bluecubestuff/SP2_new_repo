@@ -10,6 +10,9 @@
 #include "func_AABB.h"
 #include "Hull.h"
 #include "Thruster.h"
+#include "Shield.h"
+#include "PowerPlant.h"
+#include "Module.h"
 
 #include "DetectMemoryLeak.h"
 
@@ -44,9 +47,11 @@ protected:
 	float mass;
 	Hull* hull;
 	float maxShield;
+	Shield* shield;
 	float thrust;
 	Thruster* thruster;
 	float power;
+	PowerPlant* reactor;
 
 	bool hit;
 

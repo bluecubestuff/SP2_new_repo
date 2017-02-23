@@ -1,122 +1,80 @@
-﻿Build started 2/22/2017 11:46:31 AM.
+﻿Build started 2/23/2017 11:47:07 AM.
      1>Project "C:\Users\162042Y\Documents\SP2_new_repo\SP2\Application\Application.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glew\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glfw\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\Common\Source /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Application.cpp Source\Building.cpp Source\Camera.cpp Source\Camera2.cpp Source\Camera3.cpp Source\CollisionManager.cpp Source\Enemy.cpp Source\enemyShip.cpp Source\Func_AABB.cpp Source\GalaxyGenerate.cpp Source\GameObject.cpp Source\Hull.cpp Source\Item.cpp Source\landEntity.cpp Source\LandFPSCamera.cpp Source\LandGenerate.cpp Source\landPlayer.cpp Source\LoadOBJ.cpp Source\LoadTGA.cpp Source\main.cpp Source\Mesh.cpp Source\MeshBuilder.cpp Source\Missile.cpp Source\Mithril.cpp Source\MouseControl.cpp Source\Node.cpp Source\NPC.cpp Source\ObjectFactory.cpp Source\ObjectRender.cpp Source\PlanetScene.cpp Source\playerShip.cpp Source\PowerPlant.cpp Source\Projectile.cpp Source\Randomise.cpp Source\Rock.cpp Source\SceneManager.cpp Source\shader.cpp Source\Shield.cpp Source\ship.cpp Source\StudioProject.cpp Source\Thruster.cpp Source\Tree.cpp Source\Utility.cpp Source\Weapon.cpp
-         Weapon.cpp
-         Utility.cpp
-         Tree.cpp
-         Thruster.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\thruster.cpp(13): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\thruster.cpp(19): warning C4244: 'argument' : conversion from 'double' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\thruster.cpp(22): warning C4244: 'argument' : conversion from 'double' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\thruster.cpp(22): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
-         StudioProject.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\studioproject.cpp(114): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\studioproject.cpp(314): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\studioproject.cpp(318): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\studioproject.cpp(343): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-         ship.cpp
-         Shield.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\shield.cpp(13): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\shield.cpp(19): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\shield.cpp(22): warning C4244: 'argument' : conversion from 'double' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\shield.cpp(22): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
-         shader.cpp
-         SceneManager.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\scenemanager.cpp(24): warning C4018: '>' : signed/unsigned mismatch
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\scenemanager.cpp(41): warning C4018: '<' : signed/unsigned mismatch
-         Rock.cpp
-         Randomise.cpp
-         Projectile.cpp
-         PowerPlant.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\powerplant.cpp(13): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\powerplant.cpp(19): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\powerplant.cpp(20): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         playerShip.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\playership.cpp(24): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\playership.cpp(25): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\playership.cpp(27): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\playership.cpp(28): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PlanetScene.cpp
-         ObjectRender.cpp
-         ObjectFactory.cpp
-         NPC.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glew\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glfw\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\Common\Source /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Application.cpp Source\CollisionManager.cpp Source\Enemy.cpp Source\LandGenerate.cpp Source\Mithril.cpp Source\NPC.cpp Source\Node.cpp Source\ObjectRender.cpp Source\PlanetScene.cpp Source\Rock.cpp Source\Tree.cpp
          Node.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(39): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(39): error C2440: 'return' : cannot convert from 'unsigned int' to 'Node *'
-                 Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(59): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(64): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(69): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(74): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(79): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(84): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(89): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(90): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         MouseControl.cpp
-         Generating Code...
-         Compiling...
-         Mithril.cpp
-         Missile.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\missile.cpp(35): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\missile.cpp(50): warning C4101: 'e' : unreferenced local variable
-         MeshBuilder.cpp
-         Mesh.cpp
-         main.cpp
-         LoadTGA.cpp
-         LoadOBJ.cpp
-         landPlayer.cpp
-         LandGenerate.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(24): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(39): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(40): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(69): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(70): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         LandFPSCamera.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landfpscamera.cpp(35): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landfpscamera.cpp(36): warning C4244: 'initializing' : conversion from 'double' to 'const float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landfpscamera.cpp(82): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landfpscamera.cpp(83): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-         landEntity.cpp
-         Item.cpp
-         Hull.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\hull.cpp(13): warning C4244: 'initializing' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\hull.cpp(19): warning C4244: 'argument' : conversion from 'float' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\hull.cpp(22): warning C4244: 'argument' : conversion from 'double' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\hull.cpp(23): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\hull.cpp(49): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-         GameObject.cpp
-         GalaxyGenerate.cpp
-         Func_AABB.cpp
-         enemyShip.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\enemyship.cpp(34): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\enemyship.cpp(54): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\enemyship.cpp(49): warning C4101: 'e' : unreferenced local variable
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(84): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(85): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
          Enemy.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\enemy.cpp(84): error C2660: 'Node::getPoint' : function does not take 2 arguments
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\enemy.cpp(85): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\enemy.cpp(86): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         Tree.cpp
+         Rock.cpp
+         PlanetScene.cpp
+         ObjectRender.cpp
+         NPC.cpp
+         Mithril.cpp
+         LandGenerate.cpp
          CollisionManager.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\collisionmanager.cpp(31): warning C4018: '<' : signed/unsigned mismatch
-         Camera3.cpp
-         Generating Code...
-         Compiling...
-         Camera2.cpp
-         Camera.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(40): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(44): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(48): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(52): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(57): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(63): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(68): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(72): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(86): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(93): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(100): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\camera.cpp(106): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-         Building.cpp
          Application.cpp
-         Generating Code...
-     1>Done Building Project "C:\Users\162042Y\Documents\SP2_new_repo\SP2\Application\Application.vcxproj" (Build target(s)) -- FAILED.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\162042Y\Documents\SP2_new_repo\SP2\\glew\lib /LIBPATH:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\\glfw\lib-msvc120" /LIBPATH:C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.lib" /MACHINE:X86 Debug\Application.obj
+         Debug\Building.obj
+         Debug\Camera.obj
+         Debug\Camera2.obj
+         Debug\Camera3.obj
+         Debug\CollisionManager.obj
+         Debug\Enemy.obj
+         Debug\enemyShip.obj
+         Debug\Func_AABB.obj
+         Debug\GalaxyGenerate.obj
+         Debug\GameObject.obj
+         Debug\Hull.obj
+         Debug\Item.obj
+         Debug\landEntity.obj
+         Debug\LandFPSCamera.obj
+         Debug\LandGenerate.obj
+         Debug\landPlayer.obj
+         Debug\LoadOBJ.obj
+         Debug\LoadTGA.obj
+         Debug\main.obj
+         Debug\Mesh.obj
+         Debug\MeshBuilder.obj
+         Debug\Missile.obj
+         Debug\Mithril.obj
+         Debug\MouseControl.obj
+         Debug\Node.obj
+         Debug\NPC.obj
+         Debug\ObjectFactory.obj
+         Debug\ObjectRender.obj
+         Debug\PlanetScene.obj
+         Debug\playerShip.obj
+         Debug\PowerPlant.obj
+         Debug\Projectile.obj
+         Debug\Randomise.obj
+         Debug\Rock.obj
+         Debug\SceneManager.obj
+         Debug\shader.obj
+         Debug\Shield.obj
+         Debug\ship.obj
+         Debug\StudioProject.obj
+         Debug\SystemScene.obj
+         Debug\SystemTravelShip.obj
+         Debug\Thruster.obj
+         Debug\Tree.obj
+         Debug\Utility.obj
+         Debug\Weapon.obj
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         Application.vcxproj -> C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.exe
+     1>Done Building Project "C:\Users\162042Y\Documents\SP2_new_repo\SP2\Application\Application.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:32.60
+Time Elapsed 00:00:02.14

@@ -5,7 +5,7 @@ PlayerShip::PlayerShip()
 	this->Forward = Vector3(0, 0, 1);
 	this->Up = Vector3(0, 1, 0);
 	this->Right = Vector3(1, 0, 0);
-	this->Position = Vector3(0, 0, 0);
+	this->Position = Vector3(500, 500, 500);
 	this->Inertia = Vector3(0, 0, 0);
 	this->Speed = 0;
 	this->camTime = 0.f;
@@ -23,10 +23,16 @@ PlayerShip::PlayerShip()
 	hull = new Hull(100, 10.f, "BASE_H", "Second Hand Hull", "D4");
 	this->hullPoints = hull->getHullPoint();;
 	this->mass = hull->getMass();
-	this->maxShield = 100.f;
-	thruster = new Thruster(10.f, 20.f, "BASE_T", "Second Hand Thruster", "D4");
+	
+	shield = new Shield(100, 50.f, "BASE_S", "Second Hand Shield Generator", "D4");
+	this->maxShield = shield->getShieldPoint();
+
+	thruster = new Thruster(10.f, 25.f, "BASE_T", "Second Hand Thruster", "D4");
 	this->thrust = thruster->getThrust();
 	this->turnSpeed = thrust / mass;
+
+	reactor = new PowerPlant(100.f, "BASE_R", "second Hand Reactor", "D4");
+	this->power = reactor->getPower();
 
 	hit = false;
 
@@ -312,4 +318,35 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	//==========================================================================
 	//update ship matrix
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
+}
+
+void PlayerShip::withinRange(vector<EnemyShip*> targets)
+{
+	for (auto &i : targets)
+	{
+		Vector3 temp = i->getter("position") - this->Position;
+		//need to normalize both vectors before doing the acos
+		float angle;
+		angle = Math::RadianToDegree(acos(temp.Normalized().Dot(this->Forward.Normalized())));
+		if (angle < 20 && angle > -20)		//if withing 45 degreess from forward
+		{
+			i->setIGotYouInMySights(true);		//set the bool in enemy to true	
+			//std::cout << "targeted" << std::endl;
+			applicableTargets.push_back(i);		//puh back to which targets player can choose
+		}
+		else
+		{
+			i->setIGotYouInMySights(false);		//else not in ur target list anymore
+			//std::cout << "untargeted" << std::endl;
+		}
+	}
+	for (int i = 0; i < applicableTargets.size(); i++)
+	{
+		if (applicableTargets[i]->getWithinSights() == false)		//if is not in within the cone of target
+		{
+			applicableTargets.erase(applicableTargets.begin() + i);			//remove from the vector
+			//std::cout << "removed from target list" << std::endl;
+			i = 0;
+		}
+	}
 }

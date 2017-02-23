@@ -18,6 +18,7 @@
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
 #include "SystemTravelShip.h"
+#include "SolarGenerate.h"
 
 #include <string>
 #include <vector>
@@ -37,6 +38,8 @@ class SystemScene : public Scene
 	friend class NPC;
 	friend class Building;
 	friend class ObjectRender;
+	friend class OrbitLine;
+	friend class GreenPlanet;
 
 	enum GEOMETRY_TYPE
 	{
@@ -159,7 +162,8 @@ private:
 
 	char mapArray[100][100];
 
-	//ObjectFactory objfactory;
+	ObjectFactory objfactory;
+	SolarGenerate* system_gen;
 
 	//Camera2 camera;
 	//Camera3 camera;

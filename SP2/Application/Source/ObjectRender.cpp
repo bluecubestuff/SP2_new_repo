@@ -1,6 +1,7 @@
 #include "ObjectRender.h"
 #include "StudioProject.h"
 #include "PlanetScene.h"
+#include "SystemScene.h"
 
 ObjectRender::ObjectRender(StudioProject* scene, Vector3 pos, float size)
 {
@@ -10,9 +11,18 @@ ObjectRender::ObjectRender(StudioProject* scene, Vector3 pos, float size)
 }
 ObjectRender::ObjectRender(PlanetScene* scene, Vector3 pos, float size)
 {
-	planetScene = scene;
+	planetscene = scene;
 	position = pos;
 	scale = size;
+}
+ObjectRender::ObjectRender(SystemScene* scene, Vector3 pos, float sizeX, float sizeZ, float aRotate, float pRotate)
+{
+	this->systemscene = scene;
+	this->position = pos;
+	this->scaleX = sizeX;
+	this->scaleZ = sizeZ;
+	this->aroundRotate = aRotate;
+	this->planetRotate = pRotate;
 }
 void ObjectRender::render()
 {
@@ -25,9 +35,20 @@ void ObjectRender::render()
 }
 void ObjectRender::render_planet()
 {
-	planetScene->modelStack.PushMatrix();
-	planetScene->modelStack.Translate(position.x, position.y, position.z);
-	planetScene->modelStack.Scale(scale, scale, scale);
-	planetScene->RenderMesh(planetScene->meshList[type], true);
-	planetScene->modelStack.PopMatrix();
+	planetscene->modelStack.PushMatrix();
+	planetscene->modelStack.Translate(position.x, position.y, position.z);
+	planetscene->modelStack.Scale(scale, scale, scale);
+	planetscene->RenderMesh(planetscene->meshList[type], true);
+	planetscene->modelStack.PopMatrix();
+}
+
+void ObjectRender::render_system_planets(float aRotate,float pRotate)
+{	//for system only
+	systemscene->modelStack.PushMatrix();
+	systemscene->modelStack.Rotate(aRotate * aroundRotate, 0, 0, 1);
+	systemscene->modelStack.Scale(scaleX, 1, scaleZ);
+	systemscene->modelStack.Translate(position.x, 0, 0);
+	systemscene->modelStack.Rotate(pRotate * planetRotate, 0, 0, 1);
+	systemscene->RenderMesh(systemscene->meshList[type], false);
+	systemscene->modelStack.PopMatrix();
 }

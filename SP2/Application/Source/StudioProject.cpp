@@ -108,8 +108,9 @@ void StudioProject::Init()
 	//=============================================================================
 	Player = new PlayerShip;
 	gen = new LandGenerate(this);
+	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
-	for (int i = 1; i < 2; i++)
+	for (int i = 1; i < 10; i++)
 	{
 		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, 100, 100), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);

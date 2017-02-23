@@ -13,7 +13,7 @@
 //#include "LandGenerate.h"
 #include <iostream>
 
-SystemScene::SystemScene()
+SystemScene::SystemScene() : objfactory(this)
 {
 	
 }
@@ -140,12 +140,12 @@ void SystemScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
-	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//tree.OBJ");
+	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//Missle.OBJ");
 
-	meshList[GEO_SUN] = MeshBuilder::GenerateOBJ("Sun", "OBJ//tree.OBJ");
-	//meshList[GEO_SUN]->textureID = LoadTGA("Image//sunsun.tga");
+	meshList[GEO_SUN] = MeshBuilder::GenerateOBJ("Sun", "OBJ//Sphere.OBJ");
+	meshList[GEO_SUN]->textureID = LoadTGA("Image//sunsun.tga");
 
-	//meshList[GEO_ORBIT_LINES] = MeshBuilder::GenerateOBJ("Orbit Lines", "OBJ//orbitLines.OBJ");
+	meshList[GEO_ORBIT_LINES] = MeshBuilder::GenerateOBJ("Orbit Lines", "OBJ//orbitLines.OBJ");
 
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
@@ -230,6 +230,8 @@ void SystemScene::Init()
 
 	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
 	Player = new SystemTravelShip;
+	system_gen = new SolarGenerate(this);
+	system_gen->Init();
 	rotate = 0.f;
 }
 
@@ -293,7 +295,6 @@ void SystemScene::Update(double dt)
 	//colManager->CollisionChecker(gen, camera);
 	camera.Update(dt);
 	Player->Update(dt);
-	//Player->Update(dt);
 	rotate += dt;
 }
 
@@ -392,49 +393,86 @@ void SystemScene::Render()
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();*/
 
-	modelStack.PushMatrix();
+	modelStack.PushMatrix();	//push sun
 	modelStack.Translate(1000, 6000, 1000);
 	modelStack.Rotate(90, 1, 0, 0);
 
-
-	modelStack.PushMatrix();
+	modelStack.PushMatrix();	//push player_ship
 	modelStack.Translate(Player->position.x, Player->position.y, Player->position.z);
 	modelStack.Rotate(90, 1, 0, 0);
 	modelStack.Rotate(Player->rotate, 0, 1, 0);
 	modelStack.Scale(100, 100, 100);
 	RenderMesh(meshList[GEO_PLAYER_SHIP], false);
-	modelStack.PopMatrix();
+	modelStack.PopMatrix();		//end player_ship
 
 	modelStack.Scale(250, 250, 250);
 	RenderMesh(meshList[GEO_SUN], false);
 
-	modelStack.PushMatrix();
-	modelStack.Rotate(90, 1, 0, 0);
-	modelStack.Scale(9, 1, 9);
-	RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	modelStack.PopMatrix();
+	for (int i = 1; i <= system_gen->num_of_planet_getter(); i++)
+	{
+		modelStack.PushMatrix();
+		modelStack.Rotate(90, 1, 0, 0);
+		modelStack.Scale(9 * i, 1, 9 * i);
+		RenderMesh(meshList[GEO_ORBIT_LINES], false);
+		modelStack.PopMatrix();
+	}
 
-	modelStack.PushMatrix();
-	modelStack.Rotate(-rotate, 0, 0, 1);
-	modelStack.Translate(9, 0, 0);
-	modelStack.Rotate(-rotate * 15, 0, 0, 1);
-	RenderMesh(meshList[GEO_SUN], false);
-	modelStack.PopMatrix();
+	system_gen->build_system(rotate, rotate);
 
-	modelStack.PushMatrix();
-	modelStack.Rotate(90, 1, 0, 0);
-	modelStack.Scale(15, 1, 15);
-	RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	modelStack.PopMatrix();
+	//=======================================================
+	//modelStack.PushMatrix();	//push orbitline
+	//modelStack.Rotate(90, 1, 0, 0);
+	//modelStack.Scale(3, 1, 3);
+	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
+	//modelStack.PopMatrix();		//end orbitline
 
-	modelStack.PushMatrix();
-	modelStack.Rotate(rotate, 0, 0, 1);
-	modelStack.Translate(15, 0, 0);
-	modelStack.Rotate(rotate * 10, 0, 0, 1);
-	RenderMesh(meshList[GEO_SUN], false);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();	//push orbitline
+	//modelStack.Rotate(90, 1, 0, 0);
+	//modelStack.Scale(9, 1, 9);
+	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
+	//modelStack.PopMatrix();		//end orbitline
 
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();	//push planet
+	//modelStack.Rotate(-rotate, 0, 0, 1);
+	//modelStack.Translate(9, 0, 0);
+	//modelStack.Rotate(-rotate * 15, 0, 0, 1);
+	//RenderMesh(meshList[GEO_SUN], false);
+	//modelStack.PopMatrix();		//end planet
+
+	//modelStack.PushMatrix();	//push orbitline
+	//modelStack.Rotate(90, 1, 0, 0);
+	//modelStack.Scale(15, 1, 15);
+	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
+	//modelStack.PopMatrix();		//end orbitline
+
+	//modelStack.PushMatrix();	//push planet
+	//modelStack.Rotate(rotate, 0, 0, 1);
+	//modelStack.Translate(15, 0, 0);
+	//modelStack.Rotate(rotate * 10, 0, 0, 1);
+	//RenderMesh(meshList[GEO_SUN], false);
+	//modelStack.PopMatrix();		//end planet
+
+	//modelStack.PushMatrix();	//push orbitline
+	//modelStack.Rotate(90, 1, 0, 0);
+	//modelStack.Scale(21, 1, 21);
+	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
+	//modelStack.PopMatrix();		//end orbitline
+
+	//modelStack.PushMatrix();	//push planet
+	//modelStack.Rotate(rotate, 0, 0, 1);
+	//modelStack.Translate(21, 0, 0);
+	//modelStack.Rotate(rotate * 10, 0, 0, 1);
+	//RenderMesh(meshList[GEO_SUN], false);
+	//modelStack.PopMatrix();		//end planet
+
+	//modelStack.PushMatrix();	//push orbitline
+	//modelStack.Rotate(90, 1, 0, 0);
+	//modelStack.Scale(27, 1, 27);
+	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
+	//modelStack.PopMatrix();		//end orbitline
+	//===========================================================
+
+	modelStack.PopMatrix();		//end sun
 }
 
 void SystemScene::RenderMesh(Mesh *mesh, bool enableLight)

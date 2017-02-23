@@ -7,30 +7,38 @@
 
 class StudioProject;
 class PlanetScene;
+class SystemScene;
 
 class ObjectRender //TODO
 {
 public:
 	ObjectRender(StudioProject* scene, Vector3 pos, float size);
 	ObjectRender(PlanetScene* scene, Vector3 pos, float size);
+	ObjectRender(SystemScene* scene, Vector3 pos, float sizeX, float sizeZ, float aRotate, float pRotate);
 	virtual ~ObjectRender(){};
 
 	virtual void interact() = 0;
 
 	void render();
 	void render_planet();
+	void render_system_planets(float,float);
 
 	Vector3 position;
 	float scale;
+	float scaleX, scaleZ;
 	float rotatespeed = 0;
+	float aroundRotate, planetRotate;
 
 	StudioProject* myscene;
-	PlanetScene* planetScene;
 
 	unsigned type;
 	virtual AABB get_obj_AABB() = 0;
 
 private:
+
+
+	PlanetScene* planetscene;
+	SystemScene* systemscene;
 };
 
 

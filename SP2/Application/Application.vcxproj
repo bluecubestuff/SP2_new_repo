@@ -95,6 +95,7 @@
     <ClCompile Include="Source\Func_AABB.cpp" />
     <ClCompile Include="Source\GalaxyGenerate.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\GreenPlanet.cpp" />
     <ClCompile Include="Source\Hull.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\landEntity.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Shield.cpp" />
     <ClCompile Include="Source\ship.cpp" />
+    <ClCompile Include="Source\SolarGenerate.cpp" />
     <ClCompile Include="Source\StudioProject.cpp" />
     <ClCompile Include="Source\SystemScene.cpp" />
     <ClCompile Include="Source\SystemTravelShip.cpp" />
@@ -145,6 +147,7 @@
     <ClInclude Include="Source\Func_AABB.h" />
     <ClInclude Include="Source\GalaxyGenerate.h" />
     <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\GreenPlanet.h" />
     <ClInclude Include="Source\Hull.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\landEntity.h" />

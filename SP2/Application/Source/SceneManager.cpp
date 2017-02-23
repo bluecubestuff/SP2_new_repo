@@ -41,8 +41,9 @@ void SceneManager::SetPrevScene()
 
 void SceneManager::sceneUpdate()
 {
-	if (Application::IsKeyPressed(VK_F1) && currSceneID < sceneStorage.size() - 1) //place holder
+	if (Application::IsKeyPressed(VK_F1) && currSceneID < sceneStorage.size() - 1 || isTime) //place holder
 	{
+		isTime = false;
 		sceneStorage[currSceneID]->Exit(); //exit prev scene
 		SetNextScene();					   //set next scene
 		sceneStorage[currSceneID]->Init(); //init next scene
@@ -53,7 +54,6 @@ void SceneManager::sceneUpdate()
 		SetPrevScene();		   //set next scene
 		sceneStorage[currSceneID]->Init(); //init next scene
 	}
-
 
 	//std::cout<<sceneStorage.size();
 
@@ -69,4 +69,12 @@ void SceneManager::sceneUpdate()
 Scene* SceneManager::getScene()
 {
 	return sceneStorage[currSceneID];
+}
+
+void SceneManager::TimedScene(float timer)
+{
+	if (timer > 3)
+	{
+		isTime = true;
+	}
 }

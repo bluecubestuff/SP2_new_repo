@@ -236,6 +236,9 @@
     <ClCompile Include="Source\Node.cpp">
       <Filter>Source Files\AI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StartScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -399,6 +402,9 @@
     </ClInclude>
     <ClInclude Include="Source\GreenPlanet.h">
       <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StartScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

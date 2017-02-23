@@ -19,6 +19,7 @@ public:
 	void SetNextScene();					//set the next scene
 	void sceneUpdate();						//update scene
 	void SetPrevScene();
+	void TimedScene(float);					//for the start screen
 
 	static SceneManager *get_instance()		//singleton to get only one instance of obj
 	{
@@ -32,9 +33,10 @@ public:
 private:
 	SceneManager();							 //constructor
 
-	static SceneManager* only_instance;
+	static SceneManager* only_instance;		
 	map <unsigned, Scene*> sceneStorage;	//database for scene
 	int currSceneID, nextSceneID;			//to iterate through the different scene
+	bool isTime = false;					//check if time is up for startscreen;
 };
 
 #endif

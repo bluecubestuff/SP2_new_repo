@@ -88,3 +88,13 @@ float Ship::getSize()
 {
 	return this->size;
 }
+
+void Ship::decreaseHealth(float dadsad)
+{
+	hullPoints -= dadsad;
+}
+
+float Ship::getHP()
+{
+	return hullPoints;
+}

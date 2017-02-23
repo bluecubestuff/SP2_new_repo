@@ -28,7 +28,7 @@ StudioProject::~StudioProject()
 void StudioProject::Init()
 {
 	// Set background color to dark blue
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 
 	//Enable depth buffer and depth testing
 	glEnable(GL_DEPTH_TEST);
@@ -110,7 +110,8 @@ void StudioProject::Init()
 	gen = new LandGenerate(this);
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
-	for (int i = 1; i < 10; i++)
+	srand(time(NULL));
+	for (int i = 1; i < 3; i++)
 	{
 		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, 100, 100), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);
@@ -143,7 +144,7 @@ void StudioProject::Init()
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
 	meshList[GEO_TOP]->textureID = LoadTGA("Image//spaceTop.tga");
 
-	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6f, 0.4f, 0.3f));
+	//meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6f, 0.4f, 0.3f));
 
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
@@ -153,11 +154,22 @@ void StudioProject::Init()
 
 	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//Missle.OBJ");
 
+	meshList[GEO_BULLET] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//Missle.OBJ");
+
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("rock", "OBJ//rock.obj");
 
 	//meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//Sphere.obj");
 	//meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
+
+	meshList[GEO_CUBE] = MeshBuilder::GenerateOBJ("shield", "OBJ//ShieldCubeThing.obj");
+	meshList[GEO_CUBE]->textureID = LoadTGA("Image//cubecube.tga");
+
+	meshList[GEO_CUBE1] = MeshBuilder::GenerateOBJ("shield", "OBJ//ShieldCubeThing.obj");
+	meshList[GEO_CUBE1]->textureID = LoadTGA("Image//locked.tga");
+
+	meshList[GEO_CUBE2] = MeshBuilder::GenerateOBJ("shield", "OBJ//ShieldCubeThing.obj");
+	meshList[GEO_CUBE2]->textureID = LoadTGA("Image//leedle.tga");
 
 	//------------------------------------------------------------------------------------------
 	//light
@@ -244,7 +256,7 @@ static float SCALE_LIMIT = 5.f;
 void StudioProject::Update(double dt)
 {
 	float LSPEED = 10.f;
-	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
+	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
 
 	if (Application::IsKeyPressed('1')) //enable back face culling
 		glEnable(GL_CULL_FACE);
@@ -304,6 +316,7 @@ void StudioProject::Update(double dt)
 	{
 		for (auto &i : hostiles)
 		{
+			//std::cout << i->locked << std::endl;
 			if (i->locked)
 			{
 				Missile* missile = new Missile(Enemy, Player, 20.f, true);
@@ -319,15 +332,18 @@ void StudioProject::Update(double dt)
 			{
 				if (missiles.size() != 0 && i < missiles.size())
 				{
+					Vector3 temp;
 					if (j->locked)
 					{
 						missiles[i]->checkTargets(hostiles);								//updates the missile to change target to enemy
+						temp = missiles[i]->e->getter("position");
 						missiles[i]->tracking(dt, missiles[i]->e->getter("position"));		//let the missiles translate and rotate to the enemy position.
 					}
 					if (j->getAABB()->pointInAABB(missiles[i]->getPos()))					//j->getAABB()->getAABB(),
 					{
 						Missile* temp = missiles[i];
 						j->setHit();
+						j->decreaseHealth(30);
 						missiles.erase(missiles.begin() + i);
 						delete temp;
 					}
@@ -348,6 +364,53 @@ void StudioProject::Update(double dt)
 				i->setHit();
 				cooldown = 0;
 			}
+		}
+	}
+	//======================================================================================
+	//bullet
+	if (Application::IsKeyPressed(VK_RBUTTON))
+	{
+		Bullet* bullet = new Bullet(Player->getter("position"), Player->getter("forward"), Player->getter("up"), Player->getter("right"));
+		bullets.push_back(bullet);
+	}
+	//std::cout << bullets.size() << std::endl;
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		bullets[i]->Update(dt);
+		for (auto &j : hostiles)
+		{
+			if (i < bullets.size())
+			{
+				if (j->getAABB()->pointInAABB(bullets[i]->getPos()))
+				{
+					Bullet* temp = bullets[i];
+					j->setHit();
+					j->decreaseHealth(1);
+					bullets.erase(bullets.begin() + i);
+					delete temp;
+					i = 0;
+				}
+			}
+			else
+				i = 0;
+		}
+		if (bullets[i]->outOfRange)
+		{
+			Bullet* temp = bullets[i];
+			bullets.erase(bullets.begin() + i);
+			delete temp;
+			i = 0;
+		}
+	}
+
+	for (int i = 0; i < hostiles.size(); i++)
+	{
+		if (hostiles[i]->getHP() <= 0)
+		{
+			EnemyShip* dadad = hostiles[i];
+			hostiles.erase(hostiles.begin() + i);
+			delete dadad;
+			i = 0;
 		}
 	}
 
@@ -446,6 +509,14 @@ void StudioProject::Render()
 		RenderMesh(meshList[GEO_GOAT], true);
 		modelStack.PopMatrix();
 	}
+
+	for (auto &i : bullets)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->getMatrix());
+		RenderMesh(meshList[GEO_BULLET], true);
+		modelStack.PopMatrix();
+	}
 	
 	RenderSkybox();
 
@@ -461,11 +532,11 @@ void StudioProject::Render()
 	modelStack.PopMatrix();*/
 	//===================================================================================================
 	
-	modelStack.PushMatrix();
-	modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
-	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
-	RenderMesh(meshList[GEO_AXES], false);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
+	//modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
+	//RenderMesh(meshList[GEO_AXES], false);
+	//modelStack.PopMatrix();
 
 	for (auto &i : hostiles)
 	{
@@ -482,11 +553,23 @@ void StudioProject::Render()
 			modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
 			RenderMesh(meshList[GEO_SHIELD], false);
 		}
-		if (i->getWithinSights())
+		if (i->locked)
 		{
 			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
-			modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
-			RenderMesh(meshList[GEO_SHIELD], false);
+			modelStack.Scale(i->getSize() * 5, i->getSize() * 5, i->getSize() * 5);
+			RenderMesh(meshList[GEO_CUBE1], false);
+		}
+		if (i->getTargeted())
+		{
+			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+			modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
+			RenderMesh(meshList[GEO_CUBE], false);
+		}
+		else
+		{
+			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+			modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
+			RenderMesh(meshList[GEO_CUBE2], false);
 		}
 		modelStack.PopMatrix();
 	}

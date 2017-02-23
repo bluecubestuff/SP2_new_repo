@@ -33,6 +33,8 @@ public:
 	void setHit();
 	bool getHit();
 	float getSize();
+	void decreaseHealth(float);
+	float getHP();
 private:
 
 protected:

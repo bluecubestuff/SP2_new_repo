@@ -236,6 +236,9 @@
     <ClCompile Include="Source\landEnemy.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Bullet.cpp">
+      <Filter>Source Files\Objects\Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -399,6 +402,9 @@
     </ClInclude>
     <ClInclude Include="Source\landEnemy.h">
       <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet.h">
+      <Filter>Header Files\Object\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

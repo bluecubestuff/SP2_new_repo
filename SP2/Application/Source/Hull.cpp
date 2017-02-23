@@ -12,6 +12,8 @@ Hull::Hull()
 	string type[4] = { "D", "C", "B", "A" };
 	string grade[4] = { "4", "3", "2", "1" };
 	this->type = type[temp] + grade[(int)temptemp];
+
+	std::cout << temp << ' ' << temptemp << std::endl;
 	
 	temp += 1; temptemp += 1;
 	int temptemptemp = hue.generate_range(temp * 100 + (temptemp - 1) * 25, temp * 100 + temptemp * 25);

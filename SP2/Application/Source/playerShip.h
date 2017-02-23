@@ -17,6 +17,7 @@ public:
 	Camera2* Camera;
 	Camera3* ThirdCamera;
 
+
 	Mouse mouse;
 	POINT cursorPos;
 
@@ -30,7 +31,7 @@ public:
 
 	vector<EnemyShip*> applicableTargets;
 
-	void locking(EnemyShip* target);
+	void locking(EnemyShip* target, double dt);
 	void withinRange(vector<EnemyShip*>);
 	void Update(double dt);
 private:

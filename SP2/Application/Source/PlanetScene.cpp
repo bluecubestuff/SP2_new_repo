@@ -362,11 +362,6 @@ void PlanetScene::Render()
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();*/
 	//===================================================================================================
-	/*modelStack.PushMatrix();
-	modelStack.Translate(Enemy->enemyPos.x, Enemy->enemyPos.y, Enemy->enemyPos.z);
-	modelStack.Scale(5, 5, 5);
-	RenderMesh(meshList[GEO_ENEMY], false);
-	modelStack.PopMatrix();*/
 
 	gen->BuildLand();
 }

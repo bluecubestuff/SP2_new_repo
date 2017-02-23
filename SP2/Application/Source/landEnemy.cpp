@@ -1,12 +1,13 @@
-#include "Enemy.h"
+#include "landEnemy.h"
 #include <list>
 
 using std::list;
 
-LandEnemy::LandEnemy(Vector3 pos, int hp)
+LandEnemy::LandEnemy(Vector3 pos, float hp, float shields)
 {
-	enemyPos = pos;
-	enemyHP = hp;
+	Position = pos;
+	Health = hp;
+	Shield = shields;
 	enemyIsDead = false;
 }
 
@@ -27,17 +28,14 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 endGo
 {
 	vector<Vector3*> path; //create the vector of Vector3 pointers that stores the nodes the enemy travels through
 
-	//define nodes for use
-	Node *start = new Node;
-	start->pos.x = enemyPos.x;
-	start->pos.z = enemyPos.z;
+	//set positions of start and end nodes
 
-	Node *end = new Node;
+	start->pos.x = Position.x;
+	start->pos.z = Position.z;
+
+
 	end->pos.x = endGoal.x;
 	end->pos.z = endGoal.z;
-
-	Node *current = new Node;
-	Node *successor = new Node;
 
 	//create open and closed lists
 	list<Node*> openList;
@@ -50,11 +48,11 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 endGo
 	openList.push_back(start);
 	start->open = true;
 
-	while (n == 0 || (current != end && n < 2000))
+	while (n == 0 || (current != end && n < 500))
 	{
 		for (it = openList.begin(); it != openList.end(); ++it)
 		{
-			if (it == openList.begin() || (*it)->getFscore() <= current->getFscore()) //search for node with the lowest F score in the open list
+			if (it == openList.begin() || (*it)->getFscore() <= current->getFscore()) //search for the node with the lowest F score in the open list
 			{
 				current = (*it);
 			}
@@ -92,7 +90,7 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 endGo
 
 				if (landGrid[x][z] == 'F')
 				{
-					//cout << "Collision detected" << endl;
+					std::cout << "Collision detected" << std::endl;
 					continue;
 				}
 
@@ -143,17 +141,23 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 endGo
 
 void LandEnemy::setPosition(Vector3* position)
 {
-	enemyPos.x = position->x;
-	enemyPos.z = position->z;
+	Position.x = position->x;
+	Position.z = position->z;
 }
 
 void LandEnemy::PathfindingMovement() 
 {	
-	while (AIpath.size() != 0)
+	if (AIpath.size() != 0)
 	{
 		setPosition(AIpath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
 		AIpath.pop_back(); //pops the last element, repeat
-		cout << "AI moved" << endl;
+		std::cout << "AI moved" << std::endl;
+	}
+	else if (AIreturnPath.size() != 0)
+	{
+		setPosition(AIreturnPath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
+		AIpath.pop_back(); //pops the last element, repeat
+		std::cout << "AI moved" << std::endl;
 	}
 }
 
@@ -163,19 +167,19 @@ void LandEnemy::randomMovement()
 
 		if (d == 1)
 		{
-			enemyPos.x++;
+			Position.x++;
 		}
 		else if (d == 2)
 		{
-			enemyPos.x--;
+			Position.x--;
 		}
 		else if (d == 3)
 		{
-			enemyPos.z++;
+			Position.z++;
 		}
 		else if (d == 4)
 		{
-			enemyPos.z--;
+			Position.z--;
 		}
 }
 

@@ -69,12 +69,6 @@
     <Filter Include="Source Files\Objects\AABB">
       <UniqueIdentifier>{ad973879-123c-471a-8ec5-491931a95554}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\AI">
-      <UniqueIdentifier>{b3459a44-87a8-4085-8db1-24678fa44bf8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\AI">
-      <UniqueIdentifier>{de2c2aef-5f96-41da-8922-5b0a0e2c4c5f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Module">
       <UniqueIdentifier>{eea57384-da5d-4856-b4ad-5d18e0bd978b}</UniqueIdentifier>
     </Filter>
@@ -86,6 +80,12 @@
     </Filter>
     <Filter Include="Source Files\Land">
       <UniqueIdentifier>{013a1239-df64-4be1-a4c1-41d72dc35537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{de2c2aef-5f96-41da-8922-5b0a0e2c4c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{b3459a44-87a8-4085-8db1-24678fa44bf8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +185,6 @@
     <ClCompile Include="Source\NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>Source Files\AI</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Node.cpp">
       <Filter>Source Files\AI</Filter>
     </ClCompile>
@@ -228,7 +225,10 @@
       <Filter>Source Files\Ship</Filter>
     </ClCompile>
     <ClCompile Include="Source\Node.cpp">
-      <Filter>Source Files\AI</Filter>
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\landEnemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -349,11 +349,8 @@
     <ClInclude Include="Source\NPC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>Header Files\AI</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Node.h">
-      <Filter>Header Files\AI</Filter>
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Source\PowerPlant.h">
       <Filter>Header Files\Module</Filter>
@@ -390,6 +387,9 @@
     </ClInclude>
     <ClInclude Include="Source\SystemTravelShip.h">
       <Filter>Header Files\Ship</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\landEnemy.h">
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

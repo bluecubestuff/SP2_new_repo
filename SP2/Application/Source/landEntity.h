@@ -14,10 +14,11 @@ public:
 
 	void setHealth(float);
 	void setShield(float);
+	Vector3 Position;
 
 	//virtual void Update(double dt) = 0;
 protected:
-	Vector3 Position;
+
 	Vector3 Forward;
 	Vector3 Up;
 	Vector3 Right;

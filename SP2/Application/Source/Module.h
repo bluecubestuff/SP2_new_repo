@@ -6,6 +6,8 @@
 #include "MyMath.h"
 #include "Randomise.h"
 
+#include <iostream>
+
 using std::string;
 
 class Module

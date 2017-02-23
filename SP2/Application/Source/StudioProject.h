@@ -18,6 +18,7 @@
 #include "DetectMemoryLeak.h"
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
+#include "Bullet.h"
 
 #include <string>
 #include <vector>
@@ -45,12 +46,15 @@ class StudioProject : public Scene
 		//basic shapes
 		GEO_QUAD,
 		GEO_CUBE,
+		GEO_CUBE1,
+		GEO_CUBE2,
 		GEO_CIRCLE,
 		GEO_RING,
 		GEO_HEMISPHERE,
 		GEO_SPHERE,
 		GEO_LIGHTBALL,
 		GEO_CYLINDER,
+		GEO_BULLET,
 
 		//skybox
 		GEO_LEFT,
@@ -162,8 +166,9 @@ private:
 
 	vector<EnemyShip*> hostiles;
 
-	Missile* missile;
 	vector<Missile*> missiles;
+
+	vector<Bullet*> bullets;
 
 	LandGenerate* gen;
 

@@ -14,10 +14,13 @@ public:
 	void Update(double dt, Vector3 playerPos, Vector3 playerFor);
 	bool getWithinSights();
 	void setIGotYouInMySights(bool);
+	bool getTargeted();
+	void setTargeted(bool);
 private:
 	float turnSpeed;
 	float speed;
 	bool iGotYouInMySights;
+	bool targeted;
 };
 
 #endif

@@ -2,7 +2,7 @@
 
 int Thruster::count = 0;
 
-#include <iostream>
+
 
 Thruster::Thruster()
 {

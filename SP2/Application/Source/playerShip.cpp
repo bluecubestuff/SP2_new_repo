@@ -1,5 +1,7 @@
 #include "PlayerShip.h"
 
+static float l = 0;
+
 PlayerShip::PlayerShip()
 {
 	this->Forward = Vector3(0, 0, 1);
@@ -71,10 +73,24 @@ PlayerShip::~PlayerShip()
 	//delete this;
 }
 
-void PlayerShip::locking(EnemyShip* target)
+void PlayerShip::locking(EnemyShip* target, double dt)
 {
 	//do point to aabb to enemyship, if stays for 3s, locked enabled
-	target->locked = true;
+	if (l >= 3)
+	{
+		target->locked = true;
+	}
+	if (target->getTargeted())
+	{
+		l += dt;
+	}
+	else if (!target->getTargeted())
+	{
+		target->locked = false;
+	}
+	else
+		l = 0;
+	//std::cout << l << std::endl;
 }
 
 void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
@@ -316,6 +332,60 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 		ThirdCamera->Update(dt, freeCam, this->Forward, this->Right, this->Up, this->Position);
 	}
 	//==========================================================================
+	//changing targets
+	static bool pressing = false;
+	static int t = 0;
+	if (Application::IsKeyPressed('T') && pressing == false)
+	{
+		pressing = true;
+		std::cout << "t : " << t << " size: " << applicableTargets.size() << std::endl;
+		l = 0;
+		if (t < applicableTargets.size())
+		{
+			if (applicableTargets.size() != 0)
+			{
+				applicableTargets[t]->setTargeted(false);
+				applicableTargets[t]->locked = false;
+			}
+			t++;
+			if (t < applicableTargets.size())
+			{
+				applicableTargets[t]->setTargeted(true);
+			}
+			else if (t == applicableTargets.size())
+			{
+				t = 0;
+				applicableTargets[t]->setTargeted(true);
+			}
+			else
+				t = 0;
+		}
+		else
+			t = 0;
+	}
+	else if (!Application::IsKeyPressed('T'))
+	{
+		pressing = false;
+	}
+	if (applicableTargets.size() == 0)
+	{
+		t = 0;
+	}
+	//==========================================================================
+	for (auto &i : applicableTargets)
+	{
+		if (i->getTargeted())
+		{
+			locking(i, dt);
+		}
+		else
+		{
+			//applicableTargets[t]->locked = false;
+		}
+	}
+
+	//std::cout << pressing << std::endl;
+	//==========================================================================
 	//update ship matrix
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
 }
@@ -328,11 +398,15 @@ void PlayerShip::withinRange(vector<EnemyShip*> targets)
 		//need to normalize both vectors before doing the acos
 		float angle;
 		angle = Math::RadianToDegree(acos(temp.Normalized().Dot(this->Forward.Normalized())));
-		if (angle < 20 && angle > -20)		//if withing 45 degreess from forward
+		if (angle < 20 && angle > -20 && temp.Length() < 300)		//if withing 45 degreess from forward
 		{
-			i->setIGotYouInMySights(true);		//set the bool in enemy to true	
-			//std::cout << "targeted" << std::endl;
-			applicableTargets.push_back(i);		//puh back to which targets player can choose
+			if (i->getWithinSights() != true)
+			{
+				i->setIGotYouInMySights(true);		//set the bool in enemy to true	
+				//std::cout << "targeted" << std::endl;
+				applicableTargets.push_back(i);		//puh back to which targets player can choose
+				//std::cout << applicableTargets.size() << std::endl;
+			}
 		}
 		else
 		{
@@ -344,6 +418,8 @@ void PlayerShip::withinRange(vector<EnemyShip*> targets)
 	{
 		if (applicableTargets[i]->getWithinSights() == false)		//if is not in within the cone of target
 		{
+			applicableTargets[i]->setTargeted(false);
+			applicableTargets[i]->locked = false;;
 			applicableTargets.erase(applicableTargets.begin() + i);			//remove from the vector
 			//std::cout << "removed from target list" << std::endl;
 			i = 0;

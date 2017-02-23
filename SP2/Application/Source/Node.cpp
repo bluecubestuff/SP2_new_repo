@@ -20,11 +20,11 @@ Node::~Node()
 {
 
 }
-Node* Node::getNode(float successorPosX, float successorPosY)
+Node* Node::getNode(float successorPosX, float successorPosZ)
 {
 	Node* temp = new Node;
 	temp->pos.x = successorPosX;
-	temp->pos.y = successorPosY;
+	temp->pos.z = successorPosZ;
 
 	return temp;
 }
@@ -32,12 +32,6 @@ Node* Node::getNode(float successorPosX, float successorPosY)
 Vector3* Node::getNodePosition()
 {
 	return new Vector3(pos.x, 0, pos.z);
-}
-
-void Node::getPointInGrid(double_land_array landGrid)
-{
-	nodeGridPosition = landGrid;
-	nodeGridPosition[pos.x][pos.y];
 }
 
 Node* Node::getParent()

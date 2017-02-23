@@ -155,8 +155,8 @@ void StudioProject::Init()
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("rock", "OBJ//rock.obj");
 
-	meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//Sphere.obj");
-	meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
+	//meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//Sphere.obj");
+	//meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
 
 	//------------------------------------------------------------------------------------------
 	//light

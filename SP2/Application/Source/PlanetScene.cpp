@@ -146,6 +146,8 @@ void PlanetScene::Init()
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
 
+	meshList[GEO_ENEMY] = MeshBuilder::GenerateCube("enemy", Color(1, 0, 0));
+
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -267,7 +269,6 @@ void PlanetScene::Update(double dt)
 	}
 	//std::cout << Player->getter("forward") << std::endl;
 
-
 	colManager->CollisionChecker(gen, Player);
 	Player->Update(dt);
 
@@ -361,11 +362,10 @@ void PlanetScene::Render()
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();*/
 	//===================================================================================================
-
 	/*modelStack.PushMatrix();
-	modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
-	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
-	RenderMesh(meshList[GEO_AXES], false);
+	modelStack.Translate(Enemy->enemyPos.x, Enemy->enemyPos.y, Enemy->enemyPos.z);
+	modelStack.Scale(5, 5, 5);
+	RenderMesh(meshList[GEO_ENEMY], false);
 	modelStack.PopMatrix();*/
 
 	gen->BuildLand();

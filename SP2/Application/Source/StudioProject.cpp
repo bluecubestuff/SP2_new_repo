@@ -108,6 +108,7 @@ void StudioProject::Init()
 	//=============================================================================
 	Player = new PlayerShip;
 	gen = new LandGenerate(this);
+	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	for (int i = 1; i < 10; i++)
 	{

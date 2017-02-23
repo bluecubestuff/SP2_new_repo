@@ -7,12 +7,22 @@ ObjectFactory::ObjectFactory(StudioProject* scene)
 
 ObjectFactory::ObjectFactory(PlanetScene* scene)
 {
-	planet_scene = scene;
+	this->planet_scene = scene;
+}
+
+ObjectFactory::ObjectFactory(SystemScene* scene)
+{
+	this->system_scene = scene;
 }
 
 void ObjectFactory::createObject(ObjectRender* obj)
 {
-	objContainer.push_back(obj);
+	this->objContainer.push_back(obj);
+}
+
+void ObjectFactory::createSystemObject(ObjectRender* obj)
+{
+	this->systemObjContainer.push_back(obj);
 }
 
 void ObjectFactory::interactObjects()
@@ -39,6 +49,15 @@ void ObjectFactory::renderObjects(unsigned id)
 			a->render_planet();
 		}
 	}
+}
+
+void ObjectFactory::renderSystemObjects(float aRotate, float pRotate) //pass the rotation update
+{
+	for (auto &a : systemObjContainer)
+	{
+		a->render_system_planets(aRotate, pRotate);
+	}
+	
 }
 
 void ObjectFactory::clearObjects()

@@ -10,7 +10,6 @@ Randomise::~Randomise(){}
 unsigned Randomise::generate_range(unsigned from, unsigned to)
 {
 	return(rand() % (to - from)) + from;
-	srand(time(NULL));
 }
 
 

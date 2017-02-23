@@ -8,6 +8,7 @@
 
 class StudioProject;
 class PlanetScene;
+class SystemScene;
 
 class ObjectFactory
 {
@@ -15,22 +16,28 @@ class ObjectFactory
 public:
 	ObjectFactory(StudioProject* scene);
 	ObjectFactory(PlanetScene* scene);
+	ObjectFactory(SystemScene* scene);
 	~ObjectFactory() 
 	{ 
 		objContainer.clear();
 	};
 
 	void createObject(ObjectRender* obj);
+	void createSystemObject(ObjectRender* obj);
 	void interactObjects();
 	void renderObjects(unsigned);
+	void renderSystemObjects(float, float);
 	void clearObjects();
 
+	std::vector<ObjectRender*> systemObjContainer;
 	std::vector<ObjectRender*> objContainer;
 	//std::vector<Func_AABB*> obj_AABB_Container;
 
 private:
+
 	StudioProject* myscene;
 	PlanetScene* planet_scene;
+	SystemScene* system_scene;
 	//LandGenerate* land;
 
 };

@@ -14,7 +14,8 @@ Tree::Tree(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(scene, po
 	aabb = new Func_AABB;
 
 	type = PlanetScene::GEO_TREE;
-	aabb->setAABB_Static_Objects(pos, size, size + 5, size + 2);
+	aabb->setAABB_Static_Objects(pos, size, size + 40, size + 2);
+
 
 	Tree_box = aabb->getAABB();
 }

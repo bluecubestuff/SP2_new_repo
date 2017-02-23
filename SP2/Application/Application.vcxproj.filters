@@ -218,11 +218,17 @@
     <ClCompile Include="Source\LandFPSCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SystemTravelShip.cpp">
+      <Filter>Source Files\Ship</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SolarGenerate.cpp">
+      <Filter>Source Files\Generate</Filter>
+    </ClCompile>
     <ClCompile Include="Source\SystemScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SystemTravelShip.cpp">
-      <Filter>Source Files\Ship</Filter>
+    <ClCompile Include="Source\GreenPlanet.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Node.cpp">
       <Filter>Source Files\Enemy</Filter>
@@ -382,11 +388,14 @@
     <ClInclude Include="Source\LandFPSCamera.h">
       <Filter>Header Files\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SystemTravelShip.h">
+      <Filter>Header Files\Ship</Filter>
+    </ClInclude>
     <ClInclude Include="Source\SystemScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SystemTravelShip.h">
-      <Filter>Header Files\Ship</Filter>
+    <ClInclude Include="Source\GreenPlanet.h">
+      <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\landEnemy.h">
       <Filter>Header Files\Enemy</Filter>

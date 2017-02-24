@@ -16,7 +16,7 @@ using std::vector;
 class LandEnemy : public LandEntity
 {
 public:
-	LandEnemy(Vector3 pos, Vector3 f, Vector3 r, float hp, float speed);
+	LandEnemy(Vector3 pos, float hp, float speed);
 	~LandEnemy();
 
 	bool enemyIsDead;
@@ -36,7 +36,7 @@ public:
 	vector<Vector3*> AIreturnPath;
 	vector<Item> enemyLootTable;
 	Vector3 target;
-
+	Mtx44 Stamp;
 	//Pathfinding nodes
 
 	Node *start = new Node;

@@ -162,6 +162,10 @@ private:
 
 	LandEnemy* Enemy;
 
+	vector<LandEnemy*> landEnemies;
+
+	vector<LandEnemy*>::iterator it;
+
 	//ObjectFactory objfactory;
 	LandGenerate* gen;
 

@@ -3,15 +3,16 @@
 
 using std::list;
 
-LandEnemy::LandEnemy(Vector3 pos, Vector3 f, Vector3 r, float hp, float speed)
+LandEnemy::LandEnemy(Vector3 pos, float hp, float speed)
 {
 	Position = pos;
-	Forward = f;
+	Forward = Vector3(0, 0, 1);
 	Up = Vector3(0, 1, 0);
-	Right = r;
+	Right = Vector3(1, 0, 0);
 	Health = hp;
 	moveSpeed = speed;
 	enemyIsDead = false;
+	Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 }
 
 LandEnemy::~LandEnemy()
@@ -34,6 +35,7 @@ void LandEnemy::Update(double dt, Vector3 playerPos, Vector3 playerForward)
 	if (enemyIsDead == false)
 	{
 		PathfindingMovement(dt, playerPos, playerForward);
+		Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 	}
 }
 

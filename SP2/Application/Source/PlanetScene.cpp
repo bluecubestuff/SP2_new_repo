@@ -104,7 +104,7 @@ void PlanetScene::Init()
 	//=============================================================================
 	Player = new LandPlayer(Vector3(550, 3, 500), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
 	gen = new LandGenerate(this);
-	Enemy = new LandEnemy(Vector3(600, 0, 500), Vector3(0, 0, 1), Vector3(1, 0, 0), 69.f, 5.f );
+	/*Enemy = new LandEnemy(Vector3(600, 0, 500), 69.f, 5.f );*/
 	colManager = new CollisionManager;
 	//=============================================================================
 
@@ -205,8 +205,10 @@ void PlanetScene::Init()
 
 	Mtx44 projection;
 	projection.SetToPerspective(70.f, 4.f / 3.f, 0.1f, 5000.f);
-	projectionStack.LoadMatrix(projection);               
-	Enemy->enemyInit(gen->path, Enemy->Position, Vector3(800, 650));
+	projectionStack.LoadMatrix(projection);
+
+	/*Enemy->enemyInit(gen->path, Enemy->Position, Vector3(800, 650));
+	landEnemies.push_back(Enemy);*/
 	gen->landInIt();
 	//camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
 }
@@ -272,8 +274,10 @@ void PlanetScene::Update(double dt)
 
 	colManager->CollisionChecker(gen, Player);
 	Player->Update(dt);
-	Enemy->Update(dt, Player->Position, Player->getter("forward"));
-
+	/*for (it = landEnemies.begin(); it != landEnemies.end(); it++)
+	{
+		(*it)->Update(dt, Player->Position, Player->getter("forward"));
+	}*/
 }
 
 
@@ -363,13 +367,17 @@ void PlanetScene::Render()
 	modelStack.Translate(light[1].LightPosition.x, light[1].LightPosition.y, light[1].LightPosition.z);
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();*/
-	//===================================================================================================
-	modelStack.PushMatrix();
-	modelStack.Translate(Enemy->Position.x, Enemy->Position.y, Enemy->Position.z);
-	modelStack.Scale(5, 5, 5);
-	RenderMesh(meshList[GEO_ENEMY], false);
-	modelStack.PopMatrix();
-	gen->BuildLand();
+	//===================================================================================================\
+
+	/*for (it = landEnemies.begin(); it != landEnemies.end(); it++)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix((*it)->Stamp);
+		modelStack.Scale(5, 5, 5);
+		RenderMesh(meshList[GEO_ENEMY], false);
+		modelStack.PopMatrix();
+		gen->BuildLand();
+	}*/
 }
 
 void PlanetScene::RenderMesh(Mesh *mesh, bool enableLight)

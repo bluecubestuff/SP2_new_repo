@@ -24,11 +24,14 @@ public:
 	float moveSpeed;
 	void Update(double dt, Vector3 playerPos, Vector3 playerForward);
 	void randomMovement();
-	vector<Vector3*> Pathfinding(char landGrid[2500][2500], Vector3 endGoal);
-	void PathfindingMovement();
+	void enemyInit(char landGrid[2500][2500], Vector3 startPos, Vector3 endGoal);
+	vector<Vector3*> Pathfinding(char landGrid[2500][2500], Vector3 startPos, Vector3 endGoal);
+	void PathfindingMovement(double dt, Vector3 playerPos, Vector3 playerForward);
 	void setPosition(Vector3* position);
 	void AIPursuit(double dt, Vector3 playerPos, Vector3 playerForward);
 	float calculateDistance(Vector3 playerPos, Vector3 enemyPos);
+	vector<Vector3*> savedAIpath;
+	vector<Vector3*> savedAIreturnPath;
 	vector<Vector3*> AIpath;
 	vector<Vector3*> AIreturnPath;
 	vector<Item> enemyLootTable;

@@ -17,7 +17,7 @@
 #include "CollisionManager.h"
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
-
+#include "landEnemy.h"
 #include <string>
 #include <vector>
 using std::vector;
@@ -159,6 +159,8 @@ private:
 	CollisionManager* colManager;
 
 	LandPlayer* Player;
+
+	LandEnemy* Enemy;
 
 	//ObjectFactory objfactory;
 	LandGenerate* gen;

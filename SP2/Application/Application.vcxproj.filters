@@ -185,9 +185,6 @@
     <ClCompile Include="Source\NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Node.cpp">
-      <Filter>Source Files\AI</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Missile.cpp">
       <Filter>Source Files\Objects\Projectile</Filter>
     </ClCompile>
@@ -241,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="Source\StartScene.cpp">
       <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Node.cpp">
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -405,7 +405,7 @@
     </ClInclude>
     <ClInclude Include="Source\StartScene.h">
       <Filter>Header Files\Scene</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\landEnemy.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>

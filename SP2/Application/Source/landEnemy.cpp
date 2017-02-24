@@ -3,11 +3,14 @@
 
 using std::list;
 
-LandEnemy::LandEnemy(Vector3 pos, float hp, float shields)
+LandEnemy::LandEnemy(Vector3 pos, Vector3 f, Vector3 r, float hp, float speed)
 {
 	Position = pos;
+	Forward = f;
+	Up = Vector3(0, 1, 0);
+	Right = r;
 	Health = hp;
-	Shield = shields;
+	moveSpeed = speed;
 	enemyIsDead = false;
 }
 
@@ -16,12 +19,66 @@ LandEnemy::~LandEnemy()
 
 }
 
-void LandEnemy::enemyUpdate()
+void LandEnemy::Update(double dt, Vector3 playerPos, Vector3 playerForward)
 {
+	
+}
+
+void LandEnemy::AIPursuit(double dt, Vector3 playerPos, Vector3 playerForward)
+{
+	float rotateSpeed = 50 * dt;
+
 	if (enemyIsDead == false)
 	{
+		target = playerPos - this->Position;
 
+		try
+		{
+			std::cout << "function called" << std::endl;
+
+			if (abs(calculateDistance(playerPos, Position) <= 70))
+			{
+				std::cout << "within range" << std::endl;
+				if (this->Forward != target.Normalized())
+				{
+					Vector3 temp = this->Forward.Cross(target.Normalized());
+					temp.Normalize();
+					Mtx44 rotate;
+					rotate.SetToRotation(rotateSpeed, temp.x, temp.y, temp.z);
+
+					this->Forward = rotate * this->Forward;
+					this->Up = rotate * this->Up;
+					this->Right = rotate * this->Right;
+				}
+				this->Position.x += this->Forward.x * dt * moveSpeed;
+				this->Position.z += this->Forward.z * dt * moveSpeed;
+			}
+		}
+		catch (std::exception& e)
+		{
+			std::cout << "nothing" << std::endl;
+		}
+		
 	}
+}
+
+float LandEnemy::calculateDistance(Vector3 playerPos, Vector3 enemyPos)
+{
+	float dist;
+
+	float x1 = playerPos.x;
+	float x2 = enemyPos.x;
+
+	float y1 = playerPos.z;
+	float y2 = enemyPos.z;
+
+	float x = x1 - x2;
+	float y = y1 - y2;
+
+	dist = pow(x, 2) + pow(y, 2);
+	dist = sqrt(dist);
+
+	return dist;
 }
 
 vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 endGoal)
@@ -48,7 +105,7 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 endGo
 	openList.push_back(start);
 	start->open = true;
 
-	while (n == 0 || (current != end && n < 500))
+	while (n == 0 || (current != end && n < 500)) //limited to moving a maximum of 499 spaces due to performance issues
 	{
 		for (it = openList.begin(); it != openList.end(); ++it)
 		{

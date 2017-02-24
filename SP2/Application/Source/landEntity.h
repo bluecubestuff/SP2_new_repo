@@ -17,6 +17,7 @@ public:
 	Vector3 Position;
 
 	//virtual void Update(double dt) = 0;
+	Vector3 getRight();
 protected:
 
 	Vector3 Forward;

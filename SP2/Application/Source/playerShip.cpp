@@ -416,7 +416,13 @@ void PlayerShip::withinRange(vector<EnemyShip*> targets)
 	}
 	for (int i = 0; i < applicableTargets.size(); i++)
 	{
-		if (applicableTargets[i]->getWithinSights() == false)		//if is not in within the cone of target
+		if (applicableTargets[i]->deaded)
+		{
+			EnemyShip* temp = applicableTargets[i];
+			applicableTargets.erase(applicableTargets.begin() + i);
+			delete temp;
+		}
+		else if (applicableTargets[i]->getWithinSights() == false)		//if is not in within the cone of target
 		{
 			applicableTargets[i]->setTargeted(false);
 			applicableTargets[i]->locked = false;;

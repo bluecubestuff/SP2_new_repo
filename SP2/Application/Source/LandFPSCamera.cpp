@@ -117,7 +117,7 @@ void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 		a += g * dt;
 		position += a;
 		std::cout << a << std::endl;
-		if (position.y <= 5)
+		if (position.y <= 3)
 		{
 			a = Vector3(0, 1.f, 0);
 			g = Vector3(0, -3.f, 0);

@@ -102,9 +102,10 @@ void PlanetScene::Init()
 	//meshes------------------------------------------------------------------------------------------
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
-	Player = new LandPlayer(Vector3(0, 3, 0), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
+	Player = new LandPlayer(Vector3(1000, 3, 1000), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
 	gen = new LandGenerate(this);
 	colManager = new CollisionManager;
+	Car = new LandVehicle;
 	//=============================================================================
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
@@ -134,6 +135,8 @@ void PlanetScene::Init()
 	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
 
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6f, 0.4f, 0.3f));
+
+	meshList[GEO_CAR] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
@@ -267,11 +270,42 @@ void PlanetScene::Update(double dt)
 	{
 		std::cout << Player->getter("position") << "\n";
 	}
+	static bool pressingpressing = false;
+	if (Application::IsKeyPressed('E') && Car->interactionBox->pointInAABB(Player->getter("position")) && pressingpressing == false)
+	{
+		if (Car->getInVehicle())
+		{
+			//Player->Position = Player->Position + Car->getRight() * 3;
+			Car->setInVehicle(false);
+		}
+		else if (!Car->getInVehicle())
+			Car->setInVehicle(true);
+		pressingpressing = true;
+	}
+	else if (!Application::IsKeyPressed('E'))
+	{
+		pressingpressing = false;
+	}
+
 	//std::cout << Player->getter("forward") << std::endl;
+	//std::cout << Car->interactionBox->pointInAABB(Player->getter("position")) << std::endl;
+	//std::cout << Car->Position << std::endl;
+	std::cout << Player->Position << std::endl;
+	//std::cout << Car->interactionBox->getAABB().pt_Max << std::endl;
+	//std::cout << Car->getInVehicle() << std::endl;
 
 	colManager->CollisionChecker(gen, Player);
-	Player->Update(dt);
-
+	if (Car->getInVehicle())
+	{
+		Car->Update(dt);
+		Player->getCam()->position.x = Car->Position.x;
+		Player->getCam()->position.z = Car->Position.z;
+		Player->Position = Player->getCam()->position;
+	}
+	else
+	{
+		Player->Update(dt);
+	}
 }
 
 
@@ -289,10 +323,20 @@ void PlanetScene::Render()
 	//viewStack.LookAt(camera.position.x, camera.position.y,		//debug cam
 	//camera.position.z, camera.target.x, camera.target.y,
 	//camera.target.z, camera.up.x, camera.up.y, camera.up.z);
+	if (Car->getInVehicle())
+	{
+		viewStack.LookAt(Car->Camera->position.x, Car->Camera->position.y,
+			Car->Camera->position.z, Car->Camera->target.x, Car->Camera->target.y,
+			Car->Camera->target.z, Car->Camera->up.x, Car->Camera->up.y, Car->Camera->up.z);
+	}
+	else
+	{
+		viewStack.LookAt(Player->getCam()->position.x, Player->getCam()->position.y,
+			Player->getCam()->position.z, Player->getCam()->target.x, Player->getCam()->target.y,
+			Player->getCam()->target.z, Player->getCam()->up.x, Player->getCam()->up.y, Player->getCam()->up.z);
+	}
 
-	viewStack.LookAt(Player->getCam()->position.x, Player->getCam()->position.y,
-	Player->getCam()->position.z, Player->getCam()->target.x, Player->getCam()->target.y,
-	Player->getCam()->target.z, Player->getCam()->up.x, Player->getCam()->up.y, Player->getCam()->up.z);
+
 
 
 	Position lightPosition_cameraspace = viewStack.Top() * light[0].LightPosition;
@@ -350,6 +394,11 @@ void PlanetScene::Render()
 	//RenderMesh(meshList[GEO_AXES], false);
 
 	RenderSkybox();
+
+	modelStack.PushMatrix();
+	modelStack.LoadMatrix(Car->Stamp);
+	RenderMesh(meshList[GEO_CAR], true);
+	modelStack.PopMatrix();
 
 	//=================================================================================================
 	/*modelStack.PushMatrix();

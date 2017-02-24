@@ -31,7 +31,9 @@ void StudioProject::Init()
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 
 	//Enable depth buffer and depth testing
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_ALPHA_TEST);
+	//glAlphaFunc(GL_GREATER, 0);
 
 	//Enable back face culling
 	glEnable(GL_CULL_FACE);
@@ -111,9 +113,9 @@ void StudioProject::Init()
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	srand(time(NULL));
-	for (int i = 1; i < 3; i++)
+	for (int i = 1; i < 10; i++)
 	{
-		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, 100, 100), 40.f, 1.f, 10.f);
+		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, 500, 100), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);
 	}
 	//=============================================================================
@@ -154,21 +156,21 @@ void StudioProject::Init()
 
 	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//Missle.OBJ");
 
-	meshList[GEO_BULLET] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//Missle.OBJ");
+	meshList[GEO_BULLET] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//bullet_placeholder.OBJ");
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("rock", "OBJ//rock.obj");
 
 	meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//sphere.obj");
-	//meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
+	meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
 
-	meshList[GEO_CUBE] = MeshBuilder::GenerateOBJ("shield", "OBJ//ShieldCubeThing.obj");
+	meshList[GEO_CUBE] = MeshBuilder::GenerateOBJ("targeted", "OBJ//ShieldCubeThing.obj");
 	meshList[GEO_CUBE]->textureID = LoadTGA("Image//cubecube.tga");
 
-	meshList[GEO_CUBE1] = MeshBuilder::GenerateOBJ("shield", "OBJ//ShieldCubeThing.obj");
+	meshList[GEO_CUBE1] = MeshBuilder::GenerateOBJ("locked on", "OBJ//ShieldCubeThing.obj");
 	meshList[GEO_CUBE1]->textureID = LoadTGA("Image//locked.tga");
 
-	meshList[GEO_CUBE2] = MeshBuilder::GenerateOBJ("shield", "OBJ//ShieldCubeThing.obj");
+	meshList[GEO_CUBE2] = MeshBuilder::GenerateOBJ("untargeted", "OBJ//ShieldCubeThing.obj");
 	meshList[GEO_CUBE2]->textureID = LoadTGA("Image//leedle.tga");
 
 	//------------------------------------------------------------------------------------------
@@ -370,6 +372,15 @@ void StudioProject::Update(double dt)
 	//bullet
 	if (Application::IsKeyPressed(VK_RBUTTON))
 	{
+		//for (auto &i : hostiles)
+		//{
+		//	if (i->getTargeted())
+		//	{
+		//		//bullet travels 200 unit persecond;
+		//		//enemy translate at variable speed
+		//		i->getSpeed();
+		//	}
+		//}
 		Bullet* bullet = new Bullet(Player->getter("position"), Player->getter("forward"), Player->getter("up"), Player->getter("right"));
 		bullets.push_back(bullet);
 	}
@@ -407,9 +418,9 @@ void StudioProject::Update(double dt)
 	{
 		if (hostiles[i]->getHP() <= 0)
 		{
-			EnemyShip* dadad = hostiles[i];
+			//EnemyShip* dadad = hostiles[i];
+			hostiles[i]->deaded = true;
 			hostiles.erase(hostiles.begin() + i);
-			delete dadad;
 			i = 0;
 		}
 	}
@@ -543,7 +554,6 @@ void StudioProject::Render()
 		modelStack.PushMatrix();
 		modelStack.LoadMatrix(i->getStamp());
 		RenderMesh(meshList[GEO_PLAYER_SHIP], true);
-
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
@@ -565,12 +575,13 @@ void StudioProject::Render()
 			modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
 			RenderMesh(meshList[GEO_CUBE], false);
 		}
-		else
-		{
-			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
-			modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
-			RenderMesh(meshList[GEO_CUBE2], false);
-		}
+
+		modelStack.PushMatrix();
+		modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+		modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
+		RenderMesh(meshList[GEO_CUBE2], false);
+		modelStack.PopMatrix();
+		
 		modelStack.PopMatrix();
 	}
 

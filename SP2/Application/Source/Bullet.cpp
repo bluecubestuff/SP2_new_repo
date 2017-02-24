@@ -23,8 +23,8 @@ Bullet::~Bullet()
 
 void Bullet::Update(double dt)
 {
-	this->Position += Forward * dt * 300;
-	this->distance += Forward * dt * 300;
+	this->Position += Forward * dt * 150;
+	this->distance += Forward * dt * 150;
 	if (distance.Length() > 500)
 	{
 		outOfRange = true;

@@ -24,6 +24,11 @@ Vector3 LandEntity::getter(std::string something)
 	}
 }
 
+Vector3 LandEntity::getRight()
+{
+	return this->Right;
+}
+
 float LandEntity::getHealth()
 {
 	return this->Health;

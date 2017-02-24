@@ -103,6 +103,7 @@
     <ClCompile Include="Source\LandFPSCamera.cpp" />
     <ClCompile Include="Source\LandGenerate.cpp" />
     <ClCompile Include="Source\landPlayer.cpp" />
+    <ClCompile Include="Source\LandVehicle.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Source\LandFPSCamera.h" />
     <ClInclude Include="Source\LandGenerate.h" />
     <ClInclude Include="Source\landPlayer.h" />
+    <ClInclude Include="Source\LandVehicle.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />

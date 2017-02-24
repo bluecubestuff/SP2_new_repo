@@ -12,6 +12,7 @@
 #include "MatrixStack.h"
 #include "Light.h"
 #include "landPlayer.h"
+#include "LandVehicle.h"
 #include "Func_AABB.h"
 #include "DetectMemoryLeak.h"
 #include "CollisionManager.h"
@@ -67,6 +68,7 @@ class PlanetScene : public Scene
 		GEO_NPC,
 		GEO_BUILDING,
 		GEO_ENEMY,
+		GEO_CAR,
 
 		//Ships
 		GEO_PLAYER_SHIP,
@@ -159,6 +161,8 @@ private:
 	CollisionManager* colManager;
 
 	LandPlayer* Player;
+
+	LandVehicle* Car;
 
 	//ObjectFactory objfactory;
 	LandGenerate* gen;

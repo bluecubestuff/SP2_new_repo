@@ -20,6 +20,7 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 	this->hit = false;
 	this->iGotYouInMySights = false;
 	this->targeted = false;
+	this->deaded = false;
 
 	hull = new Hull;
 	this->hullPoints = hull->getHullPoint();;
@@ -71,7 +72,7 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 	}
 	catch (std::exception& e)
 	{
-		std::cout << "nothing" << std::endl;
+		std::cout << "Enemy Ship facing Player directly" << std::endl;
 	}
 
 	this->Position += this->Forward * dt * this->speed;		//always translate the enemy
@@ -99,4 +100,9 @@ bool EnemyShip::getTargeted()
 void EnemyShip::setTargeted(bool something)
 {
 	this->targeted = something;
+}
+
+float EnemyShip::getSpeed()
+{
+	return this->speed;
 }

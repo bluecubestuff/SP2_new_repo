@@ -16,6 +16,9 @@ public:
 	void setIGotYouInMySights(bool);
 	bool getTargeted();
 	void setTargeted(bool);
+	float getSpeed();
+
+	bool deaded;
 private:
 	float turnSpeed;
 	float speed;

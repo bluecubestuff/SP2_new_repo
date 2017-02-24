@@ -159,11 +159,12 @@ private:
 
 	void RenderSkybox();
 
-
+	bool isPlayerNearPlanet;
 	char mapArray[100][100];
 
 	ObjectFactory objfactory;
 	SolarGenerate* system_gen;
+	CollisionManager* system_collision;
 
 	//Camera2 camera;
 	//Camera3 camera;

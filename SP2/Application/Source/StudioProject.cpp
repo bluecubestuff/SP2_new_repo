@@ -162,14 +162,14 @@ void StudioProject::Init()
 	/*meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//sphere.obj");*/
 	/*meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");*/
 
-	meshList[GEO_CUBE] = MeshBuilder::GenerateOBJ("shield", "OBJ//ShieldCubeThing.obj");
-	meshList[GEO_CUBE]->textureID = LoadTGA("Image//cubecube.tga");
+	meshList[GEO_CUBE] = MeshBuilder::GenerateOBJ("shield", "OBJ//sphere.obj"); //ShieldCubeThing
+	//meshList[GEO_CUBE]->textureID = LoadTGA("Image//cubecube.tga");
 
-	meshList[GEO_CUBE1] = MeshBuilder::GenerateOBJ("shield", "OBJ//ShieldCubeThing.obj");
-	meshList[GEO_CUBE1]->textureID = LoadTGA("Image//locked.tga");
+	meshList[GEO_CUBE1] = MeshBuilder::GenerateOBJ("shield", "OBJ//sphere.obj");
+	//meshList[GEO_CUBE1]->textureID = LoadTGA("Image//locked.tga");
 
-	meshList[GEO_CUBE2] = MeshBuilder::GenerateOBJ("shield", "OBJ//ShieldCubeThing.obj");
-	meshList[GEO_CUBE2]->textureID = LoadTGA("Image//leedle.tga");
+	meshList[GEO_CUBE2] = MeshBuilder::GenerateOBJ("shield", "OBJ//sphere.obj");
+	//meshList[GEO_CUBE2]->textureID = LoadTGA("Image//leedle.tga");
 
 	//------------------------------------------------------------------------------------------
 	//light

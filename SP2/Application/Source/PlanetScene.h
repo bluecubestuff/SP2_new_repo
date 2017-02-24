@@ -67,6 +67,7 @@ class PlanetScene : public Scene
 		GEO_NPC,
 		GEO_BUILDING,
 		GEO_ENEMY,
+		GEO_GOATGOAT,
 
 		//Ships
 		GEO_PLAYER_SHIP,

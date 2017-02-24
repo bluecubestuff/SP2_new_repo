@@ -101,16 +101,9 @@ void Application::Init()
 void Application::Run()
 {
 	//Main Loop
-	//Scene *scene = new StudioProject();
-	//Scene *scene02 = new StudioProject();
-
-	//SceneManager::get_instance()->AddScene(scene);
-	//SceneManager::get_instance()->AddScene(scene02);
 
 	createScene();
-
 	SceneManager::get_instance()->getScene()->Init();
-	//scene02->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
@@ -119,17 +112,15 @@ void Application::Run()
 	}						//Check if the ESC key had been pressed or if the window had been closed
 
 	SceneManager::get_instance()->getScene()->Exit();
-	//scene02->Exit();
 	delete SceneManager::get_instance()->getScene();
-	//delete scene02;
 }
 
 void Application::createScene() //adding new scene
 {
-	Scene *startScene = new StartScene();
-	Scene *scene = new StudioProject();
-	Scene *scene2 = new PlanetScene();
-	Scene *scene3 = new SystemScene();
+	Scene *startScene = new StartScene();	//0
+	Scene *scene = new StudioProject();		//1
+	Scene *scene2 = new PlanetScene();		//2
+	Scene *scene3 = new SystemScene();		//3
 
 	SceneManager::get_instance()->AddScene(startScene);
 	SceneManager::get_instance()->AddScene(scene);

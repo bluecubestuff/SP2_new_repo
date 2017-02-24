@@ -51,4 +51,5 @@ void ObjectRender::render_system_planets(float aRotate,float pRotate)
 	systemscene->modelStack.Rotate(pRotate * planetRotate, 0, 0, 1);
 	systemscene->RenderMesh(systemscene->meshList[type], false);
 	systemscene->modelStack.PopMatrix();
+	//std::cout << aRotate * aroundRotate << "\n";
 }

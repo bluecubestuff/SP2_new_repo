@@ -23,19 +23,23 @@ void SceneManager::AddScene(Scene* newScene)						//AddScene
 
 void SceneManager::SetNextScene()
 {
+	sceneStorage[currSceneID]->Exit(); //exit prev scene
 	currSceneID += 1;
 	if (currSceneID > sceneStorage.size())
 	{
 		currSceneID -= 1;
 	}
+	sceneStorage[currSceneID]->Init();
 	//nextSceneID++;
 }
 
 void SceneManager::SetPrevScene()
 {
+	sceneStorage[currSceneID]->Exit(); //exit prev scene
 	if (currSceneID > 0 && currSceneID != 0)
 	{
 		currSceneID -= 1;
+		sceneStorage[currSceneID]->Init(); //init next scene
 	}
 }
 
@@ -44,19 +48,14 @@ void SceneManager::sceneUpdate()
 	if (Application::IsKeyPressed(VK_F1) && currSceneID < sceneStorage.size() - 1 || isTime) //place holder
 	{
 		isTime = false;
-		sceneStorage[currSceneID]->Exit(); //exit prev scene
 		SetNextScene();					   //set next scene
-		sceneStorage[currSceneID]->Init(); //init next scene
 	}
 	else if (Application::IsKeyPressed(VK_F2) && currSceneID > 0 && currSceneID != 0)
 	{
-		sceneStorage[currSceneID]->Exit(); //exit prev scene
 		SetPrevScene();		   //set next scene
-		sceneStorage[currSceneID]->Init(); //init next scene
 	}
-
+	
 	//std::cout<<sceneStorage.size();
-
 	sceneStorage[currSceneID]->Update(Application::m_timer.getElapsedTime());
 	sceneStorage[currSceneID]->Render();
 	//Swap buffers
@@ -76,5 +75,15 @@ void SceneManager::TimedScene(float timer)
 	if (timer > 3)
 	{
 		isTime = true;
+	}
+}
+
+void SceneManager::SceneSelect(unsigned num)
+{
+	if (num < sceneStorage.size() || num > 0)
+	{
+		sceneStorage[currSceneID]->Exit(); //exit prev scene
+		currSceneID = num;
+		sceneStorage[currSceneID]->Init();
 	}
 }

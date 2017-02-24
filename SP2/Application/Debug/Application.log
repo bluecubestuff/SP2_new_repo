@@ -1,41 +1,22 @@
-﻿Build started 2/23/2017 11:47:07 AM.
+﻿Build started 2/24/2017 5:33:37 PM.
      1>Project "C:\Users\162042Y\Documents\SP2_new_repo\SP2\Application\Application.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glew\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glfw\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\Common\Source /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Application.cpp Source\CollisionManager.cpp Source\Enemy.cpp Source\LandGenerate.cpp Source\Mithril.cpp Source\NPC.cpp Source\Node.cpp Source\ObjectRender.cpp Source\PlanetScene.cpp Source\Rock.cpp Source\Tree.cpp
-         Node.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(59): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(64): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(69): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(74): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(79): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(84): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\node.cpp(85): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         Enemy.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\enemy.cpp(85): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\enemy.cpp(86): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         Tree.cpp
-         Rock.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glew\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glfw\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\Common\Source /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\PlanetScene.cpp
          PlanetScene.cpp
-         ObjectRender.cpp
-         NPC.cpp
-         Mithril.cpp
-         LandGenerate.cpp
-         CollisionManager.cpp
-         Application.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\162042Y\Documents\SP2_new_repo\SP2\\glew\lib /LIBPATH:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\\glfw\lib-msvc120" /LIBPATH:C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.lib" /MACHINE:X86 Debug\Application.obj
          Debug\Building.obj
+         Debug\Bullet.obj
          Debug\Camera.obj
          Debug\Camera2.obj
          Debug\Camera3.obj
          Debug\CollisionManager.obj
-         Debug\Enemy.obj
+         Debug\landEnemy.obj
          Debug\enemyShip.obj
          Debug\Func_AABB.obj
          Debug\GalaxyGenerate.obj
          Debug\GameObject.obj
+         Debug\GreenPlanet.obj
          Debug\Hull.obj
          Debug\Item.obj
          Debug\landEntity.obj
@@ -64,6 +45,8 @@
          Debug\shader.obj
          Debug\Shield.obj
          Debug\ship.obj
+         Debug\SolarGenerate.obj
+         Debug\StartScene.obj
          Debug\StudioProject.obj
          Debug\SystemScene.obj
          Debug\SystemTravelShip.obj
@@ -71,10 +54,9 @@
          Debug\Tree.obj
          Debug\Utility.obj
          Debug\Weapon.obj
-     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
          Application.vcxproj -> C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.exe
      1>Done Building Project "C:\Users\162042Y\Documents\SP2_new_repo\SP2\Application\Application.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.14
+Time Elapsed 00:00:02.05

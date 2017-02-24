@@ -4,7 +4,9 @@
 #include "Camera.h"
 #include "Func_AABB.h"
 #include "LandGenerate.h"
+#include "SolarGenerate.h"
 #include "landPlayer.h"
+#include "SystemTravelShip.h"
 
 class CollisionManager
 {
@@ -13,10 +15,11 @@ public:
 	~CollisionManager();
 
 	void CollisionChecker(LandGenerate*, LandPlayer*);
-	
+	void CollisionCheckerSystem(SolarGenerate*, SystemTravelShip*,float);
 
+	bool isAbovePlanet;
 private:
-	Func_AABB* func_aabb;
+	Func_AABB* collision_aabb;
 };
 
 #endif

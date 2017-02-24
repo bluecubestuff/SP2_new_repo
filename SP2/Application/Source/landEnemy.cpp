@@ -3,12 +3,16 @@
 
 using std::list;
 
-LandEnemy::LandEnemy(Vector3 pos, float hp, float shields)
+LandEnemy::LandEnemy(Vector3 pos, float hp, float speed)
 {
 	Position = pos;
+	Forward = Vector3(0, 0, 1);
+	Up = Vector3(0, 1, 0);
+	Right = Vector3(1, 0, 0);
 	Health = hp;
-	Shield = shields;
+	moveSpeed = speed;
 	enemyIsDead = false;
+	Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 }
 
 LandEnemy::~LandEnemy()
@@ -16,22 +20,84 @@ LandEnemy::~LandEnemy()
 
 }
 
-void LandEnemy::enemyUpdate()
+void LandEnemy::enemyInit(char landGrid[2500][2500], Vector3 startPos, Vector3 endGoal)
+{
+	//calculate paths to reach the goal and return to its starting position
+	savedAIpath = Pathfinding(landGrid, startPos, endGoal);
+	savedAIreturnPath = Pathfinding(landGrid, endGoal, startPos);
+
+	AIpath = savedAIpath;
+	AIreturnPath = savedAIreturnPath;
+}
+
+void LandEnemy::Update(double dt, Vector3 playerPos, Vector3 playerForward)
 {
 	if (enemyIsDead == false)
 	{
-
+		PathfindingMovement(dt, playerPos, playerForward);
+		Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 	}
 }
 
-vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 endGoal)
+void LandEnemy::AIPursuit(double dt, Vector3 playerPos, Vector3 playerForward)
 {
-	vector<Vector3*> path; //create the vector of Vector3 pointers that stores the nodes the enemy travels through
+	float rotateSpeed = 50 * dt;
+
+	target = playerPos - this->Position;
+
+	try
+	{
+		std::cout << "function called" << std::endl;
+
+		if (this->Forward != target.Normalized())
+		{
+					Vector3 temp = this->Forward.Cross(target.Normalized());
+					temp.Normalize();
+					Mtx44 rotate;
+					rotate.SetToRotation(rotateSpeed, temp.x, temp.y, temp.z);
+
+					this->Forward = rotate * this->Forward;
+					this->Up = rotate * this->Up;
+					this->Right = rotate * this->Right;
+		}
+
+				this->Position.x += this->Forward.x * dt * moveSpeed;
+				this->Position.z += this->Forward.z * dt * moveSpeed;
+	}
+		
+	catch (std::exception& e)
+	{
+		std::cout << "nothing" << std::endl;
+	}
+}
+
+float LandEnemy::calculateDistance(Vector3 playerPos, Vector3 enemyPos)
+{
+	float dist;
+
+	float x1 = playerPos.x;
+	float x2 = enemyPos.x;
+
+	float y1 = playerPos.z;
+	float y2 = enemyPos.z;
+
+	float x = x1 - x2;
+	float y = y1 - y2;
+
+	dist = pow(x, 2) + pow(y, 2);
+	dist = sqrt(dist);
+
+	return dist;
+}
+
+vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 startPos, Vector3 endGoal)
+{
+	vector<Vector3*> path; //create path vector to store the nodes the AI traverses
 
 	//set positions of start and end nodes
 
-	start->pos.x = Position.x;
-	start->pos.z = Position.z;
+	start->pos.x = startPos.x;
+	start->pos.z = startPos.z;
 
 
 	end->pos.x = endGoal.x;
@@ -48,7 +114,7 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 endGo
 	openList.push_back(start);
 	start->open = true;
 
-	while (n == 0 || (current != end && n < 500))
+	while (n == 0 || (current != end && n < 500)) //limited to moving a maximum of 499 spaces due to performance issues
 	{
 		for (it = openList.begin(); it != openList.end(); ++it)
 		{
@@ -119,6 +185,7 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 endGo
 		n++;
 	}
 
+	//reset open and closed lists
 	for (it = openList.begin(); it != openList.end(); ++it)
 	{
 		(*it)->open = false;
@@ -145,20 +212,41 @@ void LandEnemy::setPosition(Vector3* position)
 	Position.z = position->z;
 }
 
-void LandEnemy::PathfindingMovement() 
+void LandEnemy::PathfindingMovement(double dt, Vector3 playerPos, Vector3 playerForward)
 {	
 	if (AIpath.size() != 0)
 	{
-		setPosition(AIpath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
-		AIpath.pop_back(); //pops the last element, repeat
-		std::cout << "AI moved" << std::endl;
+		if (abs(calculateDistance(playerPos, Position) <= 70))
+		{
+			AIPursuit(dt, playerPos, playerForward);
+		}
+		else if (abs(calculateDistance(playerPos, Position) > 70))
+		{
+			setPosition(AIpath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
+			AIpath.pop_back(); //pops the last element, repeat
+			std::cout << "AI moved" << std::endl;
+		}
 	}
-	else if (AIreturnPath.size() != 0)
+	else if (AIreturnPath.size() != 0 && AIpath.size() == 0)
 	{
-		setPosition(AIreturnPath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
-		AIpath.pop_back(); //pops the last element, repeat
-		std::cout << "AI moved" << std::endl;
+		if (abs(calculateDistance(playerPos, Position) <= 70))
+		{
+			AIPursuit(dt, playerPos, playerForward);
+		}
+		else if (abs(calculateDistance(playerPos, Position) > 70))
+		{
+			setPosition(AIreturnPath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
+			AIreturnPath.pop_back(); //pops the last element, repeat
+			std::cout << "AI moved" << std::endl;
+		}
 	}
+
+	if (AIpath.size() == 0 && AIreturnPath.size() == 0)
+	{
+		AIpath = savedAIpath;
+		AIreturnPath = savedAIreturnPath;
+	}
+
 }
 
 void LandEnemy::randomMovement() 

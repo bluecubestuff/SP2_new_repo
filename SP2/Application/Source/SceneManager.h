@@ -20,6 +20,7 @@ public:
 	void sceneUpdate();						//update scene
 	void SetPrevScene();
 	void TimedScene(float);					//for the start screen
+	void SceneSelect(unsigned);
 
 	static SceneManager *get_instance()		//singleton to get only one instance of obj
 	{

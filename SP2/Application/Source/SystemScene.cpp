@@ -3,7 +3,7 @@
 
 #include "shader.hpp"
 #include "Mtx44.h"
-
+#include "SceneManager.h"
 #include "Application.h"
 #include "MeshBuilder.h"
 #include "Utility.h"
@@ -208,12 +208,15 @@ void SystemScene::Init()
 	Mtx44 projection;
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 100000.f);
 	projectionStack.LoadMatrix(projection);
-
+	srand((unsigned)(time(NULL)));
 	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
+	system_collision = new CollisionManager;
 	Player = new SystemTravelShip;
 	system_gen = new SolarGenerate(this);
 	system_gen->Init();
 	rotate = 0.f;
+
+	isPlayerNearPlanet = false;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -277,6 +280,13 @@ void SystemScene::Update(double dt)
 	camera.Update(dt);
 	Player->Update(dt);
 	rotate += dt;
+
+	system_collision->CollisionCheckerSystem(system_gen, Player, rotate);
+
+	if (system_collision->isAbovePlanet && Application::IsKeyPressed('E'))
+	{
+		SceneManager::get_instance()->SceneSelect(1);
+	}
 }
 
 
@@ -401,11 +411,6 @@ void SystemScene::Render()
 	system_gen->build_system(rotate, rotate);
 
 	//=======================================================
-	//modelStack.PushMatrix();	//push orbitline
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Scale(3, 1, 3);
-	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//modelStack.PopMatrix();		//end orbitline
 
 	//modelStack.PushMatrix();	//push orbitline
 	//modelStack.Rotate(90, 1, 0, 0);
@@ -415,7 +420,7 @@ void SystemScene::Render()
 
 	//modelStack.PushMatrix();	//push planet
 	//modelStack.Rotate(-rotate, 0, 0, 1);
-	//modelStack.Translate(9, 0, 0);
+	//modelStack.Translate(9, 0, 0);			//x-axis 1009 * 9
 	//modelStack.Rotate(-rotate * 15, 0, 0, 1);
 	//RenderMesh(meshList[GEO_SUN], false);
 	//modelStack.PopMatrix();		//end planet
@@ -454,6 +459,14 @@ void SystemScene::Render()
 	//===========================================================
 
 	modelStack.PopMatrix();		//end sun
+
+	if (system_collision->isAbovePlanet)
+	{
+		//std::cout << "in box" << "\n";
+		modelStack.PushMatrix();
+		RenderTextOnScreen(meshList[GEO_TEXT], "Enter planet?[E]", Color(0, 1, 0), 2, 1, 2);
+		modelStack.PopMatrix();
+	}
 }
 
 void SystemScene::RenderMesh(Mesh *mesh, bool enableLight)
@@ -667,6 +680,8 @@ void SystemScene::RenderSkybox()
 
 void SystemScene::Exit()
 {
+	delete this->system_collision;
+	delete this->system_gen;
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

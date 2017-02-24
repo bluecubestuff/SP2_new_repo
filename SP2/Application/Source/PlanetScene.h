@@ -18,7 +18,7 @@
 #include "CollisionManager.h"
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
-
+#include "landEnemy.h"
 #include <string>
 #include <vector>
 using std::vector;
@@ -69,6 +69,7 @@ class PlanetScene : public Scene
 		GEO_BUILDING,
 		GEO_ENEMY,
 		GEO_CAR,
+		GEO_GOATGOAT,
 
 		//Ships
 		GEO_PLAYER_SHIP,
@@ -163,6 +164,11 @@ private:
 	LandPlayer* Player;
 
 	LandVehicle* Car;
+	LandEnemy* Enemy;
+
+	vector<LandEnemy*> landEnemies;
+
+	vector<LandEnemy*>::iterator it;
 
 	//ObjectFactory objfactory;
 	LandGenerate* gen;

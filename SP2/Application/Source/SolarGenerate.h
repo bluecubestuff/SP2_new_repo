@@ -16,9 +16,10 @@ public:
 	void update();
 	void build_system(float,float);
 	int num_of_planet_getter();
+	vector<ObjectRender*> planet_storage_getter();
 
 private:
-
+	vector<ObjectRender*> planet_storage;
 	int number_of_planets;
 	SystemScene* myscene;
 	ObjectFactory objfactory;

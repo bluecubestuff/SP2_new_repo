@@ -4,7 +4,7 @@ Func_AABB::Func_AABB() {}
 
 Func_AABB::~Func_AABB() 
 {
-	delete this;
+	//delete this;
 }
 
 bool Func_AABB::AABBtoAABB(const AABB& box01)
@@ -62,4 +62,3 @@ bool Func_AABB::pointInAABB(const Vector3& pt, const AABB& box)
 
 	return false;
 }
-

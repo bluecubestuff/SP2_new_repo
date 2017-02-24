@@ -244,7 +244,7 @@
     </ClCompile>
     <ClCompile Include="Source\LandVehicle.cpp">
       <Filter>Source Files\Land</Filter>
-    </ClCompile>
+	</ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">

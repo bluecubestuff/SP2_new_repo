@@ -21,7 +21,6 @@ Tree::Tree(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(scene, po
 }
 void Tree::interact()
 {
-
 }
 AABB Tree::get_obj_AABB()
 {

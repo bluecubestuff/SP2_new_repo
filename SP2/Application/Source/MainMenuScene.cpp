@@ -115,22 +115,28 @@ void MainMenuScene::Init()
 	meshList[GEO_SPHERE]->material.kShininess = 1.f;
 
 	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_FRONT]->textureID = LoadTGA("Image//spaceBack.tga");
+	meshList[GEO_FRONT]->textureID = LoadTGA("Image//bkg1_back.tga");
 
 	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_BACK]->textureID = LoadTGA("Image//spaceFront.tga");
+	meshList[GEO_BACK]->textureID = LoadTGA("Image//bkg1_front.tga");
 
 	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_LEFT]->textureID = LoadTGA("Image//spaceLeft.tga");
+	meshList[GEO_LEFT]->textureID = LoadTGA("Image//bkg1_left.tga");
 
 	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//spaceRight.tga");
+	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//bkg1_right.tga");
 
 	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//spaceBottom.tga");
+	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bkg1_bot.tga");
 
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_TOP]->textureID = LoadTGA("Image//spaceTop.tga");
+	meshList[GEO_TOP]->textureID = LoadTGA("Image//bkg1_top.tga");
+	
+	meshList[GEO_PLANET1] = MeshBuilder::GenerateOBJ("mars", "OBJ//Sphere2.obj");
+	meshList[GEO_PLANET1]->textureID = LoadTGA("Image//mars.tga");
+
+	meshList[GEO_PLANET2] = MeshBuilder::GenerateOBJ("mars", "OBJ//Sphere2.obj");
+	meshList[GEO_PLANET2]->textureID = LoadTGA("Image//Mars-Phobos.tga");
 
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6f, 0.4f, 0.3f));
 
@@ -152,7 +158,7 @@ void MainMenuScene::Init()
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
-	light[0].LightPosition.Set(0, 1, 0);
+	light[0].LightPosition.Set(0, 1, -1);
 	light[0].color.Set(1, 1, 1);
 	light[0].power = 1;
 	light[0].kC = 1.f;
@@ -180,15 +186,16 @@ void MainMenuScene::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
 
 	Mtx44 projection;
-	projection.SetToPerspective(70.f, 4.f / 3.f, 0.1f, 5000.f);
+	projection.SetToPerspective(45.f, 16.f / 9.f, 0.1f, 6000.f);
 	projectionStack.LoadMatrix(projection);
 
-	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
+	camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
 
 	id = 15;
 	isPressed = false;
 	timer = 0;
 
+	marsRotate = 0.f;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -243,7 +250,7 @@ void MainMenuScene::Update(double dt)
 	}
 	//================================================================================
 	//--------------------------------------------------------------------------------
-	camera.Update(dt);
+	//camera.Update(dt);
 	//Player->Update(dt);
 
 	if (Application::IsKeyPressed(VK_DOWN) && !isPressed)
@@ -288,6 +295,7 @@ void MainMenuScene::Update(double dt)
 	}
 
 	//camera.Update(dt);
+	marsRotate += dt * 0.5;
 }
 
 void MainMenuScene::Render()
@@ -300,18 +308,6 @@ void MainMenuScene::Render()
 
 	viewStack.LoadIdentity();
 
-	//if (Player->firstThird)
-	//{
-	//	viewStack.LookAt(Player->Camera->position.x, Player->Camera->position.y,
-	//		Player->Camera->position.z, Player->Camera->target.x, Player->Camera->target.y,
-	//		Player->Camera->target.z, Player->Camera->up.x, Player->Camera->up.y, Player->Camera->up.z);
-	//}
-	//else
-	//{
-	//	viewStack.LookAt(Player->ThirdCamera->position.x, Player->ThirdCamera->position.y,
-	//		Player->ThirdCamera->position.z, Player->ThirdCamera->target.x, Player->ThirdCamera->target.y,
-	//		Player->ThirdCamera->target.z, Player->ThirdCamera->up.x, Player->ThirdCamera->up.y, Player->ThirdCamera->up.z);
-	//}
 
 	viewStack.LookAt(camera.position.x, camera.position.y,
 		camera.position.z, camera.target.x, camera.target.y,
@@ -344,9 +340,32 @@ void MainMenuScene::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-	RenderUI(meshList[id], 900, 450, 1800, 950);
+	//MainMenuScene::RenderSkybox();
+	
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 0, 100);
+	modelStack.Rotate(-90, 1, 0, 0);
+	modelStack.Scale(5000, 5000, 5000);
+	RenderMesh(meshList[GEO_FRONT], false);
+	modelStack.PopMatrix();
+	//sphere can be between 1 to 10
+	modelStack.PushMatrix();
+	modelStack.Translate(-4, 0, 10);
+	modelStack.Rotate(marsRotate, 0, 1, 0);
+	modelStack.Scale(4, 4, 4);
+	RenderMesh(meshList[GEO_PLANET1], true);
+	modelStack.PopMatrix();
 
-	//RenderSkybox();
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.6, -1.3, 1);
+	modelStack.Rotate(90, 0, 0, 1);
+	modelStack.Rotate(marsRotate * 2, 1, 0, 0);
+	modelStack.Scale(1, 1, 1);
+	RenderMesh(meshList[GEO_PLANET2 ], true);
+	modelStack.PopMatrix();
+
+	//always last
+	RenderUI(meshList[id], 900, 450, 1800, 950);
 
 	//=================================================================================================
 	/*modelStack.PushMatrix();
@@ -509,6 +528,57 @@ void MainMenuScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float si
 	glEnable(GL_DEPTH_TEST);
 }
 //=================================================================================================
+void MainMenuScene::RenderSkybox()
+{
+	modelStack.PushMatrix();//push top
+	modelStack.Translate(0, 1995, 0);
+	modelStack.Rotate(180, 0, 0, 1);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(2000, 1, 2000);
+	RenderMesh(meshList[GEO_TOP], false);
+	modelStack.PopMatrix();//end top
+
+	modelStack.PushMatrix();//push back
+	modelStack.Translate(0, 997, 997);
+	modelStack.Rotate(-90, 1, 0, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(2000, 1, 2000);
+	RenderMesh(meshList[GEO_BACK], false);
+	modelStack.PopMatrix();//end back
+
+	modelStack.PushMatrix();//push front
+	modelStack.Translate(0, 997, -997);
+	modelStack.Rotate(-90, 1, 0, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Rotate(180, 1, 0, 0);
+	modelStack.Scale(2000, 1, 2000);
+	RenderMesh(meshList[GEO_FRONT], false);
+	modelStack.PopMatrix();//end front
+
+	modelStack.PushMatrix();//push left
+	modelStack.Translate(997, 997, 0);
+	modelStack.Rotate(-90, 1, 0, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Rotate(-90, 1, 0, 0);
+	modelStack.Scale(2000, 1, 2000);
+	RenderMesh(meshList[GEO_LEFT], false);
+	modelStack.PopMatrix();//end left
+
+	modelStack.PushMatrix();//push right
+	modelStack.Translate(-997, 997, 0);
+	modelStack.Rotate(-90, 1, 0, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Rotate(90, 1, 0, 0);
+	modelStack.Scale(2000, 1, 2000);
+	RenderMesh(meshList[GEO_RIGHT], false);
+	modelStack.PopMatrix();//end right
+
+	modelStack.Translate(0, 0, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(2000, 1, 2000);
+	RenderMesh(meshList[GEO_BOTTOM], false);
+	modelStack.PopMatrix();//end ground
+}
 
 void MainMenuScene::Exit()
 {

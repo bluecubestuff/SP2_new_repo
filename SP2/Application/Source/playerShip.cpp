@@ -76,13 +76,23 @@ PlayerShip::~PlayerShip()
 void PlayerShip::locking(EnemyShip* target, double dt)
 {
 	//do point to aabb to enemyship, if stays for 3s, locked enabled
+	Vector3 temp = target->getter("position") - this->Position;
+	//need to normalize both vectors before doing the acos
+	float angle;
+	angle = Math::RadianToDegree(acos(temp.Normalized().Dot(this->Forward.Normalized())));
 	if (l >= 3)
 	{
 		target->locked = true;
 	}
 	if (target->getTargeted())
 	{
-		l += dt;
+		if (angle < 15 && angle > -15)
+			l += dt;
+		else
+		{
+			target->locked = false;
+			l = 0;
+		}
 	}
 	else if (!target->getTargeted())
 	{
@@ -395,30 +405,20 @@ void PlayerShip::withinRange(vector<EnemyShip*> targets)
 	for (auto &i : targets)
 	{
 		Vector3 temp = i->getter("position") - this->Position;
-		//need to normalize both vectors before doing the acos
-		float angle;
-		angle = Math::RadianToDegree(acos(temp.Normalized().Dot(this->Forward.Normalized())));
-		//if (angle < 20 && angle > -20 && temp.Length() < 300)		//if withing 45 degreess from forward
-		//{
-		//	if (i->getWithinSights() != true)
-		//	{
-		//		i->setIGotYouInMySights(true);		//set the bool in enemy to true	
-		//		//std::cout << "targeted" << std::endl;
-		//		applicableTargets.push_back(i);		//puh back to which targets player can choose
-		//		//std::cout << applicableTargets.size() << std::endl;
-		//	}
-		//}
-		//else
-		//{
-		//	i->setIGotYouInMySights(false);		//else not in ur target list anymore
-		//	//std::cout << "untargeted" << std::endl;
-		//}
-		if (i->getWithinSights() != true)
+		if (temp.Length() < 400)		//if withing 45 degreess from forward
 		{
-			i->setIGotYouInMySights(true);		//set the bool in enemy to true	
-			//std::cout << "targeted" << std::endl;
-			applicableTargets.push_back(i);		//puh back to which targets player can choose
-			//std::cout << applicableTargets.size() << std::endl;
+			if (i->getWithinSights() != true)
+			{
+				i->setIGotYouInMySights(true);		//set the bool in enemy to true	
+				//std::cout << "targeted" << std::endl;
+				applicableTargets.push_back(i);		//puh back to which targets player can choose
+				//std::cout << applicableTargets.size() << std::endl;
+			}
+		}
+		else
+		{
+			i->setIGotYouInMySights(false);		//else not in ur target list anymore
+			//std::cout << "untargeted" << std::endl;
 		}
 	}
 	for (int i = 0; i < applicableTargets.size(); i++)

@@ -209,7 +209,7 @@ void PlanetScene::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
 	Mtx44 projection;
-	projection.SetToPerspective(70.f, 4.f / 3.f, 0.1f, 5000.f);
+	projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
 	/*Enemy->enemyInit(gen->path, Enemy->Position, Vector3(800, 650));

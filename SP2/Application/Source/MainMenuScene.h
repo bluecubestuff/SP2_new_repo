@@ -50,9 +50,11 @@ class MainMenuScene : public Scene
 		GEO_MENUCREDIT, //17
 		GEO_MENUQUIT, //18
 
+		GEO_PLANET1,
+		GEO_PLANET2,
+
 		//text
 		GEO_TEXT,
-
 		NUM_GEOMETRY,
 	};
 	enum UNIFORM_TYPE
@@ -118,6 +120,7 @@ private:
 	char mapArray[100][100];
 
 	//PlayerShip* Player;
+	float marsRotate;
 
 	bool isPressed;
 	float timer;

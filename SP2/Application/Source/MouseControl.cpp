@@ -53,7 +53,8 @@ POINT Mouse::flightMouse()
 	mousePosition.y = currMousePosition.y - anchorY;
 	if (sqrt((float)mousePosition.x * (float)mousePosition.x + (float)mousePosition.y * (float)mousePosition.y) > 100) //if the mouse move out of range
 	{
-		mousePosition = temp;		//reset to previous Position
+		/*if (mousePosition.x != temp.x && mousePosition.y != temp.y)*/
+			mousePosition = temp;		//reset to previous Position
 		SetCursorPos(temp.x + anchorX , temp.y + anchorY);	//reset cursor to previous Position
 	}
 	return mousePosition;
@@ -62,6 +63,10 @@ POINT Mouse::flightMouse()
 POINT Mouse::freeMouse()
 {
 	GetCursorPos(&currMousePosition);
+	int temp;
+	temp = currMousePosition.y - anchorY;
+	currMousePosition.y = anchorY - temp;
+	//std::cout << temp << std::endl;
 	mousePosition = currMousePosition;
 	return mousePosition;
 }

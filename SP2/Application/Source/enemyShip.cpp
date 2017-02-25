@@ -35,16 +35,21 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 
 	reactor = new PowerPlant;
 	this->power = reactor->getPower();
-
 	this->speed = thrust / sqrt(mass);
 
 	this->hitbox = new Func_AABB;
 	this->hitbox->updateAABB(size, size, size, this->Position);
 
-	//std::cout << maxShield << std::endl;
-	//std::cout << hullPoints << std::endl;
-	//std::cout << thrust << std::endl;
-	//std::cout << power << std::endl;
+	
+
+	if (Math::RandIntMinMax(0, 1))
+	{
+		AI = AI::PASSIVE;
+	}
+	else
+	{
+		AI = AI::AGRESSIVE;
+	}
 }
 
 EnemyShip::~EnemyShip()
@@ -54,6 +59,72 @@ EnemyShip::~EnemyShip()
 
 void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 {
+	switch (AI)
+	{
+	case AI::PASSIVE:
+		switch (Passive)
+		{
+		case PIDLE:
+			//std::cout << "Idle" << std::endl;
+			idle(dt);
+			break;
+		case PCHASE:
+			//std::cout << "Chase" << std::endl;
+			chase(dt, playerPos);
+			break;
+		case PATTACK:
+			//std::cout << "Attack" << std::endl;
+			break;
+		case PBREAKOFF:
+			//std::cout << "Breakoff" << std::endl;
+			break;
+		default:
+			break;
+		}
+		break;
+	case AI::AGRESSIVE:
+		switch (Agressive)
+		{
+		case AIDLE:
+			break;
+		case ACHASE:
+			break;
+		case AATTACK:
+			break;
+		case ABREAKOFF:
+			break;
+		default:
+			break;
+		}
+		break;
+	}
+
+	Vector3 target = playerPos - this->Position;
+	float distance = target.Length();
+	//std::cout << distance << std::endl;
+
+	if (distance > 400 && agro != true)
+	{
+		Passive = PIDLE;
+	}
+	else if (distance <= 100)
+	{
+		Passive = PBREAKOFF;
+	}
+	else if (distance <= 400 && distance > 100 || agro == true)
+	{
+		Passive = PCHASE;
+	}
+
+	//std::cout << Position << "thrsut" << std::endl;
+	hitbox->updateAABB(size, size, size, this->Position);	//update the aabb of the enemy
+
+	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
+}
+
+void EnemyShip::chase(double dt, Vector3 playerPos)
+{
+	this->Position += this->Forward * dt * this->speed;		//always translate the enemy
 	float rotateSpeed = turnSpeed * 50 * dt;			//set rotation speed
 	//std::cout << rotateSpeed << std::endl;
 	Vector3 target = playerPos - this->Position;	//the vector between the enemy and player
@@ -73,13 +144,24 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 	catch (std::exception& e)
 	{
 		std::cout << "Enemy Ship facing Player directly" << std::endl;
+		Passive = PATTACK;
 	}
+}
 
-	this->Position += this->Forward * dt * this->speed;		//always translate the enemy
-	//std::cout << Position << "thrsut" << std::endl;
-	hitbox->updateAABB(size, size, size, this->Position);	//update the aabb of the enemy
+void EnemyShip::idle(double dt)
+{
+	this->Position += this->Forward * dt * 5;
+	Mtx44 rotation;
+	rotation.SetToRotation(10 * dt, 0, 1, 0);
+	this->Forward = rotation * this->Forward;
+	this->Right = rotation * this->Right;
+	this->Up = this->Right.Cross(this->Forward);
+	this->Up.Normalize();
+}
 
-	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
+void EnemyShip::breakoff(double dt, Vector3 playerPos)
+{
+
 }
 
 bool EnemyShip::getWithinSights()

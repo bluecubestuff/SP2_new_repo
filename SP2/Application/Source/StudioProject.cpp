@@ -49,6 +49,8 @@ void StudioProject::Init()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	ShowCursor(false);
+
 	//Load vertex and fragment shaders
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 
@@ -114,9 +116,9 @@ void StudioProject::Init()
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	srand(time(NULL));
-	for (int i = 1; i < 10; i++)
+	for (int i = 0; i < 1; i++)
 	{
-		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10, 500, 100), 40.f, 1.f, 10.f);
+		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10 + 500, 500, 1000), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);
 	}
 	//=============================================================================
@@ -354,6 +356,7 @@ void StudioProject::Update(double dt)
 						Missile* temp = missiles[i];
 						j->setHit();
 						j->decreaseHealth(30);
+						j->agro = true;
 						missiles.erase(missiles.begin() + i);
 						delete temp;
 					}
@@ -405,6 +408,7 @@ void StudioProject::Update(double dt)
 					Bullet* temp = bullets[i];
 					j->setHit();
 					j->decreaseHealth(1);
+					j->agro = true;
 					bullets.erase(bullets.begin() + i);
 					delete temp;
 					i = 0;
@@ -568,7 +572,7 @@ void StudioProject::Render()
 	{
 		modelStack.PushMatrix();
 		modelStack.LoadMatrix(i->getMatrix());
-		RenderMesh(meshList[GEO_BULLET], true);
+		RenderMesh(meshList[GEO_BULLET], false);
 		modelStack.PopMatrix();
 	}
 	
@@ -633,9 +637,17 @@ void StudioProject::Render()
 		modelStack.PopMatrix();
 	}
 
-	modelStack.PushMatrix();
-	RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
-	modelStack.PopMatrix();
+	if (Player->firstThird)
+	{
+		Mouse mouse;
+		POINT point = mouse.freeMouse();
+		modelStack.PushMatrix();
+		RenderUI(meshList[GEO_SPHERE], point.x, point.y, 5, 5);
+		modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
+		modelStack.PopMatrix();
+	}
 	//gen->BuildLand();
 }
 

@@ -17,7 +17,7 @@ public:
 	~Application();
 	void Init();
 	void Run();
-	void Exit();
+	static void Exit();
 	static bool IsKeyPressed(unsigned short key);
 	static GLFWwindow* m_window;
 	//Declare a window object

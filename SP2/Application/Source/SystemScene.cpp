@@ -285,7 +285,7 @@ void SystemScene::Update(double dt)
 
 	if (system_collision->isAbovePlanet && Application::IsKeyPressed('E'))
 	{
-		SceneManager::get_instance()->SceneSelect(1);
+		SceneManager::get_instance()->SceneSelect(2);
 	}
 }
 

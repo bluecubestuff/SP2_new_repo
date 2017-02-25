@@ -198,7 +198,6 @@ void StartScene::Init()
 	Mtx44 projection;
 	projection.SetToPerspective(70.f, 4.f / 3.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
-
 	timeCheck = 0.f;
 }
 

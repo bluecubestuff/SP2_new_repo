@@ -247,9 +247,18 @@
     </ClCompile>
     <ClCompile Include="Source\SpaceEnemy.cpp">
       <Filter>Source Files\Enemy</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\MainMenuScene.cpp">
       <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DesertPlanet.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BluePlanet.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemFactory.cpp">
+      <Filter>Source Files\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -426,9 +435,18 @@
     </ClInclude>
     <ClInclude Include="Source\SpaceEnemy.h">
       <Filter>Header Files\Enemy</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\MainMenuScene.h">
       <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DesertPlanet.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BluePlanet.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemFactory.h">
+      <Filter>Header Files\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,8 @@
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
 #include "landEnemy.h"
+#include "ItemFactory.h"
+
 #include <string>
 #include <vector>
 using std::vector;

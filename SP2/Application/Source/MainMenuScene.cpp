@@ -191,9 +191,9 @@ void MainMenuScene::Init()
 
 	camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
 
-	id = 15;
-	isPressed = false;
-	timer = 0;
+	id = 15;			//enum id (15 - start, 16 - control, 17 - credit, 18 - quit)
+	isPressed = false;	//check if key has been pressed
+	timer = 0;			//deleay the time for u to be able to press button
 
 	marsRotate = 0.f;
 }

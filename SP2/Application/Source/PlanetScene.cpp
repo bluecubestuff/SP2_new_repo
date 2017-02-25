@@ -8,10 +8,11 @@
 #include "MeshBuilder.h"
 #include "Utility.h"
 #include "LoadTGA.h"
-#include "Weapon.h"
 
 //#include "LandGenerate.h"
 #include <iostream>
+
+ItemFactory* ItemFactory::instance = 0;
 
 PlanetScene::PlanetScene()
 {
@@ -215,6 +216,13 @@ void PlanetScene::Init()
 	/*Enemy->enemyInit(gen->path, Enemy->Position, Vector3(800, 650));
 	landEnemies.push_back(Enemy);*/
 	gen->landInIt();
+
+	//ItemFactory::get_instance()->randomlyCreateWeapon();
+	//std::cout << "weapon name: " << ItemFactory::get_instance()->weapon_storage_getter()[0]->getName() << "\n";
+	//std::cout << "weapon dmg: " << ItemFactory::get_instance()->weapon_storage_getter()[0]->getWeaponDamage() << "\n";
+	//std::cout << "weapon value: " << ItemFactory::get_instance()->weapon_storage_getter()[0]->getValue() << "\n";
+	//std::cout << "weapon durability: " << ItemFactory::get_instance()->weapon_storage_getter()[0]->getDurability() << "\n";
+
 	//camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
 }
 
@@ -295,7 +303,7 @@ void PlanetScene::Update(double dt)
 	}
 
 	//std::cout << Player->getter("forward") << std::endl;
-	std::cout << Car->hitbox->pointInAABB(Player->getter("position")) << std::endl;
+	//std::cout << Car->hitbox->pointInAABB(Player->getter("position")) << std::endl;
 	//std::cout << Car->Position << std::endl;
 	//std::cout << Player->Position << std::endl;
 	//std::cout << Car->interactionBox->getAABB().pt_Max << std::endl;

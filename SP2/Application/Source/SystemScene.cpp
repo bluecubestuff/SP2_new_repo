@@ -147,10 +147,14 @@ void SystemScene::Init()
 
 	meshList[GEO_ORBIT_LINES] = MeshBuilder::GenerateOBJ("Orbit Lines", "OBJ//orbitLines.OBJ");
 
+	meshList[GEO_GREENPLANET] = MeshBuilder::GenerateOBJ("greenPlanet", "OBJ//Sphere2.OBJ");
+	meshList[GEO_GREENPLANET]->textureID = LoadTGA("Image//GreenPlanet.tga");
 
-	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
-	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+	meshList[GEO_DESERTPLANET] = MeshBuilder::GenerateOBJ("desertPlanet", "OBJ//Sphere2.OBJ");
+	meshList[GEO_DESERTPLANET]->textureID = LoadTGA("Image//DesertPlanet.tga");
 
+	meshList[GEO_BLUEPLANET] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//Sphere2.OBJ");
+	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;

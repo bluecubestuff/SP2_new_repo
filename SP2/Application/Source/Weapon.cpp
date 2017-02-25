@@ -2,7 +2,7 @@
 
 Weapon::Weapon(string wName, unsigned value, int wDurability, unsigned dmg) : Item(wName, value, wDurability), weaponDamage(dmg)
 {
-	//weaponID = 0;
+
 }
 
 Weapon::~Weapon() {}

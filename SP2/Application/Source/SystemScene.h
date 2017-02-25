@@ -24,12 +24,6 @@
 #include <vector>
 using std::vector;
 
-//struct TAABB
-//{
-//	Vector3 pt_Max;
-//	Vector3 pt_Min;
-//};
-
 class SystemScene : public Scene
 {
 	friend class Rock;
@@ -40,6 +34,8 @@ class SystemScene : public Scene
 	friend class ObjectRender;
 	friend class OrbitLine;
 	friend class GreenPlanet;
+	friend class DesertPlanet;
+	friend class BluePlanet;
 
 	enum GEOMETRY_TYPE
 	{
@@ -75,6 +71,9 @@ class SystemScene : public Scene
 		GEO_PLAYER_SHIP,
 		GEO_SUN,
 		GEO_ORBIT_LINES,
+		GEO_GREENPLANET,
+		GEO_DESERTPLANET,
+		GEO_BLUEPLANET,
 
 		//text
 		GEO_TEXT,

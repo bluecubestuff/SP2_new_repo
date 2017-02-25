@@ -247,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="Source\SpaceEnemy.cpp">
       <Filter>Source Files\Enemy</Filter>
+	</ClCompile>
+    <ClCompile Include="Source\MainMenuScene.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -423,6 +426,9 @@
     </ClInclude>
     <ClInclude Include="Source\SpaceEnemy.h">
       <Filter>Header Files\Enemy</Filter>
+	</ClInclude>
+    <ClInclude Include="Source\MainMenuScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

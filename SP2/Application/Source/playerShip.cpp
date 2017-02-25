@@ -398,20 +398,27 @@ void PlayerShip::withinRange(vector<EnemyShip*> targets)
 		//need to normalize both vectors before doing the acos
 		float angle;
 		angle = Math::RadianToDegree(acos(temp.Normalized().Dot(this->Forward.Normalized())));
-		if (angle < 20 && angle > -20 && temp.Length() < 300)		//if withing 45 degreess from forward
+		//if (angle < 20 && angle > -20 && temp.Length() < 300)		//if withing 45 degreess from forward
+		//{
+		//	if (i->getWithinSights() != true)
+		//	{
+		//		i->setIGotYouInMySights(true);		//set the bool in enemy to true	
+		//		//std::cout << "targeted" << std::endl;
+		//		applicableTargets.push_back(i);		//puh back to which targets player can choose
+		//		//std::cout << applicableTargets.size() << std::endl;
+		//	}
+		//}
+		//else
+		//{
+		//	i->setIGotYouInMySights(false);		//else not in ur target list anymore
+		//	//std::cout << "untargeted" << std::endl;
+		//}
+		if (i->getWithinSights() != true)
 		{
-			if (i->getWithinSights() != true)
-			{
-				i->setIGotYouInMySights(true);		//set the bool in enemy to true	
-				//std::cout << "targeted" << std::endl;
-				applicableTargets.push_back(i);		//puh back to which targets player can choose
-				//std::cout << applicableTargets.size() << std::endl;
-			}
-		}
-		else
-		{
-			i->setIGotYouInMySights(false);		//else not in ur target list anymore
-			//std::cout << "untargeted" << std::endl;
+			i->setIGotYouInMySights(true);		//set the bool in enemy to true	
+			//std::cout << "targeted" << std::endl;
+			applicableTargets.push_back(i);		//puh back to which targets player can choose
+			//std::cout << applicableTargets.size() << std::endl;
 		}
 	}
 	for (int i = 0; i < applicableTargets.size(); i++)

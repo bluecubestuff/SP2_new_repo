@@ -102,7 +102,7 @@ void PlanetScene::Init()
 	//meshes------------------------------------------------------------------------------------------
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
-	Player = new LandPlayer(Vector3(550, 3, 500), Vector3(0, 0, 1), Vector3 (1, 0, 0), 100.f);
+	Player = new LandPlayer(Vector3(1000, 3, 1000), Vector3(0, 0, 1), Vector3(1, 0, 0), 100.f);
 
 	gen = new LandGenerate(this);
 	/*Enemy = new LandEnemy(Vector3(600, 0, 500), 69.f, 5.f );*/
@@ -280,7 +280,9 @@ void PlanetScene::Update(double dt)
 	{
 		if (Car->getInVehicle())
 		{
-			//Player->Position = Player->Position + Car->getRight() * 3;
+			//Player->Position = Player->Position + Car->getRight() * 20;
+			Player->getCam()->position.x += Car->getRight().x * 20;
+			Player->getCam()->position.z += Car->getRight().z * 20;
 			Car->setInVehicle(false);
 		}
 		else if (!Car->getInVehicle())
@@ -293,9 +295,9 @@ void PlanetScene::Update(double dt)
 	}
 
 	//std::cout << Player->getter("forward") << std::endl;
-	//std::cout << Car->interactionBox->pointInAABB(Player->getter("position")) << std::endl;
+	std::cout << Car->hitbox->pointInAABB(Player->getter("position")) << std::endl;
 	//std::cout << Car->Position << std::endl;
-	std::cout << Player->Position << std::endl;
+	//std::cout << Player->Position << std::endl;
 	//std::cout << Car->interactionBox->getAABB().pt_Max << std::endl;
 	//std::cout << Car->getInVehicle() << std::endl;
 
@@ -406,7 +408,7 @@ void PlanetScene::Render()
 	modelStack.PopMatrix();
 
 	//=================================================================================================
-	/*modelStack.PushMatrix();
+	modelStack.PushMatrix();
 	modelStack.Translate(light[0].LightPosition.x, light[0].LightPosition.y, light[0].LightPosition.z);
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();
@@ -414,10 +416,10 @@ void PlanetScene::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(light[1].LightPosition.x, light[1].LightPosition.y, light[1].LightPosition.z);
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
-	modelStack.PopMatrix();*/
+	modelStack.PopMatrix();
 	//===================================================================================================\
 
-	/*for (it = landEnemies.begin(); it != landEnemies.end(); it++)
+	for (it = landEnemies.begin(); it != landEnemies.end(); it++)
 	{
 		modelStack.PushMatrix();
 		modelStack.LoadMatrix((*it)->Stamp);
@@ -425,7 +427,7 @@ void PlanetScene::Render()
 		RenderMesh(meshList[GEO_ENEMY], false);
 		modelStack.PopMatrix();
 		gen->BuildLand();
-	}*/
+	}
 }
 
 void PlanetScene::RenderMesh(Mesh *mesh, bool enableLight)

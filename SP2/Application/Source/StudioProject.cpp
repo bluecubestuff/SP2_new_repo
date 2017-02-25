@@ -109,6 +109,7 @@ void StudioProject::Init()
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
 	Player = new PlayerShip;
+	waypoint = Mtx44(20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20, 0, 800, 700, 0, 1);
 	gen = new LandGenerate(this);
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
@@ -161,17 +162,23 @@ void StudioProject::Init()
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("rock", "OBJ//rock.obj");
 
-	/*meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//sphere.obj");*/
-	/*meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");*/
+	meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//sphere.obj");
+	meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
 
-	meshList[GEO_CUBE] = MeshBuilder::GenerateOBJ("shield", "OBJ//sphere.obj"); //ShieldCubeThing
-	//meshList[GEO_CUBE]->textureID = LoadTGA("Image//cubecube.tga");
+	meshList[GEO_CUBE] = MeshBuilder::GenerateOBJ("shield", "OBJ//shieldCubeThing.obj"); //ShieldCubeThing
+	meshList[GEO_CUBE]->textureID = LoadTGA("Image//cubecube.tga");
 
-	meshList[GEO_CUBE1] = MeshBuilder::GenerateOBJ("shield", "OBJ//sphere.obj");
-	//meshList[GEO_CUBE1]->textureID = LoadTGA("Image//locked.tga");
+	meshList[GEO_CUBE1] = MeshBuilder::GenerateOBJ("shield", "OBJ//shieldCubeThing.obj");
+	meshList[GEO_CUBE1]->textureID = LoadTGA("Image//locked.tga");
 
-	meshList[GEO_CUBE2] = MeshBuilder::GenerateOBJ("shield", "OBJ//sphere.obj");
-	//meshList[GEO_CUBE2]->textureID = LoadTGA("Image//leedle.tga");
+	meshList[GEO_CUBE2] = MeshBuilder::GenerateOBJ("shield", "OBJ//shieldCubeThing.obj");
+	meshList[GEO_CUBE2]->textureID = LoadTGA("Image//leedle.tga");
+
+	meshList[GEO_WAYPOINT] = MeshBuilder::GenerateOBJ("waypoint", "OBJ//WaypointMarker.obj");
+	meshList[GEO_WAYPOINT]->textureID = LoadTGA("Image//waypoint.tga");
+
+	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
+
 
 
 	//------------------------------------------------------------------------------------------
@@ -259,7 +266,7 @@ static float SCALE_LIMIT = 5.f;
 void StudioProject::Update(double dt)
 {
 	float LSPEED = 10.f;
-	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
+	
 
 	if (Application::IsKeyPressed('1')) //enable back face culling
 		glEnable(GL_CULL_FACE);
@@ -426,6 +433,43 @@ void StudioProject::Update(double dt)
 		}
 	}
 
+	for (auto &i : hostiles)
+	{
+		if (i->getTargeted())
+		{
+			Vector3 wForward;
+			Vector3 wRight;
+			Vector3 wUp;
+			Vector3 target;
+			Vector3 pos = Player->getter("position") + Player->getter("forward") + Player->getter("up") * 0.5;
+			if (Player->firstThird == true)
+			{
+				target = ((i->getter("position") - Player->Camera->position).Normalized());
+			}
+			else
+			{
+				target = ((i->getter("position") - Player->ThirdCamera->position).Normalized());
+			}
+			wForward = target;
+			try
+			{
+				wUp = wForward.Cross(Player->getter("right")).Normalized();
+			}
+			catch (std::exception &e)
+			{
+				wUp = Player->getter("up");
+				std::cout << "divide by zero in waypoint" << std::endl;
+				//divide by zero error
+			}
+			wRight = wForward.Cross(wUp);
+			wForward.Normalize();
+			wRight.Normalize();
+			wUp.Normalize();
+			//std::cout << wRight.Length() << std::endl;
+			waypoint = Mtx44(wRight.x, wRight.y, wRight.z, 0, wUp.x, wUp.y, wUp.z, 0, wForward.x, wForward.y, wForward.z, 0, pos.x, pos.y, pos.z, 1);
+			//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", wRight, wUp, wForward);
+		}
+	}
 	//std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
 }
@@ -507,8 +551,6 @@ void StudioProject::Render()
 	}
 
 
-	//RenderMesh(meshList[GEO_AXES], false);
-
 	modelStack.PushMatrix();
 	modelStack.LoadMatrix(Player->getStamp());
 	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
@@ -544,11 +586,16 @@ void StudioProject::Render()
 	modelStack.PopMatrix();*/
 	//===================================================================================================
 	
-	//modelStack.PushMatrix();
-	//modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
-	//modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
-	//RenderMesh(meshList[GEO_AXES], false);
-	//modelStack.PopMatrix();
+	/*modelStack.PushMatrix();
+	modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
+	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
+	RenderMesh(meshList[GEO_AXES], false);
+	modelStack.PopMatrix();*/
+
+	modelStack.PushMatrix();
+	modelStack.LoadMatrix(waypoint);
+	RenderMesh(meshList[GEO_WAYPOINT], true);
+	modelStack.PopMatrix();
 
 	for (auto &i : hostiles)
 	{
@@ -586,7 +633,10 @@ void StudioProject::Render()
 		modelStack.PopMatrix();
 	}
 
-	gen->BuildLand();
+	modelStack.PushMatrix();
+	RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
+	modelStack.PopMatrix();
+	//gen->BuildLand();
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
@@ -726,9 +776,31 @@ void StudioProject::RenderUI(Mesh* mesh, float x, float y, float sizex, float si
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity();
 	//scale and translate accordingly
-	modelStack.Scale(sizex, sizey, 1);
 	modelStack.Translate(x, y, 0);
+	modelStack.Scale(sizex, sizey, 1);
 	RenderMesh(mesh, false); //UI should not have light
+
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	glEnable(GL_DEPTH_TEST);
+}
+//============================================TESTING===============================================
+void StudioProject::RenderWaypoint(Mesh* mesh, float x, float y, float sizex, float sizey)
+{
+	glDisable(GL_DEPTH_TEST);
+	Mtx44 ortho;
+	ortho.SetToOrtho(0, 1600, 0, 900, -100, 100); //size of screen UI
+	projectionStack.PushMatrix();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity(); //No need camera for ortho mode
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity();
+	//scale and translate accordingly
+	modelStack.LoadMatrix(waypoint);
+	RenderMesh(mesh, true); //UI should not have light
 
 	projectionStack.PopMatrix();
 	viewStack.PopMatrix();

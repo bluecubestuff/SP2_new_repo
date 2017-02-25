@@ -12,7 +12,7 @@ Thruster::Thruster()
 	int temp = hue.generate_range(0, 3);
 	float temptemp = hue.generate_range(0, 3);
 
-	std::cout << temp << ' ' << temptemp << std::endl;
+	//std::cout << temp << ' ' << temptemp << std::endl;
 	string type[4] = { "D", "C", "B", "A" };
 	string grade[4] = { "4", "3", "2", "1" };
 	this->type = type[temp] + grade[(int)temptemp];

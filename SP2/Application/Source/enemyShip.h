@@ -3,8 +3,10 @@
 
 #include "ship.h"
 #include "Func_AABB.h"
+#include "SpaceEnemy.h"
 #include "DetectMemoryLeak.h"
 
+//class for enemy ship generation and their behavior
 class EnemyShip : public Ship
 {
 public:

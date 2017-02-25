@@ -244,7 +244,10 @@
     </ClCompile>
     <ClCompile Include="Source\LandVehicle.cpp">
       <Filter>Source Files\Land</Filter>
-	</ClCompile>
+    </ClCompile>
+    <ClCompile Include="Source\SpaceEnemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -417,6 +420,9 @@
     </ClInclude>
     <ClInclude Include="Source\LandVehicle.h">
       <Filter>Header Files\Land</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpaceEnemy.h">
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

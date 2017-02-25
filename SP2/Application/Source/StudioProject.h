@@ -75,6 +75,7 @@ class StudioProject : public Scene
 		//Ships
 		GEO_PLAYER_SHIP,
 		GEO_SHIELD,
+		GEO_WAYPOINT,
 
 		//text
 		GEO_TEXT,
@@ -153,6 +154,7 @@ private:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderUI(Mesh* mesh, float x, float y, float sizex, float sizey);
+	void RenderWaypoint(Mesh* mesh, float x, float y, float sizex, float sizey);
 
 	void RenderSkybox();
 
@@ -171,6 +173,8 @@ private:
 	vector<Bullet*> bullets;
 
 	LandGenerate* gen;
+
+	Mtx44 waypoint;
 
 	//Camera2 camera;
 	//Camera3 camera;

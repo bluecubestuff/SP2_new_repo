@@ -321,6 +321,11 @@ void StudioProject::Update(double dt)
 	for (auto &i : hostiles)
 	{
 		i->Update(dt, Player->getter("position"), Player->getter("forward"));
+		if (i->attack)
+		{
+			Bullet* bullet = new Bullet(i->getter("position"), i->getter("forward"), i->getter("up"), i->getter("right"));
+			enemyBullets.push_back(bullet);
+		}
 	}
 	static float fireRate = 0;
 	fireRate += (float)dt;
@@ -421,6 +426,26 @@ void StudioProject::Update(double dt)
 		{
 			Bullet* temp = bullets[i];
 			bullets.erase(bullets.begin() + i);
+			delete temp;
+			i = 0;
+		}
+	}
+
+	for (int i = 0; i < enemyBullets.size(); i++)
+	{
+		enemyBullets[i]->Update(dt);
+		if (Player->getAABB()->pointInAABB(enemyBullets[i]->getPos()))
+		{
+			Bullet* temp = enemyBullets[i];
+			Player->decreaseHealth(1);
+			enemyBullets.erase(enemyBullets.begin() + i);
+			delete temp;
+			i = 0;
+		}
+		if (enemyBullets[i]->outOfRange)
+		{
+			Bullet* temp = enemyBullets[i];
+			enemyBullets.erase(enemyBullets.begin() + i);
 			delete temp;
 			i = 0;
 		}
@@ -569,6 +594,14 @@ void StudioProject::Render()
 	}
 
 	for (auto &i : bullets)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->getMatrix());
+		RenderMesh(meshList[GEO_BULLET], false);
+		modelStack.PopMatrix();
+	}
+
+	for (auto &i : enemyBullets)
 	{
 		modelStack.PushMatrix();
 		modelStack.LoadMatrix(i->getMatrix());

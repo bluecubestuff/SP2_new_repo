@@ -171,6 +171,7 @@ private:
 	vector<Missile*> missiles;
 
 	vector<Bullet*> bullets;
+	vector<Bullet*> enemyBullets;
 
 	LandGenerate* gen;
 

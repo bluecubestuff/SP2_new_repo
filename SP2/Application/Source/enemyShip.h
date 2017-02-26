@@ -47,6 +47,7 @@ public:
 	void breakoff(double, Vector3);
 
 	bool agro;
+	bool attack;
 	bool deaded;
 private:
 	float turnSpeed;

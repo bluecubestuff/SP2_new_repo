@@ -21,6 +21,7 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 	this->iGotYouInMySights = false;
 	this->targeted = false;
 	this->deaded = false;
+	this->attack = false;
 
 	hull = new Hull;
 	this->hullPoints = hull->getHullPoint();;
@@ -73,9 +74,11 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 			chase(dt, playerPos);
 			break;
 		case PATTACK:
-			//std::cout << "Attack" << std::endl;
+			attack = true;
+			std::cout << "Attack" << std::endl;
 			break;
 		case PBREAKOFF:
+			breakoff(dt, playerPos);
 			//std::cout << "Breakoff" << std::endl;
 			break;
 		default:
@@ -103,20 +106,33 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 	float distance = target.Length();
 	//std::cout << distance << std::endl;
 
+	float angle = Math::RadianToDegree(acos((target.Normalized()).Dot(this->Forward.Normalized())));
+	if (angle < 3 && angle > -3)
+	{
+		std::cout << angle << std::endl;
+		//Passive = PATTACK;
+		this->attack = true;
+	}
+	else
+	{
+		this->attack = false;
+	}
+
 	if (distance > 400 && agro != true)
 	{
 		Passive = PIDLE;
 	}
-	else if (distance <= 100)
+	else if (distance <= 50)
 	{
 		Passive = PBREAKOFF;
 	}
-	else if (distance <= 400 && distance > 100 || agro == true)
+	else if ((distance <= 400 && distance > 50 || agro == true) && Passive != PBREAKOFF)	//if player is 100 to 400 units away, or if the enemy was hit by player, and they must not be doing a breakoff
 	{
 		Passive = PCHASE;
 	}
 
 	//std::cout << Position << "thrsut" << std::endl;
+	//std::cout << distance << std::endl;
 	hitbox->updateAABB(size, size, size, this->Position);	//update the aabb of the enemy
 
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
@@ -161,7 +177,38 @@ void EnemyShip::idle(double dt)
 
 void EnemyShip::breakoff(double dt, Vector3 playerPos)
 {
+	float distance = (playerPos - this->Position).Length();
+	Vector3 target = playerPos - this->Position;
+	Vector3 temp;
 
+	this->Position += this->Forward * dt * this->speed * 1.5;		//always translate the enemy
+	static float totalTurn = 0;
+	float rotateSpeed = 30.f * dt;
+
+	try
+	{
+		temp = target.Cross(this->Forward);
+	}
+	catch (std::exception &e)
+	{
+		temp = this->Right;
+	}
+	temp.Normalize();
+	
+	Mtx44 rotation;
+	rotation.SetToRotation(rotateSpeed, temp.x, temp.y, temp.z);
+	if (totalTurn < 180)
+	{
+		Forward = rotation * Forward;
+		Right = rotation * Right;
+		Up = rotation * Up;
+	}
+
+	if (distance > 75)
+	{
+		totalTurn = 0;
+		Passive = PCHASE;
+	}
 }
 
 bool EnemyShip::getWithinSights()

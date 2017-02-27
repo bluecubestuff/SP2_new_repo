@@ -20,6 +20,7 @@
 #include "ObjectFactory.h"
 #include "Bullet.h"
 #include "SystemScene.h"
+#include "SceneManager.h"
 
 #include <string>
 #include <vector>

@@ -118,7 +118,7 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 	{
 		this->attack = false;
 	}
-	std::cout << angle << std::endl;
+	//std::cout << angle << std::endl;
 
 	if (distance > 400 && agro != true)
 	{

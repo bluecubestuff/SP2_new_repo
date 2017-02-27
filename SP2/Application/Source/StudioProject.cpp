@@ -116,9 +116,9 @@ void StudioProject::Init()
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	srand(time(NULL));
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 5; i++)
 	{
-		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10 + 500, 500, 1000), 40.f, 1.f, 10.f);
+		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10 + 500, 2000, 1000), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);
 	}
 	//=============================================================================
@@ -178,6 +178,15 @@ void StudioProject::Init()
 
 	meshList[GEO_WAYPOINT] = MeshBuilder::GenerateOBJ("waypoint", "OBJ//WaypointMarker.obj");
 	meshList[GEO_WAYPOINT]->textureID = LoadTGA("Image//waypoint.tga");
+
+	meshList[GEO_GREENPLANET] = MeshBuilder::GenerateOBJ("greenPlanet", "OBJ//Sphere2.OBJ");
+	meshList[GEO_GREENPLANET]->textureID = LoadTGA("Image//GreenPlanet.tga");
+
+	meshList[GEO_DESERTPLANET] = MeshBuilder::GenerateOBJ("desertPlanet", "OBJ//Sphere2.OBJ");
+	meshList[GEO_DESERTPLANET]->textureID = LoadTGA("Image//DesertPlanet.tga");
+
+	meshList[GEO_BLUEPLANET] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//Sphere.OBJ");
+	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
 
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
 
@@ -325,6 +334,7 @@ void StudioProject::Update(double dt)
 		{
 			Bullet* bullet = new Bullet(i->getter("position"), i->getter("forward"), i->getter("up"), i->getter("right"));
 			enemyBullets.push_back(bullet);
+			//std::cout << i->getter("forward") << std::endl;
 		}
 	}
 	static float fireRate = 0;
@@ -681,6 +691,27 @@ void StudioProject::Render()
 		RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
 		modelStack.PopMatrix();
 	}
+	//generate the planet to land on
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2000, 2000);
+	modelStack.Scale(500, 500, 500);
+	switch (SystemScene::planet)
+	{
+	case 1:
+		RenderMesh(meshList[GEO_GREENPLANET], true);
+		break;
+	case 2:
+		RenderMesh(meshList[GEO_DESERTPLANET], true);
+		break;
+	case 3:
+		RenderMesh(meshList[GEO_BLUEPLANET], true);
+		break;
+	}
+	modelStack.PopMatrix();
+	if (SystemScene::planet > 0)
+	{
+		std::cout << SystemScene::planet << std::endl;
+	}
 	//gen->BuildLand();
 }
 
@@ -859,6 +890,7 @@ void StudioProject::RenderSkybox()
 {
 	modelStack.PushMatrix();//push ground
 	modelStack.Translate(950, 0, 950);
+	modelStack.Scale(2, 2, 2);
 
 	modelStack.PushMatrix();//seperate from ground
 

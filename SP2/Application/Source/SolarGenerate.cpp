@@ -19,7 +19,7 @@ void SolarGenerate::Init()
 {
 	float ar, pr;
 	number_of_planets = Math::RandIntMinMax(1, 3);
-	
+	planet_type = 0;
 	//orbit line increases by scale by (3 + (3 * 2) * i)
 	//planet translation by (3 + (3 * 2) * i)
 

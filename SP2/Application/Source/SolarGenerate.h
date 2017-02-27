@@ -23,6 +23,8 @@ public:
 	int planetID_getter();
 	vector<ObjectRender*> planet_storage_getter();
 
+	int planet_type;
+
 private:
 
 	int planetID;

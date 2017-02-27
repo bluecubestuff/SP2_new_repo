@@ -7,7 +7,7 @@ PlayerShip::PlayerShip()
 	this->Forward = Vector3(0, 0, 1);
 	this->Up = Vector3(0, 1, 0);
 	this->Right = Vector3(1, 0, 0);
-	this->Position = Vector3(500, 500, 500);
+	this->Position = Vector3(1000, 2000, 1000);
 	this->Inertia = Vector3(0, 0, 0);
 	this->Speed = 0;
 	this->camTime = 0.f;

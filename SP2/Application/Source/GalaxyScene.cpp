@@ -155,7 +155,7 @@ void GalaxyScene::Init()
 	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
 
 	meshList[GEO_GRID] = MeshBuilder::GenerateUI("7 by 7 Grid", 1, 1);
-	meshList[GEO_GRID]->textureID = LoadTGA("Image//Grid.tga");
+	meshList[GEO_GRID]->textureID = LoadTGA("Image//CompassHud.tga");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -216,9 +216,12 @@ void GalaxyScene::Init()
 	srand((unsigned)(time(NULL)));
 	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
 	Player = new SystemTravelShip;
+	//galaxy_gen = new GalaxyGenerate(this);
 	rotate = 0.f;
-
-	isPlayerNearPlanet = false;
+	isPointingToSystem = false;
+	move_along_x = 0;
+	move_along_y = 0;
+	//galaxy_gen->galaxyInIt();
 }
 
 static float ROT_LIMIT = 45.f;
@@ -272,11 +275,28 @@ void GalaxyScene::Update(double dt)
 		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
 
-	camera.Update(dt);
+	//camera.Update(dt);
 	Player->Update(dt);
 	rotate += dt;
 
-	std::cout << Player->position << "\n";
+	std::cout << camera.position << "\n";
+
+	if (Application::IsKeyPressed(VK_RIGHT))
+	{
+		move_along_x += 3;
+	}
+	else if (Application::IsKeyPressed(VK_LEFT))
+	{
+		move_along_x -= 3;
+	}
+	else if (Application::IsKeyPressed(VK_UP))
+	{
+		move_along_y += 3;
+	}
+	else if (Application::IsKeyPressed(VK_DOWN))
+	{
+		move_along_y -= 3;
+	}
 }
 
 
@@ -369,34 +389,28 @@ void GalaxyScene::Render()
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PopMatrix();*/
 
-	modelStack.PushMatrix();	//push sun
-	modelStack.Translate(1000, 6000, 1000);
-	modelStack.Rotate(90, 1, 0, 0);
 
-	modelStack.PushMatrix();	//push player_ship
-	modelStack.Translate(Player->position.x, Player->position.y, Player->position.z);
-	modelStack.Rotate(90, 1, 0, 0);
-	modelStack.Rotate(Player->rotate, 0, 1, 0);
-	modelStack.Scale(50, 50, 50);
-	RenderMesh(meshList[GEO_PLAYER_SHIP], false);
-	modelStack.PopMatrix();		//end player_ship
+	//modelStack.PushMatrix();	//push sun
+	//modelStack.Translate(1000, 6000, 1000);
+	//modelStack.Rotate(90, 1, 0, 0);
+	//
+	//modelStack.PushMatrix();	//push player_ship
+	//modelStack.Translate(Player->position.x, Player->position.y, Player->position.z);
+	//modelStack.Rotate(90, 1, 0, 0);
+	//modelStack.Rotate(Player->rotate, 0, 1, 0);
+	//modelStack.Scale(50, 50, 50);
+	//RenderMesh(meshList[GEO_PLAYER_SHIP], false);
+	//modelStack.PopMatrix();		//end player_ship
 
-	modelStack.Scale(250, 250, 250);
-	RenderMesh(meshList[GEO_SUN], false);
+	//modelStack.PushMatrix();	//push star
+	//modelStack.Translate(-6000, 0, 0);
+	//modelStack.Scale(250, 250, 250);
+	//RenderMesh(meshList[GEO_SUN], false);
+	//modelStack.PopMatrix();		//end star
 
-
-	//for (int i = 1; i <= system_gen->num_of_planet_getter(); i++)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.Rotate(90, 1, 0, 0);
-	//	modelStack.Scale(9 * i, 1, 9 * i);
-	//	RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//	modelStack.PopMatrix();
-	//}
-
-	//system_gen->build_system(rotate, rotate);
-
-	modelStack.PopMatrix();		//end sun
+	//modelStack.Scale(250, 250, 250);
+	//RenderMesh(meshList[GEO_SUN], false);
+	//modelStack.PopMatrix();		//end sun
 
 
 
@@ -408,7 +422,26 @@ void GalaxyScene::Render()
 	//	modelStack.PopMatrix();
 	//}                                                                            
 
-	RenderUI(meshList[GEO_GRID], 80, 45, 160, 90);		//7 by 7 grid
+	RenderUI(meshList[GEO_GRID], 10 + move_along_x, 10 + move_along_y, 45, 40);		//7 by 7 grid
+
+	for (int y = 0; y < 7; y++)
+	{
+		for (int x = 0; x < 7; x++)
+		{
+			if (move_along_x > (23 * x) && move_along_x < (23 * (x + 1))
+				&& move_along_y >(13 * y) && move_along_y < (13 * (y + 1)) )
+			{
+				x_pos = std::to_string(x);
+				y_pos = std::to_string(y);
+				std::cout << "X: " << x << "Y: " << y << "\n";
+				RenderTextOnScreen(meshList[GEO_TEXT], "Enter this solar system?[E]" + x_pos + y_pos, Color(0, 1, 0), 2, 1, 2);
+				if (Application::IsKeyPressed('E'))
+				{
+					SceneManager::get_instance()->SceneSelect(4);
+				}
+			}
+		}
+	}
 }
 
 void GalaxyScene::RenderMesh(Mesh *mesh, bool enableLight)

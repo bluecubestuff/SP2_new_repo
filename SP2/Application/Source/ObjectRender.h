@@ -24,6 +24,7 @@ public:
 	void render();
 	void render_planet();
 	void render_system_planets(float,float);
+	void render_galaxy();
 
 	Vector3 position;
 	float scale;

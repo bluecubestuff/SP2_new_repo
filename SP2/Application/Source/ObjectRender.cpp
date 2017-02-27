@@ -62,3 +62,12 @@ void ObjectRender::render_system_planets(float aRotate,float pRotate)
 	systemscene->RenderMesh(systemscene->meshList[type], false);
 	systemscene->modelStack.PopMatrix();
 }
+
+void ObjectRender::render_galaxy()
+{
+	galaxyscene->modelStack.PushMatrix();
+	galaxyscene->modelStack.Scale(scaleX, 1, scaleZ);
+	galaxyscene->modelStack.Translate(position.x, position.y, 0);
+	galaxyscene->RenderMesh(galaxyscene->meshList[type], false);
+	galaxyscene->modelStack.PopMatrix();
+}

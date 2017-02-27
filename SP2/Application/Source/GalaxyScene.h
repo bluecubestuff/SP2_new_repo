@@ -11,14 +11,12 @@
 #include "Mesh.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "landPlayer.h"
 #include "Func_AABB.h"
 #include "DetectMemoryLeak.h"
 #include "CollisionManager.h"
-#include "LandGenerate.h"
 #include "ObjectFactory.h"
 #include "SystemTravelShip.h"
-#include "SolarGenerate.h"
+#include "GalaxyGenerate.h"
 
 #include <string>
 #include <vector>
@@ -159,13 +157,15 @@ private:
 
 	void RenderSkybox();
 
-	bool isPlayerNearPlanet;
+	bool isPointingToSystem;
 	char mapArray[100][100];
 
 	//ObjectFactory objfactory;
-	//SolarGenerate* system_gen;
+	GalaxyGenerate *galaxy_gen;
 	//CollisionManager* system_collision;
 
+	int move_along_x, move_along_y;
+	string x_pos, y_pos;
 	//Camera2 camera;
 	//Camera3 camera;
 	Camera camera;

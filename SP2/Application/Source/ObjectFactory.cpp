@@ -54,6 +54,13 @@ void ObjectFactory::renderObjects(unsigned id)
 			a->render_planet();
 		}
 	}
+	else if (id == 3)
+	{
+		for (auto &a : objContainer)
+		{
+			a->render_galaxy();
+		}
+	}
 }
 
 void ObjectFactory::renderSystemObjects(float aRotate, float pRotate) //pass the rotation update

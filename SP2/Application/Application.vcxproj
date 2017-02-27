@@ -93,6 +93,7 @@
     <ClCompile Include="Source\Camera3.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
     <ClCompile Include="Source\DesertPlanet.cpp" />
+    <ClCompile Include="Source\GalaxyScene.cpp" />
     <ClCompile Include="Source\landEnemy.cpp" />
     <ClCompile Include="Source\enemyShip.cpp" />
     <ClCompile Include="Source\Func_AABB.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Source\CollisionManager.h" />
     <ClInclude Include="Source\DesertPlanet.h" />
     <ClInclude Include="Source\DetectMemoryLeak.h" />
+    <ClInclude Include="Source\GalaxyScene.h" />
     <ClInclude Include="Source\landEnemy.h" />
     <ClInclude Include="Source\enemyShip.h" />
     <ClInclude Include="Source\Func_AABB.h" />

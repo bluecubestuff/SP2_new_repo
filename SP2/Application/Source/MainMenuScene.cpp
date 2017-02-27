@@ -277,7 +277,7 @@ void MainMenuScene::Update(double dt)
 	{
 		if (id == 15)
 		{
-			SceneManager::get_instance()->SetNextScene();
+			SceneManager::get_instance()->SceneSelect(4);
 		}
 		else if (id == 18)
 		{

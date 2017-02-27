@@ -7,23 +7,27 @@
 using std::vector;
 using std::map;
 
+#include "SolarGenerate.h"
 
 class GalaxyGenerate
 {
 public:
 
-	GalaxyGenerate();
 	~GalaxyGenerate();
+	
+	static GalaxyGenerate *get_instance();
 
 	void galaxyInIt();
 	void galaxyUpdate();
+	map<unsigned, SolarGenerate*> system_database_getter();
 
-protected:
+private:
 
-	
-	typedef vector<vector<int>> doubleVector;
-	doubleVector GalaxyArray;
+	GalaxyGenerate();
 
+	static GalaxyGenerate* instance;
+	SolarGenerate* galaxy_map[10][10];
+	map<unsigned, SolarGenerate*> system_database;
 };
 
 #endif

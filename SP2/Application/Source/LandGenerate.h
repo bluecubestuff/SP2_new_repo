@@ -1,12 +1,14 @@
 #ifndef _LAND_GENERATE_H
 #define _LAND_GENERATE_H
 
-#include "GalaxyGenerate.h"
 #include "Vector3.h"
-#include "Randomise.h"
 #include "ObjectRender.h"
 #include "ObjectFactory.h"
+
+#include <vector>
 #include <map>
+using std::vector;
+using std::map;
 
 typedef vector<vector<unsigned>> double_land_array;
 

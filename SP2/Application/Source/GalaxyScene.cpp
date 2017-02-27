@@ -1,4 +1,4 @@
-#include "SystemScene.h"
+#include "GalaxyScene.h"
 #include "GL\glew.h"
 
 #include "shader.hpp"
@@ -10,18 +10,17 @@
 #include "LoadTGA.h"
 #include "Weapon.h"
 
-//#include "LandGenerate.h"
 #include <iostream>
 
-SystemScene::SystemScene() : objfactory(this)
+GalaxyScene::GalaxyScene()
 {
 }
 
-SystemScene::~SystemScene()
+GalaxyScene::~GalaxyScene()
 {
 }
 
-void SystemScene::Init()
+void GalaxyScene::Init()
 {
 	// Set background color to dark blue
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -213,10 +212,10 @@ void SystemScene::Init()
 	projectionStack.LoadMatrix(projection);
 	srand((unsigned)(time(NULL)));
 	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
-	system_collision = new CollisionManager;
+	//system_collision = new CollisionManager;
 	Player = new SystemTravelShip;
-	system_gen = new SolarGenerate(this);
-	system_gen->Init();
+	//system_gen = new SolarGenerate(this);
+	//system_gen->Init();
 	rotate = 0.f;
 
 	isPlayerNearPlanet = false;
@@ -225,7 +224,7 @@ void SystemScene::Init()
 static float ROT_LIMIT = 45.f;
 static float SCALE_LIMIT = 5.f;
 
-void SystemScene::Update(double dt)
+void GalaxyScene::Update(double dt)
 {
 	float LSPEED = 10.f;
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
@@ -283,17 +282,17 @@ void SystemScene::Update(double dt)
 	Player->Update(dt);
 	rotate += dt;
 
-	system_collision->CollisionCheckerSystem(system_gen, Player, rotate);
+	//system_collision->CollisionCheckerSystem(system_gen, Player, rotate);
 
-	if (system_collision->isAbovePlanet && Application::IsKeyPressed('E'))
+	/*if (system_collision->isAbovePlanet && Application::IsKeyPressed('E'))
 	{
 
 		SceneManager::get_instance()->SceneSelect(2);
-	}
+	}*/
 }
 
 
-void SystemScene::Render()
+void GalaxyScene::Render()
 {
 	// Render VBO here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -364,9 +363,6 @@ void SystemScene::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-
-	//RenderMesh(meshList[GEO_AXES], false);
-
 	RenderSkybox();
 
 	//=================================================================================================
@@ -402,7 +398,8 @@ void SystemScene::Render()
 	modelStack.Scale(250, 250, 250);
 	RenderMesh(meshList[GEO_SUN], false);
 
-	for (int i = 1; i <= system_gen->num_of_planet_getter(); i++)
+
+	/*for (int i = 1; i <= system_gen->num_of_planet_getter(); i++)
 	{
 		modelStack.PushMatrix();
 		modelStack.Rotate(90, 1, 0, 0);
@@ -411,68 +408,20 @@ void SystemScene::Render()
 		modelStack.PopMatrix();
 	}
 
-	system_gen->build_system(rotate, rotate);
-
-	//=======================================================
-
-	//modelStack.PushMatrix();	//push orbitline
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Scale(9, 1, 9);
-	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//modelStack.PopMatrix();		//end orbitline
-
-	//modelStack.PushMatrix();	//push planet
-	//modelStack.Rotate(-rotate, 0, 0, 1);
-	//modelStack.Translate(9, 0, 0);			//x-axis 1009 * 9
-	//modelStack.Rotate(-rotate * 15, 0, 0, 1);
-	//RenderMesh(meshList[GEO_SUN], false);
-	//modelStack.PopMatrix();		//end planet
-
-	//modelStack.PushMatrix();	//push orbitline
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Scale(15, 1, 15);
-	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//modelStack.PopMatrix();		//end orbitline
-
-	//modelStack.PushMatrix();	//push planet
-	//modelStack.Rotate(rotate, 0, 0, 1);
-	//modelStack.Translate(15, 0, 0);
-	//modelStack.Rotate(rotate * 10, 0, 0, 1);
-	//RenderMesh(meshList[GEO_SUN], false);
-	//modelStack.PopMatrix();		//end planet
-
-	//modelStack.PushMatrix();	//push orbitline
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Scale(21, 1, 21);
-	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//modelStack.PopMatrix();		//end orbitline
-
-	//modelStack.PushMatrix();	//push planet
-	//modelStack.Rotate(rotate, 0, 0, 1);
-	//modelStack.Translate(21, 0, 0);
-	//modelStack.Rotate(rotate * 10, 0, 0, 1);
-	//RenderMesh(meshList[GEO_SUN], false);
-	//modelStack.PopMatrix();		//end planet
-
-	//modelStack.PushMatrix();	//push orbitline
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Scale(27, 1, 27);
-	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//modelStack.PopMatrix();		//end orbitline
-	//===========================================================
+	system_gen->build_system(rotate, rotate);*/
 
 	modelStack.PopMatrix();		//end sun
 
-	if (system_collision->isAbovePlanet)
-	{
-		//std::cout << "in box" << "\n";
-		modelStack.PushMatrix();
-		RenderTextOnScreen(meshList[GEO_TEXT], "Enter planet?[E]", Color(0, 1, 0), 2, 1, 2);
-		modelStack.PopMatrix();
-	}
+	//if (system_collision->isAbovePlanet)
+	//{
+	//	//std::cout << "in box" << "\n";
+	//	modelStack.PushMatrix();
+	//	RenderTextOnScreen(meshList[GEO_TEXT], "Enter planet?[E]", Color(0, 1, 0), 2, 1, 2);
+	//	modelStack.PopMatrix();
+	//}
 }
 
-void SystemScene::RenderMesh(Mesh *mesh, bool enableLight)
+void GalaxyScene::RenderMesh(Mesh *mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
@@ -524,7 +473,7 @@ void SystemScene::RenderMesh(Mesh *mesh, bool enableLight)
 
 }
 
-void SystemScene::RenderText(Mesh* mesh, std::string text, Color color)
+void GalaxyScene::RenderText(Mesh* mesh, std::string text, Color color)
 {
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 		return;
@@ -551,7 +500,7 @@ void SystemScene::RenderText(Mesh* mesh, std::string text, Color color)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void SystemScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
+void GalaxyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 		return;
@@ -597,7 +546,7 @@ void SystemScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, 
 }
 
 //============================================TESTING===============================================
-void SystemScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float sizey)
+void GalaxyScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float sizey)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -621,7 +570,7 @@ void SystemScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float size
 }
 //=================================================================================================
 
-void SystemScene::RenderSkybox()
+void GalaxyScene::RenderSkybox()
 {
 	modelStack.PushMatrix();//push ground
 	modelStack.Translate(950, 0, 950);
@@ -681,10 +630,10 @@ void SystemScene::RenderSkybox()
 	modelStack.PopMatrix();//end ground
 }
 
-void SystemScene::Exit()
+void GalaxyScene::Exit()
 {
-	delete this->system_collision;
-	delete this->system_gen;
+	//delete this->system_collision;
+	//delete this->system_gen;
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

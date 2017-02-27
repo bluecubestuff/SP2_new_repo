@@ -1,9 +1,13 @@
 #ifndef _SOLAR_GENERATE_H
 #define _SOLAR_GENERATE_H
 
-#include "GalaxyGenerate.h"
 #include "ObjectRender.h"
 #include "ObjectFactory.h"
+
+#include <vector>
+#include <map>
+using std::vector;
+using std::map;
 
 class SolarGenerate
 {
@@ -16,9 +20,13 @@ public:
 	void update();
 	void build_system(float,float);
 	int num_of_planet_getter();
+	int planetID_getter();
 	vector<ObjectRender*> planet_storage_getter();
 
 private:
+
+	int planetID;
+	int planet_type = 0;
 	vector<ObjectRender*> planet_storage;
 	int number_of_planets;
 	SystemScene* myscene;

@@ -3,6 +3,7 @@
 #include "GreenPlanet.h"
 #include "DesertPlanet.h"
 #include "BluePlanet.h"
+#include "GalaxyGenerate.h"
 
 SolarGenerate::SolarGenerate(SystemScene* scene) : myscene(scene), objfactory(scene)
 {
@@ -18,7 +19,7 @@ void SolarGenerate::Init()
 {
 	float ar, pr;
 	number_of_planets = Math::RandIntMinMax(1, 3);
-	int planet_type = 0;
+	
 	//orbit line increases by scale by (3 + (3 * 2) * i)
 	//planet translation by (3 + (3 * 2) * i)
 
@@ -51,6 +52,14 @@ void SolarGenerate::Init()
 		//std::cout << pr << "\n";
 	}
 
+	/*std::cout << GalaxyGenerate::get_instance()->system_database_getter().size() << "\n";
+	planetID = (GalaxyGenerate::get_instance()->system_database_getter().size() + 1);
+	GalaxyGenerate::get_instance()->system_database_getter()[GalaxyGenerate::get_instance()->system_database_getter().size() + 1] = this;*/
+}
+
+void SolarGenerate::save_init()
+{
+
 }
 
 void SolarGenerate::build_system(float aRotate,float pRotate)
@@ -66,4 +75,9 @@ int SolarGenerate::num_of_planet_getter()
 vector<ObjectRender*> SolarGenerate::planet_storage_getter()
 {
 	return planet_storage;
+}
+
+int SolarGenerate::planetID_getter()
+{
+	return planetID;
 }

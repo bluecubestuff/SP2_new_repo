@@ -32,9 +32,15 @@ public:
 	Mtx44 getStamp();
 	void setHit();
 	bool getHit();
+
 	float getSize();
+
 	void decreaseHealth(float);
 	float getHP();
+
+	void shieldUpdate(double dt);
+	void decreaseShield(float);
+	float getSP();
 private:
 
 protected:
@@ -48,7 +54,7 @@ protected:
 	float hullPoints;
 	float mass;
 	Hull* hull;
-	float maxShield;
+	float shieldPoints;
 	Shield* shield;
 	float thrust;
 	Thruster* thruster;

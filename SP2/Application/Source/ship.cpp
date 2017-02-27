@@ -98,3 +98,37 @@ float Ship::getHP()
 {
 	return hullPoints;
 }
+
+void Ship::shieldUpdate(double dt)
+{
+	static float offTime = 0;
+	if (shieldPoints != shield->getShieldPoint())
+	{
+		offTime += dt;
+		if (offTime > 5)
+		{
+			if (shieldPoints < shield->getShieldPoint())
+			{
+				shieldPoints += dt * 20;
+			}
+			else if (shieldPoints >= shield->getShieldPoint())
+			{
+				offTime = 0;
+			}
+		}
+		if (getHit())
+		{
+			offTime = 0;
+		}
+	}
+}
+
+void Ship::decreaseShield(float adasd)
+{
+	shieldPoints -= adasd;
+}
+
+float Ship::getSP()
+{
+	return shieldPoints;
+}

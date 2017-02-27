@@ -111,14 +111,14 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 	if (angle < 3 && angle > -3)
 	{
 		//Passive = PATTACK;
-		this->Forward = target.Normalized();
+		//this->Forward = target.Normalized();
 		this->attack = true;
 	}
 	else
 	{
 		this->attack = false;
 	}
-	std::cout << angle << std::endl;
+	//std::cout << angle << std::endl;
 
 	if (distance > 400 && agro != true)
 	{

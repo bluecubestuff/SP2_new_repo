@@ -16,6 +16,9 @@
 //#include "LandGenerate.h"
 #include <iostream>
 
+Vector3 planeting(0, 2000, 2000);
+float rotatePlanet = 0;
+
 StudioProject::StudioProject()
 {
 }
@@ -509,6 +512,13 @@ void StudioProject::Update(double dt)
 			//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", wRight, wUp, wForward);
 		}
 	}
+
+	if ((planeting - Player->getter("position")).Length() < 800)
+	{
+		SceneManager::get_instance()->SceneSelect(3);
+	}
+
+	rotatePlanet += dt;
 	//std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
 }
@@ -679,22 +689,11 @@ void StudioProject::Render()
 		
 		modelStack.PopMatrix();
 	}
-
-	if (Player->firstThird)
-	{
-		Mouse mouse;
-		POINT point = mouse.freeMouse();
-		modelStack.PushMatrix();
-		RenderUI(meshList[GEO_SPHERE], point.x, point.y, 5, 5);
-		modelStack.PopMatrix();
-		modelStack.PushMatrix();
-		RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
-		modelStack.PopMatrix();
-	}
 	//generate the planet to land on
 	modelStack.PushMatrix();
 	modelStack.Translate(0, 2000, 2000);
 	modelStack.Scale(500, 500, 500);
+	modelStack.Rotate(rotatePlanet, 0, 1, 0);
 	switch (SystemScene::planet)
 	{
 	case 1:
@@ -713,6 +712,17 @@ void StudioProject::Render()
 		std::cout << SystemScene::planet << std::endl;
 	}
 	//gen->BuildLand();
+	if (Player->firstThird)
+	{
+		Mouse mouse;
+		POINT point = mouse.freeMouse();
+		modelStack.PushMatrix();
+		RenderUI(meshList[GEO_SPHERE], point.x, point.y, 5, 5);
+		modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
+		modelStack.PopMatrix();
+	}
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)

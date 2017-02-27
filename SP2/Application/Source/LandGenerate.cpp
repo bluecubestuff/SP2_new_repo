@@ -34,37 +34,37 @@ void LandGenerate::landInIt()
 	//obj_data_at_box.clear();
 	//objectfactory.clearObjects();				
 
-	if (sceneID == 1)
-	{
-		for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
-		{
-			for (int x = 0; x < 5; x++)				//loops the grid in grid x
-			{
-				int numOfObject = Math::RandIntMinMax(10, 20);  //num of obj
-				for (int i = 0; i < numOfObject; i++)
-				{
-					tempPos.x = Math::RandIntMinMax((x * 500) + 10, ((x + 1) * 500) - 10);
-					tempPos.z = Math::RandIntMinMax((z * 500) + 10, ((z + 1) * 500) - 10);
-					int objType = Math::RandIntMinMax(1, 2); //selecting the type of obj
+	//if (sceneID == 1)
+	//{
+	//	for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
+	//	{
+	//		for (int x = 0; x < 5; x++)				//loops the grid in grid x
+	//		{
+	//			int numOfObject = Math::RandIntMinMax(10, 20);  //num of obj
+	//			for (int i = 0; i < numOfObject; i++)
+	//			{
+	//				tempPos.x = Math::RandIntMinMax((x * 500) + 10, ((x + 1) * 500) - 10);
+	//				tempPos.z = Math::RandIntMinMax((z * 500) + 10, ((z + 1) * 500) - 10);
+	//				int objType = Math::RandIntMinMax(1, 2); //selecting the type of obj
 
-					//=== selection of type ===================================================
-					if (objType == 1)
-					{
-						//Rock* rock = new Rock(planet_scene, Vector3(tempPos.x, 0, tempPos.z), 3);
-						objectfactory.createObject(new Rock(myscene, Vector3(tempPos.x, -2, tempPos.z), 3));
-					}
-					else if (objType == 2)
-					{
-						//Tree* tree = new Tree(planet_scene, Vector3(tempPos.x, 0, tempPos.z), 3);
-						objectfactory.createObject(new Tree(myscene, Vector3(tempPos.x, -2, tempPos.z), 3));
-					}
-					//========================================================================
-				}
-				count++;
-			}
-		}
-	}
-	else if (sceneID == 2)
+	//				//=== selection of type ===================================================
+	//				if (objType == 1)
+	//				{
+	//					//Rock* rock = new Rock(planet_scene, Vector3(tempPos.x, 0, tempPos.z), 3);
+	//					objectfactory.createObject(new Rock(myscene, Vector3(tempPos.x, -2, tempPos.z), 3));
+	//				}
+	//				else if (objType == 2)
+	//				{
+	//					//Tree* tree = new Tree(planet_scene, Vector3(tempPos.x, 0, tempPos.z), 3);
+	//					objectfactory.createObject(new Tree(myscene, Vector3(tempPos.x, -2, tempPos.z), 3));
+	//				}
+	//				//========================================================================
+	//			}
+	//			count++;
+	//		}
+	//	}
+	//}
+	if (sceneID == 2)
 	{
 		for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
 		{

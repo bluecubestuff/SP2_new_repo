@@ -153,6 +153,9 @@ void GalaxyScene::Init()
 
 	meshList[GEO_BLUEPLANET] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//Sphere2.OBJ");
 	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
+
+	meshList[GEO_GRID] = MeshBuilder::GenerateUI("7 by 7 Grid", 1, 1);
+	meshList[GEO_GRID]->textureID = LoadTGA("Image//Grid.tga");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -208,14 +211,11 @@ void GalaxyScene::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.f, 16.f / 9.f, 0.1f, 100000.f);
+	projection.SetToPerspective(30.f, 16.f / 9.f, 0.1f, 100000.f);
 	projectionStack.LoadMatrix(projection);
 	srand((unsigned)(time(NULL)));
 	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
-	//system_collision = new CollisionManager;
 	Player = new SystemTravelShip;
-	//system_gen = new SolarGenerate(this);
-	//system_gen->Init();
 	rotate = 0.f;
 
 	isPlayerNearPlanet = false;
@@ -271,24 +271,12 @@ void GalaxyScene::Update(double dt)
 		light[0].type = Light::LIGHT_SPOT;
 		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
-	//================================================================================
-	//--------------------------------------------------------------------------------
-
-	//std::cout << Player->getter("forward") << std::endl;
-	//camera.Update(dt);
-	//colManager->CollisionChecker(gen, camera);
 
 	camera.Update(dt);
 	Player->Update(dt);
 	rotate += dt;
 
-	//system_collision->CollisionCheckerSystem(system_gen, Player, rotate);
-
-	/*if (system_collision->isAbovePlanet && Application::IsKeyPressed('E'))
-	{
-
-		SceneManager::get_instance()->SceneSelect(2);
-	}*/
+	std::cout << Player->position << "\n";
 }
 
 
@@ -299,9 +287,7 @@ void GalaxyScene::Render()
 
 	Mtx44 MVP;
 
-
 	viewStack.LoadIdentity();
-
 
 	//viewStack.LookAt(camera.position.x, camera.position.y,		//debug cam
 	//camera.position.z, camera.target.x, camera.target.y,
@@ -391,7 +377,7 @@ void GalaxyScene::Render()
 	modelStack.Translate(Player->position.x, Player->position.y, Player->position.z);
 	modelStack.Rotate(90, 1, 0, 0);
 	modelStack.Rotate(Player->rotate, 0, 1, 0);
-	modelStack.Scale(100, 100, 100);
+	modelStack.Scale(50, 50, 50);
 	RenderMesh(meshList[GEO_PLAYER_SHIP], false);
 	modelStack.PopMatrix();		//end player_ship
 
@@ -399,18 +385,20 @@ void GalaxyScene::Render()
 	RenderMesh(meshList[GEO_SUN], false);
 
 
-	/*for (int i = 1; i <= system_gen->num_of_planet_getter(); i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Rotate(90, 1, 0, 0);
-		modelStack.Scale(9 * i, 1, 9 * i);
-		RenderMesh(meshList[GEO_ORBIT_LINES], false);
-		modelStack.PopMatrix();
-	}
+	//for (int i = 1; i <= system_gen->num_of_planet_getter(); i++)
+	//{
+	//	modelStack.PushMatrix();
+	//	modelStack.Rotate(90, 1, 0, 0);
+	//	modelStack.Scale(9 * i, 1, 9 * i);
+	//	RenderMesh(meshList[GEO_ORBIT_LINES], false);
+	//	modelStack.PopMatrix();
+	//}
 
-	system_gen->build_system(rotate, rotate);*/
+	//system_gen->build_system(rotate, rotate);
 
 	modelStack.PopMatrix();		//end sun
+
+
 
 	//if (system_collision->isAbovePlanet)
 	//{
@@ -418,7 +406,9 @@ void GalaxyScene::Render()
 	//	modelStack.PushMatrix();
 	//	RenderTextOnScreen(meshList[GEO_TEXT], "Enter planet?[E]", Color(0, 1, 0), 2, 1, 2);
 	//	modelStack.PopMatrix();
-	//}
+	//}                                                                            
+
+	RenderUI(meshList[GEO_GRID], 80, 45, 160, 90);		//7 by 7 grid
 }
 
 void GalaxyScene::RenderMesh(Mesh *mesh, bool enableLight)
@@ -508,7 +498,7 @@ void GalaxyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, 
 	glDisable(GL_DEPTH_TEST);
 
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 160, 0, 90, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -550,16 +540,17 @@ void GalaxyScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float size
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 160, 0, 90, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity();
+
 	//scale and translate accordingly
-	modelStack.Scale(sizex, sizey, 1);
 	modelStack.Translate(x, y, 0);
+	modelStack.Scale(sizex, sizey, 1);
 	RenderMesh(mesh, false); //UI should not have light
 
 	projectionStack.PopMatrix();
@@ -578,8 +569,10 @@ void GalaxyScene::RenderSkybox()
 
 	modelStack.PushMatrix();//seperate from ground
 
+	modelStack.Rotate(rotate, 0, 1, 0);
+
 	modelStack.PushMatrix();//push top
-	modelStack.Translate(0, 1995, 0);
+	modelStack.Translate(0, 1997, 0);
 	modelStack.Rotate(180, 0, 0, 1);
 	modelStack.Rotate(-90, 0, 1, 0);
 	modelStack.Scale(2000, 1, 2000);
@@ -587,7 +580,7 @@ void GalaxyScene::RenderSkybox()
 	modelStack.PopMatrix();//end top
 
 	modelStack.PushMatrix();//push back
-	modelStack.Translate(0, 997, 997);
+	modelStack.Translate(0, 999, 999);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Scale(2000, 1, 2000);
@@ -595,7 +588,7 @@ void GalaxyScene::RenderSkybox()
 	modelStack.PopMatrix();//end back
 
 	modelStack.PushMatrix();//push front
-	modelStack.Translate(0, 997, -997);
+	modelStack.Translate(0, 999, -999);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(180, 1, 0, 0);
@@ -604,7 +597,7 @@ void GalaxyScene::RenderSkybox()
 	modelStack.PopMatrix();//end front
 
 	modelStack.PushMatrix();//push left
-	modelStack.Translate(997, 997, 0);
+	modelStack.Translate(999, 999, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
@@ -613,13 +606,15 @@ void GalaxyScene::RenderSkybox()
 	modelStack.PopMatrix();//end left
 
 	modelStack.PushMatrix();//push right
-	modelStack.Translate(-997, 997, 0);
+	modelStack.Translate(-999, 999, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(90, 1, 0, 0);
 	modelStack.Scale(2000, 1, 2000);
 	RenderMesh(meshList[GEO_RIGHT], false);
 	modelStack.PopMatrix();//end right
+
+
 
 	modelStack.PopMatrix();//end speration
 

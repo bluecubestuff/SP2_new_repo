@@ -117,7 +117,7 @@ void CollisionManager::CollisionCheckerSystem(SolarGenerate* SolarGen, SystemTra
 		//}
 
 		collision_aabb->updateAABB(280, 280, 1000, planetPos);
-
+	
 		if (collision_aabb->AABBtoAABB(playerShip->func_aabb_getter()->getAABB()))
 		{
 			planet_type = SolarGen->planet_storage_getter()[i]->type;

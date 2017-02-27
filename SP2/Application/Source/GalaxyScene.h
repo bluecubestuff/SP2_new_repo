@@ -36,6 +36,7 @@ class GalaxyScene : public Scene
 	friend class GreenPlanet;
 	friend class DesertPlanet;
 	friend class BluePlanet;
+	friend class Sun; 
 
 	enum GEOMETRY_TYPE
 	{
@@ -66,7 +67,7 @@ class GalaxyScene : public Scene
 		GEO_GOAT,
 		GEO_NPC,
 		GEO_BUILDING,
-
+		GEO_GRID,
 		//Ships
 		GEO_PLAYER_SHIP,
 		GEO_SUN,

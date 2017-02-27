@@ -294,7 +294,6 @@ void SystemScene::Update(double dt)
 	}
 }
 
-
 void SystemScene::Render()
 {
 	// Render VBO here

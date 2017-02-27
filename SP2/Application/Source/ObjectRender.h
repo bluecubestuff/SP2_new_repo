@@ -8,6 +8,7 @@
 class StudioProject;
 class PlanetScene;
 class SystemScene;
+class GalaxyScene;
 
 class ObjectRender //TODO
 {
@@ -15,6 +16,7 @@ public:
 	ObjectRender(StudioProject* scene, Vector3 pos, float size);
 	ObjectRender(PlanetScene* scene, Vector3 pos, float size);
 	ObjectRender(SystemScene* scene, Vector3 pos, float sizeX, float sizeZ, float aRotate, float pRotate);
+	ObjectRender(GalaxyScene* scene, Vector3 pos, float sizeX, float sizeZ, float aRotate, float pRotate);
 	virtual ~ObjectRender(){};
 
 	virtual void interact() = 0;
@@ -36,9 +38,9 @@ public:
 
 private:
 
-
 	PlanetScene* planetscene;
 	SystemScene* systemscene;
+	GalaxyScene* galaxyscene;
 };
 
 

@@ -9,6 +9,7 @@
 class StudioProject;
 class PlanetScene;
 class SystemScene;
+class GalaxyScene;
 
 class ObjectFactory
 {
@@ -17,6 +18,7 @@ public:
 	ObjectFactory(StudioProject* scene);
 	ObjectFactory(PlanetScene* scene);
 	ObjectFactory(SystemScene* scene);
+	ObjectFactory(GalaxyScene* scene);
 	~ObjectFactory() 
 	{ 
 		objContainer.clear();
@@ -38,6 +40,7 @@ private:
 	StudioProject* myscene;
 	PlanetScene* planet_scene;
 	SystemScene* system_scene;
+	GalaxyScene* galaxy_scene;
 	//LandGenerate* land;
 
 };

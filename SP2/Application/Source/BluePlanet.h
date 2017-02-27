@@ -10,7 +10,7 @@ public:
 	BluePlanet(SystemScene* scene, Vector3 pos, float sizeX, float sizeY, float aRotate, float pRotate);
 	~BluePlanet();
 
-	AABB green_planet_box;
+	AABB blue_planet_box;
 
 	virtual void interact();
 	virtual AABB get_obj_AABB();

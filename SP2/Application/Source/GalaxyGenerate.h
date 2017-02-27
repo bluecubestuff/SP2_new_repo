@@ -17,7 +17,7 @@ public:
 	
 	static GalaxyGenerate *get_instance();
 
-	void galaxyInIt();
+	void galaxyInIt(GalaxyScene*);
 	void galaxyUpdate();
 	map<unsigned, SolarGenerate*> system_database_getter();
 
@@ -25,9 +25,19 @@ private:
 
 	GalaxyGenerate();
 
+	ObjectFactory* objfactory;
+	GalaxyScene* myscene;
+
 	static GalaxyGenerate* instance;
-	SolarGenerate* galaxy_map[10][10];
+	SolarGenerate* galaxy_map[7][7];
 	map<unsigned, SolarGenerate*> system_database;
 };
 
 #endif
+
+
+
+
+
+
+

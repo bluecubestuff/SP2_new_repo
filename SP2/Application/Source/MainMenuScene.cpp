@@ -143,16 +143,16 @@ void MainMenuScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
-	meshList[GEO_MENUSTART] = MeshBuilder::GenerateUI("menu point start", 16, 16);
+	meshList[GEO_MENUSTART] = MeshBuilder::GenerateUI("menu point start", 1, 1);
 	meshList[GEO_MENUSTART]->textureID = LoadTGA("Image//MenuPointStart.tga");
 
-	meshList[GEO_MENUCONTROL] = MeshBuilder::GenerateUI("menu point control", 16, 16);
+	meshList[GEO_MENUCONTROL] = MeshBuilder::GenerateUI("menu point control", 1, 1);
 	meshList[GEO_MENUCONTROL]->textureID = LoadTGA("Image//MenuPointControl.tga");
 
-	meshList[GEO_MENUCREDIT] = MeshBuilder::GenerateUI("menu point credit", 16, 16);
+	meshList[GEO_MENUCREDIT] = MeshBuilder::GenerateUI("menu point credit", 1, 1);
 	meshList[GEO_MENUCREDIT]->textureID = LoadTGA("Image//MenuPointCredit.tga");
 
-	meshList[GEO_MENUQUIT] = MeshBuilder::GenerateUI("menu point quit", 16, 16);
+	meshList[GEO_MENUQUIT] = MeshBuilder::GenerateUI("menu point quit", 1, 1);
 	meshList[GEO_MENUQUIT]->textureID = LoadTGA("Image//MenuPointQuit.tga");
 
 	//------------------------------------------------------------------------------------------

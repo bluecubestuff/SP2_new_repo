@@ -28,7 +28,6 @@ public:
 private:
 
 	int planetID;
-	int planet_type = 0;
 	vector<ObjectRender*> planet_storage;
 	int number_of_planets;
 	SystemScene* myscene;

@@ -2,6 +2,7 @@
 #include "StudioProject.h"
 #include "PlanetScene.h"
 #include "SystemScene.h"
+#include "GalaxyScene.h"
 
 ObjectRender::ObjectRender(StudioProject* scene, Vector3 pos, float size)
 {
@@ -15,12 +16,21 @@ ObjectRender::ObjectRender(PlanetScene* scene, Vector3 pos, float size)
 	position = pos;
 	scale = size;
 }
-ObjectRender::ObjectRender(SystemScene* scene, Vector3 pos, float sizeX, float sizeZ, float aRotate, float pRotate)
+ObjectRender::ObjectRender(SystemScene* scene, Vector3 pos, float sizeX, float sizeY, float aRotate, float pRotate)
 {
 	this->systemscene = scene;
 	this->position = pos;
 	this->scaleX = sizeX;
-	this->scaleZ = sizeZ;
+	this->scaleZ = sizeY;
+	this->aroundRotate = aRotate;
+	this->planetRotate = pRotate;
+}
+ObjectRender::ObjectRender(GalaxyScene* scene, Vector3 pos, float sizeX, float sizeY, float aRotate, float pRotate)
+{
+	this->galaxyscene = scene;
+	this->position = pos;
+	this->scaleX = sizeX;
+	this->scaleZ = sizeY;
 	this->aroundRotate = aRotate;
 	this->planetRotate = pRotate;
 }
@@ -51,5 +61,4 @@ void ObjectRender::render_system_planets(float aRotate,float pRotate)
 	systemscene->modelStack.Rotate(pRotate * planetRotate, 0, 0, 1);
 	systemscene->RenderMesh(systemscene->meshList[type], false);
 	systemscene->modelStack.PopMatrix();
-	//std::cout << aRotate * aroundRotate << "\n";
 }

@@ -9,6 +9,7 @@
 #include "StudioProject.h"
 #include "PlanetScene.h"
 #include "SystemScene.h"
+#include "GalaxyScene.h"
 #include "StartScene.h"
 #include "MainMenuScene.h"
 
@@ -72,7 +73,7 @@ void Application::Init()
 
 	//Create a window and create its OpenGL context
 	m_window = glfwCreateWindow(1600, 900, "Computer Graphics", NULL, NULL);
-	//m_window = glfwCreateWindow(1920, 1080, "Computer Graphics", glfwGetPrimaryMonitor(), NULL);           // making the window full screen
+	//m_window = glfwCreateWindow(1600, 900, "Computer Graphics", glfwGetPrimaryMonitor(), NULL);           // making the window full screen
 
 	//If the window couldn't be created
 	if (!m_window)
@@ -121,17 +122,19 @@ void Application::Run()
 
 void Application::createScene() //adding new scene
 {	//id starts with 0
-	Scene *startScene = new StartScene();
-	Scene *MenuScene = new MainMenuScene();
-	Scene *scene = new StudioProject();		
-	Scene *scene2 = new PlanetScene();		
-	Scene *scene3 = new SystemScene();		
+	Scene *startScene = new StartScene();			//0
+	Scene *MenuScene = new MainMenuScene();			//1
+	Scene *SpaceScene = new StudioProject();		//2
+	Scene *LandScene = new PlanetScene();			//3
+	Scene *SolarScene = new SystemScene();			//4
+	Scene *GalaticScene = new GalaxyScene();		//5
 
 	SceneManager::get_instance()->AddScene(startScene);
 	SceneManager::get_instance()->AddScene(MenuScene);
-	SceneManager::get_instance()->AddScene(scene);
-	SceneManager::get_instance()->AddScene(scene2);
-	SceneManager::get_instance()->AddScene(scene3);
+	SceneManager::get_instance()->AddScene(SpaceScene);
+	SceneManager::get_instance()->AddScene(LandScene);
+	SceneManager::get_instance()->AddScene(SolarScene);
+	SceneManager::get_instance()->AddScene(GalaticScene);
 }
 
 void Application::Exit()

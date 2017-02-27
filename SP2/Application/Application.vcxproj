@@ -131,6 +131,7 @@
     <ClCompile Include="Source\Shield.cpp" />
     <ClCompile Include="Source\ship.cpp" />
     <ClCompile Include="Source\SolarGenerate.cpp" />
+    <ClCompile Include="Source\Sun.cpp" />
     <ClCompile Include="Source\StartScene.cpp" />
     <ClCompile Include="Source\StudioProject.cpp" />
     <ClCompile Include="Source\SystemScene.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Source\Shield.h" />
     <ClInclude Include="Source\ship.h" />
     <ClInclude Include="Source\SolarGenerate.h" />
+    <ClInclude Include="Source\Sun.h" />
     <ClInclude Include="Source\StartScene.h" />
     <ClInclude Include="Source\StudioProject.h" />
     <ClInclude Include="Source\SystemScene.h" />

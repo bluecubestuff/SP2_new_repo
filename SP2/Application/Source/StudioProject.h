@@ -19,6 +19,7 @@
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
 #include "Bullet.h"
+#include "SystemScene.h"
 
 #include <string>
 #include <vector>
@@ -71,6 +72,11 @@ class StudioProject : public Scene
 		GEO_GOAT,
 		GEO_NPC,
 		GEO_BUILDING,
+
+		//Planet
+		GEO_DESERTPLANET,
+		GEO_BLUEPLANET,
+		GEO_GREENPLANET,
 
 		//Ships
 		GEO_PLAYER_SHIP,

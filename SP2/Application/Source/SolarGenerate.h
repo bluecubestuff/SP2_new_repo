@@ -18,6 +18,8 @@ public:
 	int num_of_planet_getter();
 	vector<ObjectRender*> planet_storage_getter();
 
+	int planet_type;
+
 private:
 	vector<ObjectRender*> planet_storage;
 	int number_of_planets;

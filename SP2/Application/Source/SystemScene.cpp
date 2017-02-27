@@ -13,6 +13,8 @@
 //#include "LandGenerate.h"
 #include <iostream>
 
+int SystemScene::planet = 0;
+
 SystemScene::SystemScene() : objfactory(this)
 {
 	
@@ -289,6 +291,7 @@ void SystemScene::Update(double dt)
 
 	if (system_collision->isAbovePlanet && Application::IsKeyPressed('E'))
 	{
+		planet = system_gen->planet_type;
 		SceneManager::get_instance()->SceneSelect(2);
 	}
 }

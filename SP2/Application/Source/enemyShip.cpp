@@ -43,14 +43,15 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 
 	
 
-	if (Math::RandIntMinMax(0, 1))
+	/*if (Math::RandIntMinMax(0, 1))
 	{
 		AI = AI::PASSIVE;
 	}
 	else
 	{
 		AI = AI::AGRESSIVE;
-	}
+	}*/
+	AI = AI::PASSIVE;
 }
 
 EnemyShip::~EnemyShip()
@@ -109,14 +110,15 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 	float angle = Math::RadianToDegree(acos((target.Normalized()).Dot(this->Forward.Normalized())));
 	if (angle < 3 && angle > -3)
 	{
-		std::cout << angle << std::endl;
 		//Passive = PATTACK;
+		this->Forward = target.Normalized();
 		this->attack = true;
 	}
 	else
 	{
 		this->attack = false;
 	}
+	std::cout << angle << std::endl;
 
 	if (distance > 400 && agro != true)
 	{
@@ -160,7 +162,8 @@ void EnemyShip::chase(double dt, Vector3 playerPos)
 	catch (std::exception& e)
 	{
 		std::cout << "Enemy Ship facing Player directly" << std::endl;
-		Passive = PATTACK;
+		//Passive = PATTACK;
+		this->Forward = target.Normalized();
 	}
 }
 

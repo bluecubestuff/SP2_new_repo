@@ -133,6 +133,7 @@ public:
 
 	SystemTravelShip* Player;
 	float rotate;
+	static int planet;
 
 	virtual void Init();
 	virtual void Update(double dt);

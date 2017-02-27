@@ -119,7 +119,7 @@ void StudioProject::Init()
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	srand(time(NULL));
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10 + 500, 2000, 1000), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);
@@ -327,12 +327,14 @@ void StudioProject::Update(double dt)
 	//================================================================================
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
+	Player->shieldUpdate(dt);
 	Player->withinRange(hostiles);
 	//Player->locking(hostiles[0]);
 
 	for (auto &i : hostiles)
 	{
 		i->Update(dt, Player->getter("position"), Player->getter("forward"));
+		i->shieldUpdate(dt);
 		if (i->attack)
 		{
 			Bullet* bullet = new Bullet(i->getter("position"), i->getter("forward"), i->getter("up"), i->getter("right"));
@@ -373,7 +375,15 @@ void StudioProject::Update(double dt)
 					{
 						Missile* temp = missiles[i];
 						j->setHit();
-						j->decreaseHealth(30);
+						if (j->getSP() <= 0)
+						{
+							j->decreaseHealth(30);
+						}
+						else
+						{
+							j->decreaseShield(30);
+						}
+
 						j->agro = true;
 						missiles.erase(missiles.begin() + i);
 						delete temp;
@@ -425,7 +435,14 @@ void StudioProject::Update(double dt)
 				{
 					Bullet* temp = bullets[i];
 					j->setHit();
-					j->decreaseHealth(1);
+					if (j->getSP() <= 0)
+					{
+						j->decreaseHealth(1);
+					}
+					else
+					{
+						j->decreaseShield(1);
+					}
 					j->agro = true;
 					bullets.erase(bullets.begin() + i);
 					delete temp;
@@ -435,7 +452,7 @@ void StudioProject::Update(double dt)
 			else
 				i = 0;
 		}
-		if (bullets[i]->outOfRange)
+		if (i < bullets.size() && bullets[i]->outOfRange)
 		{
 			Bullet* temp = bullets[i];
 			bullets.erase(bullets.begin() + i);
@@ -450,7 +467,15 @@ void StudioProject::Update(double dt)
 		if (Player->getAABB()->pointInAABB(enemyBullets[i]->getPos()))
 		{
 			Bullet* temp = enemyBullets[i];
-			Player->decreaseHealth(1);
+			if (Player->getSP() <= 0)
+			{
+				Player->decreaseHealth(1);
+			}
+			else
+			{
+				Player->decreaseShield(1);
+			}
+			
 			enemyBullets.erase(enemyBullets.begin() + i);
 			delete temp;
 			i = 0;
@@ -473,6 +498,7 @@ void StudioProject::Update(double dt)
 			hostiles.erase(hostiles.begin() + i);
 			i = 0;
 		}
+		//std::cout << "S: " << hostiles[i]->getSP() << " H: " << hostiles[i]->getHP() << std::endl;
 	}
 
 	for (auto &i : hostiles)
@@ -664,9 +690,16 @@ void StudioProject::Render()
 		modelStack.PushMatrix();
 		if (i->getHit())
 		{
-			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
-			modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
-			RenderMesh(meshList[GEO_SHIELD], false);
+			if (i->getSP() > 0)
+			{
+				modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+				modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
+				RenderMesh(meshList[GEO_SHIELD], false);
+			}
+			else
+			{
+				RenderUI(meshList[GEO_CUBE1], 800, 450, 35, 35);
+			}
 		}
 		if (i->locked)
 		{

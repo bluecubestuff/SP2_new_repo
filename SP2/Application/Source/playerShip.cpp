@@ -27,7 +27,8 @@ PlayerShip::PlayerShip()
 	this->mass = hull->getMass();
 	
 	shield = new Shield(100, 50.f, "BASE_S", "Second Hand Shield Generator", "D4");
-	this->maxShield = shield->getShieldPoint();
+	shieldPoints = shield->getShieldPoint();
+	//this->maxShield = shield->getShieldPoint();
 
 	thruster = new Thruster(10.f, 25.f, "BASE_T", "Second Hand Thruster", "D4");
 	this->thrust = thruster->getThrust();

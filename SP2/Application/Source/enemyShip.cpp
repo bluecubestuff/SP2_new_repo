@@ -28,7 +28,8 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 	this->mass = hull->getMass();
 
 	shield = new Shield;
-	this->maxShield = shield->getShieldPoint();
+	shieldPoints = shield->getShieldPoint();
+	//this->maxShield = shield->getShieldPoint();
 
 	thruster = new Thruster;
 	this->thrust = thruster->getThrust();

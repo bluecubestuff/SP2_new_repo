@@ -2,7 +2,7 @@
 #include "GalaxyScene.h"
 #include "Sun.h"
 
-GalaxyGenerate::GalaxyGenerate(GalaxyScene* scene) : myscene(scene), objfactory(scene)
+GalaxyGenerate::GalaxyGenerate()
 {
 }
 
@@ -11,26 +11,18 @@ GalaxyGenerate::~GalaxyGenerate()
 
 }
 
-void GalaxyGenerate::galaxyInIt()
+GalaxyGenerate* GalaxyGenerate::get_instance()
 {
-	int x_axis, y_axis;
-	Vector3 tempPos;
-	for (int y = 0; y < 7; y++)
+	if (!instance)
 	{
-		for (int x = 0; x < 7; x++)
-		{
-			x_axis = Math::RandIntMinMax(-5500, 6000);
-			y_axis = Math::RandIntMinMax(-3000, 2500);
-			tempPos.Set(x_axis, y_axis, 1000);
-			objfactory.createObject(new Sun(myscene, tempPos, 1, 1, 1.f, 1.f));
-		}
+		instance = new GalaxyGenerate;
 	}
-
+	return instance;
 }
 
-void GalaxyGenerate::build_galaxy()
+void GalaxyGenerate::galaxy_save_selection(int id)
 {
-	objfactory.renderObjects(3);
+	this->galaxy_id = id;
 }
 
 void GalaxyGenerate::galaxyUpdate()
@@ -38,7 +30,7 @@ void GalaxyGenerate::galaxyUpdate()
 
 }
 
-map<unsigned, SolarGenerate*> GalaxyGenerate::system_database_getter()
+int GalaxyGenerate::galaxy_id_getter()
 {
-	return system_database;
+	return this->galaxy_id;
 }

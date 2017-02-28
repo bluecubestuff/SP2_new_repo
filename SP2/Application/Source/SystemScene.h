@@ -19,6 +19,7 @@
 #include "ObjectFactory.h"
 #include "SystemTravelShip.h"
 #include "SolarGenerate.h"
+#include "GalaxyGenerate.h"
 
 #include <string>
 #include <vector>
@@ -160,12 +161,14 @@ private:
 	void RenderSkybox();
 
 	bool isPlayerNearPlanet;
+	bool isExistingPlanet;
 	char mapArray[100][100];
 
 	ObjectFactory objfactory;
 	SolarGenerate* system_gen;
 	CollisionManager* system_collision;
 
+	int systemID;
 	//Camera2 camera;
 	//Camera3 camera;
 	Camera camera;

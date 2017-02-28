@@ -30,10 +30,11 @@ private:
 	int planetID;
 	//int planet_type = 0;
 
-	vector<ObjectRender*> planet_storage;
+	vector<ObjectRender*> planet_storage; //store the objects in solar system 
+
 	int number_of_planets;
 	SystemScene* myscene;
-	ObjectFactory objfactory;
+	ObjectFactory* objfactory;
 };
 
 #endif

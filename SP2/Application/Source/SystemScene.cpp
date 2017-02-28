@@ -10,7 +10,6 @@
 #include "LoadTGA.h"
 #include "Weapon.h"
 
-//#include "LandGenerate.h"
 #include <iostream>
 
 int SystemScene::planet = 0;
@@ -217,10 +216,55 @@ void SystemScene::Init()
 	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
 	system_collision = new CollisionManager;
 	Player = new SystemTravelShip;
-	system_gen = new SolarGenerate(this);
-	system_gen->Init();
-	rotate = 0.f;
 
+	system_gen = new SolarGenerate(this);
+
+	systemID = GalaxyGenerate::get_instance()->galaxy_id_getter();
+	std::cout << systemID << "\n";
+	isExistingPlanet = false;
+
+	for (int i = 0; i < GalaxyGenerate::get_instance()->system_database.size(); i++)
+	{	//check if id is used
+		if (GalaxyGenerate::get_instance()->system_database.count(systemID))
+		{
+			std::cout << "it exist" << "\n";
+			isExistingPlanet = true;
+			break;
+		}
+	}
+	
+	if (!isExistingPlanet) //if that id is not used init and save it
+	{
+		system_gen->Init();
+		system_gen->save_init();
+	}
+
+	//systemID = GalaxyGenerate::get_instance()->galaxy_id_getter(); //set the id for system
+	
+	//for (int i = 0; i < GalaxyGenerate::get_instance()->system_database.size(); i++) //if not empty
+	//{
+	//	if (GalaxyGenerate::get_instance()->system_database.count(systemID))
+	//	{
+	//		std::cout << "it exist!" << "\n";
+	//		GalaxyGenerate::get_instance()->system_database[systemID]->Init();
+	//		break;
+	//	}
+	//	else
+	//	{
+	//		std::cout << "it doesnt exist!" << "\n";
+	//		system_gen->Init();
+	//		system_gen->save_init();
+	//		break;
+	//	}
+	//}
+
+	//if (GalaxyGenerate::get_instance()->system_database.size() <= 0) //if database is empty
+	//{
+	//	system_gen->Init();
+	//	system_gen->save_init();
+	//}
+
+	rotate = 0.f;
 	isPlayerNearPlanet = false;
 }
 
@@ -279,17 +323,18 @@ void SystemScene::Update(double dt)
 
 	//std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
-	//colManager->CollisionChecker(gen, camera);
 
 	camera.Update(dt);
 	Player->Update(dt);
 	rotate += dt;
 
-	system_collision->CollisionCheckerSystem(system_gen, Player, rotate);
+	//collision checker
+	//system_collision->CollisionCheckerSystem(system_gen, Player, rotate);
+	system_collision->CollisionCheckerSystem(GalaxyGenerate::get_instance()->system_database[systemID], Player, rotate);
 
 	if (system_collision->isAbovePlanet && Application::IsKeyPressed('E'))
 	{
-		planet = system_gen->planet_type;
+		//planet = system_gen->planet_type;
 		SceneManager::get_instance()->SceneSelect(2);
 	}
 }
@@ -403,7 +448,7 @@ void SystemScene::Render()
 	modelStack.Scale(250, 250, 250);
 	RenderMesh(meshList[GEO_SUN], false);
 
-	for (int i = 1; i <= system_gen->num_of_planet_getter(); i++)
+	for (int i = 1; i <= GalaxyGenerate::get_instance()->system_database[systemID]->num_of_planet_getter(); i++)
 	{
 		modelStack.PushMatrix();
 		modelStack.Rotate(90, 1, 0, 0);
@@ -413,54 +458,6 @@ void SystemScene::Render()
 	}
 
 	system_gen->build_system(rotate, rotate);
-
-	//=======================================================
-
-	//modelStack.PushMatrix();	//push orbitline
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Scale(9, 1, 9);
-	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//modelStack.PopMatrix();		//end orbitline
-
-	//modelStack.PushMatrix();	//push planet
-	//modelStack.Rotate(-rotate, 0, 0, 1);
-	//modelStack.Translate(9, 0, 0);			//x-axis 1009 * 9
-	//modelStack.Rotate(-rotate * 15, 0, 0, 1);
-	//RenderMesh(meshList[GEO_SUN], false);
-	//modelStack.PopMatrix();		//end planet
-
-	//modelStack.PushMatrix();	//push orbitline
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Scale(15, 1, 15);
-	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//modelStack.PopMatrix();		//end orbitline
-
-	//modelStack.PushMatrix();	//push planet
-	//modelStack.Rotate(rotate, 0, 0, 1);
-	//modelStack.Translate(15, 0, 0);
-	//modelStack.Rotate(rotate * 10, 0, 0, 1);
-	//RenderMesh(meshList[GEO_SUN], false);
-	//modelStack.PopMatrix();		//end planet
-
-	//modelStack.PushMatrix();	//push orbitline
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Scale(21, 1, 21);
-	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//modelStack.PopMatrix();		//end orbitline
-
-	//modelStack.PushMatrix();	//push planet
-	//modelStack.Rotate(rotate, 0, 0, 1);
-	//modelStack.Translate(21, 0, 0);
-	//modelStack.Rotate(rotate * 10, 0, 0, 1);
-	//RenderMesh(meshList[GEO_SUN], false);
-	//modelStack.PopMatrix();		//end planet
-
-	//modelStack.PushMatrix();	//push orbitline
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Scale(27, 1, 27);
-	//RenderMesh(meshList[GEO_ORBIT_LINES], false);
-	//modelStack.PopMatrix();		//end orbitline
-	//===========================================================
 
 	modelStack.PopMatrix();		//end sun
 
@@ -684,8 +681,8 @@ void SystemScene::RenderSkybox()
 
 void SystemScene::Exit()
 {
-	delete this->system_collision;
-	delete this->system_gen;
+	//delete this->system_collision;
+	//delete this->system_gen;
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

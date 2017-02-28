@@ -21,7 +21,7 @@ public:
 	ObjectFactory(GalaxyScene* scene);
 	~ObjectFactory() 
 	{ 
-		objContainer.clear();
+		//objContainer.clear();
 	};
 
 	void createObject(ObjectRender* obj);

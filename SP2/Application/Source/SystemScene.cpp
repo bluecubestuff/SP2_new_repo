@@ -675,11 +675,11 @@ void SystemScene::RenderSkybox()
 
 	modelStack.PopMatrix();//end speration
 
-	//modelStack.Translate(0, 0, 0);
-	//modelStack.Rotate(90, 0, 1, 0);
-	//modelStack.Scale(2000, 1, 2000);
-	//RenderMesh(meshList[GEO_BOTTOM], false);
-	//modelStack.PopMatrix();//end ground
+	modelStack.Translate(0, 0, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(2000, 1, 2000);
+	RenderMesh(meshList[GEO_BOTTOM], false);
+	modelStack.PopMatrix();//end ground
 }
 
 void SystemScene::Exit()

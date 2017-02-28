@@ -20,7 +20,7 @@ public:
 	~LandGenerate();
 
 	void landInIt();				//newInit
-	void saveLandInIt(unsigned);	//reloadInit
+	void saveLandInIt();	//reloadInit
 	void landUpdate();
 	void BuildLand();
 	void SetPath();
@@ -39,7 +39,11 @@ private:
 	StudioProject* myscene;
 	PlanetScene* planet_scene;
 	ObjectFactory objectfactory;
+
 	int sceneID;
+	int SystemID;
+	int PlanetID;
+	int LandID;
 };
 
 #endif

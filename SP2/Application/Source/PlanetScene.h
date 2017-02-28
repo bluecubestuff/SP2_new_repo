@@ -20,6 +20,7 @@
 #include "ObjectFactory.h"
 #include "landEnemy.h"
 #include "ItemFactory.h"
+#include "GalaxyGenerate.h"
 
 #include <string>
 #include <vector>
@@ -156,7 +157,8 @@ private:
 
 	void RenderSkybox();
 
-
+	int system_id; //id for the system player is at
+	int planet_id; //id of the planet player is to enter
 	char mapArray[100][100];
 
 	Func_AABB* checker;

@@ -13,6 +13,9 @@ LandGenerate::LandGenerate(StudioProject* scene) : myscene(scene), objectfactory
 LandGenerate::LandGenerate(PlanetScene* scene) : planet_scene(scene), objectfactory(scene) 
 {
 	sceneID = 2;
+	SystemID = GalaxyGenerate::get_instance()->galaxy_id_getter();
+	PlanetID = GalaxyGenerate::get_instance()->planet_id_getter();
+
 }
 
 LandGenerate::~LandGenerate() 
@@ -105,9 +108,10 @@ void LandGenerate::landInIt()
 	//->spawn location of AI
 }
 
-void LandGenerate::saveLandInIt(unsigned landID)
+void LandGenerate::saveLandInIt()
 {
-
+	PlanetID = GalaxyGenerate::get_instance()->system_database[SystemID]->num_of_planet_getter();
+	GalaxyGenerate::get_instance()->system_database[SystemID]->land_database[SystemID].push_back(this);
 }
 
 void LandGenerate::landUpdate()
@@ -124,6 +128,7 @@ ObjectFactory LandGenerate::object_factory_getter()
 void LandGenerate::BuildLand()
 {
 	objectfactory.renderObjects(sceneID);
+	//GalaxyGenerate::get_instance()->system_database[SystemID]->land_database[SystemID][PlanetID]->objectfactory.renderObjects(2);
 }
 
 void LandGenerate::SetPath()

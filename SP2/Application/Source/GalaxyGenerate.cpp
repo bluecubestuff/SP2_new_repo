@@ -34,3 +34,13 @@ int GalaxyGenerate::galaxy_id_getter()
 {
 	return this->galaxy_id;
 }
+
+void GalaxyGenerate::set_planet_id(int temp_id)
+{
+	planet_id = temp_id;
+}
+
+int GalaxyGenerate::planet_id_getter()
+{
+	return planet_id;
+}

@@ -122,6 +122,7 @@ void CollisionManager::CollisionCheckerSystem(SolarGenerate* SolarGen, SystemTra
 		{
 			planet_type = SolarGen->planet_storage_getter()[i]->type;
 			isAbovePlanet = true;
+			GalaxyGenerate::get_instance()->set_planet_id(i); //set the id of which planet player is going to land at
 			break;
 		}
 

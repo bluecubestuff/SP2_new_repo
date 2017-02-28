@@ -22,14 +22,17 @@ public:
 
 	int galaxy_id_getter();
 
-	map<unsigned, SolarGenerate*> system_database;
-	map<int, ObjectFactory*> object_database;
+	map<unsigned, SolarGenerate*> system_database; //system database
+	
+	void set_planet_id(int);
+	int planet_id_getter();
 
 private:
 
 	GalaxyGenerate();
 	static GalaxyGenerate* instance;
 	int galaxy_id;
+	int planet_id;
 	//ObjectFactory objfactory;
 	//GalaxyScene* myscene;
 

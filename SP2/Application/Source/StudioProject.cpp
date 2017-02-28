@@ -724,12 +724,12 @@ void StudioProject::Render()
 	}
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(-500, 2000, 500);
-	modelStack.Scale(30, 30, 30);
-	modelStack.Rotate(180, 0, 1, 0);
-	RenderMesh(meshList[GEO_SPACE_STATION], true);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(-500, 2000, 500);
+	//modelStack.Scale(30, 30, 30);
+	//modelStack.Rotate(180, 0, 1, 0);
+	//RenderMesh(meshList[GEO_SPACE_STATION], true);
+	//modelStack.PopMatrix();
 
 	for (auto &i : hostiles)
 	{

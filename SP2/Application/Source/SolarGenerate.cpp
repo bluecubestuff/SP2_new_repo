@@ -9,7 +9,7 @@ SolarGenerate::SolarGenerate(SystemScene* scene) : myscene(scene)
 {
 	objfactory = new ObjectFactory(scene);
 	number_of_planets = 0;
-	this->planetID = GalaxyGenerate::get_instance()->galaxy_id_getter();
+	this->SolarSystemID = GalaxyGenerate::get_instance()->galaxy_id_getter();
 }
 
 SolarGenerate::~SolarGenerate()
@@ -19,7 +19,7 @@ SolarGenerate::~SolarGenerate()
 
 void SolarGenerate::Init()
 {
-	if (GalaxyGenerate::get_instance()->system_database.size() <= 49)
+	if (GalaxyGenerate::get_instance()->system_database.size() <= 49) //check (should be redudant)
 	{
 		float ar, pr;
 		number_of_planets = Math::RandIntMinMax(1, 3);
@@ -59,8 +59,8 @@ void SolarGenerate::Init()
 
 void SolarGenerate::save_init()
 {
-	this->planetID = GalaxyGenerate::get_instance()->galaxy_id_getter();
-	GalaxyGenerate::get_instance()->system_database[planetID] = this;
+	this->SolarSystemID = GalaxyGenerate::get_instance()->galaxy_id_getter();	//set the id of system
+	GalaxyGenerate::get_instance()->system_database[SolarSystemID] = this;		//set this system into the database
 
 	//GalaxyGenerate::get_instance()->object_database[planetID] = this->objfactory;
 	//std::cout << "planetID: "<< planetID << "\n";
@@ -72,8 +72,8 @@ void SolarGenerate::save_init()
 
 void SolarGenerate::build_system(float aRotate,float pRotate)
 {
-	this->planetID = GalaxyGenerate::get_instance()->galaxy_id_getter();
-	GalaxyGenerate::get_instance()->system_database[planetID]->objfactory->renderSystemObjects(aRotate,pRotate);
+	this->SolarSystemID = GalaxyGenerate::get_instance()->galaxy_id_getter();											//back_up
+	GalaxyGenerate::get_instance()->system_database[SolarSystemID]->objfactory->renderSystemObjects(aRotate, pRotate);	//generate that id of the system
 
 	//std::cout << "da num: " << GalaxyGenerate::get_instance()->system_database[planetID]->planet_storage.size() << "\n";
 	//objfactory->renderSystemObjects(aRotate, pRotate);
@@ -92,5 +92,5 @@ vector<ObjectRender*> SolarGenerate::planet_storage_getter()
 
 int SolarGenerate::planetID_getter()
 {
-	return planetID;
+	return SolarSystemID;
 }

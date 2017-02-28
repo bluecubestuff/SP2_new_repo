@@ -3,6 +3,7 @@
 
 #include "ObjectRender.h"
 #include "ObjectFactory.h"
+#include "LandGenerate.h"
 
 #include <vector>
 #include <map>
@@ -24,14 +25,15 @@ public:
 	vector<ObjectRender*> planet_storage_getter();
 
 	int planet_type;
+	map<int, vector<LandGenerate*>> land_database;	//store the land_data;
 
 private:
 
-	int planetID;
+	int SolarSystemID;
 	//int planet_type = 0;
 
-	vector<ObjectRender*> planet_storage; //store the objects in solar system 
-
+	vector<ObjectRender*> planet_storage;			//store the objects in solar system 
+	
 	int number_of_planets;
 	SystemScene* myscene;
 	ObjectFactory* objfactory;

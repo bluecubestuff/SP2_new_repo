@@ -384,7 +384,7 @@ void StationScene::Update(double dt)
 	Player->Update(dt);
 	//std::cout << Player->Position << std::endl;
 	//colManager->CollisionChecker(gen, camera);
-
+	pos = std::to_string(Player->Position.x) + " : " + std::to_string(Player->Position.y) + " : " + std::to_string(Player->Position.z);
 }
 
 void StationScene::Render()
@@ -486,6 +486,8 @@ void StationScene::Render()
 	RenderMesh(meshList[GEO_SPACE_STATION], true);
 	modelStack.PopMatrix();
 
+	RenderTextOnScreen(meshList[GEO_TEXT], pos, Color(1, 0, 0), 30, 0, 894);
+
 }
 
 void StationScene::RenderMesh(Mesh *mesh, bool enableLight)
@@ -575,15 +577,15 @@ void StationScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color,
 	glDisable(GL_DEPTH_TEST);
 
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 1600, 0, 900, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Scale(size, size, size);
 	modelStack.Translate(x, y, 0);
+	modelStack.Scale(size, size, size);
 
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);

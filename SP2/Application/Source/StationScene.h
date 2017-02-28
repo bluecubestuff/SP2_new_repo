@@ -17,6 +17,7 @@
 #include "SceneManager.h"
 #include "LandFPSCamera.h"
 #include "landPlayer.h"
+#include "Func_AABB.h"
 
 #include <string>
 #include <vector>
@@ -197,7 +198,9 @@ private:
 	Func_AABB* checker;
 
 	LandPlayer* Player;
+	Func_AABB* mainGate;
 
+	std::string pos;
 	//Camera2 camera;
 	//Camera3 camera;
 };

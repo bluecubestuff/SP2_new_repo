@@ -16,7 +16,8 @@
 //#include "LandGenerate.h"
 #include <iostream>
 
-Vector3 planeting(0, 2000, 2000);
+Vector3 planeting(0, 2000, 1500);
+Vector3 stationing(-500, 2000, 500);
 float rotatePlanet = 0;
 
 StudioProject::StudioProject()
@@ -190,6 +191,11 @@ void StudioProject::Init()
 
 	meshList[GEO_BLUEPLANET] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//Sphere.OBJ");
 	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
+
+	meshList[GEO_EXPLOSION] = MeshBuilder::GenerateOBJ("EXPLOSIONNN", "OBJ//Sphere.OBJ");
+	meshList[GEO_EXPLOSION]->textureID = LoadTGA("Image//EXPLOSIONNN.tga");
+
+	meshList[GEO_SPACE_STATION] = MeshBuilder::GenerateOBJ("Station", "OBJ//SpaceStation.OBJ");
 
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
 
@@ -495,7 +501,9 @@ void StudioProject::Update(double dt)
 		{
 			//EnemyShip* dadad = hostiles[i];
 			hostiles[i]->deaded = true;
+			Explode = new Explosion(hostiles[i]->getter("position"));
 			hostiles.erase(hostiles.begin() + i);
+			explosions.push_back(Explode);
 			i = 0;
 		}
 		//std::cout << "S: " << hostiles[i]->getSP() << " H: " << hostiles[i]->getHP() << std::endl;
@@ -539,9 +547,27 @@ void StudioProject::Update(double dt)
 		}
 	}
 
-	if ((planeting - Player->getter("position")).Length() < 800)
+	for (int i = 0; i < explosions.size(); i++)
+	{
+		explosions[i]->Update(dt);
+		if (explosions[i]->getDone())
+		{
+			Explosion* temp = explosions[i];
+			explosions.erase(explosions.begin() + i);
+			delete temp;
+			i = 0;
+		}
+	}
+
+	if ((planeting - Player->getter("position")).Length() < 500)
 	{
 		SceneManager::get_instance()->SceneSelect(3);
+	}
+
+	if ((stationing - Player->getter("position")).Length() < 500)
+	{
+		SceneManager::get_instance()->SceneSelect(6);
+		//std::cout << "stationingly" << std::endl;
 	}
 
 	rotatePlanet += dt;
@@ -679,6 +705,31 @@ void StudioProject::Render()
 	modelStack.LoadMatrix(waypoint);
 	RenderMesh(meshList[GEO_WAYPOINT], true);
 	modelStack.PopMatrix();
+	//generate the planet to land on
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2000, 1500);
+	modelStack.Scale(500, 500, 500);
+	modelStack.Rotate(rotatePlanet, 0, 1, 0);
+	switch (SystemScene::planet)
+	{
+	case 1:
+		RenderMesh(meshList[GEO_GREENPLANET], true);
+		break;
+	case 2:
+		RenderMesh(meshList[GEO_DESERTPLANET], true);
+		break;
+	case 3:
+		RenderMesh(meshList[GEO_BLUEPLANET], true);
+		break;
+	}
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-500, 2000, 500);
+	modelStack.Scale(30, 30, 30);
+	modelStack.Rotate(180, 0, 1, 0);
+	RenderMesh(meshList[GEO_SPACE_STATION], true);
+	modelStack.PopMatrix();
 
 	for (auto &i : hostiles)
 	{
@@ -719,31 +770,22 @@ void StudioProject::Render()
 		modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
 		RenderMesh(meshList[GEO_CUBE2], false);
 		modelStack.PopMatrix();
-		
+
 		modelStack.PopMatrix();
 	}
-	//generate the planet to land on
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 2000, 2000);
-	modelStack.Scale(500, 500, 500);
-	modelStack.Rotate(rotatePlanet, 0, 1, 0);
-	switch (SystemScene::planet)
+
+	for (auto &i : explosions)
 	{
-	case 1:
-		RenderMesh(meshList[GEO_GREENPLANET], true);
-		break;
-	case 2:
-		RenderMesh(meshList[GEO_DESERTPLANET], true);
-		break;
-	case 3:
-		RenderMesh(meshList[GEO_BLUEPLANET], true);
-		break;
+		modelStack.PushMatrix();
+		modelStack.Translate(i->getPos().x, i->getPos().y, i->getPos().z);
+		modelStack.Scale(i->getScale(), i->getScale(), i->getScale());
+		RenderMesh(meshList[GEO_EXPLOSION], false);
+		modelStack.PopMatrix();
 	}
-	modelStack.PopMatrix();
-	if (SystemScene::planet > 0)
-	{
-		std::cout << SystemScene::planet << std::endl;
-	}
+	//if (SystemScene::planet > 0)
+	//{
+	//	std::cout << SystemScene::planet << std::endl;
+	//}
 	//gen->BuildLand();
 	if (Player->firstThird)
 	{

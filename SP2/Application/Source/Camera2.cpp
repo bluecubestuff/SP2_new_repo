@@ -50,6 +50,22 @@ void Camera2::Update(double dt, bool freeCam, Vector3 f, Vector3 r, Vector3 u, V
 	if (freeCam)
 	{
 		curMousePos = mouse->mouseMovement();
+		if (Application::IsKeyPressed('D'))		//roll right
+		{
+			float rollSpeed = 30 * (float)dt;
+			Mtx44 roll;
+			roll.SetToRotation(rollSpeed, f.x, f.y, f.z);
+			up = roll * up;
+			camRight = roll * camRight;
+		}
+		else if (Application::IsKeyPressed('A'))		//roll left
+		{
+			float rollSpeed = -30 * (float)dt;
+			Mtx44 roll;
+			roll.SetToRotation(rollSpeed, f.x, f.y, f.z);
+			up = roll * up;
+			camRight = roll * camRight;
+		}
 		if (curMousePos.x > 0 && yawLimit < 70.f)
 		{
 			float yawSpeed = curMousePos.x * (float)dt * CAMERA_SPEED;

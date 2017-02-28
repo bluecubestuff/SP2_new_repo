@@ -81,6 +81,12 @@
     <Filter Include="Source Files\Module">
       <UniqueIdentifier>{7b0440bc-12c0-457b-97a4-a786188aed3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Minerals">
+      <UniqueIdentifier>{f4d9a122-dae1-4b1f-a6d7-267f0d7b5b52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Minerals">
+      <UniqueIdentifier>{f86d8176-33c5-4c36-9517-40abcc0fc579}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -133,9 +139,6 @@
     </ClCompile>
     <ClCompile Include="Source\SceneManager.cpp">
       <Filter>Source Files\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Mithril.cpp">
-      <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Rock.cpp">
       <Filter>Source Files\Objects</Filter>
@@ -206,6 +209,21 @@
     <ClCompile Include="Source\Hull.cpp">
       <Filter>Source Files\Module</Filter>
     </ClCompile>
+    <ClCompile Include="Source\InventoryCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mithril.cpp">
+      <Filter>Source Files\Objects\Minerals</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bismuth.cpp">
+      <Filter>Source Files\Objects\Minerals</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Titanium.cpp">
+      <Filter>Source Files\Objects\Minerals</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Iron.cpp">
+      <Filter>Source Files\Objects\Minerals</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -272,9 +290,6 @@
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Rock.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Mithril.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\Tree.h">
@@ -348,6 +363,21 @@
     </ClInclude>
     <ClInclude Include="Source\Module.h">
       <Filter>Header Files\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InventoryCamera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mithril.h">
+      <Filter>Header Files\Object\Minerals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bismuth.h">
+      <Filter>Header Files\Object\Minerals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Iron.h">
+      <Filter>Header Files\Object\Minerals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Titanium.h">
+      <Filter>Header Files\Object\Minerals</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

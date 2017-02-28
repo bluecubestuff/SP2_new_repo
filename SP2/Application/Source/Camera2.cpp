@@ -95,7 +95,7 @@ void Camera2::Update(double dt, bool freeCam, Vector3 f, Vector3 r, Vector3 u, V
 		up = u;
 		camRight = r;
 	}
-
+	//std::cout << curMousePos.x << ',' << curMousePos.y << std::endl;
 	curMousePos.x = 0;
 	curMousePos.y = 0;
 }

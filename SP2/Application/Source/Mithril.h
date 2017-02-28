@@ -6,6 +6,7 @@
 #include "ObjectRender.h"
 #include "Application.h"
 #include "Func_AABB.h"
+#include "ship.h"
 
 #include <string>
 using std::string;
@@ -17,10 +18,11 @@ public:
 	~Mithril(){};
 
 	AABB* Mithril_box;
-
 	virtual void interact();
 
 private:
 	Func_AABB *aabb;
+	Ship *ship;
+	StudioProject *myscene;
 };
 #endif

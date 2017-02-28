@@ -21,7 +21,9 @@
 
 #include <string>
 #include <vector>
+
 using std::vector;
+using std::to_string;
 
 //struct TAABB
 //{
@@ -33,7 +35,10 @@ class StudioProject : public Scene
 {
 	friend class Rock;
 	friend class Tree;
+	friend class Iron;
+	friend class Titanium;
 	friend class Mithril;
+	friend class Bismuth;
 	friend class NPC;
 	friend class Building;
 	friend class ObjectRender;
@@ -62,7 +67,10 @@ class StudioProject : public Scene
 
 		//objects
 		GEO_ROCK,
+		GEO_IRON,
+		GEO_TITANIUM,
 		GEO_MITHRIL,
+		GEO_BISMUTH,
 		GEO_TREE,
 		GEO_GOAT,
 		GEO_NPC,
@@ -73,6 +81,13 @@ class StudioProject : public Scene
 
 		//text
 		GEO_TEXT,
+
+		//Mesh on Screen
+		GEO_INVENTORY_BUTTON,
+		GEO_INVENTORY_SCREEN,
+		GEO_INVENTORY_SLOT,
+		GEO_HEALTH_BAR,
+		GEO_MP_BAR,
 
 		NUM_GEOMETRY,
 	};
@@ -141,6 +156,13 @@ private:
 	unsigned m_parameters[U_TOTAL];
 
 	bool bEnableLight = true;
+	bool inventorystate;
+	float inventoryscreen;
+	float _dt;
+	int IronValue = 1;
+	int TitaniumValue = 1;
+	int MithrilValue = 1;
+	int BismuthValue = 1;
 
 	Light light[1];
 
@@ -148,9 +170,10 @@ private:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderUI(Mesh* mesh, float x, float y, float sizex, float sizey);
-
 	void RenderSkybox();
-
+	void RenderInventory();
+	void DisplayInventory();
+	void DisplayUI();
 
 	char mapArray[100][100];
 	
@@ -165,6 +188,7 @@ private:
 	vector<Missile*> missiles;
 
 	ObjectFactory objfactory;
+	Mouse mice;
 
 	//Camera2 camera;
 	//Camera3 camera;

@@ -13,12 +13,14 @@
 #include "StartScene.h"
 #include "MainMenuScene.h"
 
+#include "GalaxyGenerate.h"
 //static const unsigned char FPS = 60; // FPS of this game
 //static const unsigned int frameTime = 1000 / FPS; // time for each frame
 
 GLFWwindow* Application::m_window = NULL;
 StopWatch Application::m_timer;
 SceneManager * SceneManager::only_instance = 0;
+GalaxyGenerate* GalaxyGenerate::instance = 0;
 
 //Define an error callback
 static void error_callback(int error, const char* description)

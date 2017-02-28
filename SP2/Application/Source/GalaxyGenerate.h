@@ -12,23 +12,29 @@ using std::map;
 class GalaxyGenerate
 {
 public:
-	GalaxyGenerate(GalaxyScene*);
+
 	~GalaxyGenerate();
-	
-	void galaxyInIt();
-	void build_galaxy();
+
+	static GalaxyGenerate* get_instance();
+
+	void galaxy_save_selection(int);
 	void galaxyUpdate();
-	map<unsigned, SolarGenerate*> system_database_getter();
+
+	int galaxy_id_getter();
+
+	map<unsigned, SolarGenerate*> system_database;
+	map<int, ObjectFactory*> object_database;
 
 private:
 
+	GalaxyGenerate();
+	static GalaxyGenerate* instance;
+	int galaxy_id;
+	//ObjectFactory objfactory;
+	//GalaxyScene* myscene;
 
+	//SolarGenerate* galaxy_map[7][7];
 
-	ObjectFactory objfactory;
-	GalaxyScene* myscene;
-
-	SolarGenerate* galaxy_map[7][7];
-	map<unsigned, SolarGenerate*> system_database;
 };
 
 #endif

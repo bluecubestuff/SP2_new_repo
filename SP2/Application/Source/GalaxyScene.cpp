@@ -216,12 +216,16 @@ void GalaxyScene::Init()
 	srand((unsigned)(time(NULL)));
 	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
 	Player = new SystemTravelShip;
-	//galaxy_gen = new GalaxyGenerate(this);
+
 	rotate = 0.f;
-	isPointingToSystem = false;
-	move_along_x = 0;
-	move_along_y = 0;
-	//galaxy_gen->galaxyInIt();
+	isPointingToSystem = false;		//check if it is above planet
+	move_along_x = 0;				//movement of compass along x
+	move_along_y = 0;				//movement of compass along y
+
+	//if (GalaxyGenerate::get_instance()->object_database.size() > 0)
+	//{
+	//	GalaxyGenerate::get_instance()->object_database[0]->objContainer.size();
+	//}
 }
 
 static float ROT_LIMIT = 45.f;
@@ -279,8 +283,7 @@ void GalaxyScene::Update(double dt)
 	Player->Update(dt);
 	rotate += dt;
 
-	std::cout << camera.position << "\n";
-
+	//movement of compass
 	if (Application::IsKeyPressed(VK_RIGHT))
 	{
 		move_along_x += 3;
@@ -369,60 +372,11 @@ void GalaxyScene::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-	RenderSkybox();
-
-	//=================================================================================================
-	/*modelStack.PushMatrix();
-	modelStack.Translate(light[0].LightPosition.x, light[0].LightPosition.y, light[0].LightPosition.z);
-	RenderMesh(meshList[GEO_LIGHTBALL], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[1].LightPosition.x, light[1].LightPosition.y, light[1].LightPosition.z);
-	RenderMesh(meshList[GEO_LIGHTBALL], false);
-	modelStack.PopMatrix();*/
-	//===================================================================================================
-
-	/*modelStack.PushMatrix();
-	modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
-	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
-	RenderMesh(meshList[GEO_AXES], false);
-	modelStack.PopMatrix();*/
-
-
-	//modelStack.PushMatrix();	//push sun
-	//modelStack.Translate(1000, 6000, 1000);
-	//modelStack.Rotate(90, 1, 0, 0);
-	//
-	//modelStack.PushMatrix();	//push player_ship
-	//modelStack.Translate(Player->position.x, Player->position.y, Player->position.z);
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Rotate(Player->rotate, 0, 1, 0);
-	//modelStack.Scale(50, 50, 50);
-	//RenderMesh(meshList[GEO_PLAYER_SHIP], false);
-	//modelStack.PopMatrix();		//end player_ship
-
-	//modelStack.PushMatrix();	//push star
-	//modelStack.Translate(-6000, 0, 0);
-	//modelStack.Scale(250, 250, 250);
-	//RenderMesh(meshList[GEO_SUN], false);
-	//modelStack.PopMatrix();		//end star
-
-	//modelStack.Scale(250, 250, 250);
-	//RenderMesh(meshList[GEO_SUN], false);
-	//modelStack.PopMatrix();		//end sun
-
-
-
-	//if (system_collision->isAbovePlanet)
-	//{
-	//	//std::cout << "in box" << "\n";
-	//	modelStack.PushMatrix();
-	//	RenderTextOnScreen(meshList[GEO_TEXT], "Enter planet?[E]", Color(0, 1, 0), 2, 1, 2);
-	//	modelStack.PopMatrix();
-	//}                                                                            
+	RenderSkybox();                                                                          
 
 	RenderUI(meshList[GEO_GRID], 10 + move_along_x, 10 + move_along_y, 45, 40);		//7 by 7 grid
+
+	int counter = 0;
 
 	for (int y = 0; y < 7; y++)
 	{
@@ -433,15 +387,21 @@ void GalaxyScene::Render()
 			{
 				x_pos = std::to_string(x);
 				y_pos = std::to_string(y);
-				std::cout << "X: " << x << "Y: " << y << "\n";
+
 				RenderTextOnScreen(meshList[GEO_TEXT], "Enter this solar system?[E]" + x_pos + y_pos, Color(0, 1, 0), 2, 1, 2);
+
 				if (Application::IsKeyPressed('E'))
 				{
+					GalaxyGenerate::get_instance()->galaxy_save_selection(counter);
 					SceneManager::get_instance()->SceneSelect(4);
 				}
 			}
+			counter++;
 		}
 	}
+
+	counter = 0;
+
 }
 
 void GalaxyScene::RenderMesh(Mesh *mesh, bool enableLight)
@@ -584,6 +544,7 @@ void GalaxyScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float size
 	//scale and translate accordingly
 	modelStack.Translate(x, y, 0);
 	modelStack.Scale(sizex, sizey, 1);
+	//modelStack.Rotate(rotate, 0, 0, 1);
 	RenderMesh(mesh, false); //UI should not have light
 
 	projectionStack.PopMatrix();

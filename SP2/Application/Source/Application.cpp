@@ -11,6 +11,7 @@
 #include "SystemScene.h"
 #include "GalaxyScene.h"
 #include "StartScene.h"
+#include "StationScene.h"
 #include "MainMenuScene.h"
 
 #include "GalaxyGenerate.h"
@@ -128,6 +129,7 @@ void Application::createScene() //adding new scene
 	Scene *LandScene = new PlanetScene();			//3
 	Scene *SolarScene = new SystemScene();			//4
 	Scene *GalaticScene = new GalaxyScene();		//5
+	Scene *stationScene = new StationScene();		//6
 
 	SceneManager::get_instance()->AddScene(startScene);
 	SceneManager::get_instance()->AddScene(MenuScene);
@@ -135,6 +137,7 @@ void Application::createScene() //adding new scene
 	SceneManager::get_instance()->AddScene(LandScene);
 	SceneManager::get_instance()->AddScene(SolarScene);
 	SceneManager::get_instance()->AddScene(GalaticScene);
+	SceneManager::get_instance()->AddScene(stationScene);
 }
 
 void Application::Exit()

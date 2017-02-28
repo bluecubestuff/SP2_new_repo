@@ -4,9 +4,9 @@ static float l = 0;
 
 PlayerShip::PlayerShip()
 {
-	this->Forward = Vector3(0, 0, 1);
+	this->Forward = Vector3(-1, 0, 0);
 	this->Up = Vector3(0, 1, 0);
-	this->Right = Vector3(1, 0, 0);
+	this->Right = Vector3(0, 0, 1);
 	this->Position = Vector3(1000, 2000, 1000);
 	this->Inertia = Vector3(0, 0, 0);
 	this->Speed = 0;

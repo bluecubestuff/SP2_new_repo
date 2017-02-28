@@ -21,6 +21,7 @@
 #include "Bullet.h"
 #include "SystemScene.h"
 #include "SceneManager.h"
+#include "Explosion.h"
 
 #include <string>
 #include <vector>
@@ -56,7 +57,10 @@ class StudioProject : public Scene
 		GEO_SPHERE,
 		GEO_LIGHTBALL,
 		GEO_CYLINDER,
+		
+		//effects
 		GEO_BULLET,
+		GEO_EXPLOSION,
 
 		//skybox
 		GEO_LEFT,
@@ -73,6 +77,7 @@ class StudioProject : public Scene
 		GEO_GOAT,
 		GEO_NPC,
 		GEO_BUILDING,
+		GEO_SPACE_STATION,
 
 		//Planet
 		GEO_DESERTPLANET,
@@ -172,6 +177,7 @@ private:
 
 	PlayerShip* Player;
 	EnemyShip* Enemy;
+	Explosion* Explode;
 
 	vector<EnemyShip*> hostiles;
 
@@ -179,6 +185,8 @@ private:
 
 	vector<Bullet*> bullets;
 	vector<Bullet*> enemyBullets;
+
+	vector<Explosion*> explosions;
 
 	LandGenerate* gen;
 

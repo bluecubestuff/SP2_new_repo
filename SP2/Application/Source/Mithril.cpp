@@ -9,26 +9,34 @@ Mithril::Mithril(StudioProject* scene, Vector3 pos, float size) : ObjectRender(s
 }
 Mithril::Mithril(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(scene, pos, size)
 {
+	myscene = scene;
 	aabb = new Func_AABB;
 	type = PlanetScene::GEO_MITHRIL;
-	aabb->setAABB_Static_Objects(pos, size, size, size);
+	aabb->setAABB_Static_Objects(pos, size + 2, size + 5, size + 2);
 	Mithril_box = aabb->getAABB();
 }
 void Mithril::interact()
 {
-	float x = ((ship->getter("position")).x - position.x);
-	float y = ((ship->getter("position")).y - position.y);
-	float z = 5.0f;
-
-	if ( x < 10.0 && y < 10.0 && Application::IsKeyPressed('Z'))
+	/*unsigned textEnum = PlanetScene::GEO_TEXT;
+	myscene->RenderTextOnScreen(myscene->meshList[textEnum], "Mine Mithril [E]", Color(0, 1, 0), 2, 1, 4);*/
+	if (Application::IsKeyPressed('E'))
 	{
-		scale -= (z * myscene->_dt);
-		if (scale < 1)
-		{
-			position.y += -500;
-			myscene->MithrilValue += 1;
-		}
+		Currency::get_instance()->add_playerCurrency(6);
+		type = PlanetScene::GEO_ROCK;
 	}
+	//float x = ((ship->getter("position")).x - position.x);
+	//float y = ((ship->getter("position")).y - position.y);
+	//float z = 5.0f;
+
+	//if ( x < 10.0 && y < 10.0 && Application::IsKeyPressed('Z'))
+	//{
+	//	scale -= (z * myscene->_dt);
+	//	if (scale < 1)
+	//	{
+	//		position.y += -500;
+	//		myscene->MithrilValue += 1;
+	//	}
+	//}
 }
 
 AABB Mithril::get_obj_AABB()

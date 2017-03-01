@@ -3,6 +3,11 @@
 #include "MyMath.h"
 #include "Rock.h"
 #include "Tree.h"
+#include "Mithril.h"
+#include "Bismuth.h"
+#include "Titanium.h"
+#include "Iron.h"
+
 #include <iostream>
 
 LandGenerate::LandGenerate(StudioProject* scene) : myscene(scene), objectfactory(scene) 
@@ -73,25 +78,49 @@ void LandGenerate::landInIt()
 		{
 			for (int x = 0; x < 5; x++)				//loops the grid in grid x
 			{
-				int numOfObject = Math::RandIntMinMax(10, 20);  //num of obj
+				int numOfObject = Math::RandIntMinMax(20, 30);  //num of obj
 				for (int i = 0; i < numOfObject; i++)
 				{
 					tempPos.x = Math::RandIntMinMax((x * 500) + 10, ((x + 1) * 500) - 10);
 					tempPos.z = Math::RandIntMinMax((z * 500) + 10, ((z + 1) * 500) - 10);
-					int objType = Math::RandIntMinMax(1, 2); //selecting the type of obj
+					int objType = Math::RandIntMinMax(1, 29); //selecting the type of obj
 
 					//=== selection of type ===================================================
-					if (objType == 1)
+					if (objType >= 1 && objType <= 5)
 					{
 						Rock* rock = new Rock(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
 						obj_data_at_box[count].push_back(rock);
 						objectfactory.createObject(rock);
 					}
-					else if (objType == 2)
+					else if (objType > 5 && objType <= 13)
 					{
 						Tree* tree = new Tree(planet_scene, Vector3(tempPos.x, -3, tempPos.z), 3);
 						obj_data_at_box[count].push_back(tree);
 						objectfactory.createObject(tree);
+					}
+					else if (objType > 13 && objType <= 18)
+					{
+						Mithril* mithril = new Mithril(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
+						obj_data_at_box[count].push_back(mithril);
+						objectfactory.createObject(mithril);
+					}
+					else if (objType > 18 && objType <= 24)
+					{
+						Iron* iron = new Iron(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
+						obj_data_at_box[count].push_back(iron);
+						objectfactory.createObject(iron);
+					}
+					else if (objType > 24 && objType <= 27)
+					{
+						Titanium* titanium = new Titanium(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
+						obj_data_at_box[count].push_back(titanium);
+						objectfactory.createObject(titanium);
+					}
+					else if (objType > 27 && objType <= 29)
+					{
+						Bismuth* bismuth = new Bismuth(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
+						obj_data_at_box[count].push_back(bismuth);
+						objectfactory.createObject(bismuth);
 					}
 					//========================================================================
 				}

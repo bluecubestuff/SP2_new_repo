@@ -40,6 +40,10 @@ class PlanetScene : public Scene
 	friend class NPC;
 	friend class Building;
 	friend class ObjectRender;
+	friend class Bismuth;
+	friend class Iron;
+	friend class Mithril;
+	friend class Titanium;
 
 	enum GEOMETRY_TYPE
 	{
@@ -66,6 +70,9 @@ class PlanetScene : public Scene
 		//objects
 		GEO_ROCK,
 		GEO_MITHRIL,
+		GEO_TITANIUM,
+		GEO_IRON,
+		GEO_BISMUTH,
 		GEO_TREE,
 		GEO_GOAT,
 		GEO_NPC,

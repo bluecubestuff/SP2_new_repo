@@ -2,6 +2,7 @@
 #define _BISMUTH_H
 
 #include "StudioProject.h"
+#include "PlanetScene.h"
 #include "Vector3.h"
 #include "ObjectRender.h"
 #include "Application.h"
@@ -15,13 +16,17 @@ class Bismuth : public ObjectRender
 {
 public:
 	Bismuth(StudioProject* scene, Vector3 pos, float size);
+	Bismuth(PlanetScene* scene, Vector3 pos, float size);
 	~Bismuth(){};
 
-	AABB* Bismuth_box;
+	AABB Bismuth_box;
 	virtual void interact();
+	virtual AABB get_obj_AABB();
+
 private:
 	Func_AABB *aabb;
-	Ship *ship;
-	StudioProject *myscene;
+	//Ship *ship;
+	//StudioProject *myscene;
+	PlanetScene* myscene;
 };
 #endif

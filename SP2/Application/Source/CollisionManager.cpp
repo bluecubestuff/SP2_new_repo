@@ -41,7 +41,7 @@ void CollisionManager::CollisionChecker(LandGenerate* landGen, LandPlayer* Playe
 		Player->getCam()->cForward = collision_aabb->pointInAABB(Player->getCam()->pFront, landGen->obj_data_at_box[ID][i]->get_obj_AABB());
 		if (Player->getCam()->cForward)
 		{
-			//landGen->obj_data_at_box[ID][i]->interact();//interact with obj
+			landGen->obj_data_at_box[ID][i]->interact();//interact with obj
 			break;
 		}
 		Player->getCam()->cBack = collision_aabb->pointInAABB(Player->getCam()->pBack, landGen->obj_data_at_box[ID][i]->get_obj_AABB());

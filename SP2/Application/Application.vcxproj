@@ -96,6 +96,7 @@
     <ClCompile Include="Source\Currency.cpp" />
     <ClCompile Include="Source\DeathScene.cpp" />
     <ClCompile Include="Source\DesertPlanet.cpp" />
+    <ClCompile Include="Source\enemyBullet.cpp" />
     <ClCompile Include="Source\Explosion.cpp" />
     <ClCompile Include="Source\GalaxyScene.cpp" />
     <ClCompile Include="Source\landEnemy.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="Source\ObjectFactory.cpp" />
     <ClCompile Include="Source\ObjectRender.cpp" />
     <ClCompile Include="Source\PlanetScene.cpp" />
+    <ClCompile Include="Source\playerBullet.cpp" />
     <ClCompile Include="Source\playerShip.cpp" />
     <ClCompile Include="Source\PowerPlant.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
@@ -165,6 +167,7 @@
     <ClInclude Include="Source\DeathScene.h" />
     <ClInclude Include="Source\DesertPlanet.h" />
     <ClInclude Include="Source\DetectMemoryLeak.h" />
+    <ClInclude Include="Source\enemyBullet.h" />
     <ClInclude Include="Source\Explosion.h" />
     <ClInclude Include="Source\GalaxyScene.h" />
     <ClInclude Include="Source\landEnemy.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="Source\ObjectFactory.h" />
     <ClInclude Include="Source\ObjectRender.h" />
     <ClInclude Include="Source\PlanetScene.h" />
+    <ClInclude Include="Source\playerBullet.h" />
     <ClInclude Include="Source\playerShip.h" />
     <ClInclude Include="Source\PowerPlant.h" />
     <ClInclude Include="Source\Projectile.h" />

@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 #include <iostream>
-SceneManager::SceneManager() : currSceneID(0), nextSceneID(0) {}	//constructor
+SceneManager::SceneManager() : currSceneID(0), nextSceneID(0), prevSceneID(0) {}	//constructor
 
 SceneManager::~SceneManager()										//destructor	
 {
@@ -86,4 +86,14 @@ void SceneManager::SceneSelect(unsigned num)
 		currSceneID = num;
 		sceneStorage[currSceneID]->Init();
 	}
+}
+
+void SceneManager::setPrevSceneID(int prevID)
+{
+	prevSceneID = prevID;
+}
+
+int SceneManager::getPrevSceneID()
+{
+	return prevSceneID;
 }

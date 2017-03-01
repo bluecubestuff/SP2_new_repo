@@ -599,6 +599,7 @@ void StudioProject::Update(double dt)
 	//placeholder
 	if (Player->getHP() <= 0)
 	{
+		SceneManager::get_instance()->setPrevSceneID(2);
 		SceneManager::get_instance()->SceneSelect(7);
 	}
 

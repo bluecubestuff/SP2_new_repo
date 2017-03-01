@@ -182,6 +182,7 @@ void DeathScene::Init()
 	projectionStack.LoadMatrix(projection);
 
 	camera.Init(Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(0, 1, 0));
+	arrowPos.Set(720, 540, 0);
 
 }
 
@@ -235,6 +236,27 @@ void DeathScene::Update(double dt)
 		light[0].type = Light::LIGHT_SPOT;
 		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
+
+	if (Application::IsKeyPressed(VK_DOWN))
+	{
+		arrowPos.Set(720, 360, 0);
+	}
+	else if (Application::IsKeyPressed(VK_UP))
+	{
+		arrowPos.Set(720, 540, 0);
+	}
+
+	if (Application::IsKeyPressed(VK_RETURN))
+	{
+		if (arrowPos.x == 720 && arrowPos.y == 540)
+		{
+			SceneManager::get_instance()->SceneSelect(SceneManager::get_instance()->getPrevSceneID());
+		}
+		else if (arrowPos.x == 720 && arrowPos.y == 360)
+		{
+			SceneManager::get_instance()->SceneSelect(1); //return to menu screen
+		}
+	}
 	//================================================================================
 	//--------------------------------------------------------------------------------
 	//camera.Update(dt);
@@ -287,7 +309,7 @@ void DeathScene::Render()
 
 	RenderUI(meshList[GEO_DEATHSCREEN], 800, 450, 1000, 1000);
 
-	RenderTextOnScreen(meshList[GEO_TEXT], ">" ,Color(1,1,1), 200, 720, 540);
+	RenderTextOnScreen(meshList[GEO_TEXT], ">", Color(1, 1, 1), 200, arrowPos.x, arrowPos.y);
 }
 
 void DeathScene::RenderMesh(Mesh *mesh, bool enableLight)

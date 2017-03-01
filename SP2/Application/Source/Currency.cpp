@@ -1,6 +1,6 @@
 #include "Currency.h"
 
-Currency::Currency () : value(0) {}
+Currency::Currency() : value(0), playerCurrency(0){}
 
 Currency::~Currency() {}
 
@@ -26,4 +26,14 @@ void Currency::value_setter(int sValue)
 void Currency::value_adder(int v)
 {
 	value += v;
+}
+
+void Currency::add_playerCurrency(int playerCurr)
+{
+	playerCurrency += playerCurr;
+}
+
+int Currency::playerCurrency_getter()
+{
+	return playerCurrency;
 }

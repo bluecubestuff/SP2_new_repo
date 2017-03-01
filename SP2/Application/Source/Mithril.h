@@ -26,7 +26,8 @@ public:
 
 private:
 	Func_AABB *aabb;
-	Ship *ship;
-	StudioProject *myscene;
+	//Ship *ship;
+	//StudioProject *myscene;
+	PlanetScene* myscene;
 };
 #endif

@@ -116,6 +116,7 @@ private:
 	void RenderSkybox();
 	char mapArray[100][100];
 
+	Vector3 arrowPos;
 
 	Camera camera;
 	//Camera2 camera;

@@ -2,6 +2,7 @@
 #define _IRON_H
 
 #include "StudioProject.h"
+#include "PlanetScene.h"
 #include "Vector3.h"
 #include "ObjectRender.h"
 #include "Application.h"
@@ -15,14 +16,17 @@ class Iron : public ObjectRender
 {
 public:
 	Iron(StudioProject* scene, Vector3 pos, float size);
+	Iron(PlanetScene* scene, Vector3 pos, float size);
 	~Iron(){};
 
-	AABB* Iron_box;
+	AABB Iron_box;
 	virtual void interact();
+	virtual AABB get_obj_AABB();
 
 private:
 	Func_AABB *aabb;
-	Ship *ship;
-	StudioProject *myscene;
+	//Ship *ship;
+	//StudioProject *myscene;
+	PlanetScene* myscene;
 };
 #endif

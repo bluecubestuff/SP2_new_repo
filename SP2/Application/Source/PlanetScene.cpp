@@ -9,7 +9,7 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "SceneManager.h"
-
+#include "Currency.h"
 //#include "LandGenerate.h"
 #include <iostream>
 
@@ -148,12 +148,24 @@ void PlanetScene::Init()
 	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//tree.OBJ");
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
-	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+
+	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("rock", "OBJ//rock.obj");
 
 	meshList[GEO_ENEMY] = MeshBuilder::GenerateCube("enemy", Color(1, 0, 0));
 
 	meshList[GEO_GOATGOAT] = MeshBuilder::GenerateOBJ("goat", "OBJ//goat_easter_egg.obj");
 
+	meshList[GEO_IRON] = MeshBuilder::GenerateOBJ("iron", "OBJ//rock.obj");
+	meshList[GEO_IRON]->textureID = LoadTGA("Image//IronTexture.tga");
+
+	meshList[GEO_MITHRIL] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+	meshList[GEO_MITHRIL]->textureID = LoadTGA("Image//MithrilTexture.tga");
+
+	meshList[GEO_TITANIUM] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+	meshList[GEO_TITANIUM]->textureID = LoadTGA("Image//TitaniumTexture.tga");
+
+	meshList[GEO_BISMUTH] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+	meshList[GEO_BISMUTH]->textureID = LoadTGA("Image//BismuthTexture.tga");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -361,7 +373,7 @@ void PlanetScene::Update(double dt)
 		}
 	}
 
-
+	std::cout << Currency::get_instance()->playerCurrency_getter() << "\n";
 }
 
 

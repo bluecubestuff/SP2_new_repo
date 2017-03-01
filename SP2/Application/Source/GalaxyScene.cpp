@@ -372,7 +372,7 @@ void GalaxyScene::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-	RenderSkybox();                                                                          
+	RenderSkybox();  
 
 	RenderUI(meshList[GEO_GRID], 10 + move_along_x, 10 + move_along_y, 45, 40);		//7 by 7 grid
 

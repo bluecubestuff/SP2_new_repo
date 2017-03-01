@@ -1,4 +1,5 @@
 #include "landEnemy.h"
+#include "landPlayer.h"
 #include <list>
 
 using std::list;
@@ -30,12 +31,31 @@ void LandEnemy::enemyInit(char landGrid[2500][2500], Vector3 startPos, Vector3 e
 	AIreturnPath = savedAIreturnPath;
 }
 
-void LandEnemy::Update(double dt, Vector3 playerPos, Vector3 playerForward)
+void LandEnemy::meleeUpdate(double dt, LandPlayer* playerObj)
 {
 	if (enemyIsDead == false)
 	{
-		PathfindingMovement(dt, playerPos, playerForward);
+		meleePathfindingMovement(dt, playerObj->Position, playerObj->getter("forward"));
+		meleeCombat(dt, playerObj);
 		Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
+	}
+}
+
+void LandEnemy::rangedUpdate(double dt, LandPlayer* playerObj)
+{
+	if (enemyIsDead == false)
+	{
+		rangedPathfindingMovement(dt, playerObj);
+		Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
+	}
+}
+
+void LandEnemy::meleeCombat(double dt, LandPlayer* playerObj)
+{
+	if (abs(calculateDistance(playerObj->Position, Position) < 20))
+	{
+		playerObj->modifyHealth("decrease", 3);
+		std::cout << playerObj->getHealth() << std::endl;
 	}
 }
 
@@ -68,6 +88,70 @@ void LandEnemy::AIPursuit(double dt, Vector3 playerPos, Vector3 playerForward)
 	catch (std::exception& e)
 	{
 		std::cout << "nothing" << std::endl;
+	}
+}
+
+void LandEnemy::AIShoot(double dt, LandPlayer* playerObj)
+{
+	float rotateSpeed = 40 * dt;
+
+	target = playerObj->Position - this->Position;
+
+		try
+		{
+			/*std::cout << "function called" << std::endl;*/
+
+			if (this->Forward != target.Normalized())
+			{
+				Vector3 temp = this->Forward.Cross(target.Normalized());
+				temp.Normalize();
+				Mtx44 rotate;
+				rotate.SetToRotation(rotateSpeed, temp.x, temp.y, temp.z);
+
+				this->Forward = rotate * this->Forward;
+				this->Up = rotate * this->Up;
+				this->Right = rotate * this->Right;
+			}
+
+			enemyBullet* bullet = new enemyBullet(this->Position, this->Forward, this->Up, this->Right);
+			enemyBullets.push_back(bullet);
+
+		}
+
+		catch (std::exception& e)
+		{
+			std::cout << "nothing" << std::endl;
+		}
+
+	for (int i = 0; i < enemyBullets.size(); i++)
+	{
+		enemyBullets[i]->Update(dt);
+
+		if (i < enemyBullets.size())
+		{
+			if (abs(calculateDistance(enemyBullets[i]->getPos(), playerObj->Position) < 5.f))
+			{
+					enemyBullet* temp = enemyBullets[i];
+					playerObj->modifyHealth("decrease", 15);
+					std::cout << "enemy took damage" << std::endl;
+					enemyBullets.erase(enemyBullets.begin() + i);
+					delete temp;
+					i = 0;
+			}
+		}
+		else
+		{
+			i = 0;
+		}
+
+		if (i < enemyBullets.size() && enemyBullets[i]->outOfRange)
+		{
+			enemyBullet* temp = enemyBullets[i];
+			enemyBullets.erase(enemyBullets.begin() + i);
+			delete temp;
+			i = 0;
+		}
+		
 	}
 }
 
@@ -215,7 +299,7 @@ void LandEnemy::setPosition(Vector3* position)
 	Position.z = position->z;
 }
 
-void LandEnemy::PathfindingMovement(double dt, Vector3 playerPos, Vector3 playerForward)
+void LandEnemy::meleePathfindingMovement(double dt, Vector3 playerPos, Vector3 playerForward)
 {	
 	if (AIpath.size() != 0)
 	{
@@ -244,6 +328,44 @@ void LandEnemy::PathfindingMovement(double dt, Vector3 playerPos, Vector3 player
 		}
 	}
 
+	if (AIpath.size() == 0 && AIreturnPath.size() == 0)
+	{
+		AIpath = savedAIpath;
+		AIreturnPath = savedAIreturnPath;
+	}
+}
+
+void LandEnemy::rangedPathfindingMovement(double dt, LandPlayer* playerObj)
+{
+	if (AIpath.size() != 0)
+	{
+		if (abs(calculateDistance(playerObj->Position, Position)) <= 100)
+		{
+			AIShoot(dt, playerObj);
+		}
+		else if (abs(calculateDistance(playerObj->Position, Position)) > 100)
+		{
+			setPosition(AIpath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
+			AIpath.pop_back(); //pops the last element, repeat
+			/*std::cout << "AI moved" << std::endl;*/
+		}
+		
+	}
+	if (AIreturnPath.size() != 0 && AIpath.size() == 0)
+	{
+		if (abs(calculateDistance(playerObj->Position, Position)) <= 100)
+		{
+			AIShoot(dt, playerObj);
+		}
+		else if (abs(calculateDistance(playerObj->Position, Position)) > 100)
+		{
+			setPosition(AIreturnPath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
+			AIreturnPath.pop_back(); //pops the last element, repeat
+			/*std::cout << "AI moved" << std::endl;*/
+		}
+		
+		
+	}
 	if (AIpath.size() == 0 && AIreturnPath.size() == 0)
 	{
 		AIpath = savedAIpath;

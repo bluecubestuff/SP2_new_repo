@@ -292,11 +292,11 @@ void GalaxyScene::Update(double dt)
 	{
 		move_along_x -= 3;
 	}
-	else if (Application::IsKeyPressed(VK_UP))
+	else if(Application::IsKeyPressed(VK_UP))
 	{
 		move_along_y += 3;
 	}
-	else if (Application::IsKeyPressed(VK_DOWN))
+	else if(Application::IsKeyPressed(VK_DOWN))
 	{
 		move_along_y -= 3;
 	}
@@ -382,13 +382,13 @@ void GalaxyScene::Render()
 	{
 		for (int x = 0; x < 7; x++)
 		{
-			if (move_along_x > (23 * x) && move_along_x < (23 * (x + 1))
-				&& move_along_y >(13 * y) && move_along_y < (13 * (y + 1)) )
+			if (move_along_x > (23 * x) - 10 && move_along_x < (23 * (x + 1)) - 10
+				&& move_along_y >(13 * y) - 10 && move_along_y < (13 * (y + 1)) - 10)
 			{
 				x_pos = std::to_string(x);
 				y_pos = std::to_string(y);
 
-				RenderTextOnScreen(meshList[GEO_TEXT], "Enter this solar system?[E]" + x_pos + y_pos, Color(0, 1, 0), 2, 1, 2);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Enter this solar system?[E]  system " + x_pos + y_pos, Color(0, 1, 0), 2, 1, 2);
 
 				if (Application::IsKeyPressed('E'))
 				{
@@ -563,7 +563,7 @@ void GalaxyScene::RenderSkybox()
 
 	modelStack.PushMatrix();//seperate from ground
 
-	modelStack.Rotate(rotate, 0, 1, 0);
+	modelStack.Rotate(rotate, 0, 1, 0); //roatate the skybox
 
 	modelStack.PushMatrix();//push top
 	modelStack.Translate(0, 1997, 0);
@@ -607,8 +607,6 @@ void GalaxyScene::RenderSkybox()
 	modelStack.Scale(2000, 1, 2000);
 	RenderMesh(meshList[GEO_RIGHT], false);
 	modelStack.PopMatrix();//end right
-
-
 
 	modelStack.PopMatrix();//end speration
 

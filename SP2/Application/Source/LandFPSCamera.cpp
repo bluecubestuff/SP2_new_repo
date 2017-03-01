@@ -29,6 +29,7 @@ void LandFPSCamera::Init(Vector3 pos, Vector3 target, Vector3 up)
 	this->jump = false;
 	Inertia = Vector3(0, 0, 0);
 
+	//for collsion
 	pFront = position + forward;		
 	pBack = position + (forward * -1);	
 	pRight = position + (right);		

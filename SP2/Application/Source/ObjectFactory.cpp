@@ -41,21 +41,21 @@ void ObjectFactory::interactObjects()
 void ObjectFactory::renderObjects(unsigned id)
 {
 	if (id == 1)
-	{
+	{	//SPACE SCENE (Studioproject scene)
 		for (auto &a : objContainer)
 		{
 			a->render();
 		}
 	}
 	else if (id == 2)
-	{
+	{	//LAND SCENE (Planet scene)
 		for (auto &a : objContainer)
 		{
 			a->render_planet();
 		}
 	}
 	else if (id == 3)
-	{
+	{	//GALAXY SCENE
 		for (auto &a : objContainer)
 		{
 			a->render_galaxy();

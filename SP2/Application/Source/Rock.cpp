@@ -18,7 +18,7 @@ void Rock::interact()
 {
 	if (Application::IsKeyPressed('C'))
 	{
-		type = PlanetScene::GEO_GOATGOAT;
+		//type = PlanetScene::GEO_GOATGOAT;
 	}
 }
 AABB Rock::get_obj_AABB()

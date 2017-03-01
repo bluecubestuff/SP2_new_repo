@@ -189,7 +189,7 @@ void StationScene::Init()
 	meshList[GEO_BLUEPLANET] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//Sphere2.OBJ");
 	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
 
-	meshList[GEO_SPACE_STATION] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//StationInterior.OBJ");
+	meshList[GEO_SPACE_STATION] = MeshBuilder::GenerateOBJ("space station interior", "OBJ//StationInterior.OBJ");
 	//meshList[GEO_SPACE_STATION]->textureID = LoadTGA("Image//BluePlanet.tga");
 	//------------------------------------------------------------------------------------------
 	//light
@@ -485,11 +485,11 @@ void StationScene::Render()
 		modelStack.PopMatrix();
 	}
 
-	modelStack.PushMatrix();
-	modelStack.Scale(20, 20, 20);
-	modelStack.Translate(0, 0, 7);
-	RenderMesh(meshList[GEO_SPACE_STATION], true);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Scale(20, 20, 20);
+	//modelStack.Translate(0, 0, 7);
+	//RenderMesh(meshList[GEO_SPACE_STATION], true);
+	//modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(camera->position.x, 0, camera->position.z);

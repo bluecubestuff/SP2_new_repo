@@ -1,6 +1,6 @@
 #include "DeathScene.h"
 
-#include "GL\glew.h"
+//#include "GL\glew.h"
 
 #include "shader.hpp"
 #include "Mtx44.h"
@@ -144,6 +144,9 @@ void DeathScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
+	meshList[GEO_DEATHSCREEN] = MeshBuilder::GenerateUI("Deathscreen", 1, 1);
+	meshList[GEO_DEATHSCREEN]->textureID = LoadTGA("Image//DeathScreen.tga");
+
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -281,6 +284,10 @@ void DeathScene::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
+
+	RenderUI(meshList[GEO_DEATHSCREEN], 800, 450, 1000, 1000);
+
+	RenderTextOnScreen(meshList[GEO_TEXT], ">" ,Color(1,1,1), 200, 720, 540);
 }
 
 void DeathScene::RenderMesh(Mesh *mesh, bool enableLight)
@@ -377,8 +384,9 @@ void DeathScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, f
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Scale(size, size, size);
 	modelStack.Translate(x, y, 0);
+	modelStack.Scale(size, size, size);
+
 
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);

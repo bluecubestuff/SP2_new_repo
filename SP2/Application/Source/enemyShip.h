@@ -49,6 +49,8 @@ public:
 	bool agro;
 	bool attack;
 	bool deaded;
+
+	float fireRate;
 private:
 	float turnSpeed;
 	float speed;

@@ -20,8 +20,10 @@ PlayerShip::PlayerShip()
 	this->freeCam = false;
 	this->firstThird = true;
 	this->changeCam = false;
+	this->damaged = false;
+	this->damageT = 0;
 
-	this->size = 1;
+	this->size = 2;
 	hull = new Hull(100, 10.f, "BASE_H", "Second Hand Hull", "D4");
 	this->hullPoints = hull->getHullPoint();;
 	this->mass = hull->getMass();
@@ -72,36 +74,6 @@ PlayerShip::~PlayerShip()
 	//delete Camera;
 	//delete ThirdCamera;
 	//delete this;
-}
-
-void PlayerShip::locking(EnemyShip* target, double dt)
-{
-	//do point to aabb to enemyship, if stays for 3s, locked enabled
-	Vector3 temp = target->getter("position") - this->Position;
-	//need to normalize both vectors before doing the acos
-	float angle;
-	angle = Math::RadianToDegree(acos(temp.Normalized().Dot(this->Forward.Normalized())));
-	if (l >= 3)
-	{
-		target->locked = true;
-	}
-	if (target->getTargeted())
-	{
-		if (angle < 15 && angle > -15)
-			l += dt;
-		else
-		{
-			target->locked = false;
-			l = 0;
-		}
-	}
-	else if (!target->getTargeted())
-	{
-		target->locked = false;
-	}
-	else
-		l = 0;
-	//std::cout << l << std::endl;
 }
 
 void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
@@ -389,16 +361,43 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 		{
 			locking(i, dt);
 		}
-		else
-		{
-			//applicableTargets[t]->locked = false;
-		}
 	}
 
 	//std::cout << pressing << std::endl;
 	//==========================================================================
 	//update ship matrix
+	hitbox->updateAABB(size, size, size, this->Position);
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
+}
+
+void PlayerShip::locking(EnemyShip* target, double dt)
+{
+	//do point to aabb to enemyship, if stays for 3s, locked enabled
+	Vector3 temp = target->getter("position") - this->Position;
+	//need to normalize both vectors before doing the acos
+	float angle;
+	angle = Math::RadianToDegree(acos(temp.Normalized().Dot(this->Forward.Normalized())));
+	if (l >= 3)
+	{
+		target->locked = true;
+	}
+	if (target->getTargeted())
+	{
+		if (angle < 15 && angle > -15)
+			l += dt;
+		else
+		{
+			target->locked = false;
+			l = 0;
+		}
+	}
+	else if (!target->getTargeted())
+	{
+		target->locked = false;
+	}
+	else
+		l = 0;
+	//std::cout << l << std::endl;
 }
 
 void PlayerShip::withinRange(vector<EnemyShip*> targets)

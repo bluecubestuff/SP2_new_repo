@@ -20,6 +20,9 @@ public:
 	void sell();
 	void craft();
 private:
+	static int hPrice;
+	static int sPrice;
+	static int tPrice;
 	
 };
 #endif

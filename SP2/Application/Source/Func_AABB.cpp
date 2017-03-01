@@ -2,7 +2,13 @@
 
 Func_AABB::Func_AABB() {}
 
-Func_AABB::~Func_AABB() 
+Func_AABB::Func_AABB(Vector3 min, Vector3 max) 
+{
+	TAABB.pt_Min = min;
+	TAABB.pt_Max = max;
+}
+
+Func_AABB::~Func_AABB()
 {
 	//delete this;
 }

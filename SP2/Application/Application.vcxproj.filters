@@ -287,6 +287,9 @@
     <ClCompile Include="Source\Iron.cpp">
       <Filter>Source Files\Objects\Minerals</Filter>
     </ClCompile>
+    <ClCompile Include="Source\stationCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -495,6 +498,9 @@
     </ClInclude>
     <ClInclude Include="Source\Titanium.h">
       <Filter>Header Files\Object\Minerals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\stationCamera.h">
+      <Filter>Header Files\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -20,8 +20,16 @@ Vector3 planeting(0, 2000, 1500);
 Vector3 stationing(-500, 2000, 500);
 float rotatePlanet = 0;
 
+int StudioProject::IronValue = 0;
+int StudioProject::TitaniumValue = 0;
+int StudioProject::MithrilValue = 0;
+int StudioProject::BismuthValue = 0;
+
+PlayerShip* StudioProject::Player = NULL;
+
 StudioProject::StudioProject() :objfactory(this)
 {
+	Player = new PlayerShip;
 }
 
 StudioProject::~StudioProject()
@@ -114,7 +122,6 @@ void StudioProject::Init()
 	//meshes------------------------------------------------------------------------------------------
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
-	Player = new PlayerShip;
 	waypoint = Mtx44(20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20, 0, 800, 700, 0, 1);
 	gen = new LandGenerate(this);
 	int test = 0;
@@ -516,6 +523,7 @@ void StudioProject::Update(double dt)
 		if (hostiles[i]->getHP() <= 0)
 		{
 			//EnemyShip* dadad = hostiles[i];
+			Currency::get_instance()->value_adder(10);
 			hostiles[i]->deaded = true;
 			Explode = new Explosion(hostiles[i]->getter("position"));
 			hostiles.erase(hostiles.begin() + i);
@@ -584,6 +592,12 @@ void StudioProject::Update(double dt)
 	{
 		SceneManager::get_instance()->SceneSelect(6);
 		//std::cout << "stationingly" << std::endl;
+	}
+
+	//placeholder
+	if (Player->getHP() <= 0)
+	{
+		std::cout << "deaded" << std::endl;
 	}
 
 	rotatePlanet += dt;

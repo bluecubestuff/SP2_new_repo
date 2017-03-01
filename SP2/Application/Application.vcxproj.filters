@@ -290,6 +290,9 @@
     <ClCompile Include="Source\Currency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\DeathScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -501,6 +504,9 @@
     </ClInclude>
     <ClInclude Include="Source\Currency.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DeathScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

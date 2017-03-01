@@ -1,21 +1,96 @@
 #include "NPC.h"
 
-NPC::NPC(StudioProject* scene, Vector3 pos, float size) : ObjectRender(scene, pos, size)
+NPC::NPC()
 {
-	type = StudioProject::GEO_NPC;
-	aabb->setAABB_Static_Objects(pos, size, size, size);
-}
-NPC::NPC(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(scene, pos, size)
-{
-	type = PlanetScene::GEO_NPC;
-	aabb->setAABB_Static_Objects(pos, size, size, size);
-}
-void NPC::interact()
-{
-	bool collide = true;
 
-	if (collide == true)//aabb->AABBTOAABB == true
+}
+
+NPC::~NPC()
+{
+
+}
+
+void NPC::sell()
+{
+	int money = Currency::get_instance()->value_getter();
+	//sell minerals for money;
+	if (StudioProject::IronValue > 0)
 	{
-		myscene->RenderTextOnScreen(myscene->meshList[StudioProject::GEO_TEXT], "NPC TEXT TEST", Color(0, 1, 0), 2, 8, 30);
+		if (Application::IsKeyPressed('1'))
+		{
+			StudioProject::IronValue -= 1;
+			money += 1;
+		}
+	}
+	if (StudioProject::TitaniumValue > 0)
+	if (Application::IsKeyPressed('2'))
+	{
+		StudioProject::TitaniumValue -= 1;
+		money += 2;
+	}
+	if (StudioProject::MithrilValue > 0)
+	if (Application::IsKeyPressed('3'))
+	{
+		StudioProject::MithrilValue -= 1;
+		money += 3;
+	}
+	if (StudioProject::BismuthValue > 0)
+	if (Application::IsKeyPressed('4'))
+	{
+		StudioProject::BismuthValue -= 1;
+		money += 4;
+	}
+
+	if (money > 0)
+	{
+		if (Application::IsKeyPressed('5'))
+		{
+			StudioProject::IronValue += 1;
+			money -= 1;
+		}
+	}
+	if (money > 1)
+	{
+		if (Application::IsKeyPressed('6'))
+		{
+			StudioProject::TitaniumValue += 1;
+			money -= 2;
+		}
+	}
+	if (money > 2)
+	{
+		if (Application::IsKeyPressed('7'))
+		{
+			StudioProject::MithrilValue += 1;
+			money -= 3;
+		}
+	}
+	if (money > 3)
+	{
+		if (Application::IsKeyPressed('8'))
+		{
+			StudioProject::BismuthValue += 1;
+			money -= 4;
+		}
+	}
+	Currency::get_instance()->value_setter(money);
+}
+
+void NPC::craft()
+{
+	int money = Currency::get_instance()->value_getter();
+	if (Application::IsKeyPressed('1'))
+	{
+		//upgrade hull
+		//spend money
+		//use resources
+	}
+	if (Application::IsKeyPressed('2'))
+	{
+		//upgrade shield
+	}
+	if (Application::IsKeyPressed('3'))
+	{
+		//upgrade thrusters
 	}
 }

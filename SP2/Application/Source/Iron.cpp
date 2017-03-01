@@ -16,7 +16,7 @@ void Iron::interact()
 		if (scale < 1)
 		{
 			position.y += -500;
-			myscene->IronValue += 1;
+			StudioProject::IronValue += 1;
 		}
 	}
 }

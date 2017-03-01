@@ -22,6 +22,7 @@
 #include "SystemScene.h"
 #include "SceneManager.h"
 #include "Explosion.h"
+#include "Currency.h"
 
 #include <string>
 #include <vector>
@@ -178,10 +179,10 @@ private:
 	bool inventorystate;
 	float inventoryscreen;
 	float _dt;
-	int IronValue = 1;
-	int TitaniumValue = 1;
-	int MithrilValue = 1;
-	int BismuthValue = 1;
+	static int IronValue;
+	static int TitaniumValue;
+	static int MithrilValue;
+	static int BismuthValue;
 
 	Light light[1];
 
@@ -200,7 +201,7 @@ private:
 	
 	Func_AABB* checker;
 
-	PlayerShip* Player;
+	static PlayerShip* Player;
 	EnemyShip* Enemy;
 	Explosion* Explode;
 

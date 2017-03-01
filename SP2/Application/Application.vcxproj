@@ -94,6 +94,7 @@
     <ClCompile Include="Source\Camera3.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
     <ClCompile Include="Source\Currency.cpp" />
+    <ClCompile Include="Source\DeathScene.cpp" />
     <ClCompile Include="Source\DesertPlanet.cpp" />
     <ClCompile Include="Source\Explosion.cpp" />
     <ClCompile Include="Source\GalaxyScene.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Source\Camera3.h" />
     <ClInclude Include="Source\CollisionManager.h" />
     <ClInclude Include="Source\Currency.h" />
+    <ClInclude Include="Source\DeathScene.h" />
     <ClInclude Include="Source\DesertPlanet.h" />
     <ClInclude Include="Source\DetectMemoryLeak.h" />
     <ClInclude Include="Source\Explosion.h" />

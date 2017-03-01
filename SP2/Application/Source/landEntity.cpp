@@ -39,6 +39,18 @@ void LandEntity::setHealth(float newHP)
 	this->Health = newHP;
 }
 
+void LandEntity::modifyHealth(std::string modifier, float value)
+{
+	if (modifier == "increase")
+	{
+		this->Health = this->Health + value;
+	}
+	else if (modifier == "decrease")
+	{
+		this->Health = this->Health - value;
+	}
+}
+
 float LandEntity::getShield()
 {
 	return this->Shield;
@@ -47,4 +59,16 @@ float LandEntity::getShield()
 void LandEntity::setShield(float newS)
 {
 	this->Shield = newS;
+}
+
+void LandEntity::modifyShield(std::string modifier, float value)
+{
+	if (modifier == "increase")
+	{
+		this->Shield = this->Shield + value;
+	}
+	else if (modifier == "decrease")
+	{
+		this->Shield = this->Shield - value;
+	}
 }

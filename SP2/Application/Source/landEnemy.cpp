@@ -47,7 +47,7 @@ void LandEnemy::AIPursuit(double dt, Vector3 playerPos, Vector3 playerForward)
 
 	try
 	{
-		std::cout << "function called" << std::endl;
+		/*std::cout << "function called" << std::endl;*/
 
 		if (this->Forward != target.Normalized())
 		{
@@ -99,7 +99,6 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 start
 	start->pos.x = startPos.x;
 	start->pos.z = startPos.z;
 
-
 	end->pos.x = endGoal.x;
 	end->pos.z = endGoal.z;
 
@@ -128,7 +127,7 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 start
 		{
 			break;
 		}
-
+		
 		openList.remove(current); //pop current node with lowest f score from the open list
 		current->open = false;
 
@@ -163,7 +162,7 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 start
 				//check for collision according to character of non-walkable square in grid
 
 
-				if (successor->open == true) //check if the successor node is on the open list
+				if (successor->open) //check if the successor node is on the open list
 				{
 					if (successor->getGscore() > successor->calculateGscore(current)) //checks if the G score of the current node is less than the G score of the successor node in the open and closed lists
 					{																  //sets the parent node of the successor node to the current node
@@ -185,6 +184,9 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 start
 		n++;
 	}
 
+	std::cout << "loop broken" << std::endl;
+	std::cout << n << std::endl;
+
 	//reset open and closed lists
 	for (it = openList.begin(); it != openList.end(); ++it)
 	{
@@ -201,6 +203,7 @@ vector<Vector3*> LandEnemy::Pathfinding(char landGrid[2500][2500], Vector3 start
 		path.push_back(current->getNodePosition()); //pushes the path nodes into the path vector
 		//cout << current->getNodePosition() << endl;
 		current = current->getParent(); //current node will change to the parent of the current node
+		n++;
 	}
 
 	return path;
@@ -224,7 +227,7 @@ void LandEnemy::PathfindingMovement(double dt, Vector3 playerPos, Vector3 player
 		{
 			setPosition(AIpath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
 			AIpath.pop_back(); //pops the last element, repeat
-			std::cout << "AI moved" << std::endl;
+			/*std::cout << "AI moved" << std::endl;*/
 		}
 	}
 	else if (AIreturnPath.size() != 0 && AIpath.size() == 0)
@@ -237,7 +240,7 @@ void LandEnemy::PathfindingMovement(double dt, Vector3 playerPos, Vector3 player
 		{
 			setPosition(AIreturnPath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
 			AIreturnPath.pop_back(); //pops the last element, repeat
-			std::cout << "AI moved" << std::endl;
+			/*std::cout << "AI moved" << std::endl;*/
 		}
 	}
 

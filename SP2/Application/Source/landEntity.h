@@ -13,7 +13,9 @@ public:
 	float getShield();
 
 	void setHealth(float);
+	void modifyHealth(std::string modifier, float value);
 	void setShield(float);
+	void modifyShield(std::string modifier, float value);
 	Vector3 Position;
 
 	//virtual void Update(double dt) = 0;

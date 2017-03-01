@@ -14,15 +14,17 @@ Iron::Iron(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(scene, po
 	type = PlanetScene::GEO_IRON;
 	aabb->setAABB_Static_Objects(pos, size + 2, size + 5, size + 2);
 	Iron_box = aabb->getAABB();
+	isMined = false;
 }
 void Iron::interact()
 {
 	/*unsigned textEnum = PlanetScene::GEO_TEXT;
 	myscene->RenderTextOnScreen(myscene->meshList[textEnum], "Mine Iron [E]", Color(0, 1, 0), 2, 1, 4);*/
-	if (Application::IsKeyPressed('E'))
+	if (Application::IsKeyPressed('E') && !isMined)
 	{
-		Currency::get_instance()->add_playerCurrency(4);
+		Currency::get_instance()->add_mineral("iron");
 		type = PlanetScene::GEO_ROCK;
+		isMined = true;
 	}
 	//float x = ((ship->getter("position")).x - position.x);
 	//float y = ((ship->getter("position")).y - position.y);

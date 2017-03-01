@@ -14,15 +14,17 @@ Bismuth::Bismuth(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(sce
 	type = PlanetScene::GEO_BISMUTH;
 	aabb->setAABB_Static_Objects(pos, size + 2, size + 5, size + 2);
 	Bismuth_box = aabb->getAABB();
+	isMined = false;
 }
 void Bismuth::interact()
 {
-	if (Application::IsKeyPressed('E'))
+	if (Application::IsKeyPressed('E') && !isMined)
 	{
 		/*unsigned textEnum = PlanetScene::GEO_TEXT;
 		myscene->RenderTextOnScreen(myscene->meshList[textEnum], "Mine Bismuth [E]", Color(0, 1, 0), 2, 1, 4);*/
-		Currency::get_instance()->add_playerCurrency(15);
+		Currency::get_instance()->add_mineral("bismuth");
 		type = PlanetScene::GEO_ROCK;
+		isMined = true;
 	}
 	//float x = ((ship->getter("position")).x - position.x);
 	//float y = ((ship->getter("position")).y - position.y);

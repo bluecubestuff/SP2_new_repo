@@ -13,15 +13,17 @@ Titanium::Titanium(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(s
 	type = PlanetScene::GEO_TITANIUM;
 	aabb->setAABB_Static_Objects(pos, size + 2, size + 5, size + 2);
 	Titanium_box = aabb->getAABB();
+	isMined = false;
 }
 void Titanium::interact()
 {
 	/*unsigned textEnum = PlanetScene::GEO_TEXT;
 	myscene->RenderTextOnScreen(myscene->meshList[textEnum], "Mine Titanium [E]", Color(0, 1, 0), 2, 1, 4);*/
-	if (Application::IsKeyPressed('E'))
+	if (Application::IsKeyPressed('E') && !isMined)
 	{
-		Currency::get_instance()->add_playerCurrency(8);
+		Currency::get_instance()->add_mineral("titanium");
 		type = PlanetScene::GEO_ROCK;
+		isMined = true;
 	}
 
 	//float x = ((ship->getter("position")).x - position.x);

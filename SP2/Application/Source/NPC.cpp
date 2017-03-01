@@ -19,30 +19,34 @@ void NPC::sell()
 {
 	int money = Currency::get_instance()->value_getter();
 	//sell minerals for money;
-	if (StudioProject::IronValue > 0)
+	if (Currency::get_instance()->get_mineral("iron") > 0)
 	{
 		if (Application::IsKeyPressed('1'))
 		{
-			StudioProject::IronValue -= 1;
+			//StudioProject::IronValue -= 1;
+			Currency::get_instance()->set_mineral("iron");
 			money += 1;
 		}
 	}
-	if (StudioProject::TitaniumValue > 0)
+	if (Currency::get_instance()->get_mineral("titanium") > 0)
 	if (Application::IsKeyPressed('2'))
 	{
-		StudioProject::TitaniumValue -= 1;
+		//StudioProject::TitaniumValue -= 1;
+		Currency::get_instance()->set_mineral("titanium");
 		money += 2;
 	}
-	if (StudioProject::MithrilValue > 0)
+	if (Currency::get_instance()->get_mineral("mithril") > 0)
 	if (Application::IsKeyPressed('3'))
 	{
-		StudioProject::MithrilValue -= 1;
+		//StudioProject::MithrilValue -= 1;
+		Currency::get_instance()->set_mineral("mithril");
 		money += 3;
 	}
-	if (StudioProject::BismuthValue > 0)
+	if (Currency::get_instance()->get_mineral("bismuth") > 0)
 	if (Application::IsKeyPressed('4'))
 	{
-		StudioProject::BismuthValue -= 1;
+		//StudioProject::BismuthValue -= 1;
+		Currency::get_instance()->set_mineral("bismuth");
 		money += 4;
 	}
 
@@ -50,7 +54,8 @@ void NPC::sell()
 	{
 		if (Application::IsKeyPressed('5'))
 		{
-			StudioProject::IronValue += 1;
+			//StudioProject::IronValue += 1;
+			Currency::get_instance()->set_mineral("iron");
 			money -= 1;
 		}
 	}
@@ -58,7 +63,8 @@ void NPC::sell()
 	{
 		if (Application::IsKeyPressed('6'))
 		{
-			StudioProject::TitaniumValue += 1;
+			//StudioProject::TitaniumValue += 1;
+			Currency::get_instance()->set_mineral("titanium");
 			money -= 2;
 		}
 	}
@@ -66,7 +72,8 @@ void NPC::sell()
 	{
 		if (Application::IsKeyPressed('7'))
 		{
-			StudioProject::MithrilValue += 1;
+			//StudioProject::MithrilValue += 1;
+			Currency::get_instance()->set_mineral("mithril");
 			money -= 3;
 		}
 	}
@@ -74,7 +81,8 @@ void NPC::sell()
 	{
 		if (Application::IsKeyPressed('8'))
 		{
-			StudioProject::BismuthValue += 1;
+			//StudioProject::BismuthValue += 1;
+			Currency::get_instance()->set_mineral("bismuth");
 			money -= 4;
 		}
 	}

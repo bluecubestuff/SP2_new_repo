@@ -1,6 +1,9 @@
 #ifndef _CURRENCY_H
 #define _CURRENCY_H
 
+#include "string"
+#include "MyMath.h"
+
 class Currency
 {
 public:
@@ -12,15 +15,20 @@ public:
 	int value_getter();
 	void value_setter(int);
 	void value_adder(int);
-	
-	void add_playerCurrency(int);
-	int playerCurrency_getter();
+	void add_mineral(std::string);
+	int get_mineral(std::string);
+	void set_mineral(std::string);
+
 private:
 
 	Currency();
 	static Currency* instance;
 	int value;
-	int playerCurrency;
+
+	int bismuth;
+	int titanium;
+	int mithril;
+	int iron;
 };
 
 

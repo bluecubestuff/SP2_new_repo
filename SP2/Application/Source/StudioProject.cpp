@@ -20,9 +20,8 @@ Vector3 planeting(0, 2000, 1500);
 Vector3 stationing(-500, 2000, 500);
 float rotatePlanet = 0;
 
-StudioProject::StudioProject() : objfactory(this)
+StudioProject::StudioProject() :objfactory(this)
 {
-	
 }
 
 StudioProject::~StudioProject()
@@ -123,7 +122,7 @@ void StudioProject::Init()
 	srand(time(NULL));
 	for (int i = 0; i < 1; i++)
 	{
-		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10 + 500, 2000, 1000), 40.f, 1.0f, 10.f);
+		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10 + 500, 2000, 1000), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);
 	}
 	//=============================================================================
@@ -287,8 +286,6 @@ void StudioProject::Init()
 	projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-	inventorystate = false;
-	//gen->landInIt();
 	//Vector3 tempPos;
 	//tempPos.Set(0, 0, 0);
 	//int counter = 0;
@@ -307,6 +304,8 @@ void StudioProject::Init()
 
 	gen->landInIt();
 	//std::cout << gen->object_factory_getter().objContainer[0]->get_AABB().pt_Max << "\n";
+	inventorystate = false;
+	//gen->landInIt();
 	//landMap = gen->getter();
 }
 
@@ -619,6 +618,7 @@ void StudioProject::Render()
 
 	Mtx44 MVP;
 
+
 	viewStack.LoadIdentity();
 
 	if (Player->firstThird)
@@ -759,14 +759,6 @@ void StudioProject::Render()
 	}
 	modelStack.PopMatrix();
 
-	//RenderUI(meshList[GEO_INVENTORY_BUTTON], 15.0, 15.0, 2.0, 2.0);//Inventory Button
-
-	//objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
-	objfactory.renderObjects(1);
-	objfactory.renderObjects(2);
-	objfactory.renderObjects(3);
-	objfactory.interactObjects();
-	DisplayUI();
 	//modelStack.PushMatrix();
 	//modelStack.Translate(-500, 2000, 500);
 	//modelStack.Scale(30, 30, 30);
@@ -841,6 +833,12 @@ void StudioProject::Render()
 		RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
 		modelStack.PopMatrix();
 	}
+	//RenderUI(meshList[GEO_INVENTORY_BUTTON], 15.0, 15.0, 2.0, 2.0);//Inventory Button
+
+	//objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
+	objfactory.renderObjects(1);
+	objfactory.interactObjects();
+	DisplayUI();
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)

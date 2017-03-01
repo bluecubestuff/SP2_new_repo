@@ -69,18 +69,24 @@
     <Filter Include="Source Files\Objects\AABB">
       <UniqueIdentifier>{ad973879-123c-471a-8ec5-491931a95554}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\AI">
-      <UniqueIdentifier>{b3459a44-87a8-4085-8db1-24678fa44bf8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\AI">
-      <UniqueIdentifier>{de2c2aef-5f96-41da-8922-5b0a0e2c4c5f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Module">
       <UniqueIdentifier>{eea57384-da5d-4856-b4ad-5d18e0bd978b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Module">
       <UniqueIdentifier>{7b0440bc-12c0-457b-97a4-a786188aed3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Land">
+      <UniqueIdentifier>{a62f1805-1b8f-43d1-a354-4165246b8457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Land">
+      <UniqueIdentifier>{013a1239-df64-4be1-a4c1-41d72dc35537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{de2c2aef-5f96-41da-8922-5b0a0e2c4c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{b3459a44-87a8-4085-8db1-24678fa44bf8}</UniqueIdentifier>
+	</Filter>
     <Filter Include="Source Files\Objects\Minerals">
       <UniqueIdentifier>{f4d9a122-dae1-4b1f-a6d7-267f0d7b5b52}</UniqueIdentifier>
     </Filter>
@@ -179,20 +185,8 @@
     <ClCompile Include="Source\Building.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Node.cpp">
-      <Filter>Source Files\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\NPC.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>Source Files\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Node.cpp">
-      <Filter>Source Files\AI</Filter>
     </ClCompile>
     <ClCompile Include="Source\Missile.cpp">
       <Filter>Source Files\Objects\Projectile</Filter>
@@ -209,6 +203,75 @@
     <ClCompile Include="Source\Hull.cpp">
       <Filter>Source Files\Module</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlanetScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\landPlayer.cpp">
+      <Filter>Source Files\Land</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\landEntity.cpp">
+      <Filter>Source Files\Land</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LandFPSCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SystemTravelShip.cpp">
+      <Filter>Source Files\Ship</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SolarGenerate.cpp">
+      <Filter>Source Files\Generate</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SystemScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GreenPlanet.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Node.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\landEnemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet.cpp">
+      <Filter>Source Files\Objects\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StartScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LandVehicle.cpp">
+      <Filter>Source Files\Land</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MainMenuScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DesertPlanet.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BluePlanet.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemFactory.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GalaxyScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Sun.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Explosion.cpp">
+      <Filter>Source Files\Objects\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StationScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+	</ClCompile>
     <ClCompile Include="Source\InventoryCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
@@ -337,17 +400,11 @@
     <ClInclude Include="Source\Building.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\NPC.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>Header Files\AI</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Node.h">
-      <Filter>Header Files\AI</Filter>
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Source\PowerPlant.h">
       <Filter>Header Files\Module</Filter>
@@ -364,6 +421,66 @@
     <ClInclude Include="Source\Module.h">
       <Filter>Header Files\Module</Filter>
     </ClInclude>
+    <ClInclude Include="Source\PlanetScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CollisionManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\landEntity.h">
+      <Filter>Header Files\Land</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\landPlayer.h">
+      <Filter>Header Files\Land</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LandFPSCamera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SystemTravelShip.h">
+      <Filter>Header Files\Ship</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SystemScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GreenPlanet.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StartScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\landEnemy.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet.h">
+      <Filter>Header Files\Object\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LandVehicle.h">
+      <Filter>Header Files\Land</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MainMenuScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DesertPlanet.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BluePlanet.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemFactory.h">
+      <Filter>Header Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GalaxyScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Sun.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Explosion.h">
+      <Filter>Header Files\Object\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StationScene.h">
+      <Filter>Header Files\Scene</Filter>
+	</ClInclude>
     <ClInclude Include="Source\InventoryCamera.h">
       <Filter>Header Files\Camera</Filter>
     </ClInclude>

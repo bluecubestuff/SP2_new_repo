@@ -1,13 +1,6 @@
 #include "Inventory.h"
 
 <<<<<<< HEAD
-using std::to_string;
-
-
-Inventory::Inventory()
-{
-
-=======
 Inventory::Inventory()
 {
 	inventoryOpen = false;
@@ -16,7 +9,14 @@ Inventory::Inventory()
 	amountOfMithril = 0;
 	amountOfTitanium = 0;
 	posY = 17;
->>>>>>> 3956454f5ff70878ddd79c712349ab835ccc6b62
+=======
+using std::to_string;
+
+
+Inventory::Inventory()
+{
+
+>>>>>>> >Added inventory and some UI but not finished
 }
 
 Inventory::~Inventory()
@@ -25,63 +25,6 @@ Inventory::~Inventory()
 }
 
 <<<<<<< HEAD
-void Inventory::AddingStuff()
-{
-	
-	string irontext = "Iron";
-	string titaniumtext = "Titanium";
-	string mithriltext = "Mithril";
-	string bismuthtext = "Bismuth";
-
-	if (_Iron > 0)
-	{
-		myscene->Iron = true;
-	}
-	if (_Titanium > 0)
-	{
-		inventory.push_back(titaniumtext);
-		inventory.push_back(to_string(_Titanium));
-	}
-	if (_Mithril > 0)
-	{
-		inventory.push_back(mithriltext);
-		inventory.push_back(to_string(_Mithril));
-	}
-	if (_Bismuth > 0)
-	{
-		inventory.push_back(bismuthtext);
-		inventory.push_back(to_string(_Bismuth));
-	}
-}
-//void StudioProject::RenderInventory()
-//{
-//	for (int i = 0; 1 < myinventory->inventory.size(); i++)
-//	{
-//		if (myinventory->inventory[i] == "Iron")
-//		{
-//			Iron = true;
-//			IronValue = myinventory->inventory[(i + 1)];
-//		}
-//		if (myinventory->inventory[i] == "Titanium")
-//		{
-//			Titanium = true;
-//			TitaniumValue = myinventory->inventory[(i + 1)];
-//		}
-//		if (myinventory->inventory[i] == "Mithril")
-//		{
-//			Mithril = true;
-//			MithrilValue = myinventory->inventory[(i + 1)];
-//		}
-//
-//		if (myinventory->inventory[i] == "Bismuth")
-//		{
-//			Bismuth = true;
-//			BismuthValue = myinventory->inventory[(i + 1)];
-//		}
-//	}
-//
-//}
-=======
 int Inventory::getter(string itemName)
 {
 	if (itemName == "iron")
@@ -180,4 +123,61 @@ bool Inventory::ItemExistsInInventory(string itemName)
 }
 
 
->>>>>>> 3956454f5ff70878ddd79c712349ab835ccc6b62
+=======
+void Inventory::AddingStuff()
+{
+	
+	string irontext = "Iron";
+	string titaniumtext = "Titanium";
+	string mithriltext = "Mithril";
+	string bismuthtext = "Bismuth";
+
+	if (_Iron > 0)
+	{
+		myscene->Iron = true;
+	}
+	if (_Titanium > 0)
+	{
+		inventory.push_back(titaniumtext);
+		inventory.push_back(to_string(_Titanium));
+	}
+	if (_Mithril > 0)
+	{
+		inventory.push_back(mithriltext);
+		inventory.push_back(to_string(_Mithril));
+	}
+	if (_Bismuth > 0)
+	{
+		inventory.push_back(bismuthtext);
+		inventory.push_back(to_string(_Bismuth));
+	}
+}
+//void StudioProject::RenderInventory()
+//{
+//	for (int i = 0; 1 < myinventory->inventory.size(); i++)
+//	{
+//		if (myinventory->inventory[i] == "Iron")
+//		{
+//			Iron = true;
+//			IronValue = myinventory->inventory[(i + 1)];
+//		}
+//		if (myinventory->inventory[i] == "Titanium")
+//		{
+//			Titanium = true;
+//			TitaniumValue = myinventory->inventory[(i + 1)];
+//		}
+//		if (myinventory->inventory[i] == "Mithril")
+//		{
+//			Mithril = true;
+//			MithrilValue = myinventory->inventory[(i + 1)];
+//		}
+//
+//		if (myinventory->inventory[i] == "Bismuth")
+//		{
+//			Bismuth = true;
+//			BismuthValue = myinventory->inventory[(i + 1)];
+//		}
+//	}
+//
+//}
+>>>>>>> >Added inventory and some UI but not finished

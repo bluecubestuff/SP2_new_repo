@@ -17,7 +17,7 @@ public:
 	~LandPlayer();
 
 	void Combat(double dt, Vector3 enemyPos, vector<LandEnemy*> landEnemies);
-	void Update(double dt, Vector3 enemyPos, vector<LandEnemy*> landEnemies);
+	void Update(double dt);
 	float calculateDistance(Vector3 playerPos, Vector3 enemyPos);
 	LandFPSCamera* getCam();
 	vector<LandEnemy*>::iterator it;

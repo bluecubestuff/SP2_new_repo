@@ -23,7 +23,7 @@ LandPlayer::~LandPlayer()
 	delete FPS_CAM;
 }
 
-void LandPlayer::Update(double dt, Vector3 enemyPos, vector<LandEnemy*> landEnemies)
+void LandPlayer::Update(double dt)
 {
 	FPS_CAM->Update(dt, Position, Forward);
 	this->Right = (Forward.Cross(Vector3(0, 1, 0))).Normalized();

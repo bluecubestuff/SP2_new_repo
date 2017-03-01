@@ -2,36 +2,6 @@
 #define INVENTORY_H
 
 <<<<<<< HEAD
-#include <string>
-#include <vector>
-
-using std::vector;
-using std::string;
-
-class StudioProject;
-
-class Inventory
-{
-	friend class Iron;
-	friend class Titanium;
-	friend class Mithril;
-	friend class Bismuth;
-public:
-	Inventory();
-	~Inventory();
-
-	void AddingStuff();
-	vector <string> inventory;
-private:
-	float _Iron = 10.0;
-	float _Titanium = 10.0;
-	float _Mithril = 10.0;
-	float _Bismuth = 10.0;
-	StudioProject *myscene;
-};
-
-#endif
-=======
 #include "Item.h"
 #include <iostream>
 #include <vector>
@@ -63,4 +33,34 @@ private:
 };
 
 #endif
->>>>>>> 3956454f5ff70878ddd79c712349ab835ccc6b62
+=======
+#include <string>
+#include <vector>
+
+using std::vector;
+using std::string;
+
+class StudioProject;
+
+class Inventory
+{
+	friend class Iron;
+	friend class Titanium;
+	friend class Mithril;
+	friend class Bismuth;
+public:
+	Inventory();
+	~Inventory();
+
+	void AddingStuff();
+	vector <string> inventory;
+private:
+	float _Iron = 10.0;
+	float _Titanium = 10.0;
+	float _Mithril = 10.0;
+	float _Bismuth = 10.0;
+	StudioProject *myscene;
+};
+
+#endif
+>>>>>>> >Added inventory and some UI but not finished

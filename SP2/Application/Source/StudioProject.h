@@ -76,16 +76,17 @@ class StudioProject : public Scene
 		GEO_BACK,
 
 		//objects
-		GEO_ROCK,
+		GEO_ROCK,    	
 		GEO_IRON,
 		GEO_TITANIUM,
 		GEO_MITHRIL,
-		GEO_BISMUTH,	
+		GEO_BISMUTH,
 		GEO_TREE,
 		GEO_GOAT,
 		GEO_NPC,
 		GEO_BUILDING,
 		GEO_SPACE_STATION,
+		//GEO_BULLET,
 
 		//Planet
 		GEO_DESERTPLANET,
@@ -189,6 +190,7 @@ private:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderUI(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderWaypoint(Mesh* mesh, float x, float y, float sizex, float sizey);
+
 	void RenderSkybox();
 	void RenderInventory();
 	void DisplayInventory();
@@ -203,18 +205,15 @@ private:
 	Explosion* Explode;
 
 	vector<EnemyShip*> hostiles;
-
 	vector<Missile*> missiles;
-
 	vector<Bullet*> bullets;
 	vector<Bullet*> enemyBullets;
-
 	vector<Explosion*> explosions;
 
 	LandGenerate* gen;
-
 	Mtx44 waypoint;
 	ObjectFactory objfactory;
+	Mouse mice;
 
 	//Camera2 camera;
 	//Camera3 camera;

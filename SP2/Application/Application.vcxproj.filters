@@ -86,7 +86,7 @@
     </Filter>
     <Filter Include="Source Files\Enemy">
       <UniqueIdentifier>{b3459a44-87a8-4085-8db1-24678fa44bf8}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Source Files\Objects\Minerals">
       <UniqueIdentifier>{f4d9a122-dae1-4b1f-a6d7-267f0d7b5b52}</UniqueIdentifier>
     </Filter>
@@ -268,7 +268,7 @@
     </ClCompile>
     <ClCompile Include="Source\StationScene.cpp">
       <Filter>Source Files\Scene</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\InventoryCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
@@ -286,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="Source\stationCamera.cpp">
       <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Currency.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -477,7 +480,7 @@
     </ClInclude>
     <ClInclude Include="Source\StationScene.h">
       <Filter>Header Files\Scene</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Source\InventoryCamera.h">
       <Filter>Header Files\Camera</Filter>
     </ClInclude>
@@ -495,6 +498,9 @@
     </ClInclude>
     <ClInclude Include="Source\stationCamera.h">
       <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Currency.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

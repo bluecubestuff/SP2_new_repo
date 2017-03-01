@@ -18,7 +18,6 @@ public:
 	static GalaxyGenerate* get_instance();
 
 	void galaxy_save_selection(int);
-	void galaxyUpdate();
 
 	int galaxy_id_getter();
 

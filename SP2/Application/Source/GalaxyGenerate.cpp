@@ -24,11 +24,6 @@ void GalaxyGenerate::galaxy_save_selection(int id)
 	this->galaxy_id = id;
 }
 
-void GalaxyGenerate::galaxyUpdate()
-{
-
-}
-
 int GalaxyGenerate::galaxy_id_getter()
 {
 	return this->galaxy_id;

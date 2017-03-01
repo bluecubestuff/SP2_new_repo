@@ -132,13 +132,6 @@ vector<Vector3> LandEnemy::Pathfinding(Vector3 enemyPos, Vector3 endGoal)
 	}
 
 	//push path nodes into path vector
-	while (current->hasParent() && current != start)
-	{
-		AIpath.push_back(current->getNodePosition(current)); //pushes the pos of the current node into the path vector
-		current = current->getParent(); //current node will change to the parent of the current node;
-		n++;
-	}
-
 	return AIpath;
 }
 

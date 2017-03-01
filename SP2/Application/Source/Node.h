@@ -17,9 +17,10 @@ public:
 	Node();
 	Node(float x, float z);
 	~Node();
-	Node* getNode(float successorPosX, float successorPosY);
+	Node* getNode(float successorPosX, float successorPosZ);
 	Node* getParent();
-	Vector3 getNodePosition(Node* n);
+	Vector3* getNodePosition();
+	void getPointInGrid(char landGrid[2500][2500]);
 	void setParent(Node *n);
 	float getX();
 	float getZ();
@@ -29,6 +30,7 @@ public:
 	int calculateGscore(Node *n);
 	int calculateHscore(Node* n);
 	void computeFscore(Node *end);
+
 	bool hasParent();
 };
 

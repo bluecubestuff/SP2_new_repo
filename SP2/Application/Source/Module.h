@@ -3,7 +3,10 @@
 
 #include <string>
 
+#include "MyMath.h"
 #include "Randomise.h"
+
+#include <iostream>
 
 using std::string;
 
@@ -13,6 +16,7 @@ public:
 	string getId() { return this->ID; }
 	string getType() { return this->type; }
 	string getName() { return this->name; }
+	Randomise hue;
 protected:
 	string ID;
 	string type;

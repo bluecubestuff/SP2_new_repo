@@ -2,12 +2,10 @@
 #define _ROCK_H
 
 #include "StudioProject.h"
+#include "PlanetScene.h"
 #include "Vector3.h"
 #include "ObjectRender.h"
 #include "Application.h"
-#include "Func_AABB.h"
-
-
 
 #include <string>
 using std::string;
@@ -16,11 +14,17 @@ class Rock : public ObjectRender
 {
 public:
 	Rock(StudioProject* scene, Vector3 pos, float size);
-	~Rock(){};
+	Rock(PlanetScene* scene, Vector3 pos, float size);
+	~Rock()
+	{
+		delete this->aabb;
+		delete this;
+	};
 
-	AABB *Rock_box;
+	AABB Rock_box;
 
 	virtual void interact();
+	virtual AABB get_obj_AABB();
 
 private:
 	Func_AABB *aabb;

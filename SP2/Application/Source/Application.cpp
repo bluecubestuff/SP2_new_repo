@@ -7,14 +7,21 @@
 
 #include "SceneManager.h"
 #include "StudioProject.h"
+#include "PlanetScene.h"
+#include "SystemScene.h"
+#include "GalaxyScene.h"
+#include "StartScene.h"
+#include "StationScene.h"
+#include "MainMenuScene.h"
 
-
+#include "GalaxyGenerate.h"
 //static const unsigned char FPS = 60; // FPS of this game
 //static const unsigned int frameTime = 1000 / FPS; // time for each frame
 
 GLFWwindow* Application::m_window = NULL;
 StopWatch Application::m_timer;
 SceneManager * SceneManager::only_instance = 0;
+GalaxyGenerate* GalaxyGenerate::instance = 0;
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -67,6 +74,7 @@ void Application::Init()
 
 	//Create a window and create its OpenGL context
 	m_window = glfwCreateWindow(1600, 900, "Computer Graphics", NULL, NULL);
+	//m_window = glfwCreateWindow(1600, 900, "Computer Graphics", glfwGetPrimaryMonitor(), NULL);           // making the window full screen
 
 	//If the window couldn't be created
 	if (!m_window)
@@ -99,16 +107,9 @@ void Application::Init()
 void Application::Run()
 {
 	//Main Loop
-	//Scene *scene = new StudioProject();
-	//Scene *scene02 = new StudioProject();
-
-	//SceneManager::get_instance()->AddScene(scene);
-	//SceneManager::get_instance()->AddScene(scene02);
 
 	createScene();
-
 	SceneManager::get_instance()->getScene()->Init();
-	//scene02->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
@@ -117,18 +118,26 @@ void Application::Run()
 	}						//Check if the ESC key had been pressed or if the window had been closed
 
 	SceneManager::get_instance()->getScene()->Exit();
-	//scene02->Exit();
 	delete SceneManager::get_instance()->getScene();
-	//delete scene02;
 }
 
-void Application::createScene()
-{
-	Scene *scene = new StudioProject();
-	Scene *scene02 = new StudioProject();
+void Application::createScene() //adding new scene
+{	//id starts with 0
+	Scene *startScene = new StartScene();			//0
+	Scene *MenuScene = new MainMenuScene();			//1
+	Scene *SpaceScene = new StudioProject();		//2
+	Scene *LandScene = new PlanetScene();			//3
+	Scene *SolarScene = new SystemScene();			//4
+	Scene *GalaticScene = new GalaxyScene();		//5
+	Scene *stationScene = new StationScene();		//6
 
-	SceneManager::get_instance()->AddScene(scene);
-	SceneManager::get_instance()->AddScene(scene02);
+	SceneManager::get_instance()->AddScene(startScene);
+	SceneManager::get_instance()->AddScene(MenuScene);
+	SceneManager::get_instance()->AddScene(SpaceScene);
+	SceneManager::get_instance()->AddScene(LandScene);
+	SceneManager::get_instance()->AddScene(SolarScene);
+	SceneManager::get_instance()->AddScene(GalaticScene);
+	SceneManager::get_instance()->AddScene(stationScene);
 }
 
 void Application::Exit()

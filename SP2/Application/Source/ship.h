@@ -10,6 +10,9 @@
 #include "func_AABB.h"
 #include "Hull.h"
 #include "Thruster.h"
+#include "Shield.h"
+#include "PowerPlant.h"
+#include "Module.h"
 
 #include "DetectMemoryLeak.h"
 
@@ -27,6 +30,17 @@ public:
 	Vector3 getter(std::string);
 	Func_AABB* getAABB();
 	Mtx44 getStamp();
+	void setHit();
+	bool getHit();
+
+	float getSize();
+
+	void decreaseHealth(float);
+	float getHP();
+
+	void shieldUpdate(double dt);
+	void decreaseShield(float);
+	float getSP();
 private:
 
 protected:
@@ -40,10 +54,14 @@ protected:
 	float hullPoints;
 	float mass;
 	Hull* hull;
-	float maxShield;
+	float shieldPoints;
+	Shield* shield;
 	float thrust;
 	Thruster* thruster;
 	float power;
+	PowerPlant* reactor;
+
+	bool hit;
 
 	float turnSpeed;
 

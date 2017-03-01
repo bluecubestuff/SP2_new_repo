@@ -34,17 +34,24 @@ void Missile::tracking(double dt, Vector3 p)
 {
 	float rotateSpeed = turnSpeed * dt;
 	Vector3 target = (p - this->Position);
-	if (this->Forward != target.Normalized())
+	try
 	{
-		Vector3 temp = this->Forward.Cross(target.Normalized());
-		temp.Normalize();
-		Mtx44 rotate;
-		rotate.SetToRotation(rotateSpeed, temp.x, temp.y, temp.z);
-		this->Forward = rotate * this->Forward;
-		this->Right = rotate * this->Right;
-		this->Up = rotate * this->Up;
+		if (this->Forward != target.Normalized())
+		{
+			Vector3 temp = this->Forward.Cross(target.Normalized());
+			temp.Normalize();
+			Mtx44 rotate;
+			rotate.SetToRotation(rotateSpeed, temp.x, temp.y, temp.z);
+			this->Forward = rotate * this->Forward;
+			this->Right = rotate * this->Right;
+			this->Up = rotate * this->Up;
+		}
 	}
-	this->Position += this->Forward * 100.f * (float)dt;
+	catch (std::exception &e)
+	{
+		std::cout << "Missile Tracking Divide by Zero Error" << std::endl;
+	}
+	this->Position += this->Forward * 50.f * (float)dt;
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
 }
 

@@ -1,11 +1,13 @@
 #include "PlayerShip.h"
 
+static float l = 0;
+
 PlayerShip::PlayerShip()
 {
-	this->Forward = Vector3(0, 0, 1);
+	this->Forward = Vector3(-1, 0, 0);
 	this->Up = Vector3(0, 1, 0);
-	this->Right = Vector3(1, 0, 0);
-	this->Position = Vector3(0, 0, 0);
+	this->Right = Vector3(0, 0, 1);
+	this->Position = Vector3(1000, 2000, 1000);
 	this->Inertia = Vector3(0, 0, 0);
 	this->Speed = 0;
 	this->camTime = 0.f;
@@ -21,14 +23,21 @@ PlayerShip::PlayerShip()
 
 	this->size = 1;
 	hull = new Hull(100, 10.f, "BASE_H", "Second Hand Hull", "D4");
-	Hull* hull1 = new Hull;
- 	//std::cout << hull1->getId();
 	this->hullPoints = hull->getHullPoint();;
 	this->mass = hull->getMass();
-	this->maxShield = 100.f;
-	thruster = new Thruster(10.f, 20.f, "BASE_T", "Second Hand Thruster", "D4");
+	
+	shield = new Shield(100, 50.f, "BASE_S", "Second Hand Shield Generator", "D4");
+	shieldPoints = shield->getShieldPoint();
+	//this->maxShield = shield->getShieldPoint();
+
+	thruster = new Thruster(10.f, 25.f, "BASE_T", "Second Hand Thruster", "D4");
 	this->thrust = thruster->getThrust();
 	this->turnSpeed = thrust / mass;
+
+	reactor = new PowerPlant(100.f, "BASE_R", "second Hand Reactor", "D4");
+	this->power = reactor->getPower();
+
+	hit = false;
 
 	//std::cout << thrust << std::endl << mass << std::endl;
 
@@ -53,6 +62,7 @@ PlayerShip::PlayerShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, fl
 	this->freeCam = false;
 	this->firstThird = true;
 	this->changeCam = false;
+	this->hit = false;
 
 	this->Stamp = Mtx44(r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, f.x, f.y, f.z, 0, p.x, p.y, p.z, 1);
 }
@@ -64,10 +74,34 @@ PlayerShip::~PlayerShip()
 	//delete this;
 }
 
-void PlayerShip::locking(EnemyShip* target)
+void PlayerShip::locking(EnemyShip* target, double dt)
 {
 	//do point to aabb to enemyship, if stays for 3s, locked enabled
-	target->locked = true;
+	Vector3 temp = target->getter("position") - this->Position;
+	//need to normalize both vectors before doing the acos
+	float angle;
+	angle = Math::RadianToDegree(acos(temp.Normalized().Dot(this->Forward.Normalized())));
+	if (l >= 3)
+	{
+		target->locked = true;
+	}
+	if (target->getTargeted())
+	{
+		if (angle < 15 && angle > -15)
+			l += dt;
+		else
+		{
+			target->locked = false;
+			l = 0;
+		}
+	}
+	else if (!target->getTargeted())
+	{
+		target->locked = false;
+	}
+	else
+		l = 0;
+	//std::cout << l << std::endl;
 }
 
 void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
@@ -231,10 +265,20 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	//mouse control for the ship
 	if (!freeCam && FlightAssist)
 	{
+		float yawSpeed, pitchSpeed;
 		cursorPos = mouse.flightMouse();
+		if (Speed > 1 || Speed < -1)
+		{
+			yawSpeed = cursorPos.x * -(float)dt * turnSpeed / sqrt(abs(Speed));	//if the ship moves faster, the speed of turning decreases
+			pitchSpeed = cursorPos.y * (float)dt * turnSpeed / sqrt(abs(Speed));
+		}
+		else
+		{
+			yawSpeed = cursorPos.x * -(float)dt * turnSpeed;
+			pitchSpeed = cursorPos.y * (float)dt * turnSpeed;
+		}
 		if (cursorPos.x)
 		{
-			float yawSpeed = cursorPos.x * -(float)dt * 0.5f;
 			Mtx44 yaw;
 			yaw.SetToRotation(yawSpeed, this->Up.x, this->Up.y, this->Up.z);
 			this->Forward = yaw * this->Forward;
@@ -243,7 +287,6 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 		}
 		if (cursorPos.y)
 		{
-			float pitchSpeed = cursorPos.y * (float)dt * 0.5f;
 			Mtx44 pitch;
 			pitch.SetToRotation(pitchSpeed, this->Right.x, this->Right.y, this->Right.z);
 			//pitch.SetToRotation(pitchSpeed, 1, 0, 0);
@@ -255,8 +298,8 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 	else if (!freeCam && !FlightAssist)
 	{
 		cursorPos = mouse.flightMouse();
-		float yawSpeed = cursorPos.x * -(float)dt * 0.5f;
-		float pitchSpeed = cursorPos.y * (float)dt * 0.5f;
+		float yawSpeed = cursorPos.x * -(float)dt * turnSpeed;
+		float pitchSpeed = cursorPos.y * (float)dt * turnSpeed;
 		if (cursorPos.x)
 		{			
 			Mtx44 yaw;
@@ -300,6 +343,100 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 		ThirdCamera->Update(dt, freeCam, this->Forward, this->Right, this->Up, this->Position);
 	}
 	//==========================================================================
+	//changing targets
+	static bool pressing = false;
+	static int t = 0;
+	if (Application::IsKeyPressed('T') && pressing == false)
+	{
+		pressing = true;
+		std::cout << "t : " << t << " size: " << applicableTargets.size() << std::endl;
+		l = 0;
+		if (t < applicableTargets.size())
+		{
+			if (applicableTargets.size() != 0)
+			{
+				applicableTargets[t]->setTargeted(false);
+				applicableTargets[t]->locked = false;
+			}
+			t++;
+			if (t < applicableTargets.size())
+			{
+				applicableTargets[t]->setTargeted(true);
+			}
+			else if (t == applicableTargets.size())
+			{
+				t = 0;
+				applicableTargets[t]->setTargeted(true);
+			}
+			else
+				t = 0;
+		}
+		else
+			t = 0;
+	}
+	else if (!Application::IsKeyPressed('T'))
+	{
+		pressing = false;
+	}
+	if (applicableTargets.size() == 0)
+	{
+		t = 0;
+	}
+	//==========================================================================
+	for (auto &i : applicableTargets)
+	{
+		if (i->getTargeted())
+		{
+			locking(i, dt);
+		}
+		else
+		{
+			//applicableTargets[t]->locked = false;
+		}
+	}
+
+	//std::cout << pressing << std::endl;
+	//==========================================================================
 	//update ship matrix
 	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
+}
+
+void PlayerShip::withinRange(vector<EnemyShip*> targets)
+{
+	for (auto &i : targets)
+	{
+		Vector3 temp = i->getter("position") - this->Position;
+		if (temp.Length() < 400)		//if withing 45 degreess from forward
+		{
+			if (i->getWithinSights() != true)
+			{
+				i->setIGotYouInMySights(true);		//set the bool in enemy to true	
+				//std::cout << "targeted" << std::endl;
+				applicableTargets.push_back(i);		//puh back to which targets player can choose
+				//std::cout << applicableTargets.size() << std::endl;
+			}
+		}
+		else
+		{
+			i->setIGotYouInMySights(false);		//else not in ur target list anymore
+			//std::cout << "untargeted" << std::endl;
+		}
+	}
+	for (int i = 0; i < applicableTargets.size(); i++)
+	{
+		if (applicableTargets[i]->deaded)
+		{
+			EnemyShip* temp = applicableTargets[i];
+			applicableTargets.erase(applicableTargets.begin() + i);
+			delete temp;
+		}
+		else if (applicableTargets[i]->getWithinSights() == false)		//if is not in within the cone of target
+		{
+			applicableTargets[i]->setTargeted(false);
+			applicableTargets[i]->locked = false;;
+			applicableTargets.erase(applicableTargets.begin() + i);			//remove from the vector
+			//std::cout << "removed from target list" << std::endl;
+			i = 0;
+		}
+	}
 }

@@ -9,6 +9,7 @@ Ship::Ship()
 	Inertia = Vector3(0, 0, 0);
 
 	locked = false;
+	hit = false;
 
 	Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 }
@@ -22,6 +23,7 @@ Ship::Ship(Vector3 f, Vector3 u, Vector3 r, Vector3 p, Vector3 i, float s)
 	Inertia = i;
 
 	locked = false;
+	hit = false;
 
 	Stamp = Mtx44(r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, f.x, f.y, f.z, 0, p.x, p.y, p.z, 1);
 }
@@ -67,4 +69,66 @@ Mtx44 Ship::getStamp()
 Func_AABB* Ship::getAABB()
 {
 	return hitbox;
+}
+
+void Ship::setHit()
+{
+	if (this->hit == false)
+		this->hit = true;
+	else
+		this->hit = false;
+}
+
+bool Ship::getHit()
+{
+	return hit;
+}
+
+float Ship::getSize()
+{
+	return this->size;
+}
+
+void Ship::decreaseHealth(float dadsad)
+{
+	hullPoints -= dadsad;
+}
+
+float Ship::getHP()
+{
+	return hullPoints;
+}
+
+void Ship::shieldUpdate(double dt)
+{
+	static float offTime = 0;
+	if (shieldPoints != shield->getShieldPoint())
+	{
+		offTime += dt;
+		if (offTime > 5)
+		{
+			if (shieldPoints < shield->getShieldPoint())
+			{
+				shieldPoints += dt * 20;
+			}
+			else if (shieldPoints >= shield->getShieldPoint())
+			{
+				offTime = 0;
+			}
+		}
+		if (getHit())
+		{
+			offTime = 0;
+		}
+	}
+}
+
+void Ship::decreaseShield(float adasd)
+{
+	shieldPoints -= adasd;
+}
+
+float Ship::getSP()
+{
+	return shieldPoints;
 }

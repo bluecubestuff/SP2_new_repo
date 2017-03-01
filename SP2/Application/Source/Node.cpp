@@ -20,20 +20,18 @@ Node::~Node()
 {
 
 }
-Node* Node::getNode(float successorPosX, float successorPosY)
+Node* Node::getNode(float successorPosX, float successorPosZ)
 {
 	Node* temp = new Node;
 	temp->pos.x = successorPosX;
-	temp->pos.y = successorPosY;
+	temp->pos.z = successorPosZ;
 
 	return temp;
 }
 
-Vector3 Node::getNodePosition(Node* n)
+Vector3* Node::getNodePosition()
 {
-	Vector3 newPos = n->pos;
-
-	return newPos;
+	return new Vector3(pos.x, 0, pos.z);
 }
 
 Node* Node::getParent()

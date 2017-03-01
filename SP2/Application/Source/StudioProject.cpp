@@ -10,30 +10,35 @@
 #include "LoadTGA.h"
 #include "Weapon.h"
 
-#include "Tree.h"
-#include "Rock.h"
+//#include "Tree.h"
+//#include "Rock.h"
 
 //#include "LandGenerate.h"
 #include <iostream>
 
+Vector3 planeting(0, 2000, 1500);
+Vector3 stationing(-500, 2000, 500);
+float rotatePlanet = 0;
 
-StudioProject::StudioProject() :objfactory(this)
+StudioProject::StudioProject() : objfactory(this)
 {
-	//gen = new LandGenerate;
-
+	
 }
 
 StudioProject::~StudioProject()
 {
+	delete this;
 }
 
 void StudioProject::Init()
 {
 	// Set background color to dark blue
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 
 	//Enable depth buffer and depth testing
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_ALPHA_TEST);
+	//glAlphaFunc(GL_GREATER, 0);
 
 	//Enable back face culling
 	glEnable(GL_CULL_FACE);
@@ -48,6 +53,8 @@ void StudioProject::Init()
 	// Enable blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	ShowCursor(false);
 
 	//Load vertex and fragment shaders
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
@@ -102,7 +109,6 @@ void StudioProject::Init()
 
 	//variable to rotate geometry
 
-
 	//Initialize camera settings
 	//camera.Init(Vector3(1000, 950, 1010), Vector3(1000, 950, 1000), Vector3(0, 1, 0));
 
@@ -110,10 +116,16 @@ void StudioProject::Init()
 	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	//=============================================================================
 	Player = new PlayerShip;
-
+	waypoint = Mtx44(20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20, 0, 800, 700, 0, 1);
+	gen = new LandGenerate(this);
+	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
-	Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(100, 100, 100), 40.f,1.f,8.f);
-	hostiles.push_back(Enemy);
+	srand(time(NULL));
+	for (int i = 0; i < 1; i++)
+	{
+		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10 + 500, 2000, 1000), 40.f, 1.0f, 10.f);
+		hostiles.push_back(Enemy);
+	}
 	//=============================================================================
 
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 24, 13, 1);
@@ -125,24 +137,24 @@ void StudioProject::Init()
 	meshList[GEO_SPHERE]->material.kShininess = 1.f;
 
 	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
+	meshList[GEO_FRONT]->textureID = LoadTGA("Image//spaceBack.tga");
 
 	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
+	meshList[GEO_BACK]->textureID = LoadTGA("Image//spaceFront.tga");
 
 	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
+	meshList[GEO_LEFT]->textureID = LoadTGA("Image//spaceLeft.tga");
 
 	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
+	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//spaceRight.tga");
 
 	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//spaceBottom.tga");
 
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+	meshList[GEO_TOP]->textureID = LoadTGA("Image//spaceTop.tga");
 
-	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6, 0.4, 0.3));
+	//meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6f, 0.4f, 0.3f));
 
 	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
@@ -150,10 +162,45 @@ void StudioProject::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//SpaceFont.tga");
 
-	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//goat_easter_egg.OBJ");
+	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//Missle.OBJ");
+
+	meshList[GEO_BULLET] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//bullet_placeholder.OBJ");
 
 	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
-	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("rock", "OBJ//rock.obj");
+
+	meshList[GEO_SHIELD] = MeshBuilder::GenerateOBJ("Shieldza", "OBJ//sphere.obj");
+	meshList[GEO_SHIELD]->textureID = LoadTGA("Image//shieldza.tga");
+
+	meshList[GEO_CUBE] = MeshBuilder::GenerateOBJ("shield", "OBJ//shieldCubeThing.obj"); //ShieldCubeThing
+	meshList[GEO_CUBE]->textureID = LoadTGA("Image//cubecube.tga");
+
+	meshList[GEO_CUBE1] = MeshBuilder::GenerateOBJ("shield", "OBJ//shieldCubeThing.obj");
+	meshList[GEO_CUBE1]->textureID = LoadTGA("Image//locked.tga");
+
+	meshList[GEO_CUBE2] = MeshBuilder::GenerateOBJ("shield", "OBJ//shieldCubeThing.obj");
+	meshList[GEO_CUBE2]->textureID = LoadTGA("Image//leedle.tga");
+
+	meshList[GEO_WAYPOINT] = MeshBuilder::GenerateOBJ("waypoint", "OBJ//WaypointMarker.obj");
+	meshList[GEO_WAYPOINT]->textureID = LoadTGA("Image//waypoint.tga");
+
+	meshList[GEO_GREENPLANET] = MeshBuilder::GenerateOBJ("greenPlanet", "OBJ//Sphere2.OBJ");
+	meshList[GEO_GREENPLANET]->textureID = LoadTGA("Image//GreenPlanet.tga");
+
+	meshList[GEO_DESERTPLANET] = MeshBuilder::GenerateOBJ("desertPlanet", "OBJ//Sphere2.OBJ");
+	meshList[GEO_DESERTPLANET]->textureID = LoadTGA("Image//DesertPlanet.tga");
+
+	meshList[GEO_BLUEPLANET] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//Sphere.OBJ");
+	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
+
+	meshList[GEO_EXPLOSION] = MeshBuilder::GenerateOBJ("EXPLOSIONNN", "OBJ//Sphere.OBJ");
+	meshList[GEO_EXPLOSION]->textureID = LoadTGA("Image//EXPLOSIONNN.tga");
+
+	meshList[GEO_SPACE_STATION] = MeshBuilder::GenerateOBJ("Station", "OBJ//SpaceStation.OBJ");
+
+	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
+
+
 
 	meshList[GEO_INVENTORY_BUTTON] = MeshBuilder::GenerateOBJ("inventory", "OBJ//Inventory.obj");
 	meshList[GEO_INVENTORY_BUTTON]->textureID = LoadTGA("Image//Inventory.tga");
@@ -237,11 +284,29 @@ void StudioProject::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 5000.f);
+	projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
 	inventorystate = false;
 	//gen->landInIt();
+	//Vector3 tempPos;
+	//tempPos.Set(0, 0, 0);
+	//int counter = 0;
+	//srand(time(NULL));
+	//for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
+	//{
+	//	for (int x = 0; x < 5; x++)				//loops the grid in grid x
+	//	{
+	//		tempPos.x = Math::RandIntMinMax(x * 500, (x + 1) * 500);
+	//		tempPos.z = Math::RandIntMinMax(z * 500, (z + 1) * 500);
+	//		objfactory.createObject(new Rock(this, Vector3(tempPos.x, 0, tempPos.z), 3));
+	//		counter++;
+	//	}
+	//}
+	//std::cout << tempPos;
+
+	gen->landInIt();
+	//std::cout << gen->object_factory_getter().objContainer[0]->get_AABB().pt_Max << "\n";
 	//landMap = gen->getter();
 }
 
@@ -252,7 +317,7 @@ void StudioProject::Update(double dt)
 {
 	_dt = dt;
 	float LSPEED = 10.f;
-	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
+	
 
 	if (Application::IsKeyPressed('1')) //enable back face culling
 		glEnable(GL_CULL_FACE);
@@ -305,53 +370,244 @@ void StudioProject::Update(double dt)
 	//================================================================================
 	//--------------------------------------------------------------------------------
 	Player->Update(dt);
-	Player->locking(Enemy);		//place holder
-	Enemy->Update(dt, Player->getter("position"), Player->getter("forward"));
+	Player->shieldUpdate(dt);
+	Player->withinRange(hostiles);
+	//Player->locking(hostiles[0]);
+
+	for (auto &i : hostiles)
+	{
+		i->Update(dt, Player->getter("position"), Player->getter("forward"));
+		i->shieldUpdate(dt);
+		if (i->attack)
+		{
+			Bullet* bullet = new Bullet(i->getter("position"), i->getter("forward"), i->getter("up"), i->getter("right"));
+			enemyBullets.push_back(bullet);
+			//std::cout << i->getter("forward") << std::endl;
+		}
+	}
 	static float fireRate = 0;
 	fireRate += (float)dt;
-	if (Application::IsKeyPressed(VK_LBUTTON) && fireRate > 1)
+	if (Application::IsKeyPressed(VK_LBUTTON) && fireRate > 1.f)
 	{
 		for (auto &i : hostiles)
 		{
+			//std::cout << i->locked << std::endl;
 			if (i->locked)
 			{
-				Missile* missile = new Missile(Enemy, Player, 100.f, true);
+				Missile* missile = new Missile(Enemy, Player, 20.f, true);
 				missiles.push_back(missile);
 				fireRate = 0;
 			}
 		}
 	}
-	if (!missiles.empty())
+	if (missiles.size() != 0)
 		for (int i = 0; i < missiles.size(); i++)
 		{
 			for (auto &j : hostiles)
 			{
-				missiles[i]->checkTargets(hostiles);			//updates the missile to change target to enemy
-				missiles[i]->tracking(dt, missiles[i]->e->getter("position"));		//let the missiles translate and rotate to the enemy position.
-				if (j->getAABB()->pointInAABB(j->getAABB()->getAABB(), missiles[i]->getPos()))
+				if (missiles.size() != 0 && i < missiles.size())
 				{
-					delete missiles[i];
-					missiles.erase(missiles.begin() + i);
+					Vector3 temp;
+					if (j->locked)
+					{
+						missiles[i]->checkTargets(hostiles);								//updates the missile to change target to enemy
+						temp = missiles[i]->e->getter("position");
+						missiles[i]->tracking(dt, missiles[i]->e->getter("position"));		//let the missiles translate and rotate to the enemy position.
+					}
+					if (j->getAABB()->pointInAABB(missiles[i]->getPos()))					//j->getAABB()->getAABB(),
+					{
+						Missile* temp = missiles[i];
+						j->setHit();
+						if (j->getSP() <= 0)
+						{
+							j->decreaseHealth(30);
+						}
+						else
+						{
+							j->decreaseShield(30);
+						}
+
+						j->agro = true;
+						missiles.erase(missiles.begin() + i);
+						delete temp;
+					}
 				}
+				else
+					break;
 			}
 		}
 
+	for (auto &i : hostiles)
+	{
+		if (i->getHit())
+		{
+			static float cooldown = 0;
+			cooldown += dt;
+			if (cooldown > 0.5f)
+			{
+				i->setHit();
+				cooldown = 0;
+			}
+		}
+	}
+	//======================================================================================
+	//bullet
+	if (Application::IsKeyPressed(VK_RBUTTON))
+	{
+		//for (auto &i : hostiles)
+		//{
+		//	if (i->getTargeted())
+		//	{
+		//		//bullet travels 200 unit persecond;
+		//		//enemy translate at variable speed
+		//		i->getSpeed();
+		//	}
+		//}
+		Bullet* bullet = new Bullet(Player->getter("position"), Player->getter("forward"), Player->getter("up"), Player->getter("right"));
+		bullets.push_back(bullet);
+	}
+	//std::cout << bullets.size() << std::endl;
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		bullets[i]->Update(dt);
+		for (auto &j : hostiles)
+		{
+			if (i < bullets.size())
+			{
+				if (j->getAABB()->pointInAABB(bullets[i]->getPos()))
+				{
+					Bullet* temp = bullets[i];
+					j->setHit();
+					if (j->getSP() <= 0)
+					{
+						j->decreaseHealth(1);
+					}
+					else
+					{
+						j->decreaseShield(1);
+					}
+					j->agro = true;
+					bullets.erase(bullets.begin() + i);
+					delete temp;
+					i = 0;
+				}
+			}
+			else
+				i = 0;
+		}
+		if (i < bullets.size() && bullets[i]->outOfRange)
+		{
+			Bullet* temp = bullets[i];
+			bullets.erase(bullets.begin() + i);
+			delete temp;
+			i = 0;
+		}
+	}
 
-	//std::cout << Player->getter("forward") << std::endl;
+	for (int i = 0; i < enemyBullets.size(); i++)
+	{
+		enemyBullets[i]->Update(dt);
+		if (Player->getAABB()->pointInAABB(enemyBullets[i]->getPos()))
+		{
+			Bullet* temp = enemyBullets[i];
+			if (Player->getSP() <= 0)
+			{
+				Player->decreaseHealth(1);
+			}
+			else
+			{
+				Player->decreaseShield(1);
+			}
+			
+			enemyBullets.erase(enemyBullets.begin() + i);
+			delete temp;
+			i = 0;
+		}
+		if (enemyBullets[i]->outOfRange)
+		{
+			Bullet* temp = enemyBullets[i];
+			enemyBullets.erase(enemyBullets.begin() + i);
+			delete temp;
+			i = 0;
+		}
+	}
 
-	//if (!cubeStore.empty())
-	//std::cout << cubeStore[0];
+	for (int i = 0; i < hostiles.size(); i++)
+	{
+		if (hostiles[i]->getHP() <= 0)
+		{
+			//EnemyShip* dadad = hostiles[i];
+			hostiles[i]->deaded = true;
+			Explode = new Explosion(hostiles[i]->getter("position"));
+			hostiles.erase(hostiles.begin() + i);
+			explosions.push_back(Explode);
+			i = 0;
+		}
+		//std::cout << "S: " << hostiles[i]->getSP() << " H: " << hostiles[i]->getHP() << std::endl;
+	}
 
-	//if (!cubeStore.empty())
-	//{
-	//	for (int i = 0; i < 10; i++)
-	//	{
-	//		if (Player->getter("position") == cubeStore[i])
-	//		{
-	//			std::cout << "a";
-	//		}
-	//	}
-	//}
+	for (auto &i : hostiles)
+	{
+		if (i->getTargeted())
+		{
+			Vector3 wForward;
+			Vector3 wRight;
+			Vector3 wUp;
+			Vector3 target;
+			Vector3 pos = Player->getter("position") + Player->getter("forward") + Player->getter("up") * 0.5;
+			if (Player->firstThird == true)
+			{
+				target = ((i->getter("position") - Player->Camera->position).Normalized());
+			}
+			else
+			{
+				target = ((i->getter("position") - Player->ThirdCamera->position).Normalized());
+			}
+			wForward = target;
+			try
+			{
+				wUp = wForward.Cross(Player->getter("right")).Normalized();
+			}
+			catch (std::exception &e)
+			{
+				wUp = Player->getter("up");
+				std::cout << "divide by zero in waypoint" << std::endl;
+				//divide by zero error
+			}
+			wRight = wForward.Cross(wUp);
+			wForward.Normalize();
+			wRight.Normalize();
+			wUp.Normalize();
+			//std::cout << wRight.Length() << std::endl;
+			waypoint = Mtx44(wRight.x, wRight.y, wRight.z, 0, wUp.x, wUp.y, wUp.z, 0, wForward.x, wForward.y, wForward.z, 0, pos.x, pos.y, pos.z, 1);
+			//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", wRight, wUp, wForward);
+		}
+	}
+
+	for (int i = 0; i < explosions.size(); i++)
+	{
+		explosions[i]->Update(dt);
+		if (explosions[i]->getDone())
+		{
+			Explosion* temp = explosions[i];
+			explosions.erase(explosions.begin() + i);
+			delete temp;
+			i = 0;
+		}
+	}
+
+	if ((planeting - Player->getter("position")).Length() < 500)
+	{
+		SceneManager::get_instance()->SceneSelect(3);
+	}
+
+	if ((stationing - Player->getter("position")).Length() < 500)
+	{
+		SceneManager::get_instance()->SceneSelect(6);
+		//std::cout << "stationingly" << std::endl;
+	}
+
+	rotatePlanet += dt;
 	//std::cout << Player->getter("forward") << std::endl;
 	//camera.Update(dt);
 }
@@ -362,7 +618,6 @@ void StudioProject::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Mtx44 MVP;
-
 
 	viewStack.LoadIdentity();
 
@@ -432,15 +687,8 @@ void StudioProject::Render()
 	}
 
 
-	//RenderMesh(meshList[GEO_AXES], false);
-
 	modelStack.PushMatrix();
 	modelStack.LoadMatrix(Player->getStamp());
-	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.LoadMatrix(Enemy->getStamp());
 	RenderMesh(meshList[GEO_PLAYER_SHIP], true);
 	modelStack.PopMatrix();
 
@@ -452,6 +700,22 @@ void StudioProject::Render()
 		modelStack.PopMatrix();
 	}
 
+	for (auto &i : bullets)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->getMatrix());
+		RenderMesh(meshList[GEO_BULLET], false);
+		modelStack.PopMatrix();
+	}
+
+	for (auto &i : enemyBullets)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->getMatrix());
+		RenderMesh(meshList[GEO_BULLET], false);
+		modelStack.PopMatrix();
+	}
+	
 	RenderSkybox();
 
 	//=================================================================================================
@@ -466,18 +730,117 @@ void StudioProject::Render()
 	modelStack.PopMatrix();*/
 	//===================================================================================================
 	
-	modelStack.PushMatrix();
+	/*modelStack.PushMatrix();
 	modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
 	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
 	RenderMesh(meshList[GEO_AXES], false);
+	modelStack.PopMatrix();*/
+
+	modelStack.PushMatrix();
+	modelStack.LoadMatrix(waypoint);
+	RenderMesh(meshList[GEO_WAYPOINT], true);
+	modelStack.PopMatrix();
+	//generate the planet to land on
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2000, 1500);
+	modelStack.Scale(500, 500, 500);
+	modelStack.Rotate(rotatePlanet, 0, 1, 0);
+	switch (SystemScene::planet)
+	{
+	case 1:
+		RenderMesh(meshList[GEO_GREENPLANET], true);
+		break;
+	case 2:
+		RenderMesh(meshList[GEO_DESERTPLANET], true);
+		break;
+	case 3:
+		RenderMesh(meshList[GEO_BLUEPLANET], true);
+		break;
+	}
 	modelStack.PopMatrix();
 
 	//RenderUI(meshList[GEO_INVENTORY_BUTTON], 15.0, 15.0, 2.0, 2.0);//Inventory Button
 
 	//objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
-	objfactory.renderObjects();
+	objfactory.renderObjects(1);
+	objfactory.renderObjects(2);
+	objfactory.renderObjects(3);
 	objfactory.interactObjects();
 	DisplayUI();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(-500, 2000, 500);
+	//modelStack.Scale(30, 30, 30);
+	//modelStack.Rotate(180, 0, 1, 0);
+	//RenderMesh(meshList[GEO_SPACE_STATION], true);
+	//modelStack.PopMatrix();
+
+	for (auto &i : hostiles)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->getStamp());
+		RenderMesh(meshList[GEO_PLAYER_SHIP], true);
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		if (i->getHit())
+		{
+			if (i->getSP() > 0)
+			{
+				modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+				modelStack.Scale(i->getSize() * 3, i->getSize() * 3, i->getSize() * 3);
+				RenderMesh(meshList[GEO_SHIELD], false);
+			}
+			else
+			{
+				RenderUI(meshList[GEO_CUBE1], 800, 450, 35, 35);
+			}
+		}
+		if (i->locked)
+		{
+			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+			modelStack.Scale(i->getSize() * 5, i->getSize() * 5, i->getSize() * 5);
+			RenderMesh(meshList[GEO_CUBE1], false);
+		}
+		if (i->getTargeted())
+		{
+			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+			modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
+			RenderMesh(meshList[GEO_CUBE], false);
+		}
+
+		modelStack.PushMatrix();
+		modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
+		modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
+		RenderMesh(meshList[GEO_CUBE2], false);
+		modelStack.PopMatrix();
+
+		modelStack.PopMatrix();
+	}
+
+	for (auto &i : explosions)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i->getPos().x, i->getPos().y, i->getPos().z);
+		modelStack.Scale(i->getScale(), i->getScale(), i->getScale());
+		RenderMesh(meshList[GEO_EXPLOSION], false);
+		modelStack.PopMatrix();
+	}
+	//if (SystemScene::planet > 0)
+	//{
+	//	std::cout << SystemScene::planet << std::endl;
+	//}
+	//gen->BuildLand();
+	if (Player->firstThird)
+	{
+		Mouse mouse;
+		POINT point = mouse.freeMouse();
+		modelStack.PushMatrix();
+		RenderUI(meshList[GEO_SPHERE], point.x, point.y, 5, 5);
+		modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
+		modelStack.PopMatrix();
+	}
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
@@ -567,7 +930,7 @@ void StudioProject::RenderTextOnScreen(Mesh* mesh, std::string text, Color color
 	glDisable(GL_DEPTH_TEST);
 
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 1600, 0, 900, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -609,7 +972,7 @@ void StudioProject::RenderUI(Mesh* mesh, float x, float y, float sizex, float si
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 1600, 0, 900, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -627,12 +990,35 @@ void StudioProject::RenderUI(Mesh* mesh, float x, float y, float sizex, float si
 
 	glEnable(GL_DEPTH_TEST);
 }
+//============================================TESTING===============================================
+void StudioProject::RenderWaypoint(Mesh* mesh, float x, float y, float sizex, float sizey)
+{
+	glDisable(GL_DEPTH_TEST);
+	Mtx44 ortho;
+	ortho.SetToOrtho(0, 1600, 0, 900, -100, 100); //size of screen UI
+	projectionStack.PushMatrix();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity(); //No need camera for ortho mode
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity();
+	//scale and translate accordingly
+	modelStack.LoadMatrix(waypoint);
+	RenderMesh(mesh, true); //UI should not have light
+
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	glEnable(GL_DEPTH_TEST);
+}
 //=================================================================================================
 
 void StudioProject::RenderSkybox()
 {
 	modelStack.PushMatrix();//push ground
 	modelStack.Translate(950, 0, 950);
+	modelStack.Scale(2, 2, 2);
 
 	modelStack.PushMatrix();//seperate from ground
 
@@ -682,7 +1068,8 @@ void StudioProject::RenderSkybox()
 
 	modelStack.Translate(0, 0, 0);
 	modelStack.Scale(2000, 1, 2000);
-	RenderMesh(meshList[GEO_BOTTOM], true);
+	modelStack.Rotate(180, 0, 1, 0);
+	RenderMesh(meshList[GEO_BOTTOM], false);
 	modelStack.PopMatrix();//end ground
 }
 
@@ -749,9 +1136,19 @@ void StudioProject::DisplayUI()
 //
 //	return false;
 //}
-
 void StudioProject::Exit()
 {
+	for (auto &i : hostiles)
+	{
+		delete i;
+	}
+	for (auto &i : missiles)
+	{
+		delete i;
+	}
+	hostiles.clear();
+	missiles.clear();
+	delete gen;
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

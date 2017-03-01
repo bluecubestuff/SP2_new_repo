@@ -18,6 +18,10 @@
 #include "DetectMemoryLeak.h"
 #include "LandGenerate.h"
 #include "ObjectFactory.h"
+#include "Bullet.h"
+#include "SystemScene.h"
+#include "SceneManager.h"
+#include "Explosion.h"
 
 #include <string>
 #include <vector>
@@ -50,12 +54,18 @@ class StudioProject : public Scene
 		//basic shapes
 		GEO_QUAD,
 		GEO_CUBE,
+		GEO_CUBE1,
+		GEO_CUBE2,
 		GEO_CIRCLE,
 		GEO_RING,
 		GEO_HEMISPHERE,
 		GEO_SPHERE,
 		GEO_LIGHTBALL,
 		GEO_CYLINDER,
+		
+		//effects
+		GEO_BULLET,
+		GEO_EXPLOSION,
 
 		//skybox
 		GEO_LEFT,
@@ -70,14 +80,22 @@ class StudioProject : public Scene
 		GEO_IRON,
 		GEO_TITANIUM,
 		GEO_MITHRIL,
-		GEO_BISMUTH,
+		GEO_BISMUTH,	
 		GEO_TREE,
 		GEO_GOAT,
 		GEO_NPC,
 		GEO_BUILDING,
+		GEO_SPACE_STATION,
+
+		//Planet
+		GEO_DESERTPLANET,
+		GEO_BLUEPLANET,
+		GEO_GREENPLANET,
 
 		//Ships
 		GEO_PLAYER_SHIP,
+		GEO_SHIELD,
+		GEO_WAYPOINT,
 
 		//text
 		GEO_TEXT,
@@ -170,6 +188,7 @@ private:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderUI(Mesh* mesh, float x, float y, float sizex, float sizey);
+	void RenderWaypoint(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderSkybox();
 	void RenderInventory();
 	void DisplayInventory();
@@ -181,14 +200,21 @@ private:
 
 	PlayerShip* Player;
 	EnemyShip* Enemy;
+	Explosion* Explode;
 
 	vector<EnemyShip*> hostiles;
 
-	Missile* missile;
 	vector<Missile*> missiles;
 
+	vector<Bullet*> bullets;
+	vector<Bullet*> enemyBullets;
+
+	vector<Explosion*> explosions;
+
+	LandGenerate* gen;
+
+	Mtx44 waypoint;
 	ObjectFactory objfactory;
-	Mouse mice;
 
 	//Camera2 camera;
 	//Camera3 camera;

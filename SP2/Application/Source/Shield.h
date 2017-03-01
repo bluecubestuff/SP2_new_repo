@@ -12,6 +12,7 @@ public:
 
 	int getShieldPoint();
 	float getPowerDraw();
+	void setSP(int);
 
 	static int count;
 private:

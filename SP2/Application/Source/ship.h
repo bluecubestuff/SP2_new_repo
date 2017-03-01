@@ -26,6 +26,9 @@ public:
 	~Ship();
 
 	bool locked;
+	Hull* hull;
+	Thruster* thruster;
+	Shield* shield;
 
 	Vector3 getter(std::string);
 	Func_AABB* getAABB();
@@ -37,10 +40,16 @@ public:
 
 	void decreaseHealth(float);
 	float getHP();
+	void fullHealth();
+	void setHP(float);
 
 	void shieldUpdate(double dt);
 	void decreaseShield(float);
 	float getSP();
+	void setSP(float);
+	
+	void setThrust(float);
+	int getThrust();
 private:
 
 protected:
@@ -53,11 +62,11 @@ protected:
 	float size;
 	float hullPoints;
 	float mass;
-	Hull* hull;
+	
 	float shieldPoints;
-	Shield* shield;
+	
 	float thrust;
-	Thruster* thruster;
+	
 	float power;
 	PowerPlant* reactor;
 

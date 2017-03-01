@@ -12,6 +12,7 @@ public:
 
 	int getThrust();
 	float getPowerDraw();
+	void setThrust(int);
 
 	static int count;
 private:

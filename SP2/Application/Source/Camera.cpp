@@ -80,32 +80,32 @@ void Camera::Update(double dt)
 		CAMERA_SPEED = 20.f;
 	}
 	//==================================================================
-	if (Application::IsKeyPressed(VK_UP))
-	{
-		Mtx44 rotation;
-		rotation.SetToRotation(100.f * dt, right.x, 0, right.z);
-		forward = rotation * forward;
-		up = rotation * up;
-	}
-	else if (Application::IsKeyPressed(VK_DOWN))
-	{
-		Mtx44 rotation;
-		rotation.SetToRotation(-100.f * dt, right.x, 0, right.z);
-		forward = rotation * forward;
-		up = rotation * up;
-	}
-	if (Application::IsKeyPressed(VK_LEFT))
-	{
-		Mtx44 rotation;
-		rotation.SetToRotation(100.f * dt, up.x, up.y, up.z);
-		forward = rotation * forward;
-	}
-	else if (Application::IsKeyPressed(VK_RIGHT))
-	{
-		Mtx44 rotation;
-		rotation.SetToRotation(-100.f * dt, up.x, up.y, up.z);
-		forward = rotation * forward;
-	}
+	//if (Application::IsKeyPressed(VK_UP))
+	//{
+	//	Mtx44 rotation;
+	//	rotation.SetToRotation(100.f * dt, right.x, 0, right.z);
+	//	forward = rotation * forward;
+	//	up = rotation * up;
+	//}
+	//else if (Application::IsKeyPressed(VK_DOWN))
+	//{
+	//	Mtx44 rotation;
+	//	rotation.SetToRotation(-100.f * dt, right.x, 0, right.z);
+	//	forward = rotation * forward;
+	//	up = rotation * up;
+	//}
+	//if (Application::IsKeyPressed(VK_LEFT))
+	//{
+	//	Mtx44 rotation;
+	//	rotation.SetToRotation(100.f * dt, up.x, up.y, up.z);
+	//	forward = rotation * forward;
+	//}
+	//else if (Application::IsKeyPressed(VK_RIGHT))
+	//{
+	//	Mtx44 rotation;
+	//	rotation.SetToRotation(-100.f * dt, up.x, up.y, up.z);
+	//	forward = rotation * forward;
+	//}
 	//==================================================================
 	target = forward + position;
 }

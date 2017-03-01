@@ -48,3 +48,8 @@ float Shield::getPowerDraw()
 {
 	return this->powerDraw;
 }
+
+void Shield::setSP(int s)
+{
+	shieldPoint = s;
+}

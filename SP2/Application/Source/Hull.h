@@ -12,6 +12,7 @@ public:
 
 	int getHullPoint();
 	int getMass();
+	void setHP(int);
 
 	static int count;
 private:

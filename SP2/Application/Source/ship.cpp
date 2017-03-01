@@ -99,6 +99,16 @@ float Ship::getHP()
 	return hullPoints;
 }
 
+void Ship::fullHealth()
+{
+	hullPoints = hull->getHullPoint();
+}
+
+void Ship::setHP(float h)
+{
+	hull->setHP(h);
+}
+
 void Ship::shieldUpdate(double dt)
 {
 	static float offTime = 0;
@@ -131,4 +141,19 @@ void Ship::decreaseShield(float adasd)
 float Ship::getSP()
 {
 	return shieldPoints;
+}
+
+void Ship::setSP(float s)
+{
+	shield->setSP(s);
+}
+
+int Ship::getThrust()
+{
+	return thrust;
+}
+
+void Ship::setThrust(float t)
+{
+	thruster->setThrust(t);
 }

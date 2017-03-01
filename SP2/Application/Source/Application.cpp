@@ -13,6 +13,7 @@
 #include "StartScene.h"
 #include "StationScene.h"
 #include "MainMenuScene.h"
+#include "DeathScene.h"
 
 #include "GalaxyGenerate.h"
 #include "Currency.h"
@@ -133,6 +134,7 @@ void Application::createScene() //adding new scene
 	Scene *SolarScene = new SystemScene();			//4
 	Scene *GalaticScene = new GalaxyScene();		//5
 	Scene *stationScene = new StationScene();		//6
+	Scene *death = new DeathScene();				//7
 
 	SceneManager::get_instance()->AddScene(startScene);
 	SceneManager::get_instance()->AddScene(MenuScene);
@@ -141,6 +143,7 @@ void Application::createScene() //adding new scene
 	SceneManager::get_instance()->AddScene(SolarScene);
 	SceneManager::get_instance()->AddScene(GalaticScene);
 	SceneManager::get_instance()->AddScene(stationScene);
+	SceneManager::get_instance()->AddScene(death);
 }
 
 void Application::Exit()

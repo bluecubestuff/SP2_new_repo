@@ -2,7 +2,8 @@
 
 NPC::NPC()
 {
-
+	StudioProject::Player->fullHealth();
+	//Currency::get_instance()->value_adder(500);
 }
 
 NPC::~NPC()
@@ -79,8 +80,19 @@ void NPC::sell()
 void NPC::craft()
 {
 	int money = Currency::get_instance()->value_getter();
+	//needa do if click on iron and such
 	if (Application::IsKeyPressed('1'))
 	{
+		if (Currency::get_instance()->value_getter() > 20)
+		{
+			int temp = StudioProject::Player->hull->getHullPoint();	//find current hp
+			StudioProject::Player->hull->setHP(temp + 10);			//increase hp by 10
+			StudioProject::Player->fullHealth();
+			//StudioProject::IronValue -= 40;
+			money -= 20;
+			Currency::get_instance()->value_setter(money);
+			//std::cout << StudioProject::Player->getHP() << std::endl;
+		}
 		//upgrade hull
 		//spend money
 		//use resources

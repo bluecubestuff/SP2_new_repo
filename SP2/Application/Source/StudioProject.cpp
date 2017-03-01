@@ -127,7 +127,7 @@ void StudioProject::Init()
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	srand(time(NULL));
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10 + 500, 2000, 1000), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);
@@ -537,6 +537,8 @@ void StudioProject::Update(double dt)
 		//std::cout << "S: " << hostiles[i]->getSP() << " H: " << hostiles[i]->getHP() << std::endl;
 	}
 
+	std::cout << Currency::get_instance()->value_getter() << std::endl;
+
 	for (auto &i : hostiles)
 	{
 		if (i->getTargeted())
@@ -601,7 +603,7 @@ void StudioProject::Update(double dt)
 	//placeholder
 	if (Player->getHP() <= 0)
 	{
-		std::cout << "deaded" << std::endl;
+		SceneManager::get_instance()->SceneSelect(7);
 	}
 
 	rotatePlanet += dt;

@@ -48,6 +48,7 @@ void StationCamera::Update(double dt)
 {
 	static const float CAMERA_SPEED = 0.1f * dt;
 	static float MOVEMENT_SPEED = 40.f * dt;
+	static bool crafting = false;
 
 	Vector3 temp = forward;
 	temp.y = 0;
@@ -61,69 +62,72 @@ void StationCamera::Update(double dt)
 	Vector3 left = position - rTemp;
 	Vector3 righty = position + rTemp;
 
-	if (Application::IsKeyPressed('W'))
+	if (!crafting)
 	{
-		bool move = true;
-		for (auto &i : hitboxes)
+		if (Application::IsKeyPressed('W'))
 		{
-			if(i->pointInAABB(infront))
+			bool move = true;
+			for (auto &i : hitboxes)
 			{
-				move = false;
+				if (i->pointInAABB(infront))
+				{
+					move = false;
+				}
+			}
+			if (move)
+			{
+				if (Area->pointInAABB(infront))
+					position += temp * MOVEMENT_SPEED;
 			}
 		}
-		if (move)
+		else if (Application::IsKeyPressed('S'))
 		{
-			if (Area->pointInAABB(infront))
-				position += temp * MOVEMENT_SPEED;
-		}
-	}
-	else if (Application::IsKeyPressed('S'))
-	{
-		bool move = true;
-		for (auto &i : hitboxes)
-		{
-			if (i->pointInAABB(behind))
+			bool move = true;
+			for (auto &i : hitboxes)
 			{
-				move = false;
+				if (i->pointInAABB(behind))
+				{
+					move = false;
+				}
+			}
+			if (move)
+			{
+				if (Area->pointInAABB(behind))
+					position -= temp * MOVEMENT_SPEED;
 			}
 		}
-		if (move)
-		{
-			if (Area->pointInAABB(behind))
-				position -= temp * MOVEMENT_SPEED;
-		}
-	}
 
-	if (Application::IsKeyPressed('A'))
-	{
-		bool move = true;
-		for (auto &i : hitboxes)
+		if (Application::IsKeyPressed('A'))
 		{
-			if (i->pointInAABB(left))
+			bool move = true;
+			for (auto &i : hitboxes)
 			{
-				move = false;
+				if (i->pointInAABB(left))
+				{
+					move = false;
+				}
+			}
+			if (move)
+			{
+				if (Area->pointInAABB(left))
+					position -= rTemp * MOVEMENT_SPEED * 0.5;
 			}
 		}
-		if (move)
+		else if (Application::IsKeyPressed('D'))
 		{
-			if (Area->pointInAABB(left))
-				position -= rTemp * MOVEMENT_SPEED * 0.5;
-		}
-	}
-	else if (Application::IsKeyPressed('D'))
-	{
-		bool move = true;
-		for (auto &i : hitboxes)
-		{
-			if (i->pointInAABB(righty))
+			bool move = true;
+			for (auto &i : hitboxes)
 			{
-				move = false;
+				if (i->pointInAABB(righty))
+				{
+					move = false;
+				}
 			}
-		}
-		if (move)
-		{
-			if (Area->pointInAABB(righty))
-				position += rTemp * MOVEMENT_SPEED * 0.5;
+			if (move)
+			{
+				if (Area->pointInAABB(righty))
+					position += rTemp * MOVEMENT_SPEED * 0.5;
+			}
 		}
 	}
 
@@ -136,29 +140,27 @@ void StationCamera::Update(double dt)
 		MOVEMENT_SPEED = 40.f * dt;
 	}
 
-	static bool selling = false;;
-	if (hitboxes[3]->pointInAABB(infront))	//right
-	{
-		static bool pressing = false;
-		if (Application::IsKeyPressed('E') && pressing == false)
-		{
-			if (selling)
-				selling = false;
-			else
-				selling = true;
-			pressing = true;
-		}
-		else if (!Application::IsKeyPressed('E'))
-		{
-			pressing = false;
-		}
-	}
-	if (selling)
-	{
-		npc.sell();
-	}
-
-	static bool crafting = false;
+	//static bool selling = false;;
+	//if (hitboxes[3]->pointInAABB(infront))	//right
+	//{
+	//	static bool pressing = false;
+	//	if (Application::IsKeyPressed('E') && pressing == false)
+	//	{
+	//		if (selling)
+	//			selling = false;
+	//		else
+	//			selling = true;
+	//		pressing = true;
+	//	}
+	//	else if (!Application::IsKeyPressed('E'))
+	//	{
+	//		pressing = false;
+	//	}
+	//}
+	//if (selling)
+	//{
+	//	npc.sell();
+	//}
 	if (hitboxes[8]->pointInAABB(infront))	//left
 	{
 		static bool pressing = false;
@@ -178,6 +180,7 @@ void StationCamera::Update(double dt)
 	}
 	if (crafting)
 	{
+		//std::cout << "crafting" << std::endl;
 		npc.craft();
 	}
 

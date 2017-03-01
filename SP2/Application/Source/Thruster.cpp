@@ -50,3 +50,8 @@ float Thruster::getPowerDraw()
 {
 	return this->powerDraw;
 }
+
+void Thruster::setThrust(int t)
+{
+	thrust = t;
+}

@@ -48,3 +48,8 @@ int Hull::getMass()
 {
 	return mass;
 }
+
+void Hull::setHP(int h)
+{
+	hullPoint = h;
+}

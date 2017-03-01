@@ -485,17 +485,17 @@ void StationScene::Render()
 		modelStack.PopMatrix();
 	}
 
-	//modelStack.PushMatrix();
-	//modelStack.Scale(20, 20, 20);
-	//modelStack.Translate(0, 0, 7);
-	//RenderMesh(meshList[GEO_SPACE_STATION], true);
-	//modelStack.PopMatrix();
-
 	modelStack.PushMatrix();
+	modelStack.Scale(20, 20, 20);
+	modelStack.Translate(0, 0, 7);
+	RenderMesh(meshList[GEO_SPACE_STATION], true);
+	modelStack.PopMatrix();
+
+	/*modelStack.PushMatrix();
 	modelStack.Translate(camera->position.x, 0, camera->position.z);
 	modelStack.Scale(0.1, 0.1, 0.1);
 	RenderMesh(meshList[GEO_SPHERE], false);
-	modelStack.PopMatrix();
+	modelStack.PopMatrix();*/
 
 	RenderTextOnScreen(meshList[GEO_TEXT], pos, Color(1, 0, 0), 30, 30, 894);
 

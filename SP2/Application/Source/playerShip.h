@@ -28,6 +28,9 @@ public:
 
 	double camTime;
 	float Speed;
+	
+	bool damaged;
+	float damageT;
 
 	vector<EnemyShip*> applicableTargets;
 

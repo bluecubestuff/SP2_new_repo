@@ -63,7 +63,7 @@ class StudioProject : public Scene
 		GEO_SPHERE,
 		GEO_LIGHTBALL,
 		GEO_CYLINDER,
-		
+
 		//effects
 		GEO_BULLET,
 		GEO_EXPLOSION,
@@ -77,7 +77,7 @@ class StudioProject : public Scene
 		GEO_BACK,
 
 		//objects
-		GEO_ROCK,    	
+		GEO_ROCK,
 		GEO_IRON,
 		GEO_TITANIUM,
 		GEO_MITHRIL,
@@ -108,6 +108,9 @@ class StudioProject : public Scene
 		GEO_INVENTORY_SLOT,
 		GEO_HEALTH_BAR,
 		GEO_MP_BAR,
+
+		GEO_HEALTH_FEEDBACK,
+		GEO_SHIELD_FEEDBACK,
 
 		NUM_GEOMETRY,
 	};
@@ -190,6 +193,7 @@ private:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderUI(Mesh* mesh, float x, float y, float sizex, float sizey);
+	void RenderFeedback(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderWaypoint(Mesh* mesh, float x, float y, float sizex, float sizey);
 
 	void RenderSkybox();

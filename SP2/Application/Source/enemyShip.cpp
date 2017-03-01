@@ -22,6 +22,7 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 	this->targeted = false;
 	this->deaded = false;
 	this->attack = false;
+	this->fireRate = 0;
 
 	hull = new Hull;
 	this->hullPoints = hull->getHullPoint();;
@@ -137,8 +138,12 @@ void EnemyShip::Update(double dt, Vector3 playerPos, Vector3 playerFor)
 	//std::cout << Position << "thrsut" << std::endl;
 	//std::cout << distance << std::endl;
 	hitbox->updateAABB(size, size, size, this->Position);	//update the aabb of the enemy
+	fireRate += dt;
 
-	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, this->Up.x, this->Up.y, this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
+	Up = Right.Cross(Forward);
+	Up.Normalize();
+
+	this->Stamp = Mtx44(this->Right.x, this->Right.y, this->Right.z, 0, -this->Up.x, -this->Up.y, -this->Up.z, 0, this->Forward.x, this->Forward.y, this->Forward.z, 0, this->Position.x, this->Position.y, this->Position.z, 1);
 }
 
 void EnemyShip::chase(double dt, Vector3 playerPos)

@@ -127,9 +127,10 @@ void StudioProject::Init()
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	srand(time(NULL));
-	for (int i = 0; i < 10; i++)
+	int enemyQuantity = Math::RandIntMinMax(5, 10);
+	for (int i = 0; i < enemyQuantity; i++)
 	{
-		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(i * 10 + 500, 2000, 1000), 40.f, 1.f, 10.f);
+		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(500, 2000, 1000 + i * 20), 40.f, 2.f, 10.f);
 		hostiles.push_back(Enemy);
 	}
 	//=============================================================================
@@ -234,6 +235,12 @@ void StudioProject::Init()
 
 	meshList[GEO_HEALTH_BAR] = MeshBuilder::GenerateCube("health bar", Color(1, 0, 0));
 	meshList[GEO_MP_BAR] = MeshBuilder::GenerateCube("mp bar", Color(0, 0, 1));
+
+	meshList[GEO_HEALTH_FEEDBACK] = MeshBuilder::GenerateOBJ("Health Feedback", "OBJ//feedback.obj");
+	meshList[GEO_HEALTH_FEEDBACK]->textureID = LoadTGA("Image//healthFeedback.tga");
+
+	meshList[GEO_SHIELD_FEEDBACK] = MeshBuilder::GenerateOBJ("Shield Feedback", "OBJ//feedback.obj");
+	meshList[GEO_SHIELD_FEEDBACK]->textureID = LoadTGA("Image//shieldFeedback.tga");
 
 	//------------------------------------------------------------------------------------------
 	//light
@@ -364,9 +371,11 @@ void StudioProject::Update(double dt)
 	{
 		i->Update(dt, Player->getter("position"), Player->getter("forward"));
 		i->shieldUpdate(dt);
-		if (i->attack)
+		if (i->attack && i->fireRate > 0.5)
 		{
+			i->fireRate = 0;
 			Bullet* bullet = new Bullet(i->getter("position"), i->getter("forward"), i->getter("up"), i->getter("right"));
+			//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", i->getter("forward"), i->getter("forward"), i->getter("forward") * 10);
 			enemyBullets.push_back(bullet);
 			//std::cout << i->getter("forward") << std::endl;
 		}
@@ -499,10 +508,15 @@ void StudioProject::Update(double dt)
 			if (Player->getSP() <= 0)
 			{
 				Player->decreaseHealth(1);
+				Player->damageT = 1;
+				Player->damaged = true;
+				//std::cout << "enemy hit us" << std::endl;
 			}
 			else
 			{
 				Player->decreaseShield(1);
+				Player->damageT = 1;
+				Player->damaged = true;
 			}
 			
 			enemyBullets.erase(enemyBullets.begin() + i);
@@ -516,6 +530,12 @@ void StudioProject::Update(double dt)
 			delete temp;
 			i = 0;
 		}
+	}
+
+	Player->damageT -= dt;
+	if (Player->damageT < 0)
+	{
+		Player->damaged = false;
 	}
 
 	for (int i = 0; i < hostiles.size(); i++)
@@ -533,7 +553,7 @@ void StudioProject::Update(double dt)
 		//std::cout << "S: " << hostiles[i]->getSP() << " H: " << hostiles[i]->getHP() << std::endl;
 	}
 
-	std::cout << Currency::get_instance()->value_getter() << std::endl;
+	//std::cout << Currency::get_instance()->value_getter() << std::endl;
 
 	for (auto &i : hostiles)
 	{
@@ -603,7 +623,7 @@ void StudioProject::Update(double dt)
 	}
 
 	rotatePlanet += dt;
-	std::cout << Player->getter("position") << std::endl;
+	//std::cout << Player->getter("position") << std::endl;
 	//camera.Update(dt);
 }
 
@@ -768,6 +788,7 @@ void StudioProject::Render()
 		modelStack.PushMatrix();
 		modelStack.LoadMatrix(i->getStamp());
 		RenderMesh(meshList[GEO_PLAYER_SHIP], true);
+		//RenderMesh(meshList[GEO_AXES], false);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
@@ -836,6 +857,22 @@ void StudioProject::Render()
 	objfactory.renderObjects(1);
 	objfactory.interactObjects();
 	DisplayUI();
+
+	modelStack.PushMatrix();
+
+	if (Player->damaged && Player->getSP() > 0)
+	{
+		RenderFeedback(meshList[GEO_SHIELD_FEEDBACK], 800, 450, 1600, 900);
+		//std::cout << "shield Damaged" << std::endl;
+	}
+	else if (Player->damaged && Player->getHP())
+	{
+		RenderFeedback(meshList[GEO_HEALTH_FEEDBACK], 800, 450, 1600, 900);
+		//std::cout << "health Damaged" << std::endl;
+	}
+	modelStack.PopMatrix();
+
+	//RenderFeedback(meshList[GEO_HEALTH_FEEDBACK], 800, 450, 100, 100);
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
@@ -985,6 +1022,30 @@ void StudioProject::RenderUI(Mesh* mesh, float x, float y, float sizex, float si
 
 	glEnable(GL_DEPTH_TEST);
 }
+
+void StudioProject::RenderFeedback(Mesh* mesh, float x, float y, float sizex, float sizey)
+{
+	glDisable(GL_DEPTH_TEST);
+	Mtx44 ortho;
+	ortho.SetToOrtho(0, 1600, 0, 900, -10, 10); //size of screen UI
+	projectionStack.PushMatrix();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity(); //No need camera for ortho mode
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity();
+	//scale and translate accordingly
+	modelStack.Translate(x, y, 0);
+	modelStack.Scale(sizex, sizey, 1);
+	RenderMesh(mesh, false); //UI should not have light
+
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	glEnable(GL_DEPTH_TEST);
+}
+
 //============================================TESTING===============================================
 void StudioProject::RenderWaypoint(Mesh* mesh, float x, float y, float sizex, float sizey)
 {

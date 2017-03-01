@@ -1,4 +1,5 @@
 #include "landPlayer.h"
+#include "landEnemy.h"
 
 LandPlayer::LandPlayer()
 {
@@ -30,7 +31,19 @@ void LandPlayer::Update(double dt)
 	this->Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
 }
 
-void LandPlayer::Combat(double dt, Vector3 enemyPos, vector<LandEnemy*> landEnemies)
+void LandPlayer::Update(double dt, vector<LandEnemy*> landEnemies, vector<LandEnemy*> rangedEnemies)
+{
+	FPS_CAM->Update(dt, Position, Forward);
+	Combat(dt, landEnemies, rangedEnemies);
+	this->Right = (Forward.Cross(Vector3(0, 1, 0))).Normalized();
+	this->Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
+	if (this->Health <= 0)
+	{
+		std::cout << "You dieded" << std::endl;
+	}
+}
+
+void LandPlayer::Combat(double dt, vector<LandEnemy*> meleeEnemies, vector<LandEnemy*> rangedEnemies)
 {
 	if (Application::IsKeyPressed('Q'))
 	{
@@ -43,16 +56,121 @@ void LandPlayer::Combat(double dt, Vector3 enemyPos, vector<LandEnemy*> landEnem
 		meleeWeaponEquipped = false;
 	}
 
-	for (it = landEnemies.begin(); it != landEnemies.end(); it++)
+	if (meleeWeaponEquipped == true)
 	{
-		if (meleeWeaponEquipped == true && calculateDistance(Position, enemyPos) < 30)
+		if (Application::IsKeyPressed(VK_LBUTTON))
 		{
-			if (Application::IsKeyPressed(VK_LEFT))
+			for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
 			{
-				(*it)->modifyHealth("decrease", 35);
+				if (meleeWeaponEquipped == true && calculateDistance(Position, (*it)->Position) < 25)
+				{
+					(*it)->modifyHealth("decrease", 35);
+				}
+			}
+
+			for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
+			{
+				if (meleeWeaponEquipped == true && calculateDistance(Position, (*it)->Position) < 25)
+				{
+					(*it)->modifyHealth("decrease", 35);
+				}
 			}
 		}
 	}
+
+	if (rangedWeaponEquipped == true)
+	{
+		if (Application::IsKeyPressed(VK_LBUTTON))
+		{
+			playerBullet* bullet = new playerBullet(this->Position, this->Forward, this->Up, this->Right);
+			bullets.push_back(bullet);
+		}
+	}
+
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		bullets[i]->Update(dt);
+		for (auto &j : meleeEnemies)
+		{
+			if (i < bullets.size())
+			{
+				if (calculateDistance(bullets[i]->getPos(), j->Position) < 5.f)
+				{
+					playerBullet* temp = bullets[i];
+					j->modifyHealth("decrease", 15);
+					std::cout << "enemy took damage" << std::endl;
+					bullets.erase(bullets.begin() + i);
+					delete temp;
+					i = 0;
+				}
+			}
+			else
+			{
+				i = 0;
+			}
+		}
+
+		for (auto &k : rangedEnemies)
+		{
+			if (i < bullets.size())
+			{
+				if (calculateDistance(bullets[i]->getPos(), k->Position) < 5.f)
+				{
+					playerBullet* temp = bullets[i];
+					k->modifyHealth("decrease", 15);
+					std::cout << "enemy took damage" << std::endl;
+					bullets.erase(bullets.begin() + i);
+					delete temp;
+					i = 0;
+				}
+			}
+			else
+			{
+				i = 0;
+			}
+		}
+
+		if (i < bullets.size() && bullets[i]->outOfRange)
+		{
+			playerBullet* temp = bullets[i];
+			bullets.erase(bullets.begin() + i);
+			delete temp;
+			i = 0;
+		}
+	}
+
+	/*for (int i = 0; i < bullets.size(); i++)
+	{
+		bullets[i]->Update(dt);
+		for (auto &k : rangedEnemies)
+		{
+			if (i < bullets.size())
+			{
+				if (calculateDistance(bullets[i]->getPos(), k->Position) < 5.f)
+				{
+					playerBullet* temp = bullets[i];
+					k->modifyHealth("decrease", 15);
+					std::cout << "enemy took damage" << std::endl;
+					bullets.erase(bullets.begin() + i);
+					delete temp;
+					i = 0;
+				}
+			}
+			else
+			{
+				i = 0;
+			}
+		}
+
+		if (i < bullets.size() && bullets[i]->outOfRange)
+		{
+			playerBullet* temp = bullets[i];
+			bullets.erase(bullets.begin() + i);
+			delete temp;
+			i = 0;
+		}
+	}*/
+
 }
 
 float LandPlayer::calculateDistance(Vector3 playerPos, Vector3 enemyPos)

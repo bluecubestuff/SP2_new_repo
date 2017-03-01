@@ -18,6 +18,9 @@ public:
 	StationCamera();
 	~StationCamera();
 
+	bool craft;
+	bool sell;
+
 	void Init(Vector3, Vector3, Vector3);
 	void Update(double dt);
 private:

@@ -63,12 +63,6 @@
     <Filter Include="Source Files\Generate">
       <UniqueIdentifier>{99b6ce44-5763-42f8-a5b5-857fb35a8f4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Object\AABB">
-      <UniqueIdentifier>{17bc205a-5149-48b4-9582-4263ecb5a94c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Objects\AABB">
-      <UniqueIdentifier>{ad973879-123c-471a-8ec5-491931a95554}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Module">
       <UniqueIdentifier>{eea57384-da5d-4856-b4ad-5d18e0bd978b}</UniqueIdentifier>
     </Filter>
@@ -92,6 +86,24 @@
     </Filter>
     <Filter Include="Header Files\Object\Minerals">
       <UniqueIdentifier>{f86d8176-33c5-4c36-9517-40abcc0fc579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Planet">
+      <UniqueIdentifier>{eb927e51-4cc4-4a03-91c1-ccc4efa919e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Environment">
+      <UniqueIdentifier>{9eeaba52-dca3-41a8-966c-a206ededbe37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Planet">
+      <UniqueIdentifier>{3b405ff3-8b3d-42ac-87ae-31c37dab069c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Environment">
+      <UniqueIdentifier>{e6498c67-1777-4583-b7d7-752c309404ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Collision">
+      <UniqueIdentifier>{ad973879-123c-471a-8ec5-491931a95554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Collision">
+      <UniqueIdentifier>{17bc205a-5149-48b4-9582-4263ecb5a94c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -146,12 +158,6 @@
     <ClCompile Include="Source\SceneManager.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Rock.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Tree.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GameObject.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
@@ -177,16 +183,10 @@
       <Filter>Source Files\Generate</Filter>
     </ClCompile>
     <ClCompile Include="Source\Func_AABB.cpp">
-      <Filter>Source Files\Objects\AABB</Filter>
+      <Filter>Source Files\Objects\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Source\ObjectRender.cpp">
       <Filter>Source Files\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Building.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\NPC.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Missile.cpp">
       <Filter>Source Files\Objects\Projectile</Filter>
@@ -206,9 +206,6 @@
     <ClCompile Include="Source\PlanetScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CollisionManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\landPlayer.cpp">
       <Filter>Source Files\Land</Filter>
     </ClCompile>
@@ -226,9 +223,6 @@
     </ClCompile>
     <ClCompile Include="Source\SystemScene.cpp">
       <Filter>Source Files\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GreenPlanet.cpp">
-      <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Node.cpp">
       <Filter>Source Files\Enemy</Filter>
@@ -250,12 +244,6 @@
     </ClCompile>
     <ClCompile Include="Source\MainMenuScene.cpp">
       <Filter>Source Files\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DesertPlanet.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BluePlanet.cpp">
-      <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\ItemFactory.cpp">
       <Filter>Source Files\GameObject</Filter>
@@ -287,9 +275,6 @@
     <ClCompile Include="Source\stationCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Currency.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\DeathScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
@@ -298,6 +283,33 @@
     </ClCompile>
     <ClCompile Include="Source\playerBullet.cpp">
       <Filter>Source Files\Objects\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BluePlanet.cpp">
+      <Filter>Source Files\Objects\Planet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DesertPlanet.cpp">
+      <Filter>Source Files\Objects\Planet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GreenPlanet.cpp">
+      <Filter>Source Files\Objects\Planet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rock.cpp">
+      <Filter>Source Files\Objects\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tree.cpp">
+      <Filter>Source Files\Objects\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Building.cpp">
+      <Filter>Source Files\Objects\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Currency.cpp">
+      <Filter>Source Files\Objects\Minerals</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NPC.cpp">
+      <Filter>Source Files\Objects\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CollisionManager.cpp">
+      <Filter>Source Files\Objects\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -364,12 +376,6 @@
     <ClInclude Include="Source\SceneManager.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Rock.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Tree.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Weapon.h">
       <Filter>Header Files\GameObject</Filter>
     </ClInclude>
@@ -395,10 +401,10 @@
       <Filter>Header Files\Generate</Filter>
     </ClInclude>
     <ClInclude Include="Source\AABB.h">
-      <Filter>Header Files\Object\AABB</Filter>
+      <Filter>Header Files\Object\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Source\Func_AABB.h">
-      <Filter>Header Files\Object\AABB</Filter>
+      <Filter>Header Files\Object\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Source\Missile.h">
       <Filter>Header Files\Object\Projectile</Filter>
@@ -408,12 +414,6 @@
     </ClInclude>
     <ClInclude Include="Source\ObjectRender.h">
       <Filter>Header Files\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Building.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\NPC.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Node.h">
       <Filter>Header Files\Enemy</Filter>
@@ -436,9 +436,6 @@
     <ClInclude Include="Source\PlanetScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CollisionManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\landEntity.h">
       <Filter>Header Files\Land</Filter>
     </ClInclude>
@@ -454,9 +451,6 @@
     <ClInclude Include="Source\SystemScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GreenPlanet.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Source\StartScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
@@ -471,12 +465,6 @@
     </ClInclude>
     <ClInclude Include="Source\MainMenuScene.h">
       <Filter>Header Files\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DesertPlanet.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BluePlanet.h">
-      <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\ItemFactory.h">
       <Filter>Header Files\GameObject</Filter>
@@ -508,9 +496,6 @@
     <ClInclude Include="Source\stationCamera.h">
       <Filter>Header Files\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Currency.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\DeathScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
@@ -519,6 +504,33 @@
     </ClInclude>
     <ClInclude Include="Source\playerBullet.h">
       <Filter>Header Files\Object\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BluePlanet.h">
+      <Filter>Header Files\Object\Planet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DesertPlanet.h">
+      <Filter>Header Files\Object\Planet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GreenPlanet.h">
+      <Filter>Header Files\Object\Planet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rock.h">
+      <Filter>Header Files\Object\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tree.h">
+      <Filter>Header Files\Object\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NPC.h">
+      <Filter>Header Files\Object\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Currency.h">
+      <Filter>Header Files\Object\Minerals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CollisionManager.h">
+      <Filter>Header Files\Object\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Building.h">
+      <Filter>Header Files\Object\Environment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

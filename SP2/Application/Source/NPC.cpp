@@ -19,6 +19,7 @@ void NPC::sell()
 {
 	int money = Currency::get_instance()->value_getter();
 	//sell minerals for money;
+	//placeholder
 	if (StudioProject::IronValue > 0)
 	{
 		if (Application::IsKeyPressed('1'))

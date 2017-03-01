@@ -24,7 +24,10 @@ StationCamera::StationCamera()
 	hitbox = new Func_AABB(Vector3(70, 0, 97.5), Vector3(90, 0, 182.5)); //8
 	hitboxes.push_back(hitbox);
 	hitbox = new Func_AABB(Vector3(90, 0, 40), Vector3(100, 10, 240));
-	hitboxes.push_back(hitbox); 
+	hitboxes.push_back(hitbox);
+
+	craft = false;
+	sell = false;
 }
 
 StationCamera::~StationCamera()
@@ -48,7 +51,7 @@ void StationCamera::Update(double dt)
 {
 	static const float CAMERA_SPEED = 0.1f * dt;
 	static float MOVEMENT_SPEED = 40.f * dt;
-	static bool crafting = false;
+	//static bool crafting = false;
 
 	Vector3 temp = forward;
 	temp.y = 0;
@@ -62,7 +65,7 @@ void StationCamera::Update(double dt)
 	Vector3 left = position - rTemp;
 	Vector3 righty = position + rTemp;
 
-	if (!crafting)
+	if (!craft || !sell)
 	{
 		if (Application::IsKeyPressed('W'))
 		{
@@ -140,16 +143,15 @@ void StationCamera::Update(double dt)
 		MOVEMENT_SPEED = 40.f * dt;
 	}
 
-	//static bool selling = false;;
 	//if (hitboxes[3]->pointInAABB(infront))	//right
 	//{
 	//	static bool pressing = false;
 	//	if (Application::IsKeyPressed('E') && pressing == false)
 	//	{
-	//		if (selling)
-	//			selling = false;
+	//		if (sell)
+	//			sell = false;
 	//		else
-	//			selling = true;
+	//			sell = true;
 	//		pressing = true;
 	//	}
 	//	else if (!Application::IsKeyPressed('E'))
@@ -157,20 +159,21 @@ void StationCamera::Update(double dt)
 	//		pressing = false;
 	//	}
 	//}
-	//if (selling)
+	//if (sell)
 	//{
 	//	npc.sell();
 	//}
+
 	if (hitboxes[8]->pointInAABB(infront))	//left
 	{
 		static bool pressing = false;
 		
 		if (Application::IsKeyPressed('E') && pressing == false)
 		{
-			if (crafting)
-				crafting = false;
+			if (craft)
+				craft = false;
 			else
-				crafting = true;
+				craft = true;
 			pressing = true;
 		}
 		else if (!Application::IsKeyPressed('E'))
@@ -178,7 +181,7 @@ void StationCamera::Update(double dt)
 			pressing = false;
 		}
 	}
-	if (crafting)
+	if (craft)
 	{
 		//std::cout << "crafting" << std::endl;
 		npc.craft();

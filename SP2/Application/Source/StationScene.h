@@ -73,6 +73,7 @@ class StationScene : public Scene
 
 		//text
 		GEO_TEXT,
+		GEO_CRAFT,
 
 		NUM_GEOMETRY,
 	};

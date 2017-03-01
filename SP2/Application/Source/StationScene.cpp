@@ -189,6 +189,9 @@ void StationScene::Init()
 	meshList[GEO_BLUEPLANET] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//Sphere2.OBJ");
 	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
 
+	meshList[GEO_CRAFT] = MeshBuilder::GenerateOBJ("greenPlanet", "OBJ//feedback.OBJ");
+	meshList[GEO_CRAFT]->textureID = LoadTGA("Image//craftingMenu.tga");
+
 	meshList[GEO_SPACE_STATION] = MeshBuilder::GenerateOBJ("space station interior", "OBJ//StationInterior.OBJ");
 	//meshList[GEO_SPACE_STATION]->textureID = LoadTGA("Image//BluePlanet.tga");
 	//------------------------------------------------------------------------------------------
@@ -491,6 +494,11 @@ void StationScene::Render()
 	RenderMesh(meshList[GEO_SPACE_STATION], true);
 	modelStack.PopMatrix();
 
+	if (camera->craft)
+	{
+		RenderUI(meshList[GEO_CRAFT], 800, 450, 1600, 900);
+	}
+
 	/*modelStack.PushMatrix();
 	modelStack.Translate(camera->position.x, 0, camera->position.z);
 	modelStack.Scale(0.1, 0.1, 0.1);
@@ -630,7 +638,7 @@ void StationScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float siz
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 1600, 0, 900, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -638,8 +646,8 @@ void StationScene::RenderUI(Mesh* mesh, float x, float y, float sizex, float siz
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity();
 	//scale and translate accordingly
-	modelStack.Scale(sizex, sizey, 1);
 	modelStack.Translate(x, y, 0);
+	modelStack.Scale(sizex, sizey, 1);
 	RenderMesh(mesh, false); //UI should not have light
 
 	projectionStack.PopMatrix();

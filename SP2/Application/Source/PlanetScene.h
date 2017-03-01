@@ -161,8 +161,6 @@ private:
 	int planet_id; //id of the planet player is to enter
 	char mapArray[100][100];
 
-	Func_AABB* checker;
-
 	CollisionManager* colManager;
 
 	LandPlayer* Player;
@@ -176,6 +174,7 @@ private:
 
 	//ObjectFactory objfactory;
 	LandGenerate* gen;
+	AABB BoundingBox;
 
 	bool isExistingPlanet;
 	bool isLeavingPlanet;

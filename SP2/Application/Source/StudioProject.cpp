@@ -293,11 +293,7 @@ void StudioProject::Init()
 	projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-	gen->landInIt();
-	//std::cout << gen->object_factory_getter().objContainer[0]->get_AABB().pt_Max << "\n";
 	inventorystate = false;
-	//gen->landInIt();
-	//landMap = gen->getter();
 }
 
 static float ROT_LIMIT = 45.f;
@@ -607,7 +603,7 @@ void StudioProject::Update(double dt)
 	}
 
 	rotatePlanet += dt;
-	//std::cout << Player->getter("forward") << std::endl;
+	std::cout << Player->getter("position") << std::endl;
 	//camera.Update(dt);
 }
 
@@ -1147,7 +1143,6 @@ void StudioProject::Exit()
 	}
 	hostiles.clear();
 	missiles.clear();
-	delete gen;
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

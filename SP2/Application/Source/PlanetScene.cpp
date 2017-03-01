@@ -237,7 +237,8 @@ void PlanetScene::Init()
 
  
 	isLeavingPlanet = false;
-
+	BoundingBox.pt_Min.Set(0,5,0);
+	BoundingBox.pt_Min.Set(2500, 100, 2500);
 	//ItemFactory::get_instance()->randomlyCreateWeapon();
 	//std::cout << "weapon name: " << ItemFactory::get_instance()->weapon_storage_getter()[0]->getName() << "\n";
 	//std::cout << "weapon dmg: " << ItemFactory::get_instance()->weapon_storage_getter()[0]->getWeaponDamage() << "\n";
@@ -267,20 +268,20 @@ void PlanetScene::Update(double dt)
 	//light_controls---------------------------------------------------------------
 	if (Application::IsKeyPressed('I'))
 	{
-		light[1].LightPosition.z -= (float)(LSPEED * dt);
+		light[0].LightPosition.z -= (float)(LSPEED * dt);
 	}
 	if (Application::IsKeyPressed('K'))
 	{
-		light[1].LightPosition.z += (float)(LSPEED * dt);
+		light[0].LightPosition.z += (float)(LSPEED * dt);
 	}
 	if (Application::IsKeyPressed('J'))
-		light[1].LightPosition.x -= (float)(LSPEED * dt);
+		light[0].LightPosition.x -= (float)(LSPEED * dt);
 	if (Application::IsKeyPressed('L'))
-		light[1].LightPosition.x += (float)(LSPEED * dt);
+		light[0].LightPosition.x += (float)(LSPEED * dt);
 	if (Application::IsKeyPressed('O'))
-		light[1].LightPosition.y -= (float)(LSPEED * dt);
+		light[0].LightPosition.y -= (float)(LSPEED * dt);
 	if (Application::IsKeyPressed('P'))
-		light[1].LightPosition.y += (float)(LSPEED * dt);
+		light[0].LightPosition.y += (float)(LSPEED * dt);
 
 	if (Application::IsKeyPressed('5'))
 	{
@@ -346,6 +347,8 @@ void PlanetScene::Update(double dt)
 		Player->Update(dt);
 	}
 
+	std::cout << Player->getter("position") << "\n";
+
 	if (isLeavingPlanet)
 	{
 		if (Application::IsKeyPressed('Y'))
@@ -357,6 +360,8 @@ void PlanetScene::Update(double dt)
 			isLeavingPlanet = false;
 		}
 	}
+
+
 }
 
 

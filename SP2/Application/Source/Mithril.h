@@ -26,6 +26,7 @@ public:
 
 private:
 	Func_AABB *aabb;
+	bool isMined;
 	//Ship *ship;
 	//StudioProject *myscene;
 	PlanetScene* myscene;

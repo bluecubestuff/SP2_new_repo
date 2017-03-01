@@ -523,7 +523,7 @@ void StudioProject::Update(double dt)
 			delete temp;
 			i = 0;
 		}
-		if (enemyBullets[i]->outOfRange)
+		if (enemyBullets[i]->outOfRange && i < enemyBullets.size())
 		{
 			Bullet* temp = enemyBullets[i];
 			enemyBullets.erase(enemyBullets.begin() + i);

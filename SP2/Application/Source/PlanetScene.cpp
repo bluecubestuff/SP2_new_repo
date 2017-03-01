@@ -372,8 +372,7 @@ void PlanetScene::Update(double dt)
 			isLeavingPlanet = false;
 		}
 	}
-
-	std::cout << Currency::get_instance()->playerCurrency_getter() << "\n";
+	std::cout << Currency::get_instance()->get_mineral("iron") << "\n";
 }
 
 

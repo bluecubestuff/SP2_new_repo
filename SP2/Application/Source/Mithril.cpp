@@ -14,15 +14,17 @@ Mithril::Mithril(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(sce
 	type = PlanetScene::GEO_MITHRIL;
 	aabb->setAABB_Static_Objects(pos, size + 2, size + 5, size + 2);
 	Mithril_box = aabb->getAABB();
+	isMined = false;
 }
 void Mithril::interact()
 {
 	/*unsigned textEnum = PlanetScene::GEO_TEXT;
 	myscene->RenderTextOnScreen(myscene->meshList[textEnum], "Mine Mithril [E]", Color(0, 1, 0), 2, 1, 4);*/
-	if (Application::IsKeyPressed('E'))
+	if (Application::IsKeyPressed('E') && !isMined)
 	{
-		Currency::get_instance()->add_playerCurrency(6);
+		Currency::get_instance()->add_mineral("mithril");
 		type = PlanetScene::GEO_ROCK;
+		isMined = true;
 	}
 	//float x = ((ship->getter("position")).x - position.x);
 	//float y = ((ship->getter("position")).y - position.y);

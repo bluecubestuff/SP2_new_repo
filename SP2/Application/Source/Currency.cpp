@@ -22,3 +22,8 @@ void Currency::value_setter(int sValue)
 {
 	value = sValue;
 }
+
+void Currency::value_adder(int v)
+{
+	value += v;
+}

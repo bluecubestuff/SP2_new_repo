@@ -21,6 +21,10 @@ Vector3 stationing(-500, 2000, 500);
 float rotatePlanet = 0;
 
 int StudioProject::IronValue = 0;
+int StudioProject::TitaniumValue = 0;
+int StudioProject::MithrilValue = 0;
+int StudioProject::BismuthValue = 0;
+
 PlayerShip* StudioProject::Player = NULL;
 
 StudioProject::StudioProject() :objfactory(this)
@@ -523,6 +527,7 @@ void StudioProject::Update(double dt)
 		if (hostiles[i]->getHP() <= 0)
 		{
 			//EnemyShip* dadad = hostiles[i];
+			Currency::get_instance()->value_adder(10);
 			hostiles[i]->deaded = true;
 			Explode = new Explosion(hostiles[i]->getter("position"));
 			hostiles.erase(hostiles.begin() + i);

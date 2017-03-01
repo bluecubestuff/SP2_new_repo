@@ -15,7 +15,7 @@ class NPC
 {
 public:
 	NPC();
-	~NPC(){};
+	~NPC();
 
 	void sell();
 	void craft();

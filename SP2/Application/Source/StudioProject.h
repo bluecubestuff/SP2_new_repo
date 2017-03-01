@@ -22,6 +22,7 @@
 #include "SystemScene.h"
 #include "SceneManager.h"
 #include "Explosion.h"
+#include "Currency.h"
 
 #include <string>
 #include <vector>

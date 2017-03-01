@@ -11,6 +11,7 @@ public:
 
 	int value_getter();
 	void value_setter(int);
+	void value_adder(int);
 
 private:
 

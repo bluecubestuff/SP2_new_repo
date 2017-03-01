@@ -30,12 +30,12 @@ public:
 private:
 
 	GalaxyGenerate();
-	static GalaxyGenerate* instance;
-	int galaxy_id;
-	int planet_id;
+	static GalaxyGenerate* instance;		
+	int galaxy_id;							//individual solarsystem in the galaxy ID
+	int planet_id;							//individual planet in solar system's ID
+
 	//ObjectFactory objfactory;
 	//GalaxyScene* myscene;
-
 	//SolarGenerate* galaxy_map[7][7];
 
 };

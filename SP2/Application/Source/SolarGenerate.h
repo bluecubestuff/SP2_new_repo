@@ -10,6 +10,8 @@
 using std::vector;
 using std::map;
 
+typedef map<int, LandGenerate*> LandDataBase;
+
 class SolarGenerate
 {
 public:
@@ -21,15 +23,17 @@ public:
 	void update();
 	void build_system(float,float);
 	int num_of_planet_getter();
-	int planetID_getter();
+	//int planetID_getter();
+	int solar_system_ID_getter();
 	vector<ObjectRender*> planet_storage_getter();
 
 	int planet_type;
-	map<int, vector<LandGenerate*>> land_database;	//store the land_data;
+	LandDataBase land_database;	//store the land_data;
 
 private:
 
 	int SolarSystemID;
+	//int planetID;
 	//int planet_type = 0;
 
 	vector<ObjectRender*> planet_storage;			//store the objects in solar system 

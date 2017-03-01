@@ -18,9 +18,10 @@ public:
 	Mithril(PlanetScene* scene, Vector3 pos, float size);
 	~Mithril(){};
 
-	AABB* Mithril_box;
+	AABB Mithril_box;
 
 	virtual void interact();
+	virtual AABB get_obj_AABB();
 
 private:
 	Func_AABB *aabb;

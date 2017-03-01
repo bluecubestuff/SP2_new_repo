@@ -1,6 +1,5 @@
 #include "GalaxyGenerate.h"
 #include "GalaxyScene.h"
-#include "Sun.h"
 
 GalaxyGenerate::GalaxyGenerate()
 {

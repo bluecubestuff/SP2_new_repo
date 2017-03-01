@@ -41,7 +41,7 @@ void CollisionManager::CollisionChecker(LandGenerate* landGen, LandPlayer* Playe
 		Player->getCam()->cForward = collision_aabb->pointInAABB(Player->getCam()->pFront, landGen->obj_data_at_box[ID][i]->get_obj_AABB());
 		if (Player->getCam()->cForward)
 		{
-			landGen->obj_data_at_box[ID][i]->interact();
+			landGen->obj_data_at_box[ID][i]->interact();//interact with obj
 			break;
 		}
 		Player->getCam()->cBack = collision_aabb->pointInAABB(Player->getCam()->pBack, landGen->obj_data_at_box[ID][i]->get_obj_AABB());
@@ -71,7 +71,6 @@ void CollisionManager::CollisionCheckerSystem(SolarGenerate* SolarGen, SystemTra
 	float radiusX, radiusY, centreX, centreY;
 	isAbovePlanet = false;
 	Vector3 planetPos;
-	//float posX, posZ;
 	
 	centreX = 0;
 	centreY = 0;
@@ -79,7 +78,6 @@ void CollisionManager::CollisionCheckerSystem(SolarGenerate* SolarGen, SystemTra
 	//radiusX = 9 * 250;
 	//radiusY = 9 * 250;
 
-	//for (int i = 0; i < SolarGen->planet_storage_getter().size(); i++)
 	for (int i = 0; i < SolarGen->planet_storage_getter().size(); i++)
 	{
 		radiusX = 0;
@@ -91,38 +89,16 @@ void CollisionManager::CollisionCheckerSystem(SolarGenerate* SolarGen, SystemTra
 		radiusX = 9 * (i + 1) * 250;
 		radiusY = 9 * (i + 1) * 250;
 
-		planetPos.x = centreX + radiusX * angleRotationX;
-		planetPos.y = centreY + radiusY * angleRotationY;
+		planetPos.x = centreX + radiusX * angleRotationX;		//find the x pos while planet rotates
+		planetPos.y = centreY + radiusY * angleRotationY;		//fint the y pos while planet rotates	
 
-		//if (Application::IsKeyPressed(VK_F11))
-		//	std::cout << "playerPos: " << playerShip->position << std::endl;
-		//	//std::cout << playerShip->func_aabb_getter()->getAABB().pt_Max << std::endl;
-		//if (Application::IsKeyPressed(VK_F12))
-		//{
-		//	std::cout << "=========================" << std::endl;
-		//	std::cout << playerShip->func_aabb_getter()->getAABB().pt_Min << std::endl;
-		//	std::cout << "=========================" << std::endl;
-		//	std::cout << playerShip->func_aabb_getter()->getAABB().pt_Max << std::endl;
-		//	std::cout << "=========================" << std::endl;
-		//}
-		//
-		//if (Application::IsKeyPressed(VK_F10))
-		//{
-		//	//std::cout << "A: " << planetPos << std::endl;
-		//	std::cout << "-----------------" << std::endl;
-		//	std::cout << collision_aabb->getAABB().pt_Max << std::endl;
-		//	std::cout << "-----------------" << std::endl;
-		//	std::cout << collision_aabb->getAABB().pt_Min << std::endl;
-		//	std::cout << "-----------------" << std::endl;
-		//}
-
-		collision_aabb->updateAABB(280, 280, 1000, planetPos);
+		collision_aabb->updateAABB(280, 280, 1000, planetPos);	//updates the collision of the planets
 	
-		if (collision_aabb->AABBtoAABB(playerShip->func_aabb_getter()->getAABB()))
+		if (collision_aabb->AABBtoAABB(playerShip->func_aabb_getter()->getAABB()))	//check to see if player ship is in planets AABB
 		{
-			planet_type = SolarGen->planet_storage_getter()[i]->type;
+			planet_typing = SolarGen->planet_storage_getter()[i]->objID;				//set the planet type
 			isAbovePlanet = true;
-			GalaxyGenerate::get_instance()->set_planet_id(i); //set the id of which planet player is going to land at
+			GalaxyGenerate::get_instance()->set_planet_id(i + 1);					//set the id of which planet player is going to land at
 			break;
 		}
 

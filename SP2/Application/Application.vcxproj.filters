@@ -260,9 +260,6 @@
     <ClCompile Include="Source\GalaxyScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Sun.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Explosion.cpp">
       <Filter>Source Files\Objects\Projectile</Filter>
     </ClCompile>
@@ -456,9 +453,6 @@
     </ClInclude>
     <ClInclude Include="Source\GalaxyScene.h">
       <Filter>Header Files\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Sun.h">
-      <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\Explosion.h">
       <Filter>Header Files\Object\Projectile</Filter>

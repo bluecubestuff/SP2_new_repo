@@ -259,22 +259,6 @@ void StudioProject::Init()
 	projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
 	projectionStack.LoadMatrix(projection);
 
-	//Vector3 tempPos;
-	//tempPos.Set(0, 0, 0);
-	//int counter = 0;
-	//srand(time(NULL));
-	//for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
-	//{
-	//	for (int x = 0; x < 5; x++)				//loops the grid in grid x
-	//	{
-	//		tempPos.x = Math::RandIntMinMax(x * 500, (x + 1) * 500);
-	//		tempPos.z = Math::RandIntMinMax(z * 500, (z + 1) * 500);
-	//		objfactory.createObject(new Rock(this, Vector3(tempPos.x, 0, tempPos.z), 3));
-	//		counter++;
-	//	}
-	//}
-	//std::cout << tempPos;
-
 	gen->landInIt();
 	//std::cout << gen->object_factory_getter().objContainer[0]->get_AABB().pt_Max << "\n";
 	//landMap = gen->getter();
@@ -559,12 +543,12 @@ void StudioProject::Update(double dt)
 		}
 	}
 
-	if ((planeting - Player->getter("position")).Length() < 500)
+	if ((planeting - Player->getter("position")).Length() < 500) //planet
 	{
 		SceneManager::get_instance()->SceneSelect(3);
 	}
 
-	if ((stationing - Player->getter("position")).Length() < 500)
+	if ((stationing - Player->getter("position")).Length() < 500) //space station
 	{
 		SceneManager::get_instance()->SceneSelect(6);
 		//std::cout << "stationingly" << std::endl;
@@ -710,6 +694,7 @@ void StudioProject::Render()
 	modelStack.Translate(0, 2000, 1500);
 	modelStack.Scale(500, 500, 500);
 	modelStack.Rotate(rotatePlanet, 0, 1, 0);
+
 	switch (SystemScene::planet)
 	{
 	case 1:
@@ -724,12 +709,12 @@ void StudioProject::Render()
 	}
 	modelStack.PopMatrix();
 
-	//modelStack.PushMatrix();
-	//modelStack.Translate(-500, 2000, 500);
-	//modelStack.Scale(30, 30, 30);
-	//modelStack.Rotate(180, 0, 1, 0);
-	//RenderMesh(meshList[GEO_SPACE_STATION], true);
-	//modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(-500, 2000, 500);
+	modelStack.Scale(30, 30, 30);
+	modelStack.Rotate(180, 0, 1, 0);
+	RenderMesh(meshList[GEO_SPACE_STATION], true);
+	modelStack.PopMatrix();
 
 	for (auto &i : hostiles)
 	{

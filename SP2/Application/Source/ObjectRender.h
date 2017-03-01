@@ -35,6 +35,7 @@ public:
 	StudioProject* myscene;
 
 	unsigned type;
+	unsigned objID; //for the planets
 	virtual AABB get_obj_AABB() = 0;
 
 private:

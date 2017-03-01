@@ -8,6 +8,7 @@
 #include "MeshBuilder.h"
 #include "Utility.h"
 #include "LoadTGA.h"
+#include "SceneManager.h"
 
 //#include "LandGenerate.h"
 #include <iostream>
@@ -114,113 +115,126 @@ void PlanetScene::Init()
 	meshList[GEO_SPHERE]->material.kAmbient.Set(0.2f, 0.2f, 0.2f);
 	meshList[GEO_SPHERE]->material.kDiffuse.Set(0.6f, 0.6f, 0.6f);
 	meshList[GEO_SPHERE]->material.kSpecular.Set(0.3f, 0.3f, 0.3f);
-meshList[GEO_SPHERE]->material.kShininess = 1.f;
+	meshList[GEO_SPHERE]->material.kShininess = 1.f;
 
-meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f, 1.f);
-meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
+	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
 
-meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f, 1.f);
-meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
+	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
 
-meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f, 1.f);
-meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
+	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
 
-meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f, 1.f);
-meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
+	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
 
-meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f, 1.f);
-meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
 
-meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
-meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
 
-meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6f, 0.4f, 0.3f));
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6f, 0.4f, 0.3f));
 
-meshList[GEO_CAR] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
+	meshList[GEO_CAR] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
 
-meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
-meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
+	meshList[GEO_PLAYER_SHIP] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//javShip.OBJ");
+	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
 
-meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
+	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
-meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//tree.OBJ");
+	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//tree.OBJ");
 
-meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
-meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
+	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
+	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("tree", "OBJ//rock.obj");
 
-meshList[GEO_ENEMY] = MeshBuilder::GenerateCube("enemy", Color(1, 0, 0));
+	meshList[GEO_ENEMY] = MeshBuilder::GenerateCube("enemy", Color(1, 0, 0));
 
-meshList[GEO_GOATGOAT] = MeshBuilder::GenerateOBJ("goat", "OBJ//goat_easter_egg.obj");
-//------------------------------------------------------------------------------------------
-//light
-light[0].type = Light::LIGHT_DIRECTIONAL;
-light[0].LightPosition.Set(0, 1, 0);
-light[0].color.Set(1, 1, 1);
-light[0].power = 1;
-light[0].kC = 1.f;
-light[0].kL = 0.01f;
-light[0].kQ = 0.001f;
-light[0].cosCutoff = cos(Math::DegreeToRadian(45));
-light[0].cosInner = cos(Math::DegreeToRadian(30));
-light[0].exponent = 3.f;
-light[0].spotDirection.Set(0.f, 1.f, 0.f);
+	meshList[GEO_GOATGOAT] = MeshBuilder::GenerateOBJ("goat", "OBJ//goat_easter_egg.obj");
+	//------------------------------------------------------------------------------------------
+	//light
+	light[0].type = Light::LIGHT_DIRECTIONAL;
+	light[0].LightPosition.Set(0, 1, 0);
+	light[0].color.Set(1, 1, 1);
+	light[0].power = 1;
+	light[0].kC = 1.f;
+	light[0].kL = 0.01f;
+	light[0].kQ = 0.001f;
+	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+	light[0].cosInner = cos(Math::DegreeToRadian(30));
+	light[0].exponent = 3.f;
+	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
-// Make sure you pass uniform parameters after glUseProgram()
+	// Make sure you pass uniform parameters after glUseProgram()
 
-glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
-glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
-glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
-glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
-glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
-glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
-glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
-glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
+	glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+	glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
+	glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
+	glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
+	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
 
-//=============================================================================
-//light
-light[1].type = Light::LIGHT_POINT;
-light[1].LightPosition.Set(1000, 1000, 1000);
-light[1].color.Set(1, 1, 1);
-light[1].power = 1;
-light[1].kC = 1.f;
-light[1].kL = 0.01f;
-light[1].kQ = 0.001f;
-light[1].cosCutoff = cos(Math::DegreeToRadian(45));
-light[1].cosInner = cos(Math::DegreeToRadian(30));
-light[1].exponent = 3.f;
-light[1].spotDirection.Set(0.f, 1.f, 0.f);
+	//=============================================================================
+	//light
+	light[1].type = Light::LIGHT_POINT;
+	light[1].LightPosition.Set(1000, 1000, 1000);
+	light[1].color.Set(1, 1, 1);
+	light[1].power = 1;
+	light[1].kC = 1.f;
+	light[1].kL = 0.01f;
+	light[1].kQ = 0.001f;
+	light[1].cosCutoff = cos(Math::DegreeToRadian(45));
+	light[1].cosInner = cos(Math::DegreeToRadian(30));
+	light[1].exponent = 3.f;
+	light[1].spotDirection.Set(0.f, 1.f, 0.f);
 
-// Make sure you pass uniform parameters after glUseProgram()
-glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
-glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
-glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
-glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
-glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
-glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
-glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
-//=============================================================================
+	// Make sure you pass uniform parameters after glUseProgram()
+	glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
+	glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
+	glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
+	glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
+	glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
+	glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
+	glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
+	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
+	//=============================================================================
 
-glUniform1i(m_parameters[U_NUMLIGHTS], 2);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
-Mtx44 projection;
-projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
-projectionStack.LoadMatrix(projection);
+	Mtx44 projection;
+	projection.SetToPerspective(70.f, 16.f / 9.f, 0.1f, 5000.f);
+	projectionStack.LoadMatrix(projection);
 
-/*Enemy->enemyInit(gen->path, Enemy->Position, Vector3(800, 650));
-landEnemies.push_back(Enemy);*/
-system_id = GalaxyGenerate::get_instance()->galaxy_id_getter();
-planet_id = GalaxyGenerate::get_instance()->planet_id_getter();
+	/*Enemy->enemyInit(gen->path, Enemy->Position, Vector3(800, 650));
+	landEnemies.push_back(Enemy);*/
 
-//if (GalaxyGenerate::get_instance()->system_database[system_id]->land_database[system_id].size() == 0)
-//{
-	gen->landInIt();
-	gen->saveLandInIt();
-//}
+	isExistingPlanet = false;
+
+	system_id = GalaxyGenerate::get_instance()->galaxy_id_getter();
+	planet_id = GalaxyGenerate::get_instance()->planet_id_getter();
+
+	for (int i = 0; i < GalaxyGenerate::get_instance()->system_database[system_id]->land_database.size(); i++)
+	{
+		if (GalaxyGenerate::get_instance()->system_database[system_id]->land_database.count(planet_id))
+		{
+			isExistingPlanet = true;
+			break;
+		}
+	}
+
+	if (!isExistingPlanet)
+	{
+		gen->landInIt();
+		gen->saveLandInIt();
+	}
  
+	isLeavingPlanet = false;
 
 	//ItemFactory::get_instance()->randomlyCreateWeapon();
 	//std::cout << "weapon name: " << ItemFactory::get_instance()->weapon_storage_getter()[0]->getName() << "\n";
@@ -314,7 +328,10 @@ void PlanetScene::Update(double dt)
 	//std::cout << Car->interactionBox->getAABB().pt_Max << std::endl;
 	//std::cout << Car->getInVehicle() << std::endl;
 
-	colManager->CollisionChecker(gen, Player);
+	//check collision with objects in land with player
+	colManager->CollisionChecker(GalaxyGenerate::get_instance()->system_database[system_id]->land_database[planet_id], Player);
+	//colManager->CollisionChecker(gen, Player);
+
 	if (Car->getInVehicle())
 	{
 		Car->Update(dt);
@@ -325,6 +342,18 @@ void PlanetScene::Update(double dt)
 	else
 	{
 		Player->Update(dt);
+	}
+
+	if (isLeavingPlanet)
+	{
+		if (Application::IsKeyPressed('Y'))
+		{
+			SceneManager::get_instance()->SceneSelect(2);
+		}
+		else if (Application::IsKeyPressed('N'))
+		{
+			isLeavingPlanet = false;
+		}
 	}
 }
 
@@ -410,7 +439,6 @@ void PlanetScene::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-
 	//RenderMesh(meshList[GEO_AXES], false);
 
 	RenderSkybox();
@@ -443,6 +471,19 @@ void PlanetScene::Render()
 
 	gen->BuildLand();
 	//GalaxyGenerate::get_instance()->system_database[system_id]->land_database[system_id][planet_id]->BuildLand();
+	if (!Application::IsKeyPressed('Q') && !isLeavingPlanet)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "To leave planet press [Q]", Color(1, 0, 0), 2, 1, 2);
+	}
+	if (Application::IsKeyPressed('Q') && !isLeavingPlanet)
+	{
+		isLeavingPlanet = true;
+		
+	}
+	if (isLeavingPlanet)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Leave planet ? yes [Y] / no [N]", Color(1, 0, 0), 2, 1, 2);
+	}
 }
 
 void PlanetScene::RenderMesh(Mesh *mesh, bool enableLight)
@@ -653,7 +694,7 @@ void PlanetScene::RenderSkybox()
 
 void PlanetScene::Exit()
 {
-	delete this->gen;
+	//delete this->gen;
 	delete this->Player;
 	delete this->colManager;
 	glDeleteVertexArrays(1, &m_vertexArrayID);

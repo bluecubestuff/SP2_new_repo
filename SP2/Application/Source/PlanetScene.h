@@ -177,6 +177,9 @@ private:
 	//ObjectFactory objfactory;
 	LandGenerate* gen;
 
+	bool isExistingPlanet;
+	bool isLeavingPlanet;
+
 	//Camera2 camera;
 	//Camera3 camera;
 	Camera camera;

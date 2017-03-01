@@ -18,7 +18,7 @@ public:
 	void CollisionCheckerSystem(SolarGenerate*, SystemTravelShip*,float);
 
 	bool isAbovePlanet;
-	unsigned planet_type = 0;
+	unsigned planet_typing = 0;
 private:
 	Func_AABB* collision_aabb;
 };

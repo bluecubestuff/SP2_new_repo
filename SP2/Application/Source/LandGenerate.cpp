@@ -110,8 +110,8 @@ void LandGenerate::landInIt()
 
 void LandGenerate::saveLandInIt()
 {
-	PlanetID = GalaxyGenerate::get_instance()->system_database[SystemID]->num_of_planet_getter();
-	GalaxyGenerate::get_instance()->system_database[SystemID]->land_database[SystemID].push_back(this);
+	PlanetID = GalaxyGenerate::get_instance()->planet_id_getter();
+	GalaxyGenerate::get_instance()->system_database[SystemID]->land_database[PlanetID] = this;
 }
 
 void LandGenerate::landUpdate()
@@ -127,8 +127,9 @@ ObjectFactory LandGenerate::object_factory_getter()
 
 void LandGenerate::BuildLand()
 {
-	objectfactory.renderObjects(sceneID);
+	//objectfactory.renderObjects(sceneID);
 	//GalaxyGenerate::get_instance()->system_database[SystemID]->land_database[SystemID][PlanetID]->objectfactory.renderObjects(2);
+	GalaxyGenerate::get_instance()->system_database[SystemID]->land_database[PlanetID]->objectfactory.renderObjects(2);
 }
 
 void LandGenerate::SetPath()
@@ -168,18 +169,9 @@ void LandGenerate::SetPath()
 
 		}
 	}
+}
 
-	//for testing
-	int counta = 0;
-	for (int i = 0; i < 2500; i++)
-	{
-		for (int j = 0; j < 2500; j++)
-		{
-			if (path[i][j] == 'F')
-			{
-				counta++;
-			}
-		}
-	}
-	std::cout << counta << "\n";
+int LandGenerate::planet_id_getter()
+{
+	return PlanetID;
 }

@@ -8,7 +8,9 @@
 SolarGenerate::SolarGenerate(SystemScene* scene) : myscene(scene)
 {
 	objfactory = new ObjectFactory(scene);
+	SolarSystemID = 0;
 	number_of_planets = 0;
+	//planetID = 1;
 	this->SolarSystemID = GalaxyGenerate::get_instance()->galaxy_id_getter();
 }
 
@@ -61,23 +63,12 @@ void SolarGenerate::save_init()
 {
 	this->SolarSystemID = GalaxyGenerate::get_instance()->galaxy_id_getter();	//set the id of system
 	GalaxyGenerate::get_instance()->system_database[SolarSystemID] = this;		//set this system into the database
-
-	//GalaxyGenerate::get_instance()->object_database[planetID] = this->objfactory;
-	//std::cout << "planetID: "<< planetID << "\n";
-	//this->planetID = GalaxyGenerate::get_instance()->galaxy_id_getter();
-	//std::cout << planetID << "\n";
-	//GalaxyGenerate::get_instance()->system_database[planetID] = this;
-	//std::cout <<"da num: " << GalaxyGenerate::get_instance()->object_database[planetID]->objContainer.size()<< "\n";
 }
 
 void SolarGenerate::build_system(float aRotate,float pRotate)
 {
 	this->SolarSystemID = GalaxyGenerate::get_instance()->galaxy_id_getter();											//back_up
 	GalaxyGenerate::get_instance()->system_database[SolarSystemID]->objfactory->renderSystemObjects(aRotate, pRotate);	//generate that id of the system
-
-	//std::cout << "da num: " << GalaxyGenerate::get_instance()->system_database[planetID]->planet_storage.size() << "\n";
-	//objfactory->renderSystemObjects(aRotate, pRotate);
-	//GalaxyGenerate::get_instance()->object_database[planetID]->renderSystemObjects(aRotate, pRotate);
 }
 
 int SolarGenerate::num_of_planet_getter()
@@ -90,7 +81,12 @@ vector<ObjectRender*> SolarGenerate::planet_storage_getter()
 	return planet_storage;
 }
 
-int SolarGenerate::planetID_getter()
+//int SolarGenerate::planetID_getter()
+//{
+//	return planetID;
+//}
+
+int SolarGenerate::solar_system_ID_getter()
 {
 	return SolarSystemID;
 }

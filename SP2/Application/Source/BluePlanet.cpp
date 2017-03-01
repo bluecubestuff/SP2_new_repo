@@ -12,9 +12,8 @@ BluePlanet::BluePlanet(SystemScene* scene, Vector3 pos, float sizeX, float sizeY
 
 	aabb->setAABB_Static_Objects(sunPos, 250 * sizeX, 250 * sizeY, 250 * sizeY);
 	blue_planet_box = aabb->getAABB();
-
-	std::cout << blue_planet_box.pt_Min << "\n";
-	std::cout << blue_planet_box.pt_Max << "\n";
+	
+	objID = 3;
 }
 
 BluePlanet::~BluePlanet() {}

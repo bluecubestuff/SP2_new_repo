@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-int SystemScene::planet = 0;
+unsigned SystemScene::planet = 0;
 
 SystemScene::SystemScene() : objfactory(this)
 {
@@ -219,50 +219,25 @@ void SystemScene::Init()
 
 	system_gen = new SolarGenerate(this);
 
-	systemID = GalaxyGenerate::get_instance()->galaxy_id_getter();
-	std::cout << systemID << "\n";
-	isExistingPlanet = false;
+	systemID = GalaxyGenerate::get_instance()->galaxy_id_getter(); //setting the solarsystemID
+	//std::cout << systemID << "\n";
+	isExistingSystem = false;
 
 	for (int i = 0; i < GalaxyGenerate::get_instance()->system_database.size(); i++)
 	{	//check if id is used
 		if (GalaxyGenerate::get_instance()->system_database.count(systemID))
-		{
+		{	//if id is used
 			std::cout << "it exist" << "\n";
-			isExistingPlanet = true;
+			isExistingSystem = true;
 			break;
 		}
 	}
 	
-	if (!isExistingPlanet) //if that id is not used init and save it
-	{
+	if (!isExistingSystem) //if that id is not used init and save it
+	{	//else init and save to database 
 		system_gen->Init();
 		system_gen->save_init();
 	}
-
-	//systemID = GalaxyGenerate::get_instance()->galaxy_id_getter(); //set the id for system
-	
-	//for (int i = 0; i < GalaxyGenerate::get_instance()->system_database.size(); i++) //if not empty
-	//{
-	//	if (GalaxyGenerate::get_instance()->system_database.count(systemID))
-	//	{
-	//		std::cout << "it exist!" << "\n";
-	//		GalaxyGenerate::get_instance()->system_database[systemID]->Init();
-	//		break;
-	//	}
-	//	else
-	//	{
-	//		std::cout << "it doesnt exist!" << "\n";
-	//		system_gen->Init();
-	//		system_gen->save_init();
-	//		break;
-	//	}
-	//}
-
-	//if (GalaxyGenerate::get_instance()->system_database.size() <= 0) //if database is empty
-	//{
-	//	system_gen->Init();
-	//	system_gen->save_init();
-	//}
 
 	rotate = 0.f;
 	isPlayerNearPlanet = false;
@@ -334,8 +309,8 @@ void SystemScene::Update(double dt)
 
 	if (system_collision->isAbovePlanet && Application::IsKeyPressed('E'))
 	{
-		planet = system_gen->planet_type;
-		SceneManager::get_instance()->SceneSelect(2);
+		planet = system_collision->planet_typing;				//check the planet type(bugged to be fixed)
+		SceneManager::get_instance()->SceneSelect(2);			//change the scene
 	}
 }
 
@@ -410,10 +385,7 @@ void SystemScene::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-
-	//RenderMesh(meshList[GEO_AXES], false);
-
-	RenderSkybox();
+	RenderSkybox(); //render skybox
 
 	//=================================================================================================
 	/*modelStack.PushMatrix();
@@ -426,12 +398,6 @@ void SystemScene::Render()
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();*/
 	//===================================================================================================
-
-	/*modelStack.PushMatrix();
-	modelStack.Translate(Player->getter("position").x, Player->getter("position").y, Player->getter("position").z);
-	modelStack.Translate(Player->getter("forward").x, Player->getter("forward").y, Player->getter("forward").z);
-	RenderMesh(meshList[GEO_AXES], false);
-	modelStack.PopMatrix();*/
 
 	modelStack.PushMatrix();	//push sun
 	modelStack.Translate(1000, 6000, 1000);

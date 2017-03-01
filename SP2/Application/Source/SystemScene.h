@@ -72,6 +72,7 @@ class SystemScene : public Scene
 		GEO_PLAYER_SHIP,
 		GEO_SUN,
 		GEO_ORBIT_LINES,
+
 		GEO_GREENPLANET,
 		GEO_DESERTPLANET,
 		GEO_BLUEPLANET,
@@ -134,7 +135,7 @@ public:
 
 	SystemTravelShip* Player;
 	float rotate;
-	static int planet;
+	static unsigned planet;
 
 	virtual void Init();
 	virtual void Update(double dt);
@@ -161,7 +162,7 @@ private:
 	void RenderSkybox();
 
 	bool isPlayerNearPlanet;
-	bool isExistingPlanet;
+	bool isExistingSystem;
 	char mapArray[100][100];
 
 	ObjectFactory objfactory;

@@ -25,14 +25,14 @@ public:
 	void BuildLand();
 	void SetPath();
 
-	//double_land_array double_land_getter();
 	ObjectFactory object_factory_getter();
-	
+	int planet_id_getter();
+
 	char path[2500][2500];
 	map<unsigned, vector<ObjectRender*>> obj_data_at_box;
 
 private:
-	double_land_array land_inner_grid;
+
 	vector<ObjectRender*> obj_storage;
 	Vector3 obj_pos;
 
@@ -40,10 +40,9 @@ private:
 	PlanetScene* planet_scene;
 	ObjectFactory objectfactory;
 
-	int sceneID;
-	int SystemID;
-	int PlanetID;
-	int LandID;
+	int sceneID;		//the scene's ID
+	int SystemID;		//the solar system's ID
+	int PlanetID;		//the planet's ID
 };
 
 #endif

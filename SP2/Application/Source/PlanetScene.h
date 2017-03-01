@@ -79,7 +79,7 @@ class PlanetScene : public Scene
 
 		//text
 		GEO_TEXT,
-
+		GEO_BULLET,
 		NUM_GEOMETRY,
 	};
 	enum UNIFORM_TYPE

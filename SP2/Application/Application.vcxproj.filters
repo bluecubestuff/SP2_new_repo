@@ -86,6 +86,12 @@
     </Filter>
     <Filter Include="Source Files\Enemy">
       <UniqueIdentifier>{b3459a44-87a8-4085-8db1-24678fa44bf8}</UniqueIdentifier>
+	</Filter>
+    <Filter Include="Source Files\Objects\Minerals">
+      <UniqueIdentifier>{f4d9a122-dae1-4b1f-a6d7-267f0d7b5b52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Minerals">
+      <UniqueIdentifier>{f86d8176-33c5-4c36-9517-40abcc0fc579}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -139,9 +145,6 @@
     </ClCompile>
     <ClCompile Include="Source\SceneManager.cpp">
       <Filter>Source Files\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Mithril.cpp">
-      <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Rock.cpp">
       <Filter>Source Files\Objects</Filter>
@@ -265,6 +268,24 @@
     </ClCompile>
     <ClCompile Include="Source\StationScene.cpp">
       <Filter>Source Files\Scene</Filter>
+	</ClCompile>
+    <ClCompile Include="Source\InventoryCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mithril.cpp">
+      <Filter>Source Files\Objects\Minerals</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bismuth.cpp">
+      <Filter>Source Files\Objects\Minerals</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Titanium.cpp">
+      <Filter>Source Files\Objects\Minerals</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Iron.cpp">
+      <Filter>Source Files\Objects\Minerals</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\stationCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -332,9 +353,6 @@
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Source\Rock.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Mithril.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\Tree.h">
@@ -459,6 +477,24 @@
     </ClInclude>
     <ClInclude Include="Source\StationScene.h">
       <Filter>Header Files\Scene</Filter>
+	</ClInclude>
+    <ClInclude Include="Source\InventoryCamera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mithril.h">
+      <Filter>Header Files\Object\Minerals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bismuth.h">
+      <Filter>Header Files\Object\Minerals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Iron.h">
+      <Filter>Header Files\Object\Minerals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Titanium.h">
+      <Filter>Header Files\Object\Minerals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\stationCamera.h">
+      <Filter>Header Files\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

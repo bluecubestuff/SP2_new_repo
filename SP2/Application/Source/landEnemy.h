@@ -1,5 +1,5 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#ifndef LAND_ENEMY_H
+#define LAND_ENEMY_H
 
 #include "AABB.h"
 #include "Node.h"
@@ -34,9 +34,10 @@ public:
 	vector<Vector3*> savedAIreturnPath;
 	vector<Vector3*> AIpath;
 	vector<Vector3*> AIreturnPath;
-	vector<Item> enemyLootTable;
+	vector<Item*> enemyLootTable;
 	Vector3 target;
 	Mtx44 Stamp;
+
 	//Pathfinding nodes
 
 	Node *start = new Node;

@@ -8,7 +8,8 @@ class Func_AABB
 {
 public:
 
-	Func_AABB();
+	Func_AABB(); 
+	Func_AABB(Vector3, Vector3);
 	~Func_AABB();
 
 	bool pointInAABB(const Vector3&);

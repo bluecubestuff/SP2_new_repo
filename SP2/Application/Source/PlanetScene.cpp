@@ -153,6 +153,7 @@ void PlanetScene::Init()
 	meshList[GEO_ENEMY] = MeshBuilder::GenerateCube("enemy", Color(1, 0, 0));
 
 	meshList[GEO_GOATGOAT] = MeshBuilder::GenerateOBJ("goat", "OBJ//goat_easter_egg.obj");
+
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -233,6 +234,7 @@ void PlanetScene::Init()
 		gen->landInIt();
 		gen->saveLandInIt();
 	}
+
  
 	isLeavingPlanet = false;
 

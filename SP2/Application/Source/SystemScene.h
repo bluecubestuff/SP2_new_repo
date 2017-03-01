@@ -67,6 +67,7 @@ class SystemScene : public Scene
 		GEO_GOAT,
 		GEO_NPC,
 		GEO_BUILDING,
+		GEO_BULLET,
 
 		//Ships
 		GEO_PLAYER_SHIP,

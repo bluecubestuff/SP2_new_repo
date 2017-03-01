@@ -86,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\BluePlanet.cpp" />
+    <ClCompile Include="Source\Bismuth.cpp" />
     <ClCompile Include="Source\Building.cpp" />
     <ClCompile Include="Source\Bullet.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -102,6 +103,8 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GreenPlanet.cpp" />
     <ClCompile Include="Source\Hull.cpp" />
+    <ClCompile Include="Source\InventoryCamera.cpp" />
+    <ClCompile Include="Source\Iron.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\landEntity.cpp" />
     <ClCompile Include="Source\LandFPSCamera.cpp" />
@@ -132,12 +135,14 @@
     <ClCompile Include="Source\Shield.cpp" />
     <ClCompile Include="Source\ship.cpp" />
     <ClCompile Include="Source\SolarGenerate.cpp" />
+    <ClCompile Include="Source\stationCamera.cpp" />
     <ClCompile Include="Source\StationScene.cpp" />
     <ClCompile Include="Source\StartScene.cpp" />
     <ClCompile Include="Source\StudioProject.cpp" />
     <ClCompile Include="Source\SystemScene.cpp" />
     <ClCompile Include="Source\SystemTravelShip.cpp" />
     <ClCompile Include="Source\Thruster.cpp" />
+    <ClCompile Include="Source\Titanium.cpp" />
     <ClCompile Include="Source\Tree.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />
@@ -147,6 +152,7 @@
     <ClInclude Include="Source\AABB.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\BluePlanet.h" />
+    <ClInclude Include="Source\Bismuth.h" />
     <ClInclude Include="Source\Building.h" />
     <ClInclude Include="Source\Bullet.h" />
     <ClInclude Include="Source\Camera.h" />
@@ -164,6 +170,8 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GreenPlanet.h" />
     <ClInclude Include="Source\Hull.h" />
+    <ClInclude Include="Source\InventoryCamera.h" />
+    <ClInclude Include="Source\Iron.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\landEntity.h" />
     <ClInclude Include="Source\LandFPSCamera.h" />
@@ -197,12 +205,14 @@
     <ClInclude Include="Source\Shield.h" />
     <ClInclude Include="Source\ship.h" />
     <ClInclude Include="Source\SolarGenerate.h" />
+    <ClInclude Include="Source\stationCamera.h" />
     <ClInclude Include="Source\StationScene.h" />
     <ClInclude Include="Source\StartScene.h" />
     <ClInclude Include="Source\StudioProject.h" />
     <ClInclude Include="Source\SystemScene.h" />
     <ClInclude Include="Source\SystemTravelShip.h" />
     <ClInclude Include="Source\Thruster.h" />
+    <ClInclude Include="Source\Titanium.h" />
     <ClInclude Include="Source\Tree.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />

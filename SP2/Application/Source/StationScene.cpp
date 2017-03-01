@@ -15,7 +15,11 @@
 
 StationScene::StationScene()
 {
-	Player = new LandPlayer(Vector3(0, 5, 0), Vector3(0, 0, 1), Vector3(1, 0, 0), 100.f);
+	//Player = new LandPlayer(Vector3(0, 5, 0), Vector3(0, 0, 1), Vector3(1, 0, 0), 100.f);
+	camera = new StationCamera;
+
+	mainGate = new Func_AABB(Vector3(-20, 0, -60), Vector3(20, 10, -40));
+	//station = new Func_AABB(Vector3(0, 30, -60), Vector3(100, 30, 340));
 }
 
 StationScene::~StationScene()
@@ -325,6 +329,7 @@ void StationScene::Init()
 	projectionStack.LoadMatrix(projection);
 	srand((unsigned)(time(NULL)));
 
+	camera->Init(Vector3(0, 5, 0), Vector3(0, 5, 1), Vector3(0, 1, 0));
 }
 
 static float ROT_LIMIT = 45.f;
@@ -379,12 +384,12 @@ void StationScene::Update(double dt)
 	}
 	//================================================================================
 	//--------------------------------------------------------------------------------
-
-	//std::cout << Player->getter("forward") << std::endl;
-	Player->Update(dt);
-	//std::cout << Player->Position << std::endl;
-	//colManager->CollisionChecker(gen, camera);
-
+	camera->Update(dt);
+	pos = std::to_string(camera->position.x) + " : " + std::to_string(camera->position.y) + " : " + std::to_string(camera->position.z);
+	if (mainGate->pointInAABB(camera->position))
+	{
+		SceneManager::get_instance()->SceneSelect(2);
+	}
 }
 
 void StationScene::Render()
@@ -402,9 +407,9 @@ void StationScene::Render()
 	//camera.position.z, camera.target.x, camera.target.y,
 	//camera.target.z, camera.up.x, camera.up.y, camera.up.z);
 
-	viewStack.LookAt(Player->getCam()->position.x, Player->getCam()->position.y,
-		Player->getCam()->position.z, Player->getCam()->target.x, Player->getCam()->target.y,
-		Player->getCam()->target.z, Player->getCam()->up.x, Player->getCam()->up.y, Player->getCam()->up.z);
+	viewStack.LookAt(camera->position.x, camera->position.y,
+		camera->position.z, camera->target.x, camera->target.y,
+		camera->target.z, camera->up.x, camera->up.y, camera->up.z);
 
 
 	Position lightPosition_cameraspace = viewStack.Top() * light[0].LightPosition;
@@ -485,6 +490,14 @@ void StationScene::Render()
 	modelStack.Translate(0, 0, 7);
 	RenderMesh(meshList[GEO_SPACE_STATION], true);
 	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(camera->position.x, 0, camera->position.z);
+	modelStack.Scale(0.1, 0.1, 0.1);
+	RenderMesh(meshList[GEO_SPHERE], false);
+	modelStack.PopMatrix();
+
+	RenderTextOnScreen(meshList[GEO_TEXT], pos, Color(1, 0, 0), 30, 30, 894);
 
 }
 
@@ -575,15 +588,15 @@ void StationScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color,
 	glDisable(GL_DEPTH_TEST);
 
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, 1600, 0, 900, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Scale(size, size, size);
 	modelStack.Translate(x, y, 0);
+	modelStack.Scale(size, size, size);
 
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
@@ -699,7 +712,8 @@ void StationScene::RenderSkybox()
 
 void StationScene::Exit()
 {
-	delete Player;
+	//delete Player;
+	delete camera;
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

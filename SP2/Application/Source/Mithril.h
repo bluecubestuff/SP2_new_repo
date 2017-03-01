@@ -7,6 +7,7 @@
 #include "ObjectRender.h"
 #include "Application.h"
 #include "Func_AABB.h"
+#include "ship.h"
 
 #include <string>
 using std::string;
@@ -25,5 +26,7 @@ public:
 
 private:
 	Func_AABB *aabb;
+	Ship *ship;
+	StudioProject *myscene;
 };
 #endif

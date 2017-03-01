@@ -24,7 +24,7 @@ Explosion::~Explosion()
 void Explosion::Update(double dt)
 {
 	bufferTime += dt;
-	scaling += 2 * dt;
+	scaling += 5 * dt;
 	if (bufferTime > 2)
 	{
 		done = true;

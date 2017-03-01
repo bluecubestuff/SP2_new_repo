@@ -20,7 +20,7 @@ Vector3 planeting(0, 2000, 1500);
 Vector3 stationing(-500, 2000, 500);
 float rotatePlanet = 0;
 
-StudioProject::StudioProject()
+StudioProject::StudioProject() :objfactory(this)
 {
 }
 
@@ -159,7 +159,7 @@ void StudioProject::Init()
 	meshList[GEO_PLAYER_SHIP]->textureID = LoadTGA("Image//shipTexture.tga");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//SpaceFont.tga");
 
 	meshList[GEO_GOAT] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//Missle.OBJ");
 
@@ -200,6 +200,33 @@ void StudioProject::Init()
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
 
 
+
+	meshList[GEO_INVENTORY_BUTTON] = MeshBuilder::GenerateOBJ("inventory", "OBJ//Inventory.obj");
+	meshList[GEO_INVENTORY_BUTTON]->textureID = LoadTGA("Image//Inventory.tga");
+
+	meshList[GEO_INVENTORY_SCREEN] = MeshBuilder::GenerateOBJ("inventory", "OBJ//InventoryScreen.obj");
+	meshList[GEO_INVENTORY_SCREEN]->textureID = LoadTGA("Image//InventoryScreen.tga");
+
+	meshList[GEO_IRON] = MeshBuilder::GenerateOBJ("iron", "OBJ//Iron.obj");
+	meshList[GEO_IRON]->textureID = LoadTGA("Image//Iron.tga");
+
+	meshList[GEO_TITANIUM] = MeshBuilder::GenerateOBJ("titanium", "OBJ//Titanium.obj");
+	meshList[GEO_TITANIUM]->textureID = LoadTGA("Image//Titanium.tga");
+
+	meshList[GEO_MITHRIL] = MeshBuilder::GenerateOBJ("mithril", "OBJ//Mithril.obj");
+	meshList[GEO_MITHRIL]->textureID = LoadTGA("Image//Mithril.tga");
+
+	meshList[GEO_BISMUTH] = MeshBuilder::GenerateOBJ("bismuth", "OBJ//Bismuth.obj");
+	meshList[GEO_BISMUTH]->textureID = LoadTGA("Image//Bismuth.tga");
+
+	meshList[GEO_INVENTORY_SLOT] = MeshBuilder::GenerateOBJ("inventory slot", "OBJ//InventorySlot.obj");
+	meshList[GEO_INVENTORY_SLOT]->textureID = LoadTGA("Image//InventorySlot.tga");
+
+	/*meshList[GEO_HEALTH_BAR] = MeshBuilder::GenerateOBJ("hp bar", "OBJ//HP.obj");
+	meshList[GEO_HEALTH_BAR]->textureID = LoadTGA("Image//HP.tga");*/
+
+	meshList[GEO_HEALTH_BAR] = MeshBuilder::GenerateCube("health bar", Color(1, 0, 0));
+	meshList[GEO_MP_BAR] = MeshBuilder::GenerateCube("mp bar", Color(0, 0, 1));
 
 	//------------------------------------------------------------------------------------------
 	//light
@@ -261,6 +288,8 @@ void StudioProject::Init()
 
 	gen->landInIt();
 	//std::cout << gen->object_factory_getter().objContainer[0]->get_AABB().pt_Max << "\n";
+	inventorystate = false;
+	//gen->landInIt();
 	//landMap = gen->getter();
 }
 
@@ -269,6 +298,7 @@ static float SCALE_LIMIT = 5.f;
 
 void StudioProject::Update(double dt)
 {
+	_dt = dt;
 	float LSPEED = 10.f;
 	
 
@@ -282,10 +312,16 @@ void StudioProject::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 
 	//light_controls---------------------------------------------------------------
-	if (Application::IsKeyPressed('I'))
+	if (!Application::IsKeyPressed('I'))
 	{
-		light[1].LightPosition.z -= (float)(LSPEED * dt);
+		inventorystate = true;
 	}
+	if (inventorystate && Application::IsKeyPressed('I'))
+	{
+		inventoryscreen = (inventoryscreen > 0) ? 0.0f : 2.0f;
+		inventorystate = false;
+	}
+
 	if (Application::IsKeyPressed('K'))
 	{
 		light[1].LightPosition.z += (float)(LSPEED * dt);
@@ -559,7 +595,6 @@ void StudioProject::Update(double dt)
 	//camera.Update(dt);
 }
 
-
 void StudioProject::Render()
 {
 	// Render VBO here
@@ -783,6 +818,12 @@ void StudioProject::Render()
 		RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
 		modelStack.PopMatrix();
 	}
+	//RenderUI(meshList[GEO_INVENTORY_BUTTON], 15.0, 15.0, 2.0, 2.0);//Inventory Button
+
+	//objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
+	objfactory.renderObjects(1);
+	objfactory.interactObjects();
+	DisplayUI();
 }
 
 void StudioProject::RenderMesh(Mesh *mesh, bool enableLight)
@@ -1015,6 +1056,69 @@ void StudioProject::RenderSkybox()
 	modelStack.PopMatrix();//end ground
 }
 
+void StudioProject::DisplayInventory()
+{
+	//string test = "test = ABCDEFGHIJK";
+
+	if (IronValue > 0)
+	{
+		RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string(IronValue)), Color(1, 1, 1), 2, 35.85, 9.2);
+		RenderUI(meshList[GEO_IRON], 70.0, 20.0, 0.5, 0.5);//Iron Symbol
+		//RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], test, Color(1, 1, 1), 2, 30, 10);
+	}
+	if (TitaniumValue > 0)
+	{
+		RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string(TitaniumValue)), Color(1, 1, 1), 2, 35.85, 14.2);
+		RenderUI(meshList[GEO_TITANIUM], 70.0, 30.0, 0.5, 0.5);//Titanium Symbol
+	}
+	if (MithrilValue > 0)
+	{
+		RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string(MithrilValue)), Color(1, 1, 1), 2, 35.85, 19.2);
+		RenderUI(meshList[GEO_MITHRIL], 70.0, 40.0, 0.5, 0.5);//Mithril Symbol
+	}
+	if (BismuthValue > 0)
+	{
+		RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string(BismuthValue)), Color(1, 1, 1), 2, 35.85, 24.2);
+		RenderUI(meshList[GEO_BISMUTH], 70.0, 50.0, 0.5, 0.5);//Bismuth Symbol
+	}
+}
+
+void StudioProject::DisplayUI()
+{
+	if (inventoryscreen > 0)
+	{
+		//RenderUI(meshList[GEO_INVENTORY_SCREEN], 40.0, 30.0, 3.0, 3.0);//Inventory Screen
+		RenderUI(meshList[GEO_INVENTORY_SLOT], 70.0, 20.0, 0.75, 0.75);//Inventory Slot
+		RenderUI(meshList[GEO_INVENTORY_SLOT], 70.0, 30.0, 0.75, 0.75);//Inventory Slot
+		RenderUI(meshList[GEO_INVENTORY_SLOT], 70.0, 40.0, 0.75, 0.75);//Inventory Slot
+		RenderUI(meshList[GEO_INVENTORY_SLOT], 70.0, 50.0, 0.75, 0.75);//Inventory Slot
+		DisplayInventory(); //minerals
+	}
+	RenderUI(meshList[GEO_HEALTH_BAR], 25.0, 52.0, 30, 1);//health bar
+	RenderUI(meshList[GEO_MP_BAR], 25.0, 47.0, 30, 1);//health bar
+}
+//bool StudioProject::pointInAABB(const TAABB& box, const Vector3& point)//test
+//{
+//	if ((point.x > box.pt_Min.x && point.x < box.pt_Max.x)
+//		&& (point.z < box.pt_Min.z && point.z > box.pt_Max.z))
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}
+//
+//bool StudioProject::AABBtoAABB(const TAABB& box01, const TAABB& box02)
+//{
+//	if (box01.pt_Max.x > box02.pt_Min.x && box01.pt_Min.x < box02.pt_Max.x &&
+//		box01.pt_Max.y > box02.pt_Min.y && box01.pt_Min.y < box02.pt_Max.y &&
+//		box01.pt_Max.z < box02.pt_Min.z && box01.pt_Min.z > box02.pt_Max.z)
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}
 void StudioProject::Exit()
 {
 	for (auto &i : hostiles)

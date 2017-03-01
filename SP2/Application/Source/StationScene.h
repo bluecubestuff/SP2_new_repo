@@ -15,8 +15,8 @@
 #include "DetectMemoryLeak.h"
 #include "ObjectFactory.h"
 #include "SceneManager.h"
-#include "LandFPSCamera.h"
-#include "landPlayer.h"
+#include "stationCamera.h"
+#include "Func_AABB.h"
 
 #include <string>
 #include <vector>
@@ -194,10 +194,18 @@ private:
 
 	char mapArray[100][100];
 
-	Func_AABB* checker;
+	//Func_AABB* checker;
 
-	LandPlayer* Player;
+	//LandPlayer* Player;
+	Vector3 pPos;
+	Vector3 pFront;
 
+	StationCamera* camera;
+
+	Func_AABB* mainGate;
+	Func_AABB* station;
+
+	std::string pos;
 	//Camera2 camera;
 	//Camera3 camera;
 };

@@ -155,6 +155,8 @@ void SystemScene::Init()
 
 	meshList[GEO_BLUEPLANET] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//Sphere2.OBJ");
 	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
+
+	meshList[GEO_BULLET] = MeshBuilder::GenerateOBJ("Player Ship", "OBJ//bullet_placeholder.OBJ");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;

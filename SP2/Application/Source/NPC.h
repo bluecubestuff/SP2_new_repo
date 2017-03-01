@@ -11,18 +11,15 @@
 #include <string>
 using std::string;
 
-class NPC : public ObjectRender
+class NPC
 {
 public:
-	NPC(StudioProject* scene, Vector3 pos, float size);
-	NPC(PlanetScene* scene, Vector3 pos, float size);
+	NPC();
 	~NPC(){};
 
-	AABB *NPC_box;
-
-	virtual void interact();
-
+	void sell();
+	void craft();
 private:
-	Func_AABB *aabb;
+	
 };
 #endif

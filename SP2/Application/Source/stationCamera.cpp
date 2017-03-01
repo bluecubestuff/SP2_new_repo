@@ -136,19 +136,49 @@ void StationCamera::Update(double dt)
 		MOVEMENT_SPEED = 40.f * dt;
 	}
 
+	static bool selling = false;;
 	if (hitboxes[3]->pointInAABB(infront))	//right
 	{
-		if (Application::IsKeyPressed('E'))
+		static bool pressing = false;
+		if (Application::IsKeyPressed('E') && pressing == false)
 		{
-
+			if (selling)
+				selling = false;
+			else
+				selling = true;
+			pressing = true;
+		}
+		else if (!Application::IsKeyPressed('E'))
+		{
+			pressing = false;
 		}
 	}
+	if (selling)
+	{
+		npc.sell();
+	}
+
+	static bool crafting = false;
 	if (hitboxes[8]->pointInAABB(infront))	//left
 	{
-		if (Application::IsKeyPressed('E'))
+		static bool pressing = false;
+		
+		if (Application::IsKeyPressed('E') && pressing == false)
 		{
-
+			if (crafting)
+				crafting = false;
+			else
+				crafting = true;
+			pressing = true;
 		}
+		else if (!Application::IsKeyPressed('E'))
+		{
+			pressing = false;
+		}
+	}
+	if (crafting)
+	{
+		npc.craft();
 	}
 
 	//if (Area->pointInAABB(infront) && Area->pointInAABB(behind) && Area->pointInAABB(left) && Area->pointInAABB(righty))

@@ -8,6 +8,7 @@
 #include "Mtx44.h"
 #include "MouseControl.h"
 #include "Func_AABB.h"
+#include "NPC.h"
 
 using std::vector;
 
@@ -30,6 +31,8 @@ private:
 
 	Func_AABB* Area;
 	Func_AABB* hitbox;	//#hardcodeisbestcode
+
+	NPC npc;
 
 	vector<Func_AABB*> hitboxes;
 };

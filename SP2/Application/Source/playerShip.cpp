@@ -43,6 +43,8 @@ PlayerShip::PlayerShip()
 
 	//std::cout << thrust << std::endl << mass << std::endl;
 
+	offTime = 0;
+
 	hitbox = new Func_AABB;
 	hitbox->updateAABB(size, size, size, this->Position);
 	this->Stamp = Mtx44(Right.x, Right.y, Right.z, 0, Up.x, Up.y, Up.z, 0, Forward.x, Forward.y, Forward.z, 0, Position.x, Position.y, Position.z, 1);
@@ -403,6 +405,7 @@ void PlayerShip::locking(EnemyShip* target, double dt)
 
 void PlayerShip::withinRange(vector<EnemyShip*> targets)
 {
+
 	for (auto &i : targets)
 	{
 		Vector3 temp = i->getter("position") - this->Position;
@@ -433,10 +436,11 @@ void PlayerShip::withinRange(vector<EnemyShip*> targets)
 		else if (applicableTargets[i]->getWithinSights() == false)		//if is not in within the cone of target
 		{
 			applicableTargets[i]->setTargeted(false);
-			applicableTargets[i]->locked = false;;
+			applicableTargets[i]->locked = false;
 			applicableTargets.erase(applicableTargets.begin() + i);			//remove from the vector
 			//std::cout << "removed from target list" << std::endl;
 			i = 0;
 		}
 	}
+	
 }

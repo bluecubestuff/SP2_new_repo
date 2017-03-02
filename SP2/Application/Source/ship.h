@@ -74,6 +74,7 @@ protected:
 	bool hit;
 
 	float turnSpeed;
+	float offTime;
 
 	Func_AABB* hitbox;
 	Mtx44 Stamp;

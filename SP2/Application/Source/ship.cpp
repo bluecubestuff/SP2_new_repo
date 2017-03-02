@@ -111,7 +111,6 @@ void Ship::setHP(float h)
 
 void Ship::shieldUpdate(double dt)
 {
-	static float offTime = 0;
 	if (shieldPoints != shield->getShieldPoint())
 	{
 		offTime += dt;
@@ -121,12 +120,8 @@ void Ship::shieldUpdate(double dt)
 			{
 				shieldPoints += dt * 20;
 			}
-			else if (shieldPoints >= shield->getShieldPoint())
-			{
-				offTime = 0;
-			}
 		}
-		if (getHit())
+		if (this->getHit() == true)
 		{
 			offTime = 0;
 		}

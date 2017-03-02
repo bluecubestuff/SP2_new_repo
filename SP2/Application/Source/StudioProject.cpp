@@ -377,7 +377,7 @@ void StudioProject::Update(double dt)
 	{
 		i->Update(dt, Player->getter("position"), Player->getter("forward"));
 		i->shieldUpdate(dt);
-		if (i->attack && i->fireRate > 0.2)
+		if (i->attack && i->fireRate > 0.5)
 		{
 			i->fireRate = 0;
 			Bullet* bullet = new Bullet(i->getter("position"), i->getter("forward"), i->getter("up"), i->getter("right"));
@@ -538,10 +538,20 @@ void StudioProject::Update(double dt)
 		}
 	}
 
+	if (Player->damaged)
+	{
+		if (Player->getHit() == false)
+		{
+			Player->setHit();
+		}
+	}
+
 	Player->damageT -= dt;
 	if (Player->damageT < 0)
 	{
 		Player->damaged = false;
+		if (Player->getHit())
+			Player->setHit();
 	}
 
 	for (int i = 0; i < hostiles.size(); i++)
@@ -626,12 +636,13 @@ void StudioProject::Update(double dt)
 	//placeholder
 	if (Player->getHP() <= 0)
 	{
+		
 		SceneManager::get_instance()->setPrevSceneID(2);
 		SceneManager::get_instance()->SceneSelect(7);
 	}
 
 	rotatePlanet += dt;
-	std::cout << Player->getter("position") << std::endl;
+	//std::cout << Player->getter("position") << std::endl;
 
 	if (Player->getter("position").x > 2000 || Player->getter("position").z > 2000
 		|| Player->getter("position").x < -200 || Player->getter("position").z < 0)
@@ -1219,7 +1230,7 @@ void StudioProject::DisplayUI()
 //	return false;
 //}
 void StudioProject::Exit()
-{
+{ 
 	for (auto &i : hostiles)
 	{
 		delete i;
@@ -1228,8 +1239,18 @@ void StudioProject::Exit()
 	{
 		delete i;
 	}
+	for (auto &i : bullets)
+	{
+		delete i;
+	}
+	for (auto &i : enemyBullets)
+	{
+		delete i;
+	}
 	hostiles.clear();
 	missiles.clear();
+	bullets.clear();
+	enemyBullets.clear();
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

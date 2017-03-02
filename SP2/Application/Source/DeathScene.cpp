@@ -1,7 +1,7 @@
 #include "DeathScene.h"
 
 //#include "GL\glew.h"
-
+#include "StudioProject.h"
 #include "shader.hpp"
 #include "Mtx44.h"
 #include "SceneManager.h"
@@ -250,6 +250,7 @@ void DeathScene::Update(double dt)
 	{
 		if (arrowPos.x == 720 && arrowPos.y == 540)
 		{
+			StudioProject::Player->fullHealth();
 			SceneManager::get_instance()->SceneSelect(SceneManager::get_instance()->getPrevSceneID());
 		}
 		else if (arrowPos.x == 720 && arrowPos.y == 360)

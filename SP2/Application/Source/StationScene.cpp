@@ -199,7 +199,7 @@ void StationScene::Init()
 	meshList[GEO_WAYPOINT]->textureID = LoadTGA("Image//waypoint.tga");
 
 	meshList[GEO_SPACE_STATION] = MeshBuilder::GenerateOBJ("space station interior", "OBJ//StationInterior.OBJ");
-	//meshList[GEO_SPACE_STATION]->textureID = LoadTGA("Image//BluePlanet.tga");
+	meshList[GEO_SPACE_STATION]->textureID = LoadTGA("Image//spacestationinterior.tga");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_POINT;

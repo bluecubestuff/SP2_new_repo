@@ -202,10 +202,9 @@ void StudioProject::Init()
 	meshList[GEO_EXPLOSION]->textureID = LoadTGA("Image//EXPLOSIONNN.tga");
 
 	meshList[GEO_SPACE_STATION] = MeshBuilder::GenerateOBJ("Station", "OBJ//SpaceStation.OBJ");
+	meshList[GEO_EXPLOSION]->textureID = LoadTGA("Image//EXPLOSIONNN.tga");
 
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("Axes", Player->getter("right"), Player->getter("up"), Player->getter("forward"));
-
-
 
 	meshList[GEO_INVENTORY_BUTTON] = MeshBuilder::GenerateOBJ("inventory", "OBJ//Inventory.obj");
 	meshList[GEO_INVENTORY_BUTTON]->textureID = LoadTGA("Image//Inventory.tga");
@@ -660,6 +659,27 @@ void StudioProject::Update(double dt)
 		Player->Camera->Init(Vector3(1000, 2000, 1000), Vector3(-1, 0, 0), Vector3(0, 1, 0));
 		SceneManager::get_instance()->SceneSelect(4);
 	}
+
+	//demo purpose--------------
+	if (Application::IsKeyPressed('P'))
+	{
+		StudioProject::Player->fullHealth();
+	}
+	if (Application::IsKeyPressed('O'))
+	{
+		Player->resetter();
+		Player->Speed = 0.f;
+		Player->Camera->Init(Vector3(1000, 2000, 1000), Vector3(-1, 0, 0), Vector3(0, 1, 0));
+		SceneManager::get_instance()->SceneSelect(6);
+	}
+	if (Application::IsKeyPressed('L'))
+	{
+		Player->resetter();
+		Player->Speed = 0.f;
+		Player->Camera->Init(Vector3(1000, 2000, 1000), Vector3(-1, 0, 0), Vector3(0, 1, 0));
+		SceneManager::get_instance()->SceneSelect(3);
+	}
+	//------------------------------
 
 	for (auto& i : hostiles)
 	{

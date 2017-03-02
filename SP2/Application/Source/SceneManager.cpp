@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 #include <iostream>
-SceneManager::SceneManager() : currSceneID(2), nextSceneID(0), prevSceneID(0) {}	//constructor
+SceneManager::SceneManager() : currSceneID(0), nextSceneID(0), prevSceneID(0) {}	//constructor
 
 SceneManager::~SceneManager()										//destructor	
 {

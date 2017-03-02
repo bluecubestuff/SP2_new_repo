@@ -679,6 +679,13 @@ void StudioProject::Update(double dt)
 		Player->Camera->Init(Vector3(1000, 2000, 1000), Vector3(-1, 0, 0), Vector3(0, 1, 0));
 		SceneManager::get_instance()->SceneSelect(3);
 	}
+	if (Application::IsKeyPressed('K'))
+	{
+		Player->resetter();
+		Player->Speed = 0.f;
+		Player->Camera->Init(Vector3(1000, 2000, 1000), Vector3(-1, 0, 0), Vector3(0, 1, 0));
+		SceneManager::get_instance()->SceneSelect(4);
+	}
 	//------------------------------
 
 	for (auto& i : hostiles)

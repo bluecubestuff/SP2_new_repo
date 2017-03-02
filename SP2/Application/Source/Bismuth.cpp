@@ -18,10 +18,9 @@ Bismuth::Bismuth(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(sce
 }
 void Bismuth::interact()
 {
+	myscene->RenderTextOnScreen(myscene->meshList[PlanetScene::GEO_TEXT], "Mine Bismuth [E]", Color(0, 1, 0), 2, 1, 4);
 	if (Application::IsKeyPressed('E') && !isMined)
 	{
-		/*unsigned textEnum = PlanetScene::GEO_TEXT;
-		myscene->RenderTextOnScreen(myscene->meshList[textEnum], "Mine Bismuth [E]", Color(0, 1, 0), 2, 1, 4);*/
 		Currency::get_instance()->add_mineral("bismuth");
 		type = PlanetScene::GEO_ROCK;
 		isMined = true;

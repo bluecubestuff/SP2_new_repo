@@ -17,8 +17,7 @@ Titanium::Titanium(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(s
 }
 void Titanium::interact()
 {
-	/*unsigned textEnum = PlanetScene::GEO_TEXT;
-	myscene->RenderTextOnScreen(myscene->meshList[textEnum], "Mine Titanium [E]", Color(0, 1, 0), 2, 1, 4);*/
+	myscene->RenderTextOnScreen(myscene->meshList[PlanetScene::GEO_TEXT], "Mine Titanium [E]", Color(0, 1, 0), 2, 1, 4);
 	if (Application::IsKeyPressed('E') && !isMined)
 	{
 		Currency::get_instance()->add_mineral("titanium");

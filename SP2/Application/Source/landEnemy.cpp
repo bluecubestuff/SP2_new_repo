@@ -4,9 +4,10 @@
 
 using std::list;
 
-LandEnemy::LandEnemy(Vector3 pos, float hp, float speed)
+LandEnemy::LandEnemy(Vector3 pos, Vector3 endGoal, float hp, float speed)
 {
 	Position = pos;
+	enemyGoal = endGoal;
 	Forward = Vector3(0, 0, 1);
 	Up = Vector3(0, 1, 0);
 	Right = Vector3(1, 0, 0);
@@ -77,7 +78,6 @@ void LandEnemy::AIPursuit(double dt, Vector3 playerPos, Vector3 playerForward)
 					rotate.SetToRotation(rotateSpeed, temp.x, temp.y, temp.z);
 
 					this->Forward = rotate * this->Forward;
-					this->Up = rotate * this->Up;
 					this->Right = rotate * this->Right;
 		}
 
@@ -93,7 +93,7 @@ void LandEnemy::AIPursuit(double dt, Vector3 playerPos, Vector3 playerForward)
 
 void LandEnemy::AIShoot(double dt, LandPlayer* playerObj)
 {
-	float rotateSpeed = 40 * dt;
+	float rotateSpeed = 150 * dt;
 
 	target = playerObj->Position - this->Position;
 
@@ -109,7 +109,6 @@ void LandEnemy::AIShoot(double dt, LandPlayer* playerObj)
 				rotate.SetToRotation(rotateSpeed, temp.x, temp.y, temp.z);
 
 				this->Forward = rotate * this->Forward;
-				this->Up = rotate * this->Up;
 				this->Right = rotate * this->Right;
 			}
 
@@ -132,7 +131,7 @@ void LandEnemy::AIShoot(double dt, LandPlayer* playerObj)
 			if (abs(calculateDistance(enemyBullets[i]->getPos(), playerObj->Position) < 5.f))
 			{
 					enemyBullet* temp = enemyBullets[i];
-					playerObj->modifyHealth("decrease", 15);
+					playerObj->modifyHealth("decrease", 1);
 					std::cout << "enemy took damage" << std::endl;
 					enemyBullets.erase(enemyBullets.begin() + i);
 					delete temp;
@@ -345,6 +344,7 @@ void LandEnemy::rangedPathfindingMovement(double dt, LandPlayer* playerObj)
 		}
 		else if (abs(calculateDistance(playerObj->Position, Position)) > 100)
 		{
+			enemyBullets.clear();
 			setPosition(AIpath.back()); //setPosition is called to change position of enemy to the element currently at the back of the vector
 			AIpath.pop_back(); //pops the last element, repeat
 			/*std::cout << "AI moved" << std::endl;*/

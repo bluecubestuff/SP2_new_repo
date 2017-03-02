@@ -17,10 +17,14 @@
 #include "SceneManager.h"
 #include "stationCamera.h"
 #include "Func_AABB.h"
+#include "StudioProject.h"
+#include "stationCamera.h"
 
 #include <string>
 #include <vector>
 using std::vector;
+using std::string;
+using std::to_string;
 
 //struct TAABB
 //{
@@ -36,6 +40,7 @@ class StationScene : public Scene
 	friend class NPC;
 	friend class Building;
 	friend class ObjectRender;
+	friend class StationCamera;
 
 	enum GEOMETRY_TYPE
 	{
@@ -74,6 +79,7 @@ class StationScene : public Scene
 		//text
 		GEO_TEXT,
 		GEO_CRAFT,
+		GEO_SELL,
 
 		NUM_GEOMETRY,
 	};
@@ -206,7 +212,22 @@ private:
 	Func_AABB* mainGate;
 	Func_AABB* station;
 
-	std::string pos;
+	string pos;
+
+	string ironQ;
+	string titaniumQ;
+	string mithrilQ;
+	string bismuthQ;
+
+	string cred;
+
+	string hull;
+	string shield;
+	string thrust;
+
+	string hPrice;
+	string sPrice;
+	string tPrice;
 	//Camera2 camera;
 	//Camera3 camera;
 };

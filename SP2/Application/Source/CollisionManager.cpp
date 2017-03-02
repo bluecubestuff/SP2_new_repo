@@ -3,7 +3,7 @@
 #include "Tree.h"
 #include "Rock.h"
 
-CollisionManager::CollisionManager() { collision_aabb = new Func_AABB; }
+CollisionManager::CollisionManager() : planet_typing(0){ collision_aabb = new Func_AABB; }
 
 CollisionManager::~CollisionManager() 
 {
@@ -86,8 +86,8 @@ void CollisionManager::CollisionCheckerSystem(SolarGenerate* SolarGen, SystemTra
 		angleRotationX = cos(SolarGen->planet_storage_getter()[i]->aroundRotate * Math::DegreeToRadian(sRotate));
 		angleRotationY = sin(SolarGen->planet_storage_getter()[i]->aroundRotate * Math::DegreeToRadian(sRotate));
 
-		radiusX = 9 * (i + 1) * 250;
-		radiusY = 9 * (i + 1) * 250;
+		radiusX = 6 * (i + 1) * 250;
+		radiusY = 6 * (i + 1) * 250;
 
 		planetPos.x = centreX + radiusX * angleRotationX;		//find the x pos while planet rotates
 		planetPos.y = centreY + radiusY * angleRotationY;		//fint the y pos while planet rotates	

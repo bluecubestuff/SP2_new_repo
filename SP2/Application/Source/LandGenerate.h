@@ -30,6 +30,10 @@ public:
 
 	char path[2500][2500];
 	map<unsigned, vector<ObjectRender*>> obj_data_at_box;
+	int noOfEnemies;
+	vector<Vector3> enemy_positions;
+	vector<Vector3> enemy_goal;
+	vector<int> enemy_type;
 
 private:
 

@@ -6,6 +6,7 @@
 #include "Vector3.h"
 #include "Item.h"
 #include "landEntity.h"
+#include "MyMath.h"
 #include "Application.h"
 #include "enemyBullet.h"
 #include "Mtx44.h"
@@ -19,7 +20,7 @@ class LandPlayer;
 class LandEnemy : public LandEntity
 {
 public:
-	LandEnemy(Vector3 pos, float hp, float speed);
+	LandEnemy(Vector3 pos, Vector3 endGoal, float hp, float speed);
 	~LandEnemy();
 
 	bool enemyIsDead;
@@ -43,6 +44,7 @@ public:
 	vector<Vector3*> AIreturnPath;
 	vector<enemyBullet*> enemyBullets;
 	vector<Item*> enemyLootTable;
+	Vector3 enemyGoal;
 	Vector3 target;
 	Mtx44 Stamp;
 

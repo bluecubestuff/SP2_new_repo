@@ -66,6 +66,7 @@ class GalaxyScene : public Scene
 		GEO_NPC,
 		GEO_BUILDING,
 		GEO_GRID,
+		GEO_HUD,
 		//Ships
 		GEO_PLAYER_SHIP,
 		GEO_SUN,

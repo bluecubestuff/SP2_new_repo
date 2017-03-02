@@ -52,4 +52,5 @@ int Hull::getMass()
 void Hull::setHP(int h)
 {
 	hullPoint = h;
+	mass = h / 10;
 }

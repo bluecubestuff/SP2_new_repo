@@ -192,6 +192,9 @@ void StationScene::Init()
 	meshList[GEO_CRAFT] = MeshBuilder::GenerateOBJ("greenPlanet", "OBJ//feedback.OBJ");
 	meshList[GEO_CRAFT]->textureID = LoadTGA("Image//craftingMenu.tga");
 
+	meshList[GEO_SELL] = MeshBuilder::GenerateOBJ("greenPlanet", "OBJ//feedback.OBJ");
+	meshList[GEO_SELL]->textureID = LoadTGA("Image//sellingMenu.tga");
+
 	meshList[GEO_SPACE_STATION] = MeshBuilder::GenerateOBJ("space station interior", "OBJ//StationInterior.OBJ");
 	//meshList[GEO_SPACE_STATION]->textureID = LoadTGA("Image//BluePlanet.tga");
 	//------------------------------------------------------------------------------------------
@@ -393,6 +396,24 @@ void StationScene::Update(double dt)
 	{
 		SceneManager::get_instance()->SceneSelect(2);
 	}
+
+	ironQ = to_string(Currency::get_instance()->get_mineral("iron"));
+	titaniumQ = to_string(Currency::get_instance()->get_mineral("titanium"));
+	mithrilQ = to_string(Currency::get_instance()->get_mineral("mithril"));
+	bismuthQ = to_string(Currency::get_instance()->get_mineral("bismuth"));
+
+	cred = to_string(Currency::get_instance()->value_getter());
+
+	hull = to_string((int)StudioProject::Player->getHP());
+	shield = to_string((int)StudioProject::Player->getFullSP());
+	thrust = to_string((int)StudioProject::Player->getThrust());
+
+	hPrice = to_string(NPC::hPrice);
+	sPrice = to_string(NPC::sPrice);
+	tPrice = to_string(NPC::tPrice);
+
+	//StudioProject::Player->shieldUpdate(dt);
+	//std::cout << Currency::get_instance()->get_mineral("iron") << ", credits: " << Currency::get_instance()->value_getter() << std::endl;
 }
 
 void StationScene::Render()
@@ -497,6 +518,22 @@ void StationScene::Render()
 	if (camera->craft)
 	{
 		RenderUI(meshList[GEO_CRAFT], 800, 450, 1600, 900);
+		RenderTextOnScreen(meshList[GEO_TEXT], hull, Color(1, 1, 1), 100, 900, 750);
+		RenderTextOnScreen(meshList[GEO_TEXT], shield, Color(1, 1, 1), 100, 900, 450);
+		RenderTextOnScreen(meshList[GEO_TEXT], thrust, Color(1, 1, 1), 100, 900, 150);
+		RenderTextOnScreen(meshList[GEO_TEXT], cred, Color(1, 1, 0), 50, 1450, 870);
+		RenderTextOnScreen(meshList[GEO_TEXT], "-" + hPrice, Color(1, 1, 1), 75, 1450, 750);
+		RenderTextOnScreen(meshList[GEO_TEXT], "-" + sPrice, Color(1, 1, 1), 75, 1450, 450);
+		RenderTextOnScreen(meshList[GEO_TEXT], "-" + tPrice, Color(1, 1, 1), 75, 1450, 150);
+	}
+	if (camera->sell)
+	{
+		RenderUI(meshList[GEO_SELL], 800, 450, 1600, 900);
+		RenderTextOnScreen(meshList[GEO_TEXT], ironQ, Color(1, 1, 1), 80, 600, 300);
+		RenderTextOnScreen(meshList[GEO_TEXT], titaniumQ, Color(1, 1, 1), 80, 600, 215);
+		RenderTextOnScreen(meshList[GEO_TEXT], mithrilQ, Color(1, 1, 1), 80, 600, 130);
+		RenderTextOnScreen(meshList[GEO_TEXT], bismuthQ, Color(1, 1, 1), 80, 600, 45);
+		RenderTextOnScreen(meshList[GEO_TEXT], cred, Color(1, 1, 1), 80, 1000, 390);
 	}
 
 	/*modelStack.PushMatrix();
@@ -505,8 +542,7 @@ void StationScene::Render()
 	RenderMesh(meshList[GEO_SPHERE], false);
 	modelStack.PopMatrix();*/
 
-	RenderTextOnScreen(meshList[GEO_TEXT], pos, Color(1, 0, 0), 30, 30, 894);
-
+	//RenderTextOnScreen(meshList[GEO_TEXT], pos, Color(1, 0, 0), 30, 30, 894);
 }
 
 void StationScene::RenderMesh(Mesh *mesh, bool enableLight)

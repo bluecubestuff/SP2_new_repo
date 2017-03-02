@@ -26,6 +26,8 @@ StationCamera::StationCamera()
 	hitbox = new Func_AABB(Vector3(90, 0, 40), Vector3(100, 10, 240));
 	hitboxes.push_back(hitbox);
 
+	npc = new NPC;
+
 	craft = false;
 	sell = false;
 }
@@ -49,7 +51,7 @@ void StationCamera::Init(Vector3 pos, Vector3 target, Vector3 up)
 
 void StationCamera::Update(double dt)
 {
-	static const float CAMERA_SPEED = 0.1f * dt;
+	static const float CAMERA_SPEED = 0.05f * dt;
 	static float MOVEMENT_SPEED = 40.f * dt;
 	//static bool crafting = false;
 
@@ -65,7 +67,7 @@ void StationCamera::Update(double dt)
 	Vector3 left = position - rTemp;
 	Vector3 righty = position + rTemp;
 
-	if (!craft || !sell)
+	if (!craft && !sell)
 	{
 		if (Application::IsKeyPressed('W'))
 		{
@@ -143,26 +145,43 @@ void StationCamera::Update(double dt)
 		MOVEMENT_SPEED = 40.f * dt;
 	}
 
-	//if (hitboxes[3]->pointInAABB(infront))	//right
-	//{
-	//	static bool pressing = false;
-	//	if (Application::IsKeyPressed('E') && pressing == false)
-	//	{
-	//		if (sell)
-	//			sell = false;
-	//		else
-	//			sell = true;
-	//		pressing = true;
-	//	}
-	//	else if (!Application::IsKeyPressed('E'))
-	//	{
-	//		pressing = false;
-	//	}
-	//}
-	//if (sell)
-	//{
-	//	npc.sell();
-	//}
+	if (!craft && !sell)
+	{
+		mousePos = mouse.mouseMovement();
+		if (mousePos.x)
+		{
+			Mtx44 rotation;
+			rotation.SetToRotation(-mousePos.x * CAMERA_SPEED, 0, 1, 0);
+			forward = rotation * forward;
+			right = rotation * right;
+		}
+
+		if (mousePos.y > 0 && pitchLimit < 89)
+		{
+			Mtx44 rotation;
+			rotation.SetToRotation(-mousePos.y * CAMERA_SPEED, right.x, right.y, right.z);
+			forward = rotation * forward;
+			pitchLimit += mousePos.y * CAMERA_SPEED;
+		}
+		else if (mousePos.y < 0 && pitchLimit > -89)
+		{
+			Mtx44 rotation;
+			rotation.SetToRotation(-mousePos.y * CAMERA_SPEED, right.x, right.y, right.z);
+			forward = rotation * forward;
+			pitchLimit += mousePos.y * CAMERA_SPEED;
+		}
+	}
+	else if (craft)
+	{
+		mousePos = mouse.wMouseMovement();
+		mPos = Vector3(mousePos.x, mousePos.y, 0);
+	}
+	else if (sell)
+	{
+		mousePos = mouse.wMouseMovement();
+		//std::cout << mousePos.x << ", " << mousePos.y << std::endl;
+		mPos = Vector3(mousePos.x, mousePos.y, 0);
+	}
 
 	if (hitboxes[8]->pointInAABB(infront))	//left
 	{
@@ -183,38 +202,29 @@ void StationCamera::Update(double dt)
 	}
 	if (craft)
 	{
-		//std::cout << "crafting" << std::endl;
-		npc.craft();
+		npc->craft(mPos);
 	}
 
-	//if (Area->pointInAABB(infront) && Area->pointInAABB(behind) && Area->pointInAABB(left) && Area->pointInAABB(righty))
-	//	std::cout << "Kitson" << std::endl;
-	//else
-	//	std::cout << "wall" << std::endl;
-	//std::cout << MOVEMENT_SPEED << std::endl;
+	if (hitboxes[3]->pointInAABB(infront))	//right
+	{
+		static bool pressing = false;
 
-	mousePos = mouse.mouseMovement();
-	if (mousePos.x)
-	{
-		Mtx44 rotation;
-		rotation.SetToRotation(-mousePos.x * CAMERA_SPEED, 0, 1, 0);
-		forward = rotation * forward;
-		right = rotation * right;
+		if (Application::IsKeyPressed('E') && pressing == false)
+		{
+			if (sell)
+				sell = false;
+			else
+				sell = true;
+			pressing = true;
+		}
+		else if (!Application::IsKeyPressed('E'))
+		{
+			pressing = false;
+		}
 	}
-
-	if (mousePos.y > 0 && pitchLimit < 89)
+	if (sell)
 	{
-		Mtx44 rotation;
-		rotation.SetToRotation(-mousePos.y * CAMERA_SPEED, right.x, right.y, right.z);
-		forward = rotation * forward;
-		pitchLimit += mousePos.y * CAMERA_SPEED;
-	}
-	else if (mousePos.y < 0 && pitchLimit > -89)
-	{
-		Mtx44 rotation;
-		rotation.SetToRotation(-mousePos.y * CAMERA_SPEED, right.x, right.y, right.z);
-		forward = rotation * forward;
-		pitchLimit += mousePos.y * CAMERA_SPEED;
+		npc->sell(mPos);
 	}
 
 	target = position + forward;

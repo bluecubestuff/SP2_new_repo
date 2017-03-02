@@ -18,6 +18,7 @@ public:
 	void updateAABB(float sizeX, float sizeY, float sizeZ, Vector3 position);
 	AABB getAABB();
 	bool pointInAABB(const Vector3&, const AABB&);
+	bool mouseInAABB(Vector3);
 private:
 
 	std::vector<AABB> AABB_Storage;

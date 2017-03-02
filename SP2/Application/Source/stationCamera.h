@@ -20,6 +20,8 @@ public:
 
 	bool craft;
 	bool sell;
+	Vector3 mPos;
+	NPC* npc;
 
 	void Init(Vector3, Vector3, Vector3);
 	void Update(double dt);
@@ -34,10 +36,10 @@ private:
 
 	Func_AABB* Area;
 	Func_AABB* hitbox;	//#hardcodeisbestcode
-
-	NPC npc;
+	Func_AABB* menu;
 
 	vector<Func_AABB*> hitboxes;
+	vector<Func_AABB*> crafting;
 };
 
 #endif

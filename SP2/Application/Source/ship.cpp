@@ -143,6 +143,11 @@ float Ship::getSP()
 	return shieldPoints;
 }
 
+float Ship::getFullSP()
+{
+	return shield->getShieldPoint();
+}
+
 void Ship::setSP(float s)
 {
 	shield->setSP(s);
@@ -150,7 +155,7 @@ void Ship::setSP(float s)
 
 int Ship::getThrust()
 {
-	return thrust;
+	return thruster->getThrust();
 }
 
 void Ship::setThrust(float t)

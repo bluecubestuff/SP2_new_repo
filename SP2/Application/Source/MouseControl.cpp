@@ -70,3 +70,17 @@ POINT Mouse::freeMouse()
 	mousePosition = currMousePosition;
 	return mousePosition;
 }
+
+POINT Mouse::wMouseMovement()
+{
+	double x, y;
+	int ax, ay;
+	glfwGetWindowSize(Application::m_window, &ax, &ay);
+	ay /= 2;
+	glfwGetCursorPos(Application::m_window, &x, &y);
+	int temp = y - ay;
+	y = ay - temp;
+	mousePosition.x = x;
+	mousePosition.y = y;
+	return mousePosition;
+}

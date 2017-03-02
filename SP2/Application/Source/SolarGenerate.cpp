@@ -39,19 +39,19 @@ void SolarGenerate::Init()
 
 			if (planet_type == 1) //GreenPlanet
 			{
-				GreenPlanet* gPlanet = new GreenPlanet(myscene, Vector3(9 * i, 0, 0), 1, 1, ar, pr);
+				GreenPlanet* gPlanet = new GreenPlanet(myscene, Vector3(6 * i, 0, 0), 1, 1, ar, pr);
 				planet_storage.push_back(gPlanet);
 				this->objfactory->createSystemObject(gPlanet);
 			}
 			else if (planet_type == 2) //DesertPlanet
 			{
-				DesertPlanet* dPlanet = new DesertPlanet(myscene, Vector3(9 * i, 0, 0), 1, 1, ar, pr);
+				DesertPlanet* dPlanet = new DesertPlanet(myscene, Vector3(6 * i, 0, 0), 1, 1, ar, pr);
 				planet_storage.push_back(dPlanet);
 				this->objfactory->createSystemObject(dPlanet);
 			}
 			else if (planet_type == 3) //BluePLanet
 			{
-				BluePlanet* bPlanet = new BluePlanet(myscene, Vector3(9 * i, 0, 0), 1, 1, ar, pr);
+				BluePlanet* bPlanet = new BluePlanet(myscene, Vector3(6 * i, 0, 0), 1, 1, ar, pr);
 				planet_storage.push_back(bPlanet);
 				this->objfactory->createSystemObject(bPlanet);
 			}

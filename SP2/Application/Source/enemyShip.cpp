@@ -43,7 +43,7 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 	this->hitbox = new Func_AABB;
 	this->hitbox->updateAABB(size, size, size, this->Position);
 
-	
+	offTime = 0;
 
 	/*if (Math::RandIntMinMax(0, 1))
 	{

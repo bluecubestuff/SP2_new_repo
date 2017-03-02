@@ -43,7 +43,7 @@ void LandFPSCamera::Init(Vector3 pos, Vector3 target, Vector3 up)
 
 void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 {
-	static const float CAMERA_SPEED = 0.05f * dt;
+	static const float CAMERA_SPEED = 0.01f * dt;
 	static float MOVEMENT_SPEED = 0.3f * dt;
 	static float pitchLimit = 0.f;
 

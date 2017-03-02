@@ -154,9 +154,14 @@ void GalaxyScene::Init()
 	meshList[GEO_BLUEPLANET] = MeshBuilder::GenerateOBJ("bluePlanet", "OBJ//Sphere2.OBJ");
 	meshList[GEO_BLUEPLANET]->textureID = LoadTGA("Image//BluePlanet.tga");
 
-	meshList[GEO_GRID] = MeshBuilder::GenerateUI("7 by 7 Grid", 1, 1);
-	meshList[GEO_GRID]->textureID = LoadTGA("Image//CompassHud.tga");
+	meshList[GEO_HUD] = MeshBuilder::GenerateUI("compass", 1, 1);
+	meshList[GEO_HUD]->textureID = LoadTGA("Image//CompassHud.tga");
+
+	meshList[GEO_GRID] = MeshBuilder::GenerateUI("Grid", 1, 1);
+	meshList[GEO_GRID]->textureID = LoadTGA("Image//Grid.tga");
+
 	//------------------------------------------------------------------------------------------
+
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
 	light[0].LightPosition.Set(0, 1, 0);
@@ -219,8 +224,8 @@ void GalaxyScene::Init()
 
 	rotate = 0.f;
 	isPointingToSystem = false;		//check if it is above planet
-	move_along_x = 0;				//movement of compass along x
-	move_along_y = 0;				//movement of compass along y
+	move_along_x = -3;				//movement of compass along x
+	move_along_y = -3;				//movement of compass along y
 
 	//if (GalaxyGenerate::get_instance()->object_database.size() > 0)
 	//{
@@ -286,19 +291,23 @@ void GalaxyScene::Update(double dt)
 	//movement of compass
 	if (Application::IsKeyPressed(VK_RIGHT))
 	{
-		move_along_x += 3;
+		if ((move_along_x + 10) < 150) //prevents compass from moving out of screen
+			move_along_x += 3;
 	}
 	else if (Application::IsKeyPressed(VK_LEFT))
 	{
-		move_along_x -= 3;
+		if ((move_along_x + 10) > 0)	//prevents compass from moving out of screen
+			move_along_x -= 3;
 	}
 	else if(Application::IsKeyPressed(VK_UP))
 	{
-		move_along_y += 3;
+		if ((move_along_y + 10) < 90)	//prevents compass from moving out of screen
+			move_along_y += 3;
 	}
 	else if(Application::IsKeyPressed(VK_DOWN))
 	{
-		move_along_y -= 3;
+		if ((move_along_y + 10) > 0)	//prevents compass from moving out of screen
+			move_along_y -= 3;
 	}
 }
 
@@ -374,7 +383,11 @@ void GalaxyScene::Render()
 
 	RenderSkybox();  
 
-	RenderUI(meshList[GEO_GRID], 10 + move_along_x, 10 + move_along_y, 45, 40);		//7 by 7 grid
+	RenderUI(meshList[GEO_GRID], 80, 45, 160, 90);			//7 by 7 grid
+	RenderUI(meshList[GEO_HUD], 10 + move_along_x, 10 + move_along_y, 45, 40);     		//compass
+
+	std::cout << "X_pos: " << 10 + move_along_x << "\n";
+	std::cout << "Y_pos: " << 10 + move_along_y << "\n";
 
 	int counter = 0;
 

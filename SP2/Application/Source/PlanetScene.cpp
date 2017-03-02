@@ -3,7 +3,7 @@
 
 #include "shader.hpp"
 #include "Mtx44.h"
-
+#include "SystemScene.h"
 #include "Application.h"
 #include "MeshBuilder.h"
 #include "Utility.h"
@@ -118,22 +118,28 @@ void PlanetScene::Init()
 	meshList[GEO_SPHERE]->material.kShininess = 1.f;
 
 	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
+	//meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
+	meshList[GEO_FRONT]->textureID = LoadTGA("Image//craterlake_ft.tga");
 
 	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
+	//meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
+	meshList[GEO_BACK]->textureID = LoadTGA("Image//craterlake_bk.tga");
 
 	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
+	//meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
+	meshList[GEO_LEFT]->textureID = LoadTGA("Image//craterlake_lf.tga");
 
 	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
+	//meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
+	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//craterlake_rt.tga");
 
 	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	//meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//craterlake_bn.tga");
 
 	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+	//meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+	meshList[GEO_TOP]->textureID = LoadTGA("Image//craterlake_up.tga");
 
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("Cube", Color(0.6f, 0.4f, 0.3f));
 
@@ -275,8 +281,10 @@ void PlanetScene::Init()
 	}
  
 	isLeavingPlanet = false;
+
 	BoundingBox.pt_Min.Set(0,5,0);
 	BoundingBox.pt_Min.Set(2500, 100, 2500);
+
 	//ItemFactory::get_instance()->randomlyCreateWeapon();
 	//std::cout << "weapon name: " << ItemFactory::get_instance()->weapon_storage_getter()[0]->getName() << "\n";
 	//std::cout << "weapon dmg: " << ItemFactory::get_instance()->weapon_storage_getter()[0]->getWeaponDamage() << "\n";
@@ -371,6 +379,7 @@ void PlanetScene::Update(double dt)
 
 	//check collision with objects in land with player
 	colManager->CollisionChecker(GalaxyGenerate::get_instance()->system_database[system_id]->land_database[planet_id], Player);
+	
 	//colManager->CollisionChecker(gen, Player);
 
 	if (Car->getInVehicle())
@@ -570,6 +579,7 @@ void PlanetScene::Render()
 
 	gen->BuildLand();
 	//GalaxyGenerate::get_instance()->system_database[system_id]->land_database[system_id][planet_id]->BuildLand();
+
 	if (!Application::IsKeyPressed('Q') && !isLeavingPlanet)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "To leave planet press [Q]", Color(1, 0, 0), 2, 1, 2);
@@ -740,16 +750,17 @@ void PlanetScene::RenderSkybox()
 	modelStack.Translate(1230, 0, 1230);
 
 	modelStack.PushMatrix();//seperate from ground
+	modelStack.Translate(0, -1100, 0);
 
 	modelStack.PushMatrix();//push top
-	modelStack.Translate(0, 2495, 0);
+	modelStack.Translate(0, 2493, 0);
 	modelStack.Rotate(180, 0, 0, 1);
-	modelStack.Scale(2500, 1, 2500);
+	modelStack.Scale(2502, 1, 2502);
 	RenderMesh(meshList[GEO_TOP], false);
 	modelStack.PopMatrix();//end top
 
 	modelStack.PushMatrix();//push back
-	modelStack.Translate(0, 1247, 1247);
+	modelStack.Translate(0, 1245, 1245);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Scale(2500, 1, 2500);
@@ -757,7 +768,7 @@ void PlanetScene::RenderSkybox()
 	modelStack.PopMatrix();//end back
 
 	modelStack.PushMatrix();//push front
-	modelStack.Translate(0, 1247, -1247);
+	modelStack.Translate(0, 1245, -1245);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(180, 1, 0, 0);
@@ -766,7 +777,7 @@ void PlanetScene::RenderSkybox()
 	modelStack.PopMatrix();//end front
 
 	modelStack.PushMatrix();//push left
-	modelStack.Translate(1247, 1247, 0);
+	modelStack.Translate(1245, 1245, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
@@ -775,7 +786,7 @@ void PlanetScene::RenderSkybox()
 	modelStack.PopMatrix();//end left
 
 	modelStack.PushMatrix();//push right
-	modelStack.Translate(-1247, 1247, 0);
+	modelStack.Translate(-1245, 1245, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(90, 1, 0, 0);

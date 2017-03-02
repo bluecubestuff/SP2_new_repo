@@ -20,7 +20,6 @@ LandGenerate::LandGenerate(PlanetScene* scene) : planet_scene(scene), objectfact
 	sceneID = 2;
 	SystemID = GalaxyGenerate::get_instance()->galaxy_id_getter();
 	PlanetID = GalaxyGenerate::get_instance()->planet_id_getter();
-
 }
 
 LandGenerate::~LandGenerate() 
@@ -82,45 +81,45 @@ void LandGenerate::landInIt()
 		{
 			for (int x = 0; x < 5; x++)				//loops the grid in grid x
 			{
-				int numOfObject = Math::RandIntMinMax(20, 30);  //num of obj
+				int numOfObject = Math::RandIntMinMax(15, 30);  //num of obj
 				for (int i = 0; i < numOfObject; i++)
 				{
-					tempPos.x = Math::RandIntMinMax((x * 500) + 10, ((x + 1) * 500) - 10);
-					tempPos.z = Math::RandIntMinMax((z * 500) + 10, ((z + 1) * 500) - 10);
-					int objType = Math::RandIntMinMax(1, 29); //selecting the type of obj
+					tempPos.x = Math::RandIntMinMax((x * 500) + 10, ((x + 1) * 500) - 10);		//rand the x pos
+					tempPos.z = Math::RandIntMinMax((z * 500) + 10, ((z + 1) * 500) - 10);		//rand the y pos
+					int objType = Math::RandIntMinMax(1, 29);									//selecting the type of obj
 
 					//=== selection of type ===================================================
-					if (objType >= 1 && objType <= 5)
+					if (objType >= 1 && objType <= 5)	//chances for spawning rock
 					{
 						Rock* rock = new Rock(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
 						obj_data_at_box[count].push_back(rock);
 						objectfactory.createObject(rock);
 					}
-					else if (objType > 5 && objType <= 13)
+					else if (objType > 5 && objType <= 13)	//chances for spawning tree
 					{
 						Tree* tree = new Tree(planet_scene, Vector3(tempPos.x, -3, tempPos.z), 3);
 						obj_data_at_box[count].push_back(tree);
 						objectfactory.createObject(tree);
 					}
-					else if (objType > 13 && objType <= 18)
+					else if (objType > 13 && objType <= 18)	 //chances for spawning mithril
 					{
 						Mithril* mithril = new Mithril(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
 						obj_data_at_box[count].push_back(mithril);
 						objectfactory.createObject(mithril);
 					}
-					else if (objType > 18 && objType <= 24)
+					else if (objType > 18 && objType <= 24)	  //chances for spawning iron
 					{
 						Iron* iron = new Iron(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
 						obj_data_at_box[count].push_back(iron);
 						objectfactory.createObject(iron);
 					}
-					else if (objType > 24 && objType <= 27)
+					else if (objType > 24 && objType <= 27)	  //chances for spawning titanium
 					{
 						Titanium* titanium = new Titanium(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
 						obj_data_at_box[count].push_back(titanium);
 						objectfactory.createObject(titanium);
 					}
-					else if (objType > 27 && objType <= 29)
+					else if (objType > 27 && objType <= 29)	  //chances for spawning bismuth
 					{
 						Bismuth* bismuth = new Bismuth(planet_scene, Vector3(tempPos.x, -1, tempPos.z), 3);
 						obj_data_at_box[count].push_back(bismuth);
@@ -168,12 +167,7 @@ void LandGenerate::landInIt()
 
 	}
 
-	SetPath();
-
-	//randomize the objects in planet
-	//-> setting object in random pos
-	//-> different obj
-	//->spawn location of AI
+	SetPath();		//fills up a 2d array to show which part is empty and which are being used
 }
 
 void LandGenerate::saveLandInIt()

@@ -68,7 +68,7 @@ void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 
 	if (Application::IsKeyPressed('W'))
 	{
-		if (!cForward)
+		if (!cForward && pFront.x < 2500 && pFront.x > 0 && pFront.z < 2500 && pFront.z > 0)
 		{
 			Inertia = temp * MOVEMENT_SPEED;
 			position += Inertia;
@@ -76,7 +76,7 @@ void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 	}
 	else if (Application::IsKeyPressed('S'))
 	{
-		if (!cBack)
+		if (!cBack && pBack.x < 2500 && pBack.x > 0 && pBack.z < 2500 && pBack.z > 0)
 		{
 			Inertia = -temp * MOVEMENT_SPEED;
 			position += Inertia;
@@ -84,13 +84,13 @@ void LandFPSCamera::Update(double dt, Vector3& fuck, Vector3& fuckfuck)
 	}
 	if (Application::IsKeyPressed('D'))
 	{
-		if (!cRight)
+		if (!cRight  && pRight.x < 2500 && pRight.x > 0 && pRight.z < 2500 && pRight.z > 0)
 		{
 			Inertia = strafe * MOVEMENT_SPEED * 0.5;
 			position += Inertia;
 		}
 	}
-	else if (Application::IsKeyPressed('A'))
+	else if (Application::IsKeyPressed('A') && pLeft.x < 2500 && pLeft.x > 0 && pLeft.z < 2500 && pLeft.z > 0)
 	{
 		if (!cLeft)
 		{

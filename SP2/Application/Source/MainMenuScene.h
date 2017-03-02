@@ -49,9 +49,13 @@ class MainMenuScene : public Scene
 		GEO_MENUCONTROL, //16
 		GEO_MENUCREDIT, //17
 		GEO_MENUQUIT, //18
-
+		//add any other GEO_TYPE below
 		GEO_PLANET1,
 		GEO_PLANET2,
+
+		GEO_CONTROL,
+		GEO_CREDIT,
+		GEO_TITLE,
 
 		//text
 		GEO_TEXT,
@@ -123,6 +127,7 @@ private:
 	float marsRotate;
 
 	bool isPressed;
+	bool isInScreen;
 	float timer;
 	unsigned id;
 

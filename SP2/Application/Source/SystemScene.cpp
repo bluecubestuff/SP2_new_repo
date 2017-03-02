@@ -215,7 +215,7 @@ void SystemScene::Init()
 	projection.SetToPerspective(45.f, 16.f / 9.f, 0.1f, 100000.f);
 	projectionStack.LoadMatrix(projection);
 	srand((unsigned)(time(NULL)));
-	camera.Init(Vector3(1000, -9000, 1000), Vector3(1000, -8999, 1000), Vector3(0, 0, 1));
+	camera.Init(Vector3(1000, -9000, 1100), Vector3(1000, -8999, 1100), Vector3(0, 0, 1));
 	system_collision = new CollisionManager;
 	Player = new SystemTravelShip;
 
@@ -298,8 +298,10 @@ void SystemScene::Update(double dt)
 	//================================================================================
 	//--------------------------------------------------------------------------------
 
-	//std::cout << Player->getter("forward") << std::endl;
+	//std::cout << Player->getter("position") << std::endl;
 	//camera.Update(dt);
+
+	std::cout << "player POS: " << Player->position << "\n";
 
 	camera.Update(dt);
 	Player->Update(dt);
@@ -312,7 +314,13 @@ void SystemScene::Update(double dt)
 	if (system_collision->isAbovePlanet && Application::IsKeyPressed('E'))
 	{
 		planet = system_collision->planet_typing;				//check the planet type(bugged to be fixed)
-		SceneManager::get_instance()->SceneSelect(2);			//change the scene
+		SceneManager::get_instance()->SceneSelect(2);			//change the scene to space scene
+	}
+
+	if (Player->position.x < -6500 || Player->position.x > 6500
+		|| Player->position.y < -5000 || Player->position.y > 5000)
+	{
+		SceneManager::get_instance()->SceneSelect(5); //change back to galaxy scene
 	}
 }
 
@@ -420,7 +428,7 @@ void SystemScene::Render()
 	{
 		modelStack.PushMatrix();
 		modelStack.Rotate(90, 1, 0, 0);
-		modelStack.Scale(9 * i, 1, 9 * i);
+		modelStack.Scale(6 * i, 1, 6 * i);
 		RenderMesh(meshList[GEO_ORBIT_LINES], false);
 		modelStack.PopMatrix();
 	}
@@ -435,6 +443,12 @@ void SystemScene::Render()
 		modelStack.PushMatrix();
 		RenderTextOnScreen(meshList[GEO_TEXT], "Enter planet?[E]", Color(0, 1, 0), 2, 1, 2);
 		modelStack.PopMatrix();
+	}
+
+	if (Player->position.x < -5900 || Player->position.x > 5900
+		|| Player->position.y < -4300 || Player->position.y > 4300)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Leaving planet, continue forward to leave.", Color(1, 0, 0), 2, 1, 4);
 	}
 }
 
@@ -594,6 +608,8 @@ void SystemScene::RenderSkybox()
 	modelStack.Scale(10, 10, 10);
 
 	modelStack.PushMatrix();//seperate from ground
+
+	modelStack.Rotate(rotate, 0, 1, 0); //roatate the skybox
 
 	modelStack.PushMatrix();//push top
 	modelStack.Translate(0, 1995, 0);

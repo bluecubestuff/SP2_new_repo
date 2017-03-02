@@ -187,7 +187,6 @@ private:
 
 	bool isExistingPlanet;
 	bool isLeavingPlanet;
-
 	//Camera2 camera;
 	//Camera3 camera;
 	Camera camera;

@@ -10,9 +10,6 @@
 #include "LoadTGA.h"
 #include "Weapon.h"
 
-//#include "Tree.h"
-//#include "Rock.h"
-
 //#include "LandGenerate.h"
 #include <iostream>
 
@@ -124,6 +121,7 @@ void StudioProject::Init()
 	//=============================================================================
 	waypoint = Mtx44(20, 0, 0, 0, 0, 20, 0, 0, 0, 0, 20, 0, 800, 700, 0, 1);
 	gen = new LandGenerate(this);
+
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	srand(time(NULL));
@@ -332,18 +330,18 @@ void StudioProject::Update(double dt)
 		inventorystate = false;
 	}
 
-	if (Application::IsKeyPressed('K'))
-	{
-		light[1].LightPosition.z += (float)(LSPEED * dt);
-	}
-	if (Application::IsKeyPressed('J'))
-		light[1].LightPosition.x -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('L'))
-		light[1].LightPosition.x += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('O'))
-		light[1].LightPosition.y -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('P'))
-		light[1].LightPosition.y += (float)(LSPEED * dt);
+	//if (Application::IsKeyPressed('K'))
+	//{
+	//	light[1].LightPosition.z += (float)(LSPEED * dt);
+	//}
+	//if (Application::IsKeyPressed('J'))
+	//	light[1].LightPosition.x -= (float)(LSPEED * dt);
+	//if (Application::IsKeyPressed('L'))
+	//	light[1].LightPosition.x += (float)(LSPEED * dt);
+	//if (Application::IsKeyPressed('O'))
+	//	light[1].LightPosition.y -= (float)(LSPEED * dt);
+	//if (Application::IsKeyPressed('P'))
+	//	light[1].LightPosition.y += (float)(LSPEED * dt);
 
 	if (Application::IsKeyPressed('5'))
 	{
@@ -523,7 +521,7 @@ void StudioProject::Update(double dt)
 			delete temp;
 			i = 0;
 		}
-		if (enemyBullets[i]->outOfRange && i < enemyBullets.size())
+		if (i < enemyBullets.size() && enemyBullets[i]->outOfRange)
 		{
 			Bullet* temp = enemyBullets[i];
 			enemyBullets.erase(enemyBullets.begin() + i);
@@ -624,7 +622,13 @@ void StudioProject::Update(double dt)
 	}
 
 	rotatePlanet += dt;
-	//std::cout << Player->getter("position") << std::endl;
+	std::cout << Player->getter("position") << std::endl;
+
+	if (Player->getter("position").x > 2000 || Player->getter("position").z > 2000
+		|| Player->getter("position").x < -200 || Player->getter("position").z < 0)
+	{
+		SceneManager::get_instance()->SceneSelect(4);
+	}
 	//camera.Update(dt);
 }
 

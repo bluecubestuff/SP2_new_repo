@@ -155,6 +155,14 @@ void MainMenuScene::Init()
 	meshList[GEO_MENUQUIT] = MeshBuilder::GenerateUI("menu point quit", 1, 1);
 	meshList[GEO_MENUQUIT]->textureID = LoadTGA("Image//MenuPointQuit.tga");
 
+	meshList[GEO_CONTROL] = MeshBuilder::GenerateUI("controlScreen", 1, 1);
+	meshList[GEO_CONTROL]->textureID = LoadTGA("Image//ControlScreen.tga");
+
+	meshList[GEO_CREDIT] = MeshBuilder::GenerateUI("CreditScreen", 1, 1);
+	meshList[GEO_CREDIT]->textureID = LoadTGA("Image//CreditScreen.tga");
+
+	meshList[GEO_TITLE] = MeshBuilder::GenerateUI("Ttile", 1, 1);
+	meshList[GEO_TITLE]->textureID = LoadTGA("Image//GameName.tga");
 	//------------------------------------------------------------------------------------------
 	//light
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -193,6 +201,7 @@ void MainMenuScene::Init()
 
 	id = 15;			//enum id (15 - start, 16 - control, 17 - credit, 18 - quit)
 	isPressed = false;	//check if key has been pressed
+	isInScreen = false; //Check if in credits or control screen
 	timer = 0;			//deleay the time for u to be able to press button
 
 	marsRotate = 0.f;
@@ -253,27 +262,29 @@ void MainMenuScene::Update(double dt)
 	//camera.Update(dt);
 	//Player->Update(dt);
 
-	if (Application::IsKeyPressed(VK_DOWN) && !isPressed)
+	if ((Application::IsKeyPressed(VK_DOWN) || Application::IsKeyPressed('S')) && !isPressed && !isInScreen)
 	{
+		isPressed = true;
 		id++;
 		if (id > 18)
 		{
 			id = 18;
 		}
 		//RenderUI(meshList[id], 900, 450, 1800, 950);
-		isPressed = true;
+	
 	}
-	else if (Application::IsKeyPressed(VK_UP) && !isPressed)
+	else if ((Application::IsKeyPressed(VK_UP) || Application::IsKeyPressed('W')) && !isPressed && !isInScreen)
 	{
+		isPressed = true;
 		id--;
 		if (id < 15)
 		{
 			id = 15;
 		}
 		//RenderUI(meshList[id], 900, 450, 1800, 950);
-		isPressed = true;
+		
 	}
-	if (Application::IsKeyPressed('E'))
+	if (Application::IsKeyPressed(VK_RETURN) || Application::IsKeyPressed('E')) //is now enter key to enter yay
 	{
 		if (id == 15)
 		{
@@ -287,7 +298,7 @@ void MainMenuScene::Update(double dt)
 	if (isPressed)
 	{
 		timer += dt;
-		if (timer > 0.5f)
+		if (timer > 0.3f)
 		{
 			isPressed = false;
 			timer = 0;
@@ -365,8 +376,37 @@ void MainMenuScene::Render()
 	modelStack.PopMatrix();
 
 	//always last
-	RenderUI(meshList[id], 900, 450, 1800, 950);
+	RenderUI(meshList[GEO_TITLE], 900, 500, 1800, 950);
+	RenderUI(meshList[id], 800, 300, 1200, 900);
 
+	if ((Application::IsKeyPressed(VK_RETURN) || Application::IsKeyPressed('E')) && !isInScreen)
+	{
+		if (id == 16)
+		{
+			isInScreen = true;
+		}
+		else if (id == 17)
+		{
+			isInScreen = true;
+		}
+	}
+
+	if (id == 16 && isInScreen)
+	{
+		RenderUI(meshList[GEO_CONTROL], 800, 450, 1600, 950);
+		if (Application::IsKeyPressed(VK_BACK))
+		{
+			isInScreen = false;
+		}
+	}
+	else if (id == 17 && isInScreen)
+	{
+		RenderUI(meshList[GEO_CREDIT], 800, 450, 1600, 950);
+		if (Application::IsKeyPressed(VK_BACK))
+		{
+			isInScreen = false;
+		}
+	}
 	//=================================================================================================
 	/*modelStack.PushMatrix();
 	modelStack.Translate(light[0].LightPosition.x, light[0].LightPosition.y, light[0].LightPosition.z);

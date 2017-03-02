@@ -34,11 +34,11 @@ EnemyShip::EnemyShip(Vector3 f, Vector3 u, Vector3 r, Vector3 p, float t, float 
 
 	thruster = new Thruster;
 	this->thrust = thruster->getThrust();
-	this->turnSpeed = thrust / mass;
+	this->turnSpeed = (thrust / mass);
 
 	reactor = new PowerPlant;
 	this->power = reactor->getPower();
-	this->speed = thrust / sqrt(mass);
+	this->speed = (thrust / sqrt(mass)) * 2;
 
 	this->hitbox = new Func_AABB;
 	this->hitbox->updateAABB(size, size, size, this->Position);

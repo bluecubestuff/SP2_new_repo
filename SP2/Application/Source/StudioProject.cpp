@@ -128,7 +128,7 @@ void StudioProject::Init()
 	int enemyQuantity = Math::RandIntMinMax(5, 10);
 	for (int i = 0; i < enemyQuantity; i++)
 	{
-		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(500, 2000, 1000 + i * 20), 40.f, 2.f, 10.f);
+		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(500, 2000, 1000 + i * 20), 40.f, 1.f, 10.f);
 		hostiles.push_back(Enemy);
 	}
 	//=============================================================================
@@ -369,7 +369,7 @@ void StudioProject::Update(double dt)
 	{
 		i->Update(dt, Player->getter("position"), Player->getter("forward"));
 		i->shieldUpdate(dt);
-		if (i->attack && i->fireRate > 0.5)
+		if (i->attack && i->fireRate > 0.2)
 		{
 			i->fireRate = 0;
 			Bullet* bullet = new Bullet(i->getter("position"), i->getter("forward"), i->getter("up"), i->getter("right"));
@@ -541,7 +541,7 @@ void StudioProject::Update(double dt)
 		if (hostiles[i]->getHP() <= 0)
 		{
 			//EnemyShip* dadad = hostiles[i];
-			Currency::get_instance()->value_adder(10);
+			Currency::get_instance()->value_adder(2);
 			hostiles[i]->deaded = true;
 			Explode = new Explosion(hostiles[i]->getter("position"));
 			hostiles.erase(hostiles.begin() + i);

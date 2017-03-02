@@ -17,12 +17,15 @@ public:
 	NPC();
 	~NPC();
 
-	void sell();
-	void craft();
-private:
 	static int hPrice;
 	static int sPrice;
 	static int tPrice;
-	
+
+	void sell(Vector3 mPos);
+	void craft(Vector3 mPos);
+private:
+	Func_AABB* menu;
+	vector<Func_AABB*> crafting;
+	vector<Func_AABB*> selling;
 };
 #endif

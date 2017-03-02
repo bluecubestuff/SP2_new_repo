@@ -77,7 +77,8 @@ PlayerShip::~PlayerShip()
 }
 
 void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
-{
+{	this->thrust = thruster->getThrust();
+	this->turnSpeed = thrust / mass;
 	//========================================================================
 	//Setting FlightAssist on or off
 	if (Application::IsKeyPressed('X'))
@@ -184,7 +185,7 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 			this->Right = roll * this->Right;
 			this->Up = roll * this->Up;
 		}
-		this->Position += this->Inertia * (float)dt;	//update position according to PlayerShip inertia
+		this->Position += this->Inertia * (float)dt * thrust * 0.05;	//update position according to PlayerShip inertia
 	}
 	//===========================================================================
 	else if (this->FlightAssist == true)	//FLIGHT ASSISTS ON
@@ -231,7 +232,7 @@ void PlayerShip::Update(double dt)	//Player PlayerShip movement and control
 			this->Right = roll * this->Right;
 			this->Up = roll * this->Up;
 		}
-		this->Position += this->Forward * Speed * (float)dt * 2.f;
+		this->Position += this->Forward * Speed * (float)dt * thrust * 0.1;
 	}
 	//===========================================================================
 	//mouse control for the ship

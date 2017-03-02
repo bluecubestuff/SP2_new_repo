@@ -36,6 +36,17 @@ bool Func_AABB::pointInAABB(const Vector3& point)
 	return false;
 }
 
+bool Func_AABB::mouseInAABB(Vector3 point)
+{
+	if ((point.x > TAABB.pt_Min.x && point.x < TAABB.pt_Max.x)
+		&& (point.y > TAABB.pt_Min.y && point.y < TAABB.pt_Max.y))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void Func_AABB::setAABB_Static_Objects(Vector3 location, float sizeX, float sizeY, float sizeZ)
 {
 	Vector3 temp;

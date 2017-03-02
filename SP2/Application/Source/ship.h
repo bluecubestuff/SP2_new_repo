@@ -46,6 +46,7 @@ public:
 	void shieldUpdate(double dt);
 	void decreaseShield(float);
 	float getSP();
+	float getFullSP();
 	void setSP(float);
 	
 	void setThrust(float);

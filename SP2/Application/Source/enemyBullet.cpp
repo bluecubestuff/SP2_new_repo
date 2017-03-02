@@ -23,8 +23,8 @@ enemyBullet::~enemyBullet()
 
 void enemyBullet::Update(double dt)
 {
-	this->Position += Forward * 0.4;
-	this->distance += Forward * 0.4;
+	this->Position += Forward * 1.5;
+	this->distance += Forward * 1.5;
 	if (distance.Length() > 500)
 	{
 		outOfRange = true;

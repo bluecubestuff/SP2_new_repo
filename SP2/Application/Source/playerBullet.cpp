@@ -23,8 +23,8 @@ playerBullet::~playerBullet()
 
 void playerBullet::Update(double dt)
 {
-	this->Position += Forward * dt * 75;
-	this->distance += Forward * dt * 75;
+	this->Position += Forward * dt * 100;
+	this->distance += Forward * dt * 100;
 	if (distance.Length() > 500)
 	{
 		outOfRange = true;

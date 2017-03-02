@@ -1,15 +1,19 @@
-﻿Build started 3/2/2017 11:15:41 AM.
+﻿Build started 3/2/2017 12:31:11 PM.
      1>Project "C:\Users\162042Y\Documents\SP2_new_repo\SP2\Application\Application.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glew\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glfw\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\Common\Source /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\LandGenerate.cpp
-         LandGenerate.cpp
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(34): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(84): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(85): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(138): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(139): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(206): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landgenerate.cpp(208): warning C4018: '<' : signed/unsigned mismatch
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glew\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\glfw\include /IC:\Users\162042Y\Documents\SP2_new_repo\SP2\\Common\Source /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\landEnemy.cpp
+         landEnemy.cpp
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(65): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(85): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(86): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(89): warning C4101: 'e' : unreferenced local variable
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(97): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(127): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(131): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(148): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(122): warning C4101: 'e' : unreferenced local variable
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(233): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\162042y\documents\sp2_new_repo\sp2\application\source\landenemy.cpp(234): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\162042Y\Documents\SP2_new_repo\SP2\\glew\lib /LIBPATH:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\\glfw\lib-msvc120" /LIBPATH:C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\162042Y\Documents\SP2_new_repo\SP2\Debug\Application.lib" /MACHINE:X86 Debug\Application.obj
          Debug\BluePlanet.obj
@@ -83,4 +87,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.75
+Time Elapsed 00:00:01.53

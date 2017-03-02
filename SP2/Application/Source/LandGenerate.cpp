@@ -30,7 +30,11 @@ LandGenerate::~LandGenerate()
 void LandGenerate::landInIt() 
 {
 	Vector3 tempPos;
-	tempPos.Set(0, 0, 0);			
+	Vector3 enemyPos;
+	float enemyGoalx = 0;
+	float enemyGoalz = 0;
+	tempPos.Set(0, 0, 0);
+	enemyPos.Set(0, 0, 0);
 	srand((time_t)(time(NULL)));				//seed
 	unsigned count = 1;							//count number of grid
 
@@ -128,26 +132,32 @@ void LandGenerate::landInIt()
 			}
 		}
 
+		//random enemy generation
+
 		for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
 		{
 			for (int x = 0; x < 5; x++)				//loops the grid in grid x
 			{
-				noOfEnemies = Math::RandIntMinMax(3, 7);  //num of obj
+				noOfEnemies = Math::RandIntMinMax(3, 7);  //num of eme,oes
 				for (int i = 0; i < noOfEnemies; i++)
 				{
-					tempPos.x = Math::RandIntMinMax((x * 300) + 100, ((x + 1) * 700) - 100);
-					tempPos.z = Math::RandIntMinMax((z * 300) + 100, ((z + 1) * 700) - 100);
-					int enemyType = Math::RandIntMinMax(1, 2); //selecting the type of obj
+					enemyPos.x = Math::RandIntMinMax((x * 300) + 100, ((x + 1) * 700) - 100);
+					enemyPos.z = Math::RandIntMinMax((z * 300) + 100, ((z + 1) * 700) - 100);
+					enemyGoalx = Math::RandIntMinMax(50, 150);
+					enemyGoalz = Math::RandIntMinMax(50, 150);
+					int enemyType = Math::RandIntMinMax(1, 2); //selecting the type of enemy
 
 					//=== selection of type ===================================================
 					if (enemyType == 1)
 					{
-						enemy_positions.push_back(Vector3(tempPos.x, 0, tempPos.z));
+						enemy_positions.push_back(Vector3(enemyPos.x, 0, enemyPos.z));
+						enemy_goal.push_back(Vector3(enemyPos.x + enemyGoalx, enemyPos.z + enemyGoalz));
 						enemy_type.push_back(1);
 					}
 					else if (enemyType == 2)
 					{
-						enemy_positions.push_back(Vector3(tempPos.x, 0, tempPos.z));
+						enemy_positions.push_back(Vector3(enemyPos.x, 0, enemyPos.z));
+						enemy_goal.push_back(Vector3(enemyPos.x + enemyGoalx, enemyPos.z + enemyGoalz));
 						enemy_type.push_back(2);
 					}
 					//========================================================================

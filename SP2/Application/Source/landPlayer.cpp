@@ -49,11 +49,13 @@ void LandPlayer::Combat(double dt, vector<LandEnemy*> meleeEnemies, vector<LandE
 	{
 		meleeWeaponEquipped = true;
 		rangedWeaponEquipped = false;
+		bullets.clear();
 	}
 	if (Application::IsKeyPressed('E'))
 	{
 		rangedWeaponEquipped = true;
 		meleeWeaponEquipped = false;
+		bullets.clear();
 	}
 
 	if (meleeWeaponEquipped == true)
@@ -64,7 +66,7 @@ void LandPlayer::Combat(double dt, vector<LandEnemy*> meleeEnemies, vector<LandE
 			{
 				if (meleeWeaponEquipped == true && calculateDistance(Position, (*it)->Position) < 25)
 				{
-					(*it)->modifyHealth("decrease", 35);
+					(*it)->modifyHealth("decrease", 5);
 				}
 			}
 
@@ -72,7 +74,7 @@ void LandPlayer::Combat(double dt, vector<LandEnemy*> meleeEnemies, vector<LandE
 			{
 				if (meleeWeaponEquipped == true && calculateDistance(Position, (*it)->Position) < 25)
 				{
-					(*it)->modifyHealth("decrease", 35);
+					(*it)->modifyHealth("decrease", 5);
 				}
 			}
 		}
@@ -94,10 +96,10 @@ void LandPlayer::Combat(double dt, vector<LandEnemy*> meleeEnemies, vector<LandE
 		{
 			if (i < bullets.size())
 			{
-				if (calculateDistance(bullets[i]->getPos(), j->Position) < 5.f)
+				if (calculateDistance(bullets[i]->getPos(), j->Position) < 8)
 				{
 					playerBullet* temp = bullets[i];
-					j->modifyHealth("decrease", 15);
+					j->modifyHealth("decrease", 10);
 					std::cout << "enemy took damage" << std::endl;
 					bullets.erase(bullets.begin() + i);
 					delete temp;

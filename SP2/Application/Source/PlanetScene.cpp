@@ -154,6 +154,8 @@ void PlanetScene::Init()
 	meshList[GEO_ENEMY] = MeshBuilder::GenerateCube("enemy", Color(1, 0, 0));
 	meshList[GEO_ENEMY2] = MeshBuilder::GenerateCube("enemy", Color(0, 0, 1));
 
+	meshList[GEO_BULLET] = MeshBuilder::GenerateOBJ("bullet", "OBJ//bullet_placeholder.OBJ");
+
 	meshList[GEO_GOATGOAT] = MeshBuilder::GenerateOBJ("goat", "OBJ//goat_easter_egg.obj");
 
 	meshList[GEO_IRON] = MeshBuilder::GenerateOBJ("iron", "OBJ//rock.obj");
@@ -252,24 +254,24 @@ void PlanetScene::Init()
 	{
 		if (gen->enemy_type[i] == 1)
 		{
-			LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], 100, 5);
+			LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], gen->enemy_goal[i], 100, 3);
 			meleeEnemies.push_back(Enemy);
 		}
 		else if (gen->enemy_type[i] == 2)
 		{
-			LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], 100, 5);
+			LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], gen->enemy_goal[i], 100, 3);
 			rangedEnemies.push_back(Enemy);
 		}
 	}
 
 	for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
 	{
-		(*it)->enemyInit(gen->path, (*it)->Position, Vector3((*it)->Position.x + 50, 0, (*it)->Position.z - 50));
+		(*it)->enemyInit(gen->path, (*it)->Position, (*it)->enemyGoal);
 	}
 
 	for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
 	{
-		(*it)->enemyInit(gen->path, (*it)->Position, Vector3((*it)->Position.x + 50, 0, (*it)->Position.z - 50));
+		(*it)->enemyInit(gen->path, (*it)->Position, (*it)->enemyGoal);
 	}
  
 	isLeavingPlanet = false;
@@ -407,6 +409,25 @@ void PlanetScene::Update(double dt)
 	{
 		(*it)->rangedUpdate(dt, Player);
 	}
+	for (int i = 0; i < meleeEnemies.size(); i++)
+	{
+		if (meleeEnemies[i]->getHealth() <= 0)
+		{
+			meleeEnemies[i]->enemyIsDead = true;
+			meleeEnemies.erase(meleeEnemies.begin() + i);
+			i = 0;
+		}
+	}
+
+	for (int i = 0; i < rangedEnemies.size(); i++)
+	{
+		if (rangedEnemies[i]->getHealth() <= 0)
+		{
+			rangedEnemies[i]->enemyIsDead = true;
+			rangedEnemies.erase(rangedEnemies.begin() + i);
+			i = 0;
+		}
+	}
 }
 
 
@@ -528,6 +549,23 @@ void PlanetScene::Render()
 		modelStack.Scale(15, 15, 15);
 		RenderMesh(meshList[GEO_ENEMY2], false);
 		modelStack.PopMatrix();
+	}
+	for (auto &i : Player->bullets)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->getMatrix());
+		RenderMesh(meshList[GEO_BULLET], false);
+		modelStack.PopMatrix();
+	}
+	for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
+	{
+		for (auto &j : (*it)->enemyBullets)
+		{
+			modelStack.PushMatrix();
+			modelStack.LoadMatrix(j->getMatrix());
+			RenderMesh(meshList[GEO_BULLET], false);
+			modelStack.PopMatrix();
+		}
 	}
 
 	gen->BuildLand();

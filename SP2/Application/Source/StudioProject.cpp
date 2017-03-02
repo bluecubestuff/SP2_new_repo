@@ -125,7 +125,7 @@ void StudioProject::Init()
 	int test = 0;
 	//Player = new PlayerShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(0, 0, 0), Vector3(0,0,0), 1.f, 100.f, 100.f, 1.f, 10.f);
 	srand(time(NULL));
-	int enemyQuantity = Math::RandIntMinMax(5, 10);
+	int enemyQuantity = Math::RandIntMinMax(2, 5);
 	for (int i = 0; i < enemyQuantity; i++)
 	{
 		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(500, 2000, 1000 + i * 20), 40.f, 1.f, 10.f);
@@ -1247,10 +1247,16 @@ void StudioProject::Exit()
 	{
 		delete i;
 	}
+	//for (int i = 0; i < Player->applicableTargets.size(); i++)
+	//{
+	//	EnemyShip* temp = Player->applicableTargets[i];
+	//	delete temp;
+	//}
 	hostiles.clear();
 	missiles.clear();
 	bullets.clear();
 	enemyBullets.clear();
+	Player->applicableTargets.clear();
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

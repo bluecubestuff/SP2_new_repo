@@ -880,11 +880,7 @@ void StudioProject::Render()
 		RenderMesh(meshList[GEO_EXPLOSION], false);
 		modelStack.PopMatrix();
 	}
-	//if (SystemScene::planet > 0)
-	//{
-	//	std::cout << SystemScene::planet << std::endl;
-	//}
-	//gen->BuildLand();
+
 	if (Player->firstThird)
 	{
 		Mouse mouse;
@@ -896,13 +892,12 @@ void StudioProject::Render()
 		RenderUI(meshList[GEO_SPHERE], 800, 450, 3, 3);
 		modelStack.PopMatrix();
 	}
+
 	//RenderUI(meshList[GEO_INVENTORY_BUTTON], 15.0, 15.0, 2.0, 2.0);//Inventory Button
-
-	//objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
-	objfactory.renderObjects(1);
-	objfactory.interactObjects();
+	////objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
+	//objfactory.renderObjects(1);
+	//objfactory.interactObjects();
 	
-
 	modelStack.PushMatrix();
 
 	if (Player->damaged && Player->getSP() > 0)
@@ -1230,28 +1225,7 @@ void StudioProject::DisplayUI()
 
 	RenderUI(meshList[GEO_SHIELD_BAR], 232, 738, (360 * (Player->getSP() / bardecrease)), 16);//shield bar
 }
-//bool StudioProject::pointInAABB(const TAABB& box, const Vector3& point)//test
-//{
-//	if ((point.x > box.pt_Min.x && point.x < box.pt_Max.x)
-//		&& (point.z < box.pt_Min.z && point.z > box.pt_Max.z))
-//	{
-//		return true;
-//	}
-//
-//	return false;
-//}
-//
-//bool StudioProject::AABBtoAABB(const TAABB& box01, const TAABB& box02)
-//{
-//	if (box01.pt_Max.x > box02.pt_Min.x && box01.pt_Min.x < box02.pt_Max.x &&
-//		box01.pt_Max.y > box02.pt_Min.y && box01.pt_Min.y < box02.pt_Max.y &&
-//		box01.pt_Max.z < box02.pt_Min.z && box01.pt_Min.z > box02.pt_Max.z)
-//	{
-//		return true;
-//	}
-//
-//	return false;
-//}
+
 void StudioProject::Exit()
 { 
 	for (auto &i : hostiles)

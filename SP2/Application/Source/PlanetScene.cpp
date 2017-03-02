@@ -331,29 +331,29 @@ void PlanetScene::Init()
 		gen->saveLandInIt();
 	}
 	
-	//for (int i = 0; i <= gen->noOfEnemies; i++)
-	//{
-	//	if (gen->enemy_type[i] == 1)
-	//	{
-	//		LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], gen->enemy_goal[i], 100, 3);
-	//		meleeEnemies.push_back(Enemy);
-	//	}
-	//	else if (gen->enemy_type[i] == 2)
-	//	{
-	//		LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], gen->enemy_goal[i], 100, 3);
-	//		rangedEnemies.push_back(Enemy);
-	//	}
-	//}
+	for (int i = 0; i <= gen->noOfEnemies; i++)
+	{
+		if (gen->enemy_type[i] == 1)
+		{
+			LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], gen->enemy_goal[i], 100, 3);
+			meleeEnemies.push_back(Enemy);
+		}
+		else if (gen->enemy_type[i] == 2)
+		{
+			LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], gen->enemy_goal[i], 100, 3);
+			rangedEnemies.push_back(Enemy);
+		}
+	}
 
-	//for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
-	//{
-	//	(*it)->enemyInit(gen->path, (*it)->Position, (*it)->enemyGoal);
-	//}
+	for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
+	{
+		(*it)->enemyInit(gen->path, (*it)->Position, (*it)->enemyGoal);
+	}
 
-	//for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
-	//{
-	//	(*it)->enemyInit(gen->path, (*it)->Position, (*it)->enemyGoal);
-	//}
+	for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
+	{
+		(*it)->enemyInit(gen->path, (*it)->Position, (*it)->enemyGoal);
+	}
  
 	isLeavingPlanet = false;
 
@@ -485,34 +485,34 @@ void PlanetScene::Update(double dt)
 
 	std::cout << SystemScene::planet << "\n";
 
-	//for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
-	//{
-	//	(*it)->meleeUpdate(dt, Player);
-	//}
+	for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
+	{
+		(*it)->meleeUpdate(dt, Player);
+	}
 
-	//for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
-	//{
-	//	(*it)->rangedUpdate(dt, Player);
-	//}
-	//for (int i = 0; i < meleeEnemies.size(); i++)
-	//{
-	//	if (meleeEnemies[i]->getHealth() <= 0)
-	//	{
-	//		meleeEnemies[i]->enemyIsDead = true;
-	//		meleeEnemies.erase(meleeEnemies.begin() + i);
-	//		i = 0;
-	//	}
-	//}
+	for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
+	{
+		(*it)->rangedUpdate(dt, Player);
+	}
+	for (int i = 0; i < meleeEnemies.size(); i++)
+	{
+		if (meleeEnemies[i]->getHealth() <= 0)
+		{
+			meleeEnemies[i]->enemyIsDead = true;
+			meleeEnemies.erase(meleeEnemies.begin() + i);
+			i = 0;
+		}
+	}
 
-	//for (int i = 0; i < rangedEnemies.size(); i++)
-	//{
-	//	if (rangedEnemies[i]->getHealth() <= 0)
-	//	{
-	//		rangedEnemies[i]->enemyIsDead = true;
-	//		rangedEnemies.erase(rangedEnemies.begin() + i);
-	//		i = 0;
-	//	}
-	//}
+	for (int i = 0; i < rangedEnemies.size(); i++)
+	{
+		if (rangedEnemies[i]->getHealth() <= 0)
+		{
+			rangedEnemies[i]->enemyIsDead = true;
+			rangedEnemies.erase(rangedEnemies.begin() + i);
+			i = 0;
+		}
+	}
 }
 
 
@@ -618,40 +618,41 @@ void PlanetScene::Render()
 	modelStack.PopMatrix();
 	//===================================================================================================\
 
-	//for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.LoadMatrix((*it)->Stamp);
-	//	modelStack.Scale(15, 15, 15);
-	//	RenderMesh(meshList[GEO_ENEMY], false);
-	//	modelStack.PopMatrix();
-	//}
+	for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix((*it)->Stamp);
+		modelStack.Scale(5, 5, 5);
+		RenderMesh(meshList[GEO_ENEMY], false);
+		modelStack.PopMatrix();
+	}
 
-	//for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.LoadMatrix((*it)->Stamp);
-	//	modelStack.Scale(15, 15, 15);
-	//	RenderMesh(meshList[GEO_ENEMY2], false);
-	//	modelStack.PopMatrix();
-	//}
-	//for (auto &i : Player->bullets)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.LoadMatrix(i->getMatrix());
-	//	RenderMesh(meshList[GEO_PLAYERBULLET], false);
-	//	modelStack.PopMatrix();
-	//}
-	//for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
-	//{
-	//	for (auto &j : (*it)->enemyBullets)
-	//	{
-	//		modelStack.PushMatrix();
-	//		modelStack.LoadMatrix(j->getMatrix());
-	//		RenderMesh(meshList[GEO_ENEMYBULLET], false);
-	//		modelStack.PopMatrix();
-	//	}
-	//}
+	for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(0, -5, 0);
+		modelStack.LoadMatrix((*it)->Stamp);
+		modelStack.Scale(5, 5, 5);
+		RenderMesh(meshList[GEO_ENEMY2], false);
+		modelStack.PopMatrix();
+	}
+	for (auto &i : Player->bullets)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix(i->getMatrix());
+		RenderMesh(meshList[GEO_PLAYERBULLET], false);
+		modelStack.PopMatrix();
+	}
+	for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
+	{
+		for (auto &j : (*it)->enemyBullets)
+		{
+			modelStack.PushMatrix();
+			modelStack.LoadMatrix(j->getMatrix());
+			RenderMesh(meshList[GEO_ENEMYBULLET], false);
+			modelStack.PopMatrix();
+		}
+	}
 
 	gen->BuildLand();
 	//GalaxyGenerate::get_instance()->system_database[system_id]->land_database[system_id][planet_id]->BuildLand();

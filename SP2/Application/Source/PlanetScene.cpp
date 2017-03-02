@@ -655,7 +655,7 @@ void PlanetScene::Render()
 
 	gen->BuildLand();
 	//GalaxyGenerate::get_instance()->system_database[system_id]->land_database[system_id][planet_id]->BuildLand();
-
+	RenderTextOnScreen(meshList[GEO_TEXT], "To Mine ore press [E]", Color(0, 1, 0), 2, 1, 4);
 	if (!Application::IsKeyPressed('Q') && !isLeavingPlanet)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "To leave planet press [Q]", Color(1, 0, 0), 2, 1, 2);

@@ -31,6 +31,7 @@ public:
 	Shield* shield;
 
 	Vector3 getter(std::string);
+	void resetter();
 	Func_AABB* getAABB();
 	Mtx44 getStamp();
 	void setHit();

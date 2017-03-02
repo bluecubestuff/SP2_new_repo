@@ -624,11 +624,17 @@ void StudioProject::Update(double dt)
 
 	if ((planeting - Player->getter("position")).Length() < 500) //planet
 	{
+		Player->resetter();
+		Player->Speed = 0.f;
+		Player->Camera->Init(Vector3(1000, 2000, 1000), Vector3(-1, 0, 0), Vector3(0, 1, 0));
 		SceneManager::get_instance()->SceneSelect(3);
 	}
 
 	if ((stationing - Player->getter("position")).Length() < 500) //space station
 	{
+		Player->resetter();
+		Player->Speed = 0.f;
+		Player->Camera->Init(Vector3(1000, 2000, 1000), Vector3(-1, 0, 0), Vector3(0, 1, 0));
 		SceneManager::get_instance()->SceneSelect(6);
 		//std::cout << "stationingly" << std::endl;
 	}
@@ -636,17 +642,22 @@ void StudioProject::Update(double dt)
 	//placeholder
 	if (Player->getHP() <= 0)
 	{
-		
+		Player->resetter();
+		Player->Speed = 0.f;
+		Player->Camera->Init(Vector3(1000, 2000, 1000), Vector3(-1, 0, 0), Vector3(0, 1, 0));
 		SceneManager::get_instance()->setPrevSceneID(2);
 		SceneManager::get_instance()->SceneSelect(7);
 	}
 
 	rotatePlanet += dt;
-	//std::cout << Player->getter("position") << std::endl;
+	std::cout << Player->getter("position") << std::endl;
 
-	if (Player->getter("position").x > 2000 || Player->getter("position").z > 2000
+	if (Player->getter("position").x > 1500 || Player->getter("position").z > 2000
 		|| Player->getter("position").x < -200 || Player->getter("position").z < 0)
 	{
+		Player->resetter();
+		Player->Speed = 0.f;
+		Player->Camera->Init(Vector3(1000, 2000, 1000), Vector3(-1, 0, 0), Vector3(0, 1, 0));
 		SceneManager::get_instance()->SceneSelect(4);
 	}
 	//camera.Update(dt);

@@ -255,6 +255,7 @@ void DeathScene::Update(double dt)
 		}
 		else if (arrowPos.x == 720 && arrowPos.y == 360)
 		{
+			StudioProject::Player->fullHealth();
 			SceneManager::get_instance()->SceneSelect(1); //return to menu screen
 		}
 	}

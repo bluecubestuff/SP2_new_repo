@@ -6,8 +6,6 @@ int NPC::tPrice = 10;
 
 NPC::NPC()
 {
-	//Currency::get_instance()->value_adder(1000);		//test
-	//Currency::get_instance()->add_mineral("iron");
 	menu = new Func_AABB(Vector3(1082, 625, 0), Vector3(1347, 900, 0));	//hull
 	crafting.push_back(menu);
 	menu = new Func_AABB(Vector3(1082, 320, 0), Vector3(1347, 591, 0));

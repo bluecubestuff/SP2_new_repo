@@ -4,7 +4,7 @@ float sizeCar = 10.f;
 
 LandVehicle::LandVehicle()
 {
-	this->Position = Vector3(1000, 3, 1000);
+	this->Position = Vector3(1000, 10, 900);
 	this->Forward = Vector3(0, 0, 1);
 	this->Right = Vector3(1, 0, 0);
 	this->Up = Vector3(0, 1, 0);
@@ -30,11 +30,11 @@ void LandVehicle::Update(double dt)
 
 	if (Application::IsKeyPressed('W'))
 	{
-		this->Position += this->Forward * dt * 10.f;
+		this->Position += this->Forward * dt * 50.f;
 	}
 	else if (Application::IsKeyPressed('S'))
 	{
-		this->Position += this->Forward * dt * -8.f;
+		this->Position += this->Forward * dt * -40.f;
 	}
 
 	if (Application::IsKeyPressed('A'))

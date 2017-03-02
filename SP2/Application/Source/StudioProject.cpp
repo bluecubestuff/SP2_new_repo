@@ -128,7 +128,7 @@ void StudioProject::Init()
 	int enemyQuantity = Math::RandIntMinMax(2, 5);
 	for (int i = 0; i < enemyQuantity; i++)
 	{
-		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(500, 2000, 1000 + i * 20), 40.f, 1.f, 10.f);
+		Enemy = new EnemyShip(Vector3(0, 0, 1), Vector3(0, 1, 0), Vector3(1, 0, 0), Vector3(500, 2000, 1000 + i * 20), 40.f, 3.f, 10.f);
 		hostiles.push_back(Enemy);
 	}
 	//=============================================================================
@@ -649,6 +649,15 @@ void StudioProject::Update(double dt)
 	{
 		SceneManager::get_instance()->SceneSelect(4);
 	}
+
+	for (auto& i : hostiles)
+	{
+		if (Player->getAABB()->AABBtoAABB(i->getAABB()->getAABB()))
+		{
+			i->decreaseHealth(500);
+			Player->decreaseHealth(30);
+		}
+	}
 	//camera.Update(dt);
 }
 
@@ -833,19 +842,19 @@ void StudioProject::Render()
 		if (i->locked)
 		{
 			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
-			modelStack.Scale(i->getSize() * 5, i->getSize() * 5, i->getSize() * 5);
+			modelStack.Scale(i->getSize() * 7, i->getSize() * 7, i->getSize() * 7);
 			RenderMesh(meshList[GEO_CUBE1], false);
 		}
 		if (i->getTargeted())
 		{
 			modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
-			modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
+			modelStack.Scale(i->getSize() * 8, i->getSize() * 8, i->getSize() * 8);
 			RenderMesh(meshList[GEO_CUBE], false);
 		}
 
 		modelStack.PushMatrix();
 		modelStack.Translate(i->getter("position").x, i->getter("position").y, i->getter("position").z);
-		modelStack.Scale(i->getSize() * 6, i->getSize() * 6, i->getSize() * 6);
+		modelStack.Scale(i->getSize() * 8, i->getSize() * 8, i->getSize() * 8);
 		RenderMesh(meshList[GEO_CUBE2], false);
 		modelStack.PopMatrix();
 
@@ -897,6 +906,7 @@ void StudioProject::Render()
 	}
 	DisplayUI();
 	modelStack.PopMatrix();
+	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(Currency::get_instance()->value_getter()), Color(1, 1, 0), 100, 1500, 850);
 
 	//RenderFeedback(meshList[GEO_HEALTH_FEEDBACK], 800, 450, 100, 100);
 }

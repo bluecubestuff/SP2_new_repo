@@ -19,11 +19,11 @@ void SystemTravelShip::Update(double dt)
 {
 	if (Application::IsKeyPressed('W'))
 	{
-		position += forward * dt * 400;
+		position += forward * dt * 1000;
 	}
 	else if (Application::IsKeyPressed('S'))
 	{
-		position -= forward * dt * 400;
+		position -= forward * dt * 1000;
 	}
 
 	if (Application::IsKeyPressed('A'))

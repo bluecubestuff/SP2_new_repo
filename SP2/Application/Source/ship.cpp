@@ -121,7 +121,7 @@ void Ship::shieldUpdate(double dt)
 				shieldPoints += dt * 20;
 			}
 		}
-		if (getHit())
+		if (this->getHit() == true)
 		{
 			offTime = 0;
 		}

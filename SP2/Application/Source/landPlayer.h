@@ -27,9 +27,9 @@ public:
 	LandFPSCamera* getCam();
 	vector<playerBullet*> bullets;
 	vector<LandEnemy*>::iterator it;
-private:
 	bool meleeWeaponEquipped;
 	bool rangedWeaponEquipped;
+private:
 	LandFPSCamera* FPS_CAM;
 	Mtx44 Stamp;
 };

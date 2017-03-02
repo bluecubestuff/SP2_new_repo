@@ -13,7 +13,7 @@ playerBullet::playerBullet(Vector3 p, Vector3 f, Vector3 u, Vector3 r)
 	this->Right = r;
 	this->distance = Vector3(0, 0, 0);
 	this->outOfRange = false;
-	this->Stamp = Mtx44(r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, f.x, f.y, f.z, 0, p.x, p.y, p.z, 1);
+	this->Stamp = Mtx44(r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, f.x, f.y, f.z, 0, p.x, p.y, p.z + 10, 1);
 }
 
 playerBullet::~playerBullet()

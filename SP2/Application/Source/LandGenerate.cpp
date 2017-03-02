@@ -137,7 +137,7 @@ void LandGenerate::landInIt()
 		{
 			for (int x = 0; x < 5; x++)				//loops the grid in grid x
 			{
-				noOfEnemies = Math::RandIntMinMax(3, 7);  //num of eme,oes
+				noOfEnemies = Math::RandIntMinMax(3, 7);  //num of enemies
 				for (int i = 0; i < noOfEnemies; i++)
 				{
 					enemyPos.x = Math::RandIntMinMax((x * 300) + 100, ((x + 1) * 700) - 100);

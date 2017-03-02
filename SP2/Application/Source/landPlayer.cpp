@@ -45,13 +45,13 @@ void LandPlayer::Update(double dt, vector<LandEnemy*> landEnemies, vector<LandEn
 
 void LandPlayer::Combat(double dt, vector<LandEnemy*> meleeEnemies, vector<LandEnemy*> rangedEnemies)
 {
-	if (Application::IsKeyPressed('Q'))
+	if (Application::IsKeyPressed('1'))
 	{
 		meleeWeaponEquipped = true;
 		rangedWeaponEquipped = false;
 		bullets.clear();
 	}
-	if (Application::IsKeyPressed('E'))
+	if (Application::IsKeyPressed('2'))
 	{
 		rangedWeaponEquipped = true;
 		meleeWeaponEquipped = false;

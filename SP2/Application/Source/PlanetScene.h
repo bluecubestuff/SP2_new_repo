@@ -87,7 +87,10 @@ class PlanetScene : public Scene
 
 		//text
 		GEO_TEXT,
-		GEO_BULLET,
+		GEO_PLAYERBULLET,
+		GEO_ENEMYBULLET,
+		GEO_GUN,
+		GEO_KNIFE,
 		NUM_GEOMETRY,
 	};
 	enum UNIFORM_TYPE

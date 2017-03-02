@@ -55,6 +55,7 @@ void Camera2::Update(double dt, bool freeCam, Vector3 f, Vector3 r, Vector3 u, V
 			float rollSpeed = 30 * (float)dt;
 			Mtx44 roll;
 			roll.SetToRotation(rollSpeed, f.x, f.y, f.z);
+			forward = roll * forward;
 			up = roll * up;
 			camRight = roll * camRight;
 		}
@@ -63,6 +64,7 @@ void Camera2::Update(double dt, bool freeCam, Vector3 f, Vector3 r, Vector3 u, V
 			float rollSpeed = -30 * (float)dt;
 			Mtx44 roll;
 			roll.SetToRotation(rollSpeed, f.x, f.y, f.z);
+			forward = roll * forward;
 			up = roll * up;
 			camRight = roll * camRight;
 		}

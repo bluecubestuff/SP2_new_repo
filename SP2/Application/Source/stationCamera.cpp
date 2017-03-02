@@ -51,7 +51,7 @@ void StationCamera::Init(Vector3 pos, Vector3 target, Vector3 up)
 
 void StationCamera::Update(double dt)
 {
-	static const float CAMERA_SPEED = 0.05f * dt;
+	static const float CAMERA_SPEED = 0.1f * dt;
 	static float MOVEMENT_SPEED = 40.f * dt;
 	//static bool crafting = false;
 

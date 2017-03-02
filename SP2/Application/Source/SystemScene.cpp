@@ -241,6 +241,8 @@ void SystemScene::Init()
 		system_gen->save_init();
 	}
 
+	ShowCursor(false);
+
 	rotate = 0.f;
 	isPlayerNearPlanet = false;
 }

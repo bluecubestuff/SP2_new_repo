@@ -80,6 +80,7 @@ class StationScene : public Scene
 		GEO_TEXT,
 		GEO_CRAFT,
 		GEO_SELL,
+		GEO_WAYPOINT,
 
 		NUM_GEOMETRY,
 	};

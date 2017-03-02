@@ -194,6 +194,9 @@ void StationScene::Init()
 
 	meshList[GEO_SELL] = MeshBuilder::GenerateOBJ("greenPlanet", "OBJ//feedback.OBJ");
 	meshList[GEO_SELL]->textureID = LoadTGA("Image//sellingMenu.tga");
+	
+	meshList[GEO_WAYPOINT] = MeshBuilder::GenerateOBJ("greenPlanet", "OBJ//WaypointMarker.OBJ");
+	meshList[GEO_WAYPOINT]->textureID = LoadTGA("Image//waypoint.tga");
 
 	meshList[GEO_SPACE_STATION] = MeshBuilder::GenerateOBJ("space station interior", "OBJ//StationInterior.OBJ");
 	//meshList[GEO_SPACE_STATION]->textureID = LoadTGA("Image//BluePlanet.tga");
@@ -334,6 +337,8 @@ void StationScene::Init()
 	projection.SetToPerspective(45.f, 16.f / 9.f, 0.1f, 100000.f);
 	projectionStack.LoadMatrix(projection);
 	srand((unsigned)(time(NULL)));
+
+	ShowCursor(false);
 
 	camera->Init(Vector3(0, 5, 0), Vector3(0, 5, 1), Vector3(0, 1, 0));
 }
@@ -525,6 +530,7 @@ void StationScene::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], "-" + hPrice, Color(1, 1, 1), 75, 1450, 750);
 		RenderTextOnScreen(meshList[GEO_TEXT], "-" + sPrice, Color(1, 1, 1), 75, 1450, 450);
 		RenderTextOnScreen(meshList[GEO_TEXT], "-" + tPrice, Color(1, 1, 1), 75, 1450, 150);
+		RenderUI(meshList[GEO_WAYPOINT], camera->mPos.x, camera->mPos.y, 20, 20);
 	}
 	if (camera->sell)
 	{
@@ -534,8 +540,8 @@ void StationScene::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], mithrilQ, Color(1, 1, 1), 80, 600, 130);
 		RenderTextOnScreen(meshList[GEO_TEXT], bismuthQ, Color(1, 1, 1), 80, 600, 45);
 		RenderTextOnScreen(meshList[GEO_TEXT], cred, Color(1, 1, 1), 80, 1000, 390);
+		RenderUI(meshList[GEO_WAYPOINT], camera->mPos.x, camera->mPos.y, 20, 20);
 	}
-
 	/*modelStack.PushMatrix();
 	modelStack.Translate(camera->position.x, 0, camera->position.z);
 	modelStack.Scale(0.1, 0.1, 0.1);

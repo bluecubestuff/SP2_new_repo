@@ -82,5 +82,6 @@ POINT Mouse::wMouseMovement()
 	y = ay - temp;
 	mousePosition.x = x;
 	mousePosition.y = y;
+	ShowCursor(true);
 	return mousePosition;
 }

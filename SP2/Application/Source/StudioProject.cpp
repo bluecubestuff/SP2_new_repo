@@ -1205,10 +1205,12 @@ void StudioProject::DisplayInventory()
 
 void StudioProject::DisplayUI()
 {
+	string enemytext = "ENEMY REMAINING:";
 	//RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], "test,test,test", Color(1, 1, 1), 50, 5, 5);
 	RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string((int)Player->getHP())), Color(1, 0, 0), 25, 25, 30.5); 
-	RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string((int)Player->getSP())), Color(0, 0, 1), 25, 25, 29.5);
-	RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string(enemycount)), Color(0, 0, 1), 25, 40, 29.5);
+	RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string((int)Player->getSP())), Color(0, 0.961, 1), 25, 25, 29.5);
+	RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string(enemycount)), Color(0, 1, 0.498), 25, 53, 29.5);
+	RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], enemytext, Color(0, 1, 0.498), 25, 40, 29.5);
 	if (inventoryscreen > 0)
 	{
 		//RenderUI(meshList[GEO_INVENTORY_SCREEN], 40.0, 30.0, 3.0, 3.0);//Inventory Screen

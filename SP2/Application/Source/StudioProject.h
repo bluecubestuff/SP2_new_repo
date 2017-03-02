@@ -165,6 +165,8 @@ public:
 	StudioProject();
 	~StudioProject();
 
+	static PlayerShip* Player;
+
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render();
@@ -205,7 +207,6 @@ private:
 	
 	Func_AABB* checker;
 
-	static PlayerShip* Player;
 	EnemyShip* Enemy;
 	Explosion* Explode;
 

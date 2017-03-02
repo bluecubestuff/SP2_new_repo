@@ -225,38 +225,38 @@ void MainMenuScene::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 
 	//light_controls---------------------------------------------------------------
-	if (Application::IsKeyPressed('I'))
-	{
-		light[0].LightPosition.z -= (float)(LSPEED * dt);
-	}
-	if (Application::IsKeyPressed('K'))
-	{
-		light[0].LightPosition.z += (float)(LSPEED * dt);
-	}
-	if (Application::IsKeyPressed('J'))
-		light[0].LightPosition.x -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('L'))
-		light[0].LightPosition.x += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('O'))
-		light[0].LightPosition.y -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('P'))
-		light[0].LightPosition.y += (float)(LSPEED * dt);
+	//if (Application::IsKeyPressed('I'))
+	//{
+	//	light[0].LightPosition.z -= (float)(LSPEED * dt);
+	//}
+	//if (Application::IsKeyPressed('K'))
+	//{
+	//	light[0].LightPosition.z += (float)(LSPEED * dt);
+	//}
+	//if (Application::IsKeyPressed('J'))
+	//	light[0].LightPosition.x -= (float)(LSPEED * dt);
+	//if (Application::IsKeyPressed('L'))
+	//	light[0].LightPosition.x += (float)(LSPEED * dt);
+	//if (Application::IsKeyPressed('O'))
+	//	light[0].LightPosition.y -= (float)(LSPEED * dt);
+	//if (Application::IsKeyPressed('P'))
+	//	light[0].LightPosition.y += (float)(LSPEED * dt);
 
-	if (Application::IsKeyPressed('5'))
-	{
-		light[0].type = Light::LIGHT_POINT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('6'))
-	{
-		light[0].type = Light::LIGHT_DIRECTIONAL;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('7'))
-	{
-		light[0].type = Light::LIGHT_SPOT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
+	//if (Application::IsKeyPressed('5'))
+	//{
+	//	light[0].type = Light::LIGHT_POINT;
+	//	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+	//}
+	//else if (Application::IsKeyPressed('6'))
+	//{
+	//	light[0].type = Light::LIGHT_DIRECTIONAL;
+	//	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+	//}
+	//else if (Application::IsKeyPressed('7'))
+	//{
+	//	light[0].type = Light::LIGHT_SPOT;
+	//	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+	//}
 	//================================================================================
 	//--------------------------------------------------------------------------------
 	//camera.Update(dt);

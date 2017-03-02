@@ -405,6 +405,7 @@ void PlayerShip::locking(EnemyShip* target, double dt)
 
 void PlayerShip::withinRange(vector<EnemyShip*> targets)
 {
+
 	for (auto &i : targets)
 	{
 		Vector3 temp = i->getter("position") - this->Position;
@@ -435,10 +436,11 @@ void PlayerShip::withinRange(vector<EnemyShip*> targets)
 		else if (applicableTargets[i]->getWithinSights() == false)		//if is not in within the cone of target
 		{
 			applicableTargets[i]->setTargeted(false);
-			applicableTargets[i]->locked = false;;
+			applicableTargets[i]->locked = false;
 			applicableTargets.erase(applicableTargets.begin() + i);			//remove from the vector
 			//std::cout << "removed from target list" << std::endl;
 			i = 0;
 		}
 	}
+	
 }

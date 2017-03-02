@@ -18,8 +18,7 @@ Iron::Iron(PlanetScene* scene, Vector3 pos, float size) : ObjectRender(scene, po
 }
 void Iron::interact()
 {
-	/*unsigned textEnum = PlanetScene::GEO_TEXT;
-	myscene->RenderTextOnScreen(myscene->meshList[textEnum], "Mine Iron [E]", Color(0, 1, 0), 2, 1, 4);*/
+	myscene->RenderTextOnScreen(myscene->meshList[PlanetScene::GEO_TEXT], "Mine Iron [E]", Color(0, 1, 0), 2, 1, 4);
 	if (Application::IsKeyPressed('E') && !isMined)
 	{
 		Currency::get_instance()->add_mineral("iron");

@@ -20,10 +20,10 @@ Vector3 planeting(0, 2000, 1500);
 Vector3 stationing(-500, 2000, 500);
 float rotatePlanet = 0;
 
-int StudioProject::IronValue = 0;
-int StudioProject::TitaniumValue = 0;
-int StudioProject::MithrilValue = 0;
-int StudioProject::BismuthValue = 0;
+int StudioProject::IronValue = 1;
+int StudioProject::TitaniumValue = 1;
+int StudioProject::MithrilValue = 1;
+int StudioProject::BismuthValue = 1;
 
 PlayerShip* StudioProject::Player = NULL;
 
@@ -233,14 +233,20 @@ void StudioProject::Init()
 	/*meshList[GEO_HEALTH_BAR] = MeshBuilder::GenerateOBJ("hp bar", "OBJ//HP.obj");
 	meshList[GEO_HEALTH_BAR]->textureID = LoadTGA("Image//HP.tga");*/
 
-	meshList[GEO_HEALTH_BAR] = MeshBuilder::GenerateCube("health bar", Color(1, 0, 0));
-	meshList[GEO_MP_BAR] = MeshBuilder::GenerateCube("mp bar", Color(0, 0, 1));
+	meshList[GEO_HEALTH_BAR] = MeshBuilder::GenerateOBJ("Health", "OBJ//HealthBar.obj");
+	meshList[GEO_HEALTH_BAR]->textureID = LoadTGA("Image//blue-red.tga");
+
+	meshList[GEO_SHIELD_BAR] = MeshBuilder::GenerateOBJ("Health", "OBJ//ShieldBar.obj");
+	meshList[GEO_SHIELD_BAR]->textureID = LoadTGA("Image//blue-red.tga");
 
 	meshList[GEO_HEALTH_FEEDBACK] = MeshBuilder::GenerateOBJ("Health Feedback", "OBJ//feedback.obj");
-	meshList[GEO_HEALTH_FEEDBACK]->textureID = LoadTGA("Image//healthFeedback.tga");
+	meshList[GEO_HEALTH_FEEDBACK]->textureID = LoadTGA("Image//healthFeedback_2.tga");
 
 	meshList[GEO_SHIELD_FEEDBACK] = MeshBuilder::GenerateOBJ("Shield Feedback", "OBJ//feedback.obj");
-	meshList[GEO_SHIELD_FEEDBACK]->textureID = LoadTGA("Image//shieldFeedback.tga");
+	meshList[GEO_SHIELD_FEEDBACK]->textureID = LoadTGA("Image//shieldFeedback_2.tga");
+
+	meshList[GEO_HEALTH_SHIELD] = MeshBuilder::GenerateOBJ("HP & shield", "OBJ//HP.obj");
+	meshList[GEO_HEALTH_SHIELD]->textureID = LoadTGA("Image//HP.tga");
 
 	//------------------------------------------------------------------------------------------
 	//light
@@ -301,6 +307,8 @@ void StudioProject::Init()
 	projectionStack.LoadMatrix(projection);
 
 	inventorystate = false;
+	bardecrease = 0;
+	enemycount = enemyQuantity;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -549,6 +557,7 @@ void StudioProject::Update(double dt)
 			hostiles.erase(hostiles.begin() + i);
 			explosions.push_back(Explode);
 			i = 0;
+			enemycount -= 1;
 		}
 		//std::cout << "S: " << hostiles[i]->getSP() << " H: " << hostiles[i]->getHP() << std::endl;
 	}
@@ -857,7 +866,7 @@ void StudioProject::Render()
 	//objfactory.createObject(new Rock(this, Vector3(10, 50, 10), 3));
 	objfactory.renderObjects(1);
 	objfactory.interactObjects();
-	DisplayUI();
+	
 
 	modelStack.PushMatrix();
 
@@ -871,6 +880,7 @@ void StudioProject::Render()
 		RenderFeedback(meshList[GEO_HEALTH_FEEDBACK], 800, 450, 1600, 900);
 		//std::cout << "health Damaged" << std::endl;
 	}
+	DisplayUI();
 	modelStack.PopMatrix();
 
 	//RenderFeedback(meshList[GEO_HEALTH_FEEDBACK], 800, 450, 100, 100);
@@ -1137,7 +1147,7 @@ void StudioProject::DisplayInventory()
 	if (IronValue > 0)
 	{
 		RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string(IronValue)), Color(1, 1, 1), 2, 35.85, 9.2);
-		RenderUI(meshList[GEO_IRON], 70.0, 20.0, 0.5, 0.5);//Iron Symbol
+		RenderUI(meshList[GEO_IRON], 1400.0, 800.0, 6, 6);//Iron Symbol
 		//RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], test, Color(1, 1, 1), 2, 30, 10);
 	}
 	if (TitaniumValue > 0)
@@ -1159,6 +1169,10 @@ void StudioProject::DisplayInventory()
 
 void StudioProject::DisplayUI()
 {
+	//RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], "test,test,test", Color(1, 1, 1), 50, 5, 5);
+	RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string((int)Player->getHP())), Color(1, 0, 0), 25, 25, 30.5); 
+	RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string((int)Player->getSP())), Color(0, 0, 1), 25, 25, 29.5);
+	RenderTextOnScreen(meshList[StudioProject::GEO_TEXT], (to_string(enemycount)), Color(0, 0, 1), 25, 40, 29.5);
 	if (inventoryscreen > 0)
 	{
 		//RenderUI(meshList[GEO_INVENTORY_SCREEN], 40.0, 30.0, 3.0, 3.0);//Inventory Screen
@@ -1168,8 +1182,15 @@ void StudioProject::DisplayUI()
 		RenderUI(meshList[GEO_INVENTORY_SLOT], 70.0, 50.0, 0.75, 0.75);//Inventory Slot
 		DisplayInventory(); //minerals
 	}
-	RenderUI(meshList[GEO_HEALTH_BAR], 25.0, 52.0, 30, 1);//health bar
-	RenderUI(meshList[GEO_MP_BAR], 25.0, 47.0, 30, 1);//health bar
+	RenderUI(meshList[GEO_HEALTH_SHIELD], 250, 750, 20, 20); //Outline
+
+	bardecrease = Player->hull->getHullPoint();
+
+	RenderUI(meshList[GEO_HEALTH_BAR], 230, 768, (360 * (Player->getHP() / bardecrease)), 16);//health bar
+
+	bardecrease = Player->shield->getShieldPoint();
+
+	RenderUI(meshList[GEO_SHIELD_BAR], 232, 738, (360 * (Player->getSP() / bardecrease)), 16);//shield bar
 }
 //bool StudioProject::pointInAABB(const TAABB& box, const Vector3& point)//test
 //{

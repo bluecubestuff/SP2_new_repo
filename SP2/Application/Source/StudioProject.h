@@ -107,7 +107,8 @@ class StudioProject : public Scene
 		GEO_INVENTORY_SCREEN,
 		GEO_INVENTORY_SLOT,
 		GEO_HEALTH_BAR,
-		GEO_MP_BAR,
+		GEO_SHIELD_BAR,
+		GEO_HEALTH_SHIELD,
 
 		GEO_HEALTH_FEEDBACK,
 		GEO_SHIELD_FEEDBACK,
@@ -186,6 +187,8 @@ private:
 	static int TitaniumValue;
 	static int MithrilValue;
 	static int BismuthValue;
+	int enemycount;
+	float bardecrease;
 
 	Light light[1];
 

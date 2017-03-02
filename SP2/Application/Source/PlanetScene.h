@@ -78,6 +78,7 @@ class PlanetScene : public Scene
 		GEO_NPC,
 		GEO_BUILDING,
 		GEO_ENEMY,
+		GEO_ENEMY2,
 		GEO_CAR,
 		GEO_GOATGOAT,
 
@@ -173,9 +174,10 @@ private:
 	LandPlayer* Player;
 
 	LandVehicle* Car;
-	LandEnemy* Enemy;
+	
+	vector<LandEnemy*> meleeEnemies;
 
-	vector<LandEnemy*> landEnemies;
+	vector<LandEnemy*> rangedEnemies;
 
 	vector<LandEnemy*>::iterator it;
 

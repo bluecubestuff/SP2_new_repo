@@ -127,6 +127,35 @@ void LandGenerate::landInIt()
 				count++;  //increase the count which represents the grid
 			}
 		}
+
+		for (int z = 0; z < 5; z++)					//loops the grid in grid y/z
+		{
+			for (int x = 0; x < 5; x++)				//loops the grid in grid x
+			{
+				noOfEnemies = Math::RandIntMinMax(3, 7);  //num of obj
+				for (int i = 0; i < noOfEnemies; i++)
+				{
+					tempPos.x = Math::RandIntMinMax((x * 300) + 100, ((x + 1) * 700) - 100);
+					tempPos.z = Math::RandIntMinMax((z * 300) + 100, ((z + 1) * 700) - 100);
+					int enemyType = Math::RandIntMinMax(1, 2); //selecting the type of obj
+
+					//=== selection of type ===================================================
+					if (enemyType == 1)
+					{
+						enemy_positions.push_back(Vector3(tempPos.x, 0, tempPos.z));
+						enemy_type.push_back(1);
+					}
+					else if (enemyType == 2)
+					{
+						enemy_positions.push_back(Vector3(tempPos.x, 0, tempPos.z));
+						enemy_type.push_back(2);
+					}
+					//========================================================================
+				}
+				count++;  //increase the count which represents the grid
+			}
+		}
+
 	}
 
 	SetPath();

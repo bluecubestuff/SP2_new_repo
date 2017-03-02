@@ -6,6 +6,7 @@
 #include "Vector3.h"
 #include "Item.h"
 #include "landEntity.h"
+#include "MyMath.h"
 #include "Application.h"
 #include "enemyBullet.h"
 #include "Mtx44.h"

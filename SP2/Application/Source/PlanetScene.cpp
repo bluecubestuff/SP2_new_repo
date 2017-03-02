@@ -152,6 +152,7 @@ void PlanetScene::Init()
 	meshList[GEO_ROCK] = MeshBuilder::GenerateOBJ("rock", "OBJ//rock.obj");
 
 	meshList[GEO_ENEMY] = MeshBuilder::GenerateCube("enemy", Color(1, 0, 0));
+	meshList[GEO_ENEMY2] = MeshBuilder::GenerateCube("enemy", Color(0, 0, 1));
 
 	meshList[GEO_GOATGOAT] = MeshBuilder::GenerateOBJ("goat", "OBJ//goat_easter_egg.obj");
 
@@ -246,7 +247,30 @@ void PlanetScene::Init()
 		gen->landInIt();
 		gen->saveLandInIt();
 	}
+	
+	for (int i = 0; i <= gen->noOfEnemies; i++)
+	{
+		if (gen->enemy_type[i] == 1)
+		{
+			LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], 100, 5);
+			meleeEnemies.push_back(Enemy);
+		}
+		else if (gen->enemy_type[i] == 2)
+		{
+			LandEnemy* Enemy = new LandEnemy(gen->enemy_positions[i], 100, 5);
+			rangedEnemies.push_back(Enemy);
+		}
+	}
 
+	for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
+	{
+		(*it)->enemyInit(gen->path, (*it)->Position, Vector3((*it)->Position.x + 50, 0, (*it)->Position.z - 50));
+	}
+
+	for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
+	{
+		(*it)->enemyInit(gen->path, (*it)->Position, Vector3((*it)->Position.x + 50, 0, (*it)->Position.z - 50));
+	}
  
 	isLeavingPlanet = false;
 	BoundingBox.pt_Min.Set(0,5,0);
@@ -356,10 +380,10 @@ void PlanetScene::Update(double dt)
 	}
 	else
 	{
-		Player->Update(dt);
+		Player->Update(dt, meleeEnemies, rangedEnemies);
 	}
 
-	std::cout << Player->getter("position") << "\n";
+	//std::cout << Player->getter("position") << "\n";
 
 	if (isLeavingPlanet)
 	{
@@ -373,6 +397,16 @@ void PlanetScene::Update(double dt)
 		}
 	}
 	std::cout << Currency::get_instance()->get_mineral("iron") << "\n";
+
+	for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
+	{
+		(*it)->meleeUpdate(dt, Player);
+	}
+
+	for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
+	{
+		(*it)->rangedUpdate(dt, Player);
+	}
 }
 
 
@@ -478,12 +512,21 @@ void PlanetScene::Render()
 	modelStack.PopMatrix();
 	//===================================================================================================\
 
-	for (it = landEnemies.begin(); it != landEnemies.end(); it++)
+	for (it = meleeEnemies.begin(); it != meleeEnemies.end(); it++)
 	{
 		modelStack.PushMatrix();
 		modelStack.LoadMatrix((*it)->Stamp);
-		modelStack.Scale(5, 5, 5);
+		modelStack.Scale(15, 15, 15);
 		RenderMesh(meshList[GEO_ENEMY], false);
+		modelStack.PopMatrix();
+	}
+
+	for (it = rangedEnemies.begin(); it != rangedEnemies.end(); it++)
+	{
+		modelStack.PushMatrix();
+		modelStack.LoadMatrix((*it)->Stamp);
+		modelStack.Scale(15, 15, 15);
+		RenderMesh(meshList[GEO_ENEMY2], false);
 		modelStack.PopMatrix();
 	}
 
